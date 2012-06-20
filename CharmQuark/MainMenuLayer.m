@@ -32,13 +32,13 @@
     //    }
     
     CCMenuItemImage *playButton = [CCMenuItemImage 
-                                   itemFromNormalImage:@"PlayButtonNormal.png" 
+                                   itemWithNormalImage:@"PlayButtonNormal.png" 
                                    selectedImage:@"PlayButtonSelected.png" 
                                    disabledImage:nil 
                                    target:self 
                                    selector:@selector(playGame)];
     CCMenuItemImage *optionsButton = [CCMenuItemImage 
-                                      itemFromNormalImage:@"OptionsButtonNormal.png" 
+                                      itemWithNormalImage:@"OptionsButtonNormal.png" 
                                       selectedImage:@"OptionsButtonSelected.png" 
                                       disabledImage:nil 
                                       target:self 
@@ -48,7 +48,6 @@
     [mainMenu setPosition:
      ccp(screenSize.width * 2.0f,
          screenSize.height / 2.0f)];
-    float scaleX = self.scaleX;
     id moveAction = 
     [CCMoveTo actionWithDuration:1.2f 
                         position:ccp(screenSize.width * 0.9f,

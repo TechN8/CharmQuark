@@ -45,8 +45,8 @@
 	
 	// Try to use CADisplayLink director
 	// if it fails (SDK < 3.1) use the default director
-	if( ! [CCDirector setDirectorType:kCCDirectorTypeDisplayLink] )
-		[CCDirector setDirectorType:kCCDirectorTypeDefault];
+//	if( ! [CCDirector setDirectorType:kCCDirectorTypeDisplayLink] )
+//		[CCDirector setDirectorType:kCCDirectorTypeDefault];
 	
 	
 	CCDirector *director = [CCDirector sharedDirector];
@@ -61,35 +61,24 @@
 	//	2. depth format of 0 bit. Use 16 or 24 bit for 3d effects, like CCPageTurnTransition
 	//
 	//
-	EAGLView *glView = [EAGLView viewWithFrame:[window bounds]
+	CCGLView *glView = [CCGLView viewWithFrame:[window bounds]
 								   pixelFormat:kEAGLColorFormatRGB565	// kEAGLColorFormatRGBA8
 								   depthFormat:0						// GL_DEPTH_COMPONENT16_OES
 						];
 	
 	// attach the openglView to the director
-	[director setOpenGLView:glView];
+	[director setView:glView];
 	
 	// Enables High Res mode (Retina Display) on iPhone 4 and maintains low res on all other devices
 	if( ! [director enableRetinaDisplay:YES] )
 		CCLOG(@"Retina Display Not supported");
 	
-	//
-	// VERY IMPORTANT:
-	// If the rotation is going to be controlled by a UIViewController
-	// then the device orientation should be "Portrait".
-	//
-	// IMPORTANT:
-	// By default, this template only supports Landscape orientations.
-	// Edit the RootViewController.m file to edit the supported orientations.
-	//
-#if GAME_AUTOROTATION == kGameAutorotationUIViewController
-	[director setDeviceOrientation:kCCDeviceOrientationPortrait];
-#else
-	[director setDeviceOrientation:kCCDeviceOrientationLandscapeLeft];
-#endif
-	
+	// Set up autorotation
+    [director setDelegate:self];
+
+	// Set animation interval.
 	[director setAnimationInterval:1.0/60];
-	[director setDisplayFPS:YES];
+    [director setDisplayStats:YES];
 	
 	
 	// make the OpenGLView a child of the view controller
@@ -143,7 +132,7 @@
 - (void)applicationWillTerminate:(UIApplication *)application {
 	CCDirector *director = [CCDirector sharedDirector];
 	
-	[[director openGLView] removeFromSuperview];
+	[[director view] removeFromSuperview];
 	
 	[viewController release];
 	
@@ -160,6 +149,13 @@
 	[[CCDirector sharedDirector] end];
 	[window release];
 	[super dealloc];
+}
+
+#pragma mark -
+#pragma mark CCDirectorDelegate
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    return UIInterfaceOrientationIsLandscape(interfaceOrientation);
 }
 
 @end

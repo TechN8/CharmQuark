@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "cocos2d.h"
 
 @class RootViewController;
 
-@interface AppDelegate : NSObject <UIApplicationDelegate> {
+@interface AppDelegate : NSObject <UIApplicationDelegate, CCDirectorDelegate> {
 	UIWindow			*window;
 	RootViewController	*viewController;
 }

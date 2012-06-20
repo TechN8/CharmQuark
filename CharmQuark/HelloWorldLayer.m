@@ -15,7 +15,7 @@ enum {
 };
 
 static void
-eachShape(void *ptr, void* unused)
+eachShape(cpShape *ptr, void* unused)
 {
 	cpShape *shape = (cpShape*) ptr;
 	CCSprite *sprite = shape->data;
@@ -61,7 +61,7 @@ eachShape(void *ptr, void* unused)
 	posx = (posx % 4) * 85;
 	posy = (posy % 3) * 121;
 	
-	CCSprite *sprite = [CCSprite spriteWithBatchNode:batch rect:CGRectMake(posx, posy, 85, 121)];
+	CCSprite *sprite = [CCSprite spriteWithTexture:[batch texture] rect:CGRectMake(posx, posy, 85, 121)];
 	[batch addChild: sprite];
 	
 	sprite.position = ccp(x,y);
@@ -104,11 +104,10 @@ eachShape(void *ptr, void* unused)
 		
 		cpBody *staticBody = cpBodyNew(INFINITY, INFINITY);
 		space = cpSpaceNew();
-		cpSpaceResizeStaticHash(space, 400.0f, 40);
-		cpSpaceResizeActiveHash(space, 100, 600);
+		//cpSpaceResizeStaticHash(space, 400.0f, 40);
+		//cpSpaceResizeActiveHash(space, 100, 600);
 		
 		space->gravity = ccp(0, 0);
-		space->elasticIterations = space->iterations;
 		
 		cpShape *shape;
 		
@@ -168,8 +167,7 @@ eachShape(void *ptr, void* unused)
 	for(int i=0; i<steps; i++){
 		cpSpaceStep(space, dt);
 	}
-	cpSpaceHashEach(space->activeShapes, &eachShape, nil);
-	cpSpaceHashEach(space->staticShapes, &eachShape, nil);
+    cpSpaceEachShape(space, &eachShape, nil);
 }
 
 

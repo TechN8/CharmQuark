@@ -13,7 +13,7 @@ enum {
 };
 
 static void
-eachShape(void *ptr, void* unused)
+eachShape(cpShape *ptr, void* unused)
 {
 	cpShape *shape = (cpShape*) ptr;
 	CCSprite *sprite = shape->data;
@@ -25,7 +25,7 @@ eachShape(void *ptr, void* unused)
 		// since v0.7.1 you can mix them if you want.		
 		[sprite setPosition: body->p];
 		
-		//[sprite setRotation: (float) CC_RADIANS_TO_DEGREES( -body->a )];
+		[sprite setRotation: (float) CC_RADIANS_TO_DEGREES( -body->a )];
 	}
 }
 
@@ -43,11 +43,8 @@ eachShape(void *ptr, void* unused)
         
         cpBody *staticBody = cpBodyNew(INFINITY, INFINITY);
         space = cpSpaceNew();
-        cpSpaceResizeStaticHash(space, 400.0f, 40);
-        cpSpaceResizeActiveHash(space, 100.0f, 600);
         
-        space->gravity = ccp(0, 0);
-        space->elasticIterations = space->iterations;
+        space->gravity = ccp(0, -1.0e3f);
         
         cpShape *shape;
         
@@ -85,7 +82,7 @@ eachShape(void *ptr, void* unused)
 {
 	CCSpriteBatchNode *batch = (CCSpriteBatchNode*) [self getChildByTag:kTagBatchNode];
 	
-	CCSprite *sprite = [CCSprite spriteWithBatchNode:batch rect:CGRectMake(0, 0, 23, 23)];
+	CCSprite *sprite = [CCSprite spriteWithTexture:[batch texture] rect:CGRectMake(0, 0, 23, 23)];
 	[batch addChild: sprite];
 	
 	sprite.position = ccp(x,y);
@@ -113,8 +110,7 @@ eachShape(void *ptr, void* unused)
 	for(int i=0; i<steps; i++){
 		cpSpaceStep(space, dt);
 	}
-	cpSpaceHashEach(space->activeShapes, &eachShape, nil);
-	cpSpaceHashEach(space->staticShapes, &eachShape, nil);
+    cpSpaceEachShape(space, &eachShape, nil);
 }
 
 - (void)ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
