@@ -9,6 +9,8 @@
 #ifndef CharmQuark_Constants_h
 #define CharmQuark_Constants_h
 
+#define kMainMenuTagValue 10
+
 typedef enum {
     kNoSceneUninitialized=0,
     kMainMenuScene=1,

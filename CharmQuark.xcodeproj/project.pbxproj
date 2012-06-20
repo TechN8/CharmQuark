@@ -153,6 +153,27 @@
 		D8F27EEE158FA8BE00E660E3 /* GameManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = D8F27EED158FA8BE00E660E3 /* GameManager.mm */; };
 		D8F27EF1158FAD0F00E660E3 /* MainMenuScene.m in Sources */ = {isa = PBXBuildFile; fileRef = D8F27EF0158FAD0F00E660E3 /* MainMenuScene.m */; };
 		D8F27EF5158FAD8100E660E3 /* MainMenuLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = D8F27EF4158FAD8100E660E3 /* MainMenuLayer.m */; };
+		D8F27EF9158FB72400E660E3 /* OptionsLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = D8F27EF8158FB72400E660E3 /* OptionsLayer.m */; };
+		D8F27EFC158FB73200E660E3 /* OptionsScene.m in Sources */ = {isa = PBXBuildFile; fileRef = D8F27EFB158FB73200E660E3 /* OptionsScene.m */; };
+		D8F27F02158FBA0B00E660E3 /* OptionsBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = D8F27EFE158FBA0A00E660E3 /* OptionsBackground.png */; };
+		D8F27F08158FC54700E660E3 /* OptionsButtonNormal.png in Resources */ = {isa = PBXBuildFile; fileRef = D8F27F06158FC54700E660E3 /* OptionsButtonNormal.png */; };
+		D8F27F09158FC54700E660E3 /* OptionsButtonSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = D8F27F07158FC54700E660E3 /* OptionsButtonSelected.png */; };
+		D8F27F0E158FC73B00E660E3 /* PlayButtonNormal.png in Resources */ = {isa = PBXBuildFile; fileRef = D8F27F0C158FC73B00E660E3 /* PlayButtonNormal.png */; };
+		D8F27F0F158FC73B00E660E3 /* PlayButtonSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = D8F27F0D158FC73B00E660E3 /* PlayButtonSelected.png */; };
+		D8F27F1A1590CAE500E660E3 /* MainMenuBackground-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = D8F27F101590CAE400E660E3 /* MainMenuBackground-hd.png */; };
+		D8F27F1B1590CAE500E660E3 /* MainMenuBackground-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = D8F27F111590CAE400E660E3 /* MainMenuBackground-ipad.png */; };
+		D8F27F1C1590CAE500E660E3 /* OptionsButtonNormal-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = D8F27F121590CAE400E660E3 /* OptionsButtonNormal-hd.png */; };
+		D8F27F1D1590CAE500E660E3 /* OptionsButtonNormal-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = D8F27F131590CAE400E660E3 /* OptionsButtonNormal-ipad.png */; };
+		D8F27F1E1590CAE500E660E3 /* OptionsButtonSelected-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = D8F27F141590CAE400E660E3 /* OptionsButtonSelected-hd.png */; };
+		D8F27F1F1590CAE500E660E3 /* OptionsButtonSelected-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = D8F27F151590CAE500E660E3 /* OptionsButtonSelected-ipad.png */; };
+		D8F27F201590CAE500E660E3 /* PlayButtonNormal-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = D8F27F161590CAE500E660E3 /* PlayButtonNormal-hd.png */; };
+		D8F27F211590CAE500E660E3 /* PlayButtonNormal-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = D8F27F171590CAE500E660E3 /* PlayButtonNormal-ipad.png */; };
+		D8F27F221590CAE500E660E3 /* PlayButtonSelected-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = D8F27F181590CAE500E660E3 /* PlayButtonSelected-hd.png */; };
+		D8F27F231590CAE500E660E3 /* PlayButtonSelected-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = D8F27F191590CAE500E660E3 /* PlayButtonSelected-ipad.png */; };
+		D8F27F271590F29C00E660E3 /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = D8F27F261590F29C00E660E3 /* GameScene.m */; };
+		D8F27F2A1590F2E900E660E3 /* GameplayLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = D8F27F291590F2E900E660E3 /* GameplayLayer.m */; };
+		D8F27F321590F40800E660E3 /* Quark-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = D8F27F2D1590F40700E660E3 /* Quark-hd.png */; };
+		D8F27F331590F40800E660E3 /* Quark.png in Resources */ = {isa = PBXBuildFile; fileRef = D8F27F2E1590F40700E660E3 /* Quark.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -453,7 +474,6 @@
 		D8F27ED0158F92EF00E660E3 /* GameConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameConfig.h; sourceTree = "<group>"; };
 		D8F27ED1158F92EF00E660E3 /* grossini_dance_atlas.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = grossini_dance_atlas.png; path = Resources/grossini_dance_atlas.png; sourceTree = "<group>"; };
 		D8F27EE3158F962000E660E3 /* MainMenuBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MainMenuBackground.png; sourceTree = "<group>"; };
-		D8F27EE4158F962000E660E3 /* MainMenuBackground.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = MainMenuBackground.svg; sourceTree = "<group>"; };
 		D8F27EE9158F9D2500E660E3 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		D8F27EEC158FA8BE00E660E3 /* GameManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameManager.h; sourceTree = "<group>"; };
 		D8F27EED158FA8BE00E660E3 /* GameManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GameManager.mm; sourceTree = "<group>"; };
@@ -461,6 +481,32 @@
 		D8F27EF0158FAD0F00E660E3 /* MainMenuScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainMenuScene.m; sourceTree = "<group>"; };
 		D8F27EF3158FAD8100E660E3 /* MainMenuLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenuLayer.h; sourceTree = "<group>"; };
 		D8F27EF4158FAD8100E660E3 /* MainMenuLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainMenuLayer.m; sourceTree = "<group>"; };
+		D8F27EF7158FB72400E660E3 /* OptionsLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionsLayer.h; sourceTree = "<group>"; };
+		D8F27EF8158FB72400E660E3 /* OptionsLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OptionsLayer.m; sourceTree = "<group>"; };
+		D8F27EFA158FB73200E660E3 /* OptionsScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionsScene.h; sourceTree = "<group>"; };
+		D8F27EFB158FB73200E660E3 /* OptionsScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OptionsScene.m; sourceTree = "<group>"; };
+		D8F27EFE158FBA0A00E660E3 /* OptionsBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = OptionsBackground.png; sourceTree = "<group>"; };
+		D8F27EFF158FBA0A00E660E3 /* OptionsBackground.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = OptionsBackground.svg; sourceTree = "<group>"; };
+		D8F27F06158FC54700E660E3 /* OptionsButtonNormal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = OptionsButtonNormal.png; path = Images/Menus/Main/OptionsButtonNormal.png; sourceTree = SOURCE_ROOT; };
+		D8F27F07158FC54700E660E3 /* OptionsButtonSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = OptionsButtonSelected.png; path = Images/Menus/Main/OptionsButtonSelected.png; sourceTree = SOURCE_ROOT; };
+		D8F27F0C158FC73B00E660E3 /* PlayButtonNormal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = PlayButtonNormal.png; path = Images/Menus/Main/PlayButtonNormal.png; sourceTree = SOURCE_ROOT; };
+		D8F27F0D158FC73B00E660E3 /* PlayButtonSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = PlayButtonSelected.png; path = Images/Menus/Main/PlayButtonSelected.png; sourceTree = SOURCE_ROOT; };
+		D8F27F101590CAE400E660E3 /* MainMenuBackground-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MainMenuBackground-hd.png"; sourceTree = "<group>"; };
+		D8F27F111590CAE400E660E3 /* MainMenuBackground-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MainMenuBackground-ipad.png"; sourceTree = "<group>"; };
+		D8F27F121590CAE400E660E3 /* OptionsButtonNormal-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "OptionsButtonNormal-hd.png"; sourceTree = "<group>"; };
+		D8F27F131590CAE400E660E3 /* OptionsButtonNormal-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "OptionsButtonNormal-ipad.png"; sourceTree = "<group>"; };
+		D8F27F141590CAE400E660E3 /* OptionsButtonSelected-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "OptionsButtonSelected-hd.png"; sourceTree = "<group>"; };
+		D8F27F151590CAE500E660E3 /* OptionsButtonSelected-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "OptionsButtonSelected-ipad.png"; sourceTree = "<group>"; };
+		D8F27F161590CAE500E660E3 /* PlayButtonNormal-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PlayButtonNormal-hd.png"; sourceTree = "<group>"; };
+		D8F27F171590CAE500E660E3 /* PlayButtonNormal-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PlayButtonNormal-ipad.png"; sourceTree = "<group>"; };
+		D8F27F181590CAE500E660E3 /* PlayButtonSelected-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PlayButtonSelected-hd.png"; sourceTree = "<group>"; };
+		D8F27F191590CAE500E660E3 /* PlayButtonSelected-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PlayButtonSelected-ipad.png"; sourceTree = "<group>"; };
+		D8F27F251590F29C00E660E3 /* GameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameScene.h; sourceTree = "<group>"; };
+		D8F27F261590F29C00E660E3 /* GameScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameScene.m; sourceTree = "<group>"; };
+		D8F27F281590F2E900E660E3 /* GameplayLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameplayLayer.h; sourceTree = "<group>"; };
+		D8F27F291590F2E900E660E3 /* GameplayLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameplayLayer.m; sourceTree = "<group>"; };
+		D8F27F2D1590F40700E660E3 /* Quark-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Quark-hd.png"; sourceTree = "<group>"; };
+		D8F27F2E1590F40700E660E3 /* Quark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Quark.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -972,6 +1018,7 @@
 		D8F27EE0158F962000E660E3 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				D8F27F2C1590F40700E660E3 /* Sprites */,
 				D8F27EE1158F962000E660E3 /* Menus */,
 			);
 			path = Images;
@@ -980,6 +1027,7 @@
 		D8F27EE1158F962000E660E3 /* Menus */ = {
 			isa = PBXGroup;
 			children = (
+				D8F27EFD158FBA0A00E660E3 /* Options */,
 				D8F27EE2158F962000E660E3 /* Main */,
 			);
 			path = Menus;
@@ -989,7 +1037,20 @@
 			isa = PBXGroup;
 			children = (
 				D8F27EE3158F962000E660E3 /* MainMenuBackground.png */,
-				D8F27EE4158F962000E660E3 /* MainMenuBackground.svg */,
+				D8F27F101590CAE400E660E3 /* MainMenuBackground-hd.png */,
+				D8F27F111590CAE400E660E3 /* MainMenuBackground-ipad.png */,
+				D8F27F06158FC54700E660E3 /* OptionsButtonNormal.png */,
+				D8F27F121590CAE400E660E3 /* OptionsButtonNormal-hd.png */,
+				D8F27F131590CAE400E660E3 /* OptionsButtonNormal-ipad.png */,
+				D8F27F07158FC54700E660E3 /* OptionsButtonSelected.png */,
+				D8F27F141590CAE400E660E3 /* OptionsButtonSelected-hd.png */,
+				D8F27F151590CAE500E660E3 /* OptionsButtonSelected-ipad.png */,
+				D8F27F0C158FC73B00E660E3 /* PlayButtonNormal.png */,
+				D8F27F161590CAE500E660E3 /* PlayButtonNormal-hd.png */,
+				D8F27F171590CAE500E660E3 /* PlayButtonNormal-ipad.png */,
+				D8F27F0D158FC73B00E660E3 /* PlayButtonSelected.png */,
+				D8F27F181590CAE500E660E3 /* PlayButtonSelected-hd.png */,
+				D8F27F191590CAE500E660E3 /* PlayButtonSelected-ipad.png */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -997,7 +1058,9 @@
 		D8F27EE7158F9CCC00E660E3 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				D8F27F241590F23000E660E3 /* GameScene */,
 				D8F27EF2158FAD6C00E660E3 /* MainMenu */,
+				D8F27EF6158FB6E900E660E3 /* Options */,
 				D8F27ECD158F92EF00E660E3 /* HelloWorldLayer.h */,
 				D8F27ECE158F92EF00E660E3 /* HelloWorldLayer.m */,
 			);
@@ -1039,6 +1102,46 @@
 				D8F27EF4158FAD8100E660E3 /* MainMenuLayer.m */,
 			);
 			name = MainMenu;
+			sourceTree = "<group>";
+		};
+		D8F27EF6158FB6E900E660E3 /* Options */ = {
+			isa = PBXGroup;
+			children = (
+				D8F27EFA158FB73200E660E3 /* OptionsScene.h */,
+				D8F27EFB158FB73200E660E3 /* OptionsScene.m */,
+				D8F27EF7158FB72400E660E3 /* OptionsLayer.h */,
+				D8F27EF8158FB72400E660E3 /* OptionsLayer.m */,
+			);
+			name = Options;
+			sourceTree = "<group>";
+		};
+		D8F27EFD158FBA0A00E660E3 /* Options */ = {
+			isa = PBXGroup;
+			children = (
+				D8F27EFE158FBA0A00E660E3 /* OptionsBackground.png */,
+				D8F27EFF158FBA0A00E660E3 /* OptionsBackground.svg */,
+			);
+			path = Options;
+			sourceTree = "<group>";
+		};
+		D8F27F241590F23000E660E3 /* GameScene */ = {
+			isa = PBXGroup;
+			children = (
+				D8F27F251590F29C00E660E3 /* GameScene.h */,
+				D8F27F261590F29C00E660E3 /* GameScene.m */,
+				D8F27F281590F2E900E660E3 /* GameplayLayer.h */,
+				D8F27F291590F2E900E660E3 /* GameplayLayer.m */,
+			);
+			name = GameScene;
+			sourceTree = "<group>";
+		};
+		D8F27F2C1590F40700E660E3 /* Sprites */ = {
+			isa = PBXGroup;
+			children = (
+				D8F27F2D1590F40700E660E3 /* Quark-hd.png */,
+				D8F27F2E1590F40700E660E3 /* Quark.png */,
+			);
+			path = Sprites;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1103,6 +1206,23 @@
 				D8F27D2D158F92EC00E660E3 /* iTunesArtwork in Resources */,
 				D8F27ED2158F92EF00E660E3 /* grossini_dance_atlas.png in Resources */,
 				D8F27EE5158F962000E660E3 /* MainMenuBackground.png in Resources */,
+				D8F27F02158FBA0B00E660E3 /* OptionsBackground.png in Resources */,
+				D8F27F08158FC54700E660E3 /* OptionsButtonNormal.png in Resources */,
+				D8F27F09158FC54700E660E3 /* OptionsButtonSelected.png in Resources */,
+				D8F27F0E158FC73B00E660E3 /* PlayButtonNormal.png in Resources */,
+				D8F27F0F158FC73B00E660E3 /* PlayButtonSelected.png in Resources */,
+				D8F27F1A1590CAE500E660E3 /* MainMenuBackground-hd.png in Resources */,
+				D8F27F1B1590CAE500E660E3 /* MainMenuBackground-ipad.png in Resources */,
+				D8F27F1C1590CAE500E660E3 /* OptionsButtonNormal-hd.png in Resources */,
+				D8F27F1D1590CAE500E660E3 /* OptionsButtonNormal-ipad.png in Resources */,
+				D8F27F1E1590CAE500E660E3 /* OptionsButtonSelected-hd.png in Resources */,
+				D8F27F1F1590CAE500E660E3 /* OptionsButtonSelected-ipad.png in Resources */,
+				D8F27F201590CAE500E660E3 /* PlayButtonNormal-hd.png in Resources */,
+				D8F27F211590CAE500E660E3 /* PlayButtonNormal-ipad.png in Resources */,
+				D8F27F221590CAE500E660E3 /* PlayButtonSelected-hd.png in Resources */,
+				D8F27F231590CAE500E660E3 /* PlayButtonSelected-ipad.png in Resources */,
+				D8F27F321590F40800E660E3 /* Quark-hd.png in Resources */,
+				D8F27F331590F40800E660E3 /* Quark.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1240,6 +1360,10 @@
 				D8F27EEE158FA8BE00E660E3 /* GameManager.mm in Sources */,
 				D8F27EF1158FAD0F00E660E3 /* MainMenuScene.m in Sources */,
 				D8F27EF5158FAD8100E660E3 /* MainMenuLayer.m in Sources */,
+				D8F27EF9158FB72400E660E3 /* OptionsLayer.m in Sources */,
+				D8F27EFC158FB73200E660E3 /* OptionsScene.m in Sources */,
+				D8F27F271590F29C00E660E3 /* GameScene.m in Sources */,
+				D8F27F2A1590F2E900E660E3 /* GameplayLayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1292,8 +1416,10 @@
 				GCC_PREFIX_HEADER = CharmQuark/Prefix.pch;
 				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
 				INFOPLIST_FILE = CharmQuark/Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_LDFLAGS = "-lz";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "\"CharmQuark/libs/Chipmunk/include/chipmunk\"";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1308,8 +1434,10 @@
 				GCC_PREFIX_HEADER = CharmQuark/Prefix.pch;
 				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
 				INFOPLIST_FILE = CharmQuark/Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_LDFLAGS = "-lz";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "\"CharmQuark/libs/Chipmunk/include/chipmunk\"";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;

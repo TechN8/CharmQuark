@@ -1,16 +1,17 @@
 //
-//  MainMenuLayer.h
+//  OptionsScene.h
 //  CharmQuark
 //
 //  Created by Nathan Babb on 6/18/12.
 //  Copyright (c) 2012 Aether Theory, LLC. All rights reserved.
 //
 
-#import "CCLayer.h"
+#import "CCScene.h"
 #import "cocos2d.h"
+#import "OptionsLayer.h"
 
-@interface MainMenuLayer : CCLayer {
-    CCMenu *mainMenu;
+@interface OptionsScene : CCScene {
+    OptionsLayer *optionsLayer;
 }
 
 @end

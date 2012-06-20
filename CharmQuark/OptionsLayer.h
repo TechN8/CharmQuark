@@ -1,5 +1,5 @@
 //
-//  MainMenuLayer.h
+//  OptionsLayer.h
 //  CharmQuark
 //
 //  Created by Nathan Babb on 6/18/12.
@@ -9,8 +9,6 @@
 #import "CCLayer.h"
 #import "cocos2d.h"
 
-@interface MainMenuLayer : CCLayer {
-    CCMenu *mainMenu;
-}
+@interface OptionsLayer : CCLayer
 
 @end
