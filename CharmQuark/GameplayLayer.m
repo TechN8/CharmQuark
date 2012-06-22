@@ -8,6 +8,9 @@
 
 #import "GameplayLayer.h"
 
+static cpFloat gravityStrength = 1.0e5f;
+static cpVect centerMass = {320.0f, 240.0f}; 
+
 enum {
 	kTagBatchNode = 1,
 };
@@ -21,15 +24,34 @@ eachShape(cpShape *ptr, void* unused)
 		cpBody *body = shape->body;
 		
 		// TIP: cocos2d and chipmunk uses the same struct to store it's position
-		// chipmunk uses: cpVect, and cocos2d uses CGPoint but in reality the are the same
-		// since v0.7.1 you can mix them if you want.		
 		[sprite setPosition: body->p];
 		
 		[sprite setRotation: (float) CC_RADIANS_TO_DEGREES( -body->a )];
 	}
 }
 
+static void
+planetGravityVelocityFunc(cpBody *body, cpVect gravity, cpFloat damping, cpFloat dt)
+{
+	// Gravitational acceleration is proportional to the inverse square of
+	// distance, and directed toward the origin. The central planet is assumed
+	// to be massive enough that it affects the satellites but not vice versa.
+	//cpVect p = cpBodyGetPos(body);
+	//cpFloat sqdist = cpvlengthsq(p);
+	//cpVect g = cpvmult(p, -gravityStrength / (sqdist * cpfsqrt(sqdist)));
+    
+    
+	cpVect p = cpBodyGetPos(body);
+    cpVect d = cpvsub(p, centerMass);
+	cpFloat sqdist = cpvlengthsq(d);
+    cpVect g = cpvmult(d, -gravityStrength / (sqdist * cpfsqrt(sqdist)));
+    CCLOG(g);
+	
+	cpBodyUpdateVelocity(body, g, damping, dt);
+}
+
 @implementation GameplayLayer
+
 
 - (id)init
 {
@@ -39,12 +61,14 @@ eachShape(cpShape *ptr, void* unused)
         self.isAccelerometerEnabled = NO;
 
         CGSize winSize = [[CCDirector sharedDirector] winSize];
+        centerMass.x = winSize.width / 2.0f;
+        centerMass.y = winSize.height / 2.0f;
         cpInitChipmunk();
         
         cpBody *staticBody = cpBodyNew(INFINITY, INFINITY);
         space = cpSpaceNew();
         
-        space->gravity = ccp(0, -1.0e3f);
+        space->gravity = ccp(0, 0);
         
         cpShape *shape;
         
@@ -89,11 +113,25 @@ eachShape(cpShape *ptr, void* unused)
 	
     cpBody *body = cpBodyNew(1.0f, cpMomentForCircle(1.0f, 0, 11.0f, CGPointZero));
 	
-	// TIP:
-	// since v0.7.1 you can assign CGPoint to chipmunk instead of cpVect.
-	// cpVect == CGPoint
 	body->p = ccp(x, y);
-	cpSpaceAddBody(space, body);
+    body->velocity_func = planetGravityVelocityFunc;
+
+    // Set velocity to put it into a circular
+	//cpFloat r = cpvlength(sprite.position);
+    cpFloat r = cpvdist(sprite.position, centerMass);
+	cpFloat v = cpfsqrt(gravityStrength / r) / r;
+    //cpBodySetVel(body, cpvmult(cpvperp(sprite.position), v));
+    cpVect d = cpvsub(sprite.position, centerMass); 
+    cpBodySetVel(body, cpvmult(cpvperp(d), v));
+    
+    
+    
+	// Set the box's angular velocity to match its orbital period and
+	// align its initial angle with its position.
+	cpBodySetAngVel(body, v);
+	cpBodySetAngle(body, cpfatan2(sprite.position.y, sprite.position.x));
+    
+    cpSpaceAddBody(space, body);
 	
     cpShape* shape = cpCircleShapeNew(body, 11.0f, CGPointZero);
 	shape->e = 0.5f; shape->u = 0.5f;

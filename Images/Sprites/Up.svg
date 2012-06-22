@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="24"
+   height="24"
+   id="svg3145"
+   version="1.1"
+   inkscape:version="0.48+devel r9906"
+   sodipodi:docname="Up.svg"
+   inkscape:export-filename="/Users/nathan/Documents/XCode Projects/CharmQuark/Images/Sprites/Down-hd.png"
+   inkscape:export-xdpi="180"
+   inkscape:export-ydpi="180">
+  <defs
+     id="defs3147">
+    <linearGradient
+       id="linearGradient3923">
+      <stop
+         style="stop-color:#0b7bf6;stop-opacity:1;"
+         offset="0"
+         id="stop3925" />
+      <stop
+         style="stop-color:#0b7bf6;stop-opacity:0.24561404;"
+         offset="1"
+         id="stop3927" />
+    </linearGradient>
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3923"
+       id="radialGradient4391"
+       gradientUnits="userSpaceOnUse"
+       cx="9.8018017"
+       cy="8.4084082"
+       fx="9.8018017"
+       fy="8.4084082"
+       r="3.915916" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="38.545454"
+     inkscape:cx="12"
+     inkscape:cy="12"
+     inkscape:current-layer="layer1"
+     showgrid="true"
+     inkscape:grid-bbox="true"
+     inkscape:document-units="px"
+     inkscape:window-width="1916"
+     inkscape:window-height="1036"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0" />
+  <metadata
+     id="metadata3150">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1"
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     transform="translate(0,8)">
+    <path
+       sodipodi:type="arc"
+       style="fill:url(#radialGradient4391);fill-opacity:1;stroke:none"
+       id="path3153"
+       sodipodi:cx="9.8018017"
+       sodipodi:cy="8.4084082"
+       sodipodi:rx="3.915916"
+       sodipodi:ry="3.915916"
+       d="m 13.717718,8.4084082 c 0,2.1627008 -1.753216,3.9159158 -3.9159163,3.9159158 -2.1627007,0 -3.915916,-1.753215 -3.915916,-3.9159158 0,-2.1627007 1.7532153,-3.915916 3.915916,-3.915916 2.1627003,0 3.9159163,1.7532153 3.9159163,3.915916 z"
+       transform="matrix(2.8090491,0,0,2.8090491,-15.533742,-19.619631)" />
+    <text
+       xml:space="preserve"
+       style="font-size:20.28476524px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:0.40686275;stroke:none;font-family:American Typewriter;-inkscape-font-specification:American Typewriter"
+       x="1.8361063"
+       y="11.19993"
+       id="text3931"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3933"
+         x="1.8361063"
+         y="11.19993">u</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:American Typewriter;-inkscape-font-specification:American Typewriter"
+       x="225"
+       y="-110"
+       id="text4427"
+       sodipodi:linespacing="125%"
+       transform="translate(0,-8)"><tspan
+         sodipodi:role="line"
+         id="tspan4429" /></text>
+    <text
+       xml:space="preserve"
+       style="font-size:5px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:0.40784314;stroke:none;font-family:American Typewriter;-inkscape-font-specification:American Typewriter"
+       x="13.49545"
+       y="1.7086642"
+       id="text4431"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan4433"
+         x="13.49545"
+         y="1.7086642"
+         dy="0">+<tspan
+   style="font-size:65.00091553%;baseline-shift:super;fill:#000000;fill-opacity:0.40784314"
+   id="tspan4439">2</tspan>⁄<tspan
+   style="font-size:65.00091553%;baseline-shift:sub;fill:#000000;fill-opacity:0.40784314"
+   id="tspan4441">3</tspan></tspan></text>
+  </g>
+</svg>

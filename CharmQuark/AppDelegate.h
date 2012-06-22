@@ -6,7 +6,6 @@
 //  Copyright Aether Theory, LLC 2012. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import "cocos2d.h"
 
 @class RootViewController;
