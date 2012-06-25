@@ -7,10 +7,14 @@
 //
 
 #import "cocos2d.h"
-#import "GameplayLayer.h"
+
+
+@class GameplayLayer;
+@class ControlLayer;
 
 @interface GameScene : CCScene {
     GameplayLayer *gameplayLayer;
+    ControlLayer *controlLayer;
 }
 
 @end

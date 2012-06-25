@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="32"
+   height="32"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48+devel r9906"
+   sodipodi:docname="Buttons.svg"
+   inkscape:export-filename="/Users/nathan/Documents/XCode Projects/CharmQuark/Images/UI/ResetButton-hd.png"
+   inkscape:export-xdpi="180"
+   inkscape:export-ydpi="180">
+  <defs
+     id="defs4">
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath3900">
+      <path
+         d="M 8.5688787,9.3083308 A 10,10 0 1 1 8.5095935,22.62524 L 16,16 z"
+         sodipodi:ry="10"
+         sodipodi:rx="10"
+         sodipodi:cy="16"
+         sodipodi:cx="16"
+         id="path3902"
+         style="fill:#ff4141;fill-opacity:1;stroke:none"
+         sodipodi:type="arc"
+         sodipodi:start="3.8746798"
+         sodipodi:end="8.7005945"
+         transform="matrix(1.1499643,0,0,1.1499643,-2.399429,-2.3994253)" />
+    </clipPath>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="24.09375"
+     inkscape:cx="15.958495"
+     inkscape:cy="16"
+     inkscape:document-units="px"
+     inkscape:current-layer="g3906"
+     showgrid="true"
+     inkscape:window-width="1319"
+     inkscape:window-height="959"
+     inkscape:window-x="163"
+     inkscape:window-y="4"
+     inkscape:window-maximized="0"
+     inkscape:snap-global="false"
+     inkscape:snap-bbox="true">
+    <inkscape:grid
+       type="xygrid"
+       id="grid3069"
+       empspacing="5"
+       visible="true"
+       enabled="true"
+       snapvisiblegridlinesonly="true" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="ButtonBase"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-1020.3622)"
+     style="opacity:0.8;display:none">
+    <path
+       sodipodi:type="arc"
+       style="fill:none;stroke:#c8c8c8;stroke-opacity:1"
+       id="path3071"
+       sodipodi:cx="16.5"
+       sodipodi:cy="15.5"
+       sodipodi:rx="12.5"
+       sodipodi:ry="12.5"
+       d="m 29,15.5 a 12.5,12.5 0 1 1 -25,0 12.5,12.5 0 1 1 25,0 z"
+       transform="matrix(1.1538462,0,0,1.1538462,-3.0384623,1018.4776)" />
+  </g>
+  <g
+     style="opacity:0.8"
+     transform="translate(0,-1020.3622)"
+     id="g3906"
+     inkscape:groupmode="layer"
+     inkscape:label="SelectedButtonBase">
+    <path
+       transform="matrix(1.1538462,0,0,1.1538462,-3.0384623,1018.4776)"
+       d="M 29,15.5 C 29,22.403559 23.403559,28 16.5,28 9.5964406,28 4,22.403559 4,15.5 4,8.5964406 9.5964406,3 16.5,3 23.403559,3 29,8.5964406 29,15.5 z"
+       sodipodi:ry="12.5"
+       sodipodi:rx="12.5"
+       sodipodi:cy="15.5"
+       sodipodi:cx="16.5"
+       id="path3908"
+       style="fill:#fdfe92;stroke:#c8c8c8;stroke-opacity:1;opacity:1;fill-opacity:1"
+       sodipodi:type="arc" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="Reset"
+     style="opacity:0.8;display:inline">
+    <path
+       sodipodi:type="arc"
+       style="fill:none;stroke:#c8c8c8;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="path3881"
+       sodipodi:cx="16"
+       sodipodi:cy="16"
+       sodipodi:rx="10"
+       sodipodi:ry="10"
+       d="M 26,16 A 10,10 0 1 1 6,16 10,10 0 1 1 26,16 z"
+       clip-path="url(#clipPath3900)" />
+    <path
+       sodipodi:type="star"
+       style="fill:#c8c8c8;fill-opacity:1;stroke:none"
+       id="path3904"
+       sodipodi:sides="3"
+       sodipodi:cx="2"
+       sodipodi:cy="5"
+       sodipodi:r1="3.5560839"
+       sodipodi:r2="1.4142137"
+       sodipodi:arg1="2.0929388"
+       sodipodi:arg2="3.1401364"
+       inkscape:flatsided="true"
+       inkscape:rounded="0"
+       inkscape:randomized="0"
+       d="M 0.22644484,8.0822451 0.21747501,1.9229336 5.5560801,4.9948213 z"
+       inkscape:transform-center-x="-0.3660254"
+       inkscape:transform-center-y="0.3660254"
+       transform="translate(6.2339963,5.4754719)" />
+  </g>
+</svg>

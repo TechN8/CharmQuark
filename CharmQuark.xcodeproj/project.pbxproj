@@ -7,10 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D81023141598E54E00BA6111 /* ResetButtonSelected-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = D81023121598E54E00BA6111 /* ResetButtonSelected-hd.png */; };
+		D81023151598E54E00BA6111 /* ResetButtonSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = D81023131598E54E00BA6111 /* ResetButtonSelected.png */; };
+		D84DD56215989F1D00C3825F /* ResetButton-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = D84DD55F15989F1D00C3825F /* ResetButton-hd.png */; };
+		D84DD56315989F1D00C3825F /* ResetButton.png in Resources */ = {isa = PBXBuildFile; fileRef = D84DD56015989F1D00C3825F /* ResetButton.png */; };
+		D8602DD41594FC790030B8A1 /* Minus-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = D8602DCE1594FC790030B8A1 /* Minus-hd.png */; };
+		D8602DD51594FC790030B8A1 /* Minus.png in Resources */ = {isa = PBXBuildFile; fileRef = D8602DCF1594FC790030B8A1 /* Minus.png */; };
+		D8602DD61594FC790030B8A1 /* Neutral-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = D8602DD01594FC790030B8A1 /* Neutral-hd.png */; };
+		D8602DD71594FC790030B8A1 /* Neutral.png in Resources */ = {isa = PBXBuildFile; fileRef = D8602DD11594FC790030B8A1 /* Neutral.png */; };
+		D8602DD81594FC790030B8A1 /* Plus-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = D8602DD21594FC790030B8A1 /* Plus-hd.png */; };
+		D8602DD91594FC790030B8A1 /* Plus.png in Resources */ = {isa = PBXBuildFile; fileRef = D8602DD31594FC790030B8A1 /* Plus.png */; };
+		D8602DDC159500A60030B8A1 /* SpriteSheet-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = D8602DDA159500A50030B8A1 /* SpriteSheet-hd.png */; };
+		D8602DDD159500A60030B8A1 /* SpriteSheet.png in Resources */ = {isa = PBXBuildFile; fileRef = D8602DDB159500A60030B8A1 /* SpriteSheet.png */; };
 		D8D544DF159225B7006C9D8E /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = D8D54381159225B6006C9D8E /* LICENSE.txt */; };
 		D8D544E0159225B7006C9D8E /* README.textile in Resources */ = {isa = PBXBuildFile; fileRef = D8D54382159225B6006C9D8E /* README.textile */; };
 		D8D544E1159225B7006C9D8E /* chipmunk.c in Sources */ = {isa = PBXBuildFile; fileRef = D8D54384159225B6006C9D8E /* chipmunk.c */; };
-		D8D544E2159225B7006C9D8E /* CMakeLists.txt in Resources */ = {isa = PBXBuildFile; fileRef = D8D54385159225B6006C9D8E /* CMakeLists.txt */; };
 		D8D544E3159225B7006C9D8E /* cpConstraint.c in Sources */ = {isa = PBXBuildFile; fileRef = D8D54387159225B6006C9D8E /* cpConstraint.c */; };
 		D8D544E4159225B7006C9D8E /* cpDampedRotarySpring.c in Sources */ = {isa = PBXBuildFile; fileRef = D8D54388159225B6006C9D8E /* cpDampedRotarySpring.c */; };
 		D8D544E5159225B7006C9D8E /* cpDampedSpring.c in Sources */ = {isa = PBXBuildFile; fileRef = D8D54389159225B6006C9D8E /* cpDampedSpring.c */; };
@@ -173,8 +184,6 @@
 		D8F27EC6158F92EE00E660E3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D8F27EC5158F92EE00E660E3 /* main.m */; };
 		D8F27EC9158F92EF00E660E3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D8F27EC8158F92EF00E660E3 /* AppDelegate.m */; };
 		D8F27ECC158F92EF00E660E3 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8F27ECB158F92EF00E660E3 /* RootViewController.m */; };
-		D8F27ECF158F92EF00E660E3 /* HelloWorldLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = D8F27ECE158F92EF00E660E3 /* HelloWorldLayer.m */; };
-		D8F27ED2158F92EF00E660E3 /* grossini_dance_atlas.png in Resources */ = {isa = PBXBuildFile; fileRef = D8F27ED1158F92EF00E660E3 /* grossini_dance_atlas.png */; };
 		D8F27EE5158F962000E660E3 /* MainMenuBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = D8F27EE3158F962000E660E3 /* MainMenuBackground.png */; };
 		D8F27EEE158FA8BE00E660E3 /* GameManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = D8F27EED158FA8BE00E660E3 /* GameManager.mm */; };
 		D8F27EF1158FAD0F00E660E3 /* MainMenuScene.m in Sources */ = {isa = PBXBuildFile; fileRef = D8F27EF0158FAD0F00E660E3 /* MainMenuScene.m */; };
@@ -203,6 +212,18 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D81023121598E54E00BA6111 /* ResetButtonSelected-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ResetButtonSelected-hd.png"; sourceTree = "<group>"; };
+		D81023131598E54E00BA6111 /* ResetButtonSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ResetButtonSelected.png; sourceTree = "<group>"; };
+		D84DD55F15989F1D00C3825F /* ResetButton-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ResetButton-hd.png"; sourceTree = "<group>"; };
+		D84DD56015989F1D00C3825F /* ResetButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ResetButton.png; sourceTree = "<group>"; };
+		D8602DCE1594FC790030B8A1 /* Minus-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Minus-hd.png"; sourceTree = "<group>"; };
+		D8602DCF1594FC790030B8A1 /* Minus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Minus.png; sourceTree = "<group>"; };
+		D8602DD01594FC790030B8A1 /* Neutral-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Neutral-hd.png"; sourceTree = "<group>"; };
+		D8602DD11594FC790030B8A1 /* Neutral.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Neutral.png; sourceTree = "<group>"; };
+		D8602DD21594FC790030B8A1 /* Plus-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Plus-hd.png"; sourceTree = "<group>"; };
+		D8602DD31594FC790030B8A1 /* Plus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Plus.png; sourceTree = "<group>"; };
+		D8602DDA159500A50030B8A1 /* SpriteSheet-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SpriteSheet-hd.png"; sourceTree = "<group>"; };
+		D8602DDB159500A60030B8A1 /* SpriteSheet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SpriteSheet.png; sourceTree = "<group>"; };
 		D8D54367159225B6006C9D8E /* chipmunk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = chipmunk.h; sourceTree = "<group>"; };
 		D8D54368159225B6006C9D8E /* chipmunk_ffi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = chipmunk_ffi.h; sourceTree = "<group>"; };
 		D8D54369159225B6006C9D8E /* chipmunk_private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = chipmunk_private.h; sourceTree = "<group>"; };
@@ -532,10 +553,7 @@
 		D8F27EC8158F92EF00E660E3 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		D8F27ECA158F92EF00E660E3 /* RootViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
 		D8F27ECB158F92EF00E660E3 /* RootViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
-		D8F27ECD158F92EF00E660E3 /* HelloWorldLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HelloWorldLayer.h; sourceTree = "<group>"; };
-		D8F27ECE158F92EF00E660E3 /* HelloWorldLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HelloWorldLayer.m; sourceTree = "<group>"; };
 		D8F27ED0158F92EF00E660E3 /* GameConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameConfig.h; sourceTree = "<group>"; };
-		D8F27ED1158F92EF00E660E3 /* grossini_dance_atlas.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = grossini_dance_atlas.png; path = Resources/grossini_dance_atlas.png; sourceTree = "<group>"; };
 		D8F27EE3158F962000E660E3 /* MainMenuBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MainMenuBackground.png; sourceTree = "<group>"; };
 		D8F27EE9158F9D2500E660E3 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		D8F27EEC158FA8BE00E660E3 /* GameManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameManager.h; sourceTree = "<group>"; };
@@ -591,6 +609,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D84DD55D15989F1D00C3825F /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				D84DD56015989F1D00C3825F /* ResetButton.png */,
+				D84DD55F15989F1D00C3825F /* ResetButton-hd.png */,
+				D81023131598E54E00BA6111 /* ResetButtonSelected.png */,
+				D81023121598E54E00BA6111 /* ResetButtonSelected-hd.png */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
 		D8D54364159225B6006C9D8E /* Chipmunk */ = {
 			isa = PBXGroup;
 			children = (
@@ -1120,7 +1149,6 @@
 				D8F27D29158F92EC00E660E3 /* Icon@2x.png */,
 				D8F27D2B158F92EC00E660E3 /* Info.plist */,
 				D8F27D2C158F92EC00E660E3 /* iTunesArtwork */,
-				D8F27ED1158F92EF00E660E3 /* grossini_dance_atlas.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1148,6 +1176,7 @@
 		D8F27EE0158F962000E660E3 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				D84DD55D15989F1D00C3825F /* UI */,
 				D8F27F2C1590F40700E660E3 /* Sprites */,
 				D8F27EE1158F962000E660E3 /* Menus */,
 			);
@@ -1191,8 +1220,6 @@
 				D8F27F241590F23000E660E3 /* GameScene */,
 				D8F27EF2158FAD6C00E660E3 /* MainMenu */,
 				D8F27EF6158FB6E900E660E3 /* Options */,
-				D8F27ECD158F92EF00E660E3 /* HelloWorldLayer.h */,
-				D8F27ECE158F92EF00E660E3 /* HelloWorldLayer.m */,
 			);
 			name = Scenes;
 			sourceTree = "<group>";
@@ -1268,6 +1295,14 @@
 		D8F27F2C1590F40700E660E3 /* Sprites */ = {
 			isa = PBXGroup;
 			children = (
+				D8602DDA159500A50030B8A1 /* SpriteSheet-hd.png */,
+				D8602DDB159500A60030B8A1 /* SpriteSheet.png */,
+				D8602DCE1594FC790030B8A1 /* Minus-hd.png */,
+				D8602DCF1594FC790030B8A1 /* Minus.png */,
+				D8602DD01594FC790030B8A1 /* Neutral-hd.png */,
+				D8602DD11594FC790030B8A1 /* Neutral.png */,
+				D8602DD21594FC790030B8A1 /* Plus-hd.png */,
+				D8602DD31594FC790030B8A1 /* Plus.png */,
 				D8D545E5159365AF006C9D8E /* Down-hd.png */,
 				D8D545E6159365AF006C9D8E /* Down.png */,
 				D8D545E7159365AF006C9D8E /* Gluon-hd.png */,
@@ -1339,7 +1374,6 @@
 				D8F27D28158F92EC00E660E3 /* Icon.png in Resources */,
 				D8F27D2A158F92EC00E660E3 /* Icon@2x.png in Resources */,
 				D8F27D2D158F92EC00E660E3 /* iTunesArtwork in Resources */,
-				D8F27ED2158F92EF00E660E3 /* grossini_dance_atlas.png in Resources */,
 				D8F27EE5158F962000E660E3 /* MainMenuBackground.png in Resources */,
 				D8F27F02158FBA0B00E660E3 /* OptionsBackground.png in Resources */,
 				D8F27F08158FC54700E660E3 /* OptionsButtonNormal.png in Resources */,
@@ -1360,7 +1394,6 @@
 				D8F27F331590F40800E660E3 /* Quark.png in Resources */,
 				D8D544DF159225B7006C9D8E /* LICENSE.txt in Resources */,
 				D8D544E0159225B7006C9D8E /* README.textile in Resources */,
-				D8D544E2159225B7006C9D8E /* CMakeLists.txt in Resources */,
 				D8D545A015922624006C9D8E /* fps_images-hd.png in Resources */,
 				D8D545A115922624006C9D8E /* fps_images-ipadhd.png in Resources */,
 				D8D545A315922624006C9D8E /* fps_images.png in Resources */,
@@ -1372,6 +1405,18 @@
 				D8D545EE159365AF006C9D8E /* Gluon.png in Resources */,
 				D8D545EF159365AF006C9D8E /* Up-hd.png in Resources */,
 				D8D545F0159365AF006C9D8E /* Up.png in Resources */,
+				D8602DD41594FC790030B8A1 /* Minus-hd.png in Resources */,
+				D8602DD51594FC790030B8A1 /* Minus.png in Resources */,
+				D8602DD61594FC790030B8A1 /* Neutral-hd.png in Resources */,
+				D8602DD71594FC790030B8A1 /* Neutral.png in Resources */,
+				D8602DD81594FC790030B8A1 /* Plus-hd.png in Resources */,
+				D8602DD91594FC790030B8A1 /* Plus.png in Resources */,
+				D8602DDC159500A60030B8A1 /* SpriteSheet-hd.png in Resources */,
+				D8602DDD159500A60030B8A1 /* SpriteSheet.png in Resources */,
+				D84DD56215989F1D00C3825F /* ResetButton-hd.png in Resources */,
+				D84DD56315989F1D00C3825F /* ResetButton.png in Resources */,
+				D81023141598E54E00BA6111 /* ResetButtonSelected-hd.png in Resources */,
+				D81023151598E54E00BA6111 /* ResetButtonSelected.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1385,7 +1430,6 @@
 				D8F27EC6158F92EE00E660E3 /* main.m in Sources */,
 				D8F27EC9158F92EF00E660E3 /* AppDelegate.m in Sources */,
 				D8F27ECC158F92EF00E660E3 /* RootViewController.m in Sources */,
-				D8F27ECF158F92EF00E660E3 /* HelloWorldLayer.m in Sources */,
 				D8F27EEE158FA8BE00E660E3 /* GameManager.mm in Sources */,
 				D8F27EF1158FAD0F00E660E3 /* MainMenuScene.m in Sources */,
 				D8F27EF5158FAD8100E660E3 /* MainMenuLayer.m in Sources */,

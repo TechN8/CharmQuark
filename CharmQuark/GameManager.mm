@@ -6,7 +6,6 @@
 //
 
 #import "GameManager.h"
-#import "HelloWorldLayer.h"
 #import "MainMenuScene.h"
 #import "GameScene.h"
 #import "cocos2d.h"
