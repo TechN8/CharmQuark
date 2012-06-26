@@ -98,14 +98,14 @@
 	// Removes the startup flicker
 	[self removeStartupFlicker];
 	
-	// Run the intro Scene
-	//[[CCDirector sharedDirector] runWithScene: [HelloWorldLayer scene]];
-    
     // Enable audio
-    [[GameManager sharedGameManager] setupAudioEngine];
+    //[[GameManager sharedGameManager] setupAudioEngine];
     
     // Load main menu
-    [[GameManager sharedGameManager] runSceneWithID:kMainMenuScene];
+    //[[GameManager sharedGameManager] runSceneWithID:kMainMenuScene];
+    
+    // TESTING Go right to game
+    [[GameManager sharedGameManager] runSceneWithID:kGameScene];
 }
 
 

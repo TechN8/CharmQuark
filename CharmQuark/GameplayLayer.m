@@ -8,9 +8,10 @@
 
 #import "GameplayLayer.h"
 
-static cpVect restPosition = {320.0f, 240.0f};
 static CGFloat simRate = 1 / 120.0;
-static cpFloat nextMass = 1.0f;
+static CGPoint up = {0, 1};
+static CGPoint screenCenter;
+static CGPoint viewCenter;
 
 enum {
 	kTagBatchNode = 1,
@@ -53,10 +54,7 @@ static void eachShape(cpShape *ptr, void* unused) {
 	CCSprite *sprite = shape->data;
 	if( sprite ) {
 		cpBody *body = shape->body;
-		
-		// TIP: cocos2d and chipmunk uses the same struct to store it's position
 		[sprite setPosition: body->p];
-		
 		[sprite setRotation: (float) CC_RADIANS_TO_DEGREES( -body->a )];
 	}
 }
@@ -66,12 +64,11 @@ static void
 planetGravityVelocityFunc(cpBody *body, cpVect gravity, cpFloat damping, cpFloat dt)
 {
 	// Gravitational acceleration is proportional to the inverse square of
-	// distance, and directed toward the origin. 
+	// distance, and directed toward the restPosition. 
 	cpVect p = cpBodyGetPos(body);
-    cpVect d = cpvsub(p, centerMass);
+    cpVect d = cpvsub(p, restPosition);
 	cpFloat sqdist = cpvlengthsq(d);
     cpVect g = cpvmult(d, -gravityStrength / (sqdist * cpfsqrt(sqdist)));
-	
 	cpBodyUpdateVelocity(body, g, damping, dt);
 }
 */
@@ -80,62 +77,29 @@ static void
 gameVelocityFunc(cpBody *body, cpVect gravity, cpFloat damping, cpFloat dt)
 {
 	cpVect p = cpBodyGetPos(body);
-    cpVect d = cpvsub(p, restPosition);
-	cpVect g = cpvmult(d, -1 * powf(cpvlength(d), 4.0f) / powf(1.5f * restPosition.y, 3.0));
+    cpVect d = cpvsub(p, viewCenter);
+	cpVect g = cpvmult(d, -1 * powf(cpvlength(d), 4.0f) / powf(1.5f * viewCenter.y, 3.0));
 	cpBodyUpdateVelocity(body, g, damping, dt);
 }
 
 @implementation GameplayLayer
 
--(void)resetButtonPressed {
+-(void)resetViewportAndParticles {
+    // Reset angle
+    viewLayer.rotation = 0;
+    
     // Remove all objects from the space.
     cpSpaceEachShape(space, (cpSpaceShapeIteratorFunc)postShapeFree, space);
 	cpSpaceEachConstraint(space, (cpSpaceConstraintIteratorFunc)postConstraintFree, space);
 	cpSpaceEachBody(space, (cpSpaceBodyIteratorFunc)postBodyFree, space);
 
     // Add a starting sprite back in.
-    [self addNewSpriteX: restPosition.x Y:restPosition.y];
-}
-
--(void) initSpace {
-    cpInitChipmunk();
-    
-    //cpBody *staticBody = cpBodyNew(INFINITY, INFINITY);
-    space = cpSpaceNew();
-    cpSpaceSetGravity(space, ccp(0,0));
-    cpSpaceSetDamping(space, 0.7f);
-    
-    //        cpShape *shape;
-    
-    //        // bottom
-    //		shape = cpSegmentShapeNew(staticBody, ccp(0,0), ccp(winSize.width,0), 10.0f);
-    //		shape->e = 1.0f; shape->u = 1.0f;
-    //		cpSpaceAddStaticShape(space, shape);
-    //		
-    //		// top
-    //		shape = cpSegmentShapeNew(staticBody, ccp(0,winSize.height), ccp(winSize.width,winSize.height), 10.0f);
-    //		shape->e = 1.0f; shape->u = 1.0f;
-    //		cpSpaceAddStaticShape(space, shape);
-    //		
-    //		// left
-    //		shape = cpSegmentShapeNew(staticBody, ccp(0,0), ccp(0,winSize.height), 10.0f);
-    //		shape->e = 1.0f; shape->u = 1.0f;
-    //		cpSpaceAddStaticShape(space, shape);
-    //		
-    //		// right
-    //		shape = cpSegmentShapeNew(staticBody, ccp(winSize.width,0), ccp(winSize.width,winSize.height), 10.0f);
-    //		shape->e = 1.0f; shape->u = 1.0f;
-    //		cpSpaceAddStaticShape(space, shape);
-    
-    CCSpriteBatchNode *batch = [CCSpriteBatchNode batchNodeWithFile:@"SpriteSheet.png" capacity:100];
-    [self addChild:batch z:0 tag:kTagBatchNode];
-    
-    [self addNewSpriteX: restPosition.x Y:restPosition.y];
+    [self addNewSpriteX: screenCenter.x Y:screenCenter.y];
 }
 
 -(void) addNewSpriteX: (float)x Y:(float)y
 {
-	CCSpriteBatchNode *batch = (CCSpriteBatchNode*) [self getChildByTag:kTagBatchNode];
+	CCSpriteBatchNode *batch = (CCSpriteBatchNode*) [viewLayer getChildByTag:kTagBatchNode];
 	
     CCSprite *sprite = nil;
     int spriteNum = rand() % 3;
@@ -154,13 +118,15 @@ gameVelocityFunc(cpBody *body, cpVect gravity, cpFloat damping, cpFloat dt)
     }
     [batch addChild: sprite];
 	
-	sprite.position = ccp(x,y);
+    CGPoint position = ccp(x,y);
+    position = CGPointApplyAffineTransform(position, viewLayer.worldToNodeTransform);
+    
+	sprite.position = position;
 	
-    cpFloat mass = nextMass;
-    //nextMass *= 2;
+    cpFloat mass = 5.0f;
     cpBody *body = cpBodyNew(mass, cpMomentForCircle(1.0f, 0, 11.0f, CGPointZero));
     //cpBody *body = cpBodyNew(mass, INFINITY);
-    cpBodySetPos(body, ccp(x, y));
+    cpBodySetPos(body, position);
     body->velocity_func = gameVelocityFunc;
     
     // This stops the sprite from moving too fast.
@@ -190,16 +156,56 @@ gameVelocityFunc(cpBody *body, cpVect gravity, cpFloat damping, cpFloat dt)
 
 #pragma mark -
 #pragma mark CCTouchDelegateProtocol
+- (void)ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    // We only support single touches, so anyObject retrieves just that touch from touches
+	UITouch *touch = [touches anyObject];
+	
+	// Save game angle from start of touches
+	initialRotation = viewLayer.rotation;
+	
+	// Capture initial touch and angle from center.
+	CGPoint location = [touch locationInView: [touch view]];
+    
+    CGPoint ray = ccpSub(location, screenCenter);
+    initialTouchAngle = CC_RADIANS_TO_DEGREES(ccpAngleSigned(up, ray));
+    
+    touchesMoved = NO;
+}
+
+
+- (void)ccTouchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+{
+	UITouch *touch = [touches anyObject];
+	
+	CGPoint location = [touch locationInView: [touch view]];
+
+    CGPoint ray = ccpSub(location, screenCenter);
+    currentTouchAngle = CC_RADIANS_TO_DEGREES(ccpAngleSigned(up, ray));
+    
+	GLfloat newRotation = fmodf(initialRotation + currentTouchAngle - initialTouchAngle, 360.0);
+    
+	viewLayer.rotation = newRotation;
+    
+    touchesMoved = YES;
+}
 
 - (void)ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    if (touchesMoved) {
+        return;
+    }
+    
+    // Yeah, there should only be one?
 	for( UITouch *touch in touches ) {
-		CGPoint location = [touch locationInView: [touch view]];
+        CGPoint location = [touch locationInView: [touch view]];
 		
-		location = [[CCDirector sharedDirector] convertToGL: location];
+		location = [[CCDirector sharedDirector] convertToGL: location]; // You are an idiot!
 		
 		[self addNewSpriteX: location.x Y:location.y];
 	}
+    
+    touchesMoved = NO;
 }
 
 #pragma mark -
@@ -213,23 +219,49 @@ gameVelocityFunc(cpBody *body, cpVect gravity, cpFloat damping, cpFloat dt)
         self.isAccelerometerEnabled = NO;
         
         CGSize winSize = [[CCDirector sharedDirector] winSize];
-        restPosition.x = winSize.width * 0.7f;
-        restPosition.y = winSize.height * 0.5f;
         
+        screenCenter = ccp(winSize.width * 0.7f, winSize.height * 0.5f);
+
+        // Set up simulation.
+        //cpInitChipmunk();
+        //cpBody *staticBody = cpBodyNew(INFINITY, INFINITY);
+        space = cpSpaceNew();
+        cpSpaceSetGravity(space, ccp(0,0));
+        cpSpaceSetDamping(space, 0.7f);
+        
+        // Set up controls
         CCMenuItemImage *resetButton 
         = [CCMenuItemImage itemWithNormalImage:@"ResetButton.png" 
                                  selectedImage:@"ResetButtonSelected.png" 
                                         target:self 
-                                      selector:@selector(resetButtonPressed)];
-        
+                                      selector:@selector(resetViewportAndParticles)];
         CCMenu *menu = [CCMenu menuWithItems:resetButton, nil];
-        
         [menu setPosition:ccp(winSize.width * 0.93f, winSize.height * 0.9f)];
         [self addChild:menu z:100];
+
+        // Configure viewport layer.  Used to allow rotation of game.
+        viewLayer = [CCLayerColor layerWithColor:ccc4(255, 255, 255, 255) 
+                                           width:winSize.width * 0.5 
+                                          height:winSize.width * 0.5];
+        CGSize viewSize = [viewLayer contentSize];
+        viewCenter = ccp(viewSize.width * 0.5, viewSize.height * 0.5);
+        viewLayer.position = ccpSub(screenCenter, viewCenter);
+        viewLayer.rotation = 0;
+        [self addChild:viewLayer];
         
-        // Moved all the Chipmunk setup here.
-        [self initSpace];
+        // Load sprite sheet.
+        CCSpriteBatchNode *batch = [CCSpriteBatchNode batchNodeWithFile:@"SpriteSheet.png" capacity:100];
+        [viewLayer addChild:batch z:0 tag:kTagBatchNode];
+        
+        // This will set up the initial particle system.
+        [self resetViewportAndParticles];
+        
+        // Zero out touch handling angles.
+        initialTouchAngle = 0;
+        currentTouchAngle = 0;
+        initialRotation = 0;
 		
+        // Start timer.
 		[self schedule: @selector(step:)];
     }
     return self;

@@ -214,6 +214,7 @@
 /* Begin PBXFileReference section */
 		D81023121598E54E00BA6111 /* ResetButtonSelected-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ResetButtonSelected-hd.png"; sourceTree = "<group>"; };
 		D81023131598E54E00BA6111 /* ResetButtonSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ResetButtonSelected.png; sourceTree = "<group>"; };
+		D810231E1599ED4500BA6111 /* CREDITS */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CREDITS; sourceTree = "<group>"; };
 		D84DD55F15989F1D00C3825F /* ResetButton-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ResetButton-hd.png"; sourceTree = "<group>"; };
 		D84DD56015989F1D00C3825F /* ResetButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ResetButton.png; sourceTree = "<group>"; };
 		D8602DCE1594FC790030B8A1 /* Minus-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Minus-hd.png"; sourceTree = "<group>"; };
@@ -1085,6 +1086,7 @@
 		D8F27CFA158F92EC00E660E3 = {
 			isa = PBXGroup;
 			children = (
+				D810231E1599ED4500BA6111 /* CREDITS */,
 				D8F27D19158F92EC00E660E3 /* CharmQuark */,
 				D8F27EE0158F962000E660E3 /* Images */,
 				D8F27EEA158FA03100E660E3 /* Plists */,

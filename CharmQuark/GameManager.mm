@@ -219,7 +219,7 @@ static GameManager* _sharedGameManager = nil;
             }
    }
     
-    if (managerSoundState == kAudioManagerFailed) {
+    if (managerSoundState == kAudioManagerFailed || managerSoundState == kAudioManagerUninitialized) {
         return; // Nothing to load, CocosDenshion not ready
     }
 
@@ -335,10 +335,10 @@ static GameManager* _sharedGameManager = nil;
         hasAudioBeenInitialized = NO;
         soundEngine = nil;
         managerSoundState = kAudioManagerUninitialized;
-        cpInitChipmunk();
     }
     return self;
 }
+
 -(void)runSceneWithID:(SceneTypes)sceneID {
 
     lastLevel = curLevel;

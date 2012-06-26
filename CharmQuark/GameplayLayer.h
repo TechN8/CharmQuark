@@ -10,7 +10,17 @@
 #import "chipmunk.h"
 
 @interface GameplayLayer : CCLayerColor {
+    // Chipmunk
     cpSpace *space;
+    
+    // Viewport
+    CCLayerColor *viewLayer;
+    
+	// Touch handling
+	CGFloat initialTouchAngle;
+	CGFloat currentTouchAngle;
+	CGFloat initialRotation;
+    BOOL touchesMoved;
 }
 
 -(void) step: (ccTime) dt;
