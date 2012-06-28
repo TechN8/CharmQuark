@@ -1,0 +1,19 @@
+iOS device screen dimensions
+----------------------------
+iPhone-3GS	480x320     (3/2)
+iPhone4+	960x640     (3/2)
+iPad-2      1024x768	(4/3)
+iPad3       2048×1536	(4/3)
+
+Credits
+-------
+Cocos2D author(s)
+Chipmunk author(s)
+
+Rules
+-----
+Start with a number of pieces such that fewer than n of any one color are touching.
+Give player additional pieces periodically.  Period should decrease as score increases.
+
+Remove (n) or more overlapping pieces, add to score.  Should have multiplier for more than (n).
+

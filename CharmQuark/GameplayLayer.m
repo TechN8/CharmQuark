@@ -7,6 +7,8 @@
 //
 
 #import "GameplayLayer.h"
+#import "Particle.h"
+#import "Constants.h"
 
 static CGFloat simRate = 1 / 120.0;
 static CGPoint up = {0, 1};
@@ -21,7 +23,8 @@ enum {
 #pragma mark C Functions
 
 static void shapeFreeWrap(cpSpace *space, cpShape *shape, void *unused) {
-    CCSprite *sprite = shape->data;
+    Particle *sprite = shape->data;
+    [sprite.streak reset];
     [sprite.parent removeChild:sprite cleanup:YES];
 	cpSpaceRemoveShape(space, shape);
 	cpShapeFree(shape);
@@ -51,10 +54,11 @@ static void postBodyFree(cpBody *body, cpSpace *space) {
 
 static void eachShape(cpShape *ptr, void* unused) {
 	cpShape *shape = (cpShape*) ptr;
-	CCSprite *sprite = shape->data;
+	Particle *sprite = shape->data;
 	if( sprite ) {
 		cpBody *body = shape->body;
 		[sprite setPosition: body->p];
+        //[sprite.streak setPosition:body->p];
 		[sprite setRotation: (float) CC_RADIANS_TO_DEGREES( -body->a )];
 	}
 }
@@ -78,7 +82,9 @@ gameVelocityFunc(cpBody *body, cpVect gravity, cpFloat damping, cpFloat dt)
 {
 	cpVect p = cpBodyGetPos(body);
     cpVect d = cpvsub(p, viewCenter);
-	cpVect g = cpvmult(d, -1 * powf(cpvlength(d), 4.0f) / powf(1.5f * viewCenter.y, 3.0));
+	//cpVect g = cpvmult(d, -100 * powf(cpvlength(d), 3.0f) / powf(1.5f * viewCenter.y, 2.0));
+    cpVect g = cpvmult(d, -200 * cpvlength(d) / (1.5f * viewCenter.y));
+    //cpBodySetMass(body, 5.0f + cpvlength(d));
 	cpBodyUpdateVelocity(body, g, damping, dt);
 }
 
@@ -99,45 +105,58 @@ gameVelocityFunc(cpBody *body, cpVect gravity, cpFloat damping, cpFloat dt)
 
 -(void) addNewSpriteX: (float)x Y:(float)y
 {
-	CCSpriteBatchNode *batch = (CCSpriteBatchNode*) [viewLayer getChildByTag:kTagBatchNode];
-	
-    CCSprite *sprite = nil;
-    int spriteNum = rand() % 3;
+    // Convert position from world to viewLayer coordinates.
+    CGPoint position = ccp(x,y);
+    position = CGPointApplyAffineTransform(position, viewLayer.worldToNodeTransform);
+
+    // Create next sprite.
+    CCSpriteBatchNode *batch = (CCSpriteBatchNode*) [viewLayer getChildByTag:kTagBatchNode];
+    Particle *sprite = nil;
+    int spriteNum = rand() % 6;
     switch (spriteNum) {
         case 0:
-            sprite = [CCSprite spriteWithTexture:[batch texture] rect:CGRectMake(0, 0, 25, 25)];
+            sprite = [Particle particleWithColor:kParticleRed];
             break;
         case 1:
-            sprite = [CCSprite spriteWithTexture:[batch texture] rect:CGRectMake(25, 0, 25, 25)];
+            sprite = [Particle particleWithColor:kParticleOrange];
             break;
         case 2:
-            sprite = [CCSprite spriteWithTexture:[batch texture] rect:CGRectMake(50, 0, 25, 25)];
+            sprite = [Particle particleWithColor:kParticleYellow];
+            break;
+        case 3:
+            sprite = [Particle particleWithColor:kParticleGreen];
+            break;
+        case 4:
+            sprite = [Particle particleWithColor:kParticleBlue];
+            break;
+        case 5:
+            sprite = [Particle particleWithColor:kParticlePurple];
             break;
         default:
             break;
     }
     [batch addChild: sprite];
-	
-    CGPoint position = ccp(x,y);
-    position = CGPointApplyAffineTransform(position, viewLayer.worldToNodeTransform);
-    
 	sprite.position = position;
-	
-    cpFloat mass = 5.0f;
-    cpBody *body = cpBodyNew(mass, cpMomentForCircle(1.0f, 0, 11.0f, CGPointZero));
-    //cpBody *body = cpBodyNew(mass, INFINITY);
+
+    // Add motion streak.
+    //CCMotionStreak *streak = [CCMotionStreak streakWithFade:0.5 minSeg:3 width:2 color:ccGREEN texture: nil];
+    //sprite.streak = streak;
+    //streak.position = position;
+    //[viewLayer addChild:streak];
+
+	// Create physics body.
+    cpBody *body = cpBodyNew(kParticleMass, cpMomentForCircle(1.0f, 0, 15.0f, CGPointZero));
     cpBodySetPos(body, position);
     body->velocity_func = gameVelocityFunc;
-    
-    // This stops the sprite from moving too fast.
-    cpBodySetVelLimit(body, 1500.0);
-    
-    cpSpaceAddBody(space, body);
-	
-    cpShape* shape = cpCircleShapeNew(body, 11.0f, CGPointZero);
-    cpShapeSetFriction(shape, 0.0f);
-	shape->e = 0.5f; shape->u = 0.5f;
+    cpBodySetVelLimit(body, kVelocityLimit);
+
+    // Create physics shape.
+    cpShape* shape = cpCircleShapeNew(body, 15.0f, CGPointZero);
+    cpShapeSetFriction(shape, kParticleFriction);
+    cpShapeSetElasticity(shape, kParticleElasticity);
 	shape->data = sprite;
+
+    cpSpaceAddBody(space, body);
 	cpSpaceAddShape(space, shape);
 	
 }
@@ -227,16 +246,27 @@ gameVelocityFunc(cpBody *body, cpVect gravity, cpFloat damping, cpFloat dt)
         //cpBody *staticBody = cpBodyNew(INFINITY, INFINITY);
         space = cpSpaceNew();
         cpSpaceSetGravity(space, ccp(0,0));
-        cpSpaceSetDamping(space, 0.7f);
+        cpSpaceSetDamping(space, kParticleDamping);
+        
+        // Load sprite sheet.
+        sceneSpriteBatchNode = [CCSpriteBatchNode batchNodeWithFile:@"scene1Atlas.png"];
+        //sceneSpriteBatchNode = [[CCSpriteBatchNode alloc] init];
+        [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"scene1Atlas.plist"];
         
         // Set up controls
-        CCMenuItemImage *resetButton 
-        = [CCMenuItemImage itemWithNormalImage:@"ResetButton.png" 
-                                 selectedImage:@"ResetButtonSelected.png" 
-                                        target:self 
-                                      selector:@selector(resetViewportAndParticles)];
+//        CCMenuItemImage *resetButton 
+//        = [CCMenuItemImage itemWithNormalImage:@"ResetButton.png" 
+//                                 selectedImage:@"ResetButtonSelected.png" 
+//                                        target:self 
+//                                      selector:@selector(resetViewportAndParticles)];
+        CCSprite *resetSprite = [CCSprite spriteWithSpriteFrameName:@"ResetButton.png"];
+        CCSprite *resetSpriteSelected = [CCSprite spriteWithSpriteFrameName:@"ResetButtonSelected.png"];
+        CCMenuItemSprite *resetButton = [CCMenuItemSprite itemWithNormalSprite:resetSprite 
+                                                                selectedSprite:resetSpriteSelected
+                                                                        target:self
+                                                                      selector:@selector(resetViewportAndParticles)];
         CCMenu *menu = [CCMenu menuWithItems:resetButton, nil];
-        [menu setPosition:ccp(winSize.width * 0.93f, winSize.height * 0.9f)];
+        [menu setPosition:ccp(winSize.width * 0.5f, winSize.height * 0.95f)];
         [self addChild:menu z:100];
 
         // Configure viewport layer.  Used to allow rotation of game.
@@ -247,11 +277,8 @@ gameVelocityFunc(cpBody *body, cpVect gravity, cpFloat damping, cpFloat dt)
         viewCenter = ccp(viewSize.width * 0.5, viewSize.height * 0.5);
         viewLayer.position = ccpSub(screenCenter, viewCenter);
         viewLayer.rotation = 0;
+        [viewLayer addChild:sceneSpriteBatchNode z:0 tag:kTagBatchNode];
         [self addChild:viewLayer];
-        
-        // Load sprite sheet.
-        CCSpriteBatchNode *batch = [CCSpriteBatchNode batchNodeWithFile:@"SpriteSheet.png" capacity:100];
-        [viewLayer addChild:batch z:0 tag:kTagBatchNode];
         
         // This will set up the initial particle system.
         [self resetViewportAndParticles];

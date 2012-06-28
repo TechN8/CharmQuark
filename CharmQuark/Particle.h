@@ -6,21 +6,30 @@
 //  Copyright 2012 Aether Theory, LLC. All rights reserved.
 //
 
-#import "GameObject.h"
+#import "CCSprite.h"
 #import "cocos2d.h"
 #import "chipmunk.h"
 
 typedef enum {
-    kParticleUpQuark = 1,
-    kParticleDownQuark,
-    kParticleTopQuark,
-    kParticleBottomQuark,
-    kParticleCharmQuark,
-    kParticleStrangeQuark,
-} ParticleTypes;
+    kParticleRed = 1,
+    kParticleOrange,
+    kParticleYellow,
+    kParticleGreen,
+    kParticleBlue,
+    kParticlePurple,
+} ParticleColors;
 
-@interface Particle : GameObject {
-    
+@interface Particle : CCSprite {
+    //ParticleTypes type;
+    CCMotionStreak *streak;
+    ParticleColors particleColor;
 }
+
+@property (retain) CCMotionStreak *streak;
+@property ParticleColors particleColor;
+
++ (id) particleWithColor:(ParticleColors)color;
+
+- (id) initWithParticleColor:(ParticleColors)color;
 
 @end

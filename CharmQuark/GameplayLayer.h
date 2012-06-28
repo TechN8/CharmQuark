@@ -13,6 +13,9 @@
     // Chipmunk
     cpSpace *space;
     
+    // Things to add
+    // Score
+    
     // Viewport
     CCLayerColor *viewLayer;
     
@@ -21,6 +24,9 @@
 	CGFloat currentTouchAngle;
 	CGFloat initialRotation;
     BOOL touchesMoved;
+
+    // Sprites
+    CCSpriteBatchNode *sceneSpriteBatchNode;
 }
 
 -(void) step: (ccTime) dt;
