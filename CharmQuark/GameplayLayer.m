@@ -22,6 +22,78 @@ enum {
 #pragma mark -
 #pragma mark C Functions
 
+static void postStepRemoveParticle(cpSpace *space, cpShape *shape, void *unused) {
+    // You have these parameters reversed?
+    Particle *sprite = shape->data;
+    cpSpaceRemoveBody(space, shape->body);
+    cpBodyFree(shape->body);
+    
+    cpSpaceRemoveShape(space, shape);
+    cpShapeFree(shape);
+
+    // Free particle last.
+    //[sprite.streak reset];
+    [sprite.parent removeChild:sprite cleanup:YES];
+}
+
+static void scheduleForRemoval(cpShape *shape, void *space) {
+    cpSpaceAddPostStepCallback(space, (cpPostStepFunc)postStepRemoveParticle, shape, NULL);
+}
+
+static int collisionBegin(cpArbiter *arb, struct cpSpace *space, void *data)
+{
+    // Check for chain, if found use cpSpaceAddPostStepCallback to remove and score.
+    CP_ARBITER_GET_SHAPES(arb, a, b);
+    
+    Particle *p1 = a->data;
+    Particle *p2 = b->data;
+    
+    if (p1.particleColor == p2.particleColor) {
+        // Link particle objects.
+        [p1 addMatchingParticle:p2];
+        [p2 addMatchingParticle:p1];
+        
+        // Count chain
+        NSMutableSet *allMatches = [NSMutableSet setWithCapacity:4];
+        [p1 addMatchingParticlesToSet:allMatches];
+        if ([allMatches count] > 3) {
+            for (Particle *particle in allMatches) {
+                scheduleForRemoval(particle.shape, space);
+            }
+        }
+    }
+    
+    return true;
+}
+
+static int collisionPreSolve(cpArbiter *arb, cpSpace *space, void *data)
+{
+    return true;
+}
+
+static void collisionPostSolve(cpArbiter *arb, cpSpace *space, void *data)
+{
+    
+}
+
+void collisionSeparate(cpArbiter *arb, cpSpace *space, void *data)
+{
+    // Unlink particle objects.
+    CP_ARBITER_GET_SHAPES(arb, a, b);
+    
+    Particle *p1 = a->data;
+    Particle *p2 = b->data;
+    
+    if (p1.particleColor == p2.particleColor) {
+        // Link particle objects.
+        [p1 removeMatchingParticle:p2];
+        [p2 removeMatchingParticle:p1];
+    }
+}
+
+
+/*********************************************/
+/* These should be consolidated if possible.
 static void shapeFreeWrap(cpSpace *space, cpShape *shape, void *unused) {
     Particle *sprite = shape->data;
     [sprite.streak reset];
@@ -51,7 +123,9 @@ static void bodyFreeWrap(cpSpace *space, cpBody *body, void *unused) {
 static void postBodyFree(cpBody *body, cpSpace *space) {
 	cpSpaceAddPostStepCallback(space, (cpPostStepFunc)bodyFreeWrap, body, NULL);
 }
+*******************************/
 
+// This function synchronizes the body with the sprite.
 static void eachShape(cpShape *ptr, void* unused) {
 	cpShape *shape = (cpShape*) ptr;
 	Particle *sprite = shape->data;
@@ -95,9 +169,9 @@ gameVelocityFunc(cpBody *body, cpVect gravity, cpFloat damping, cpFloat dt)
     viewLayer.rotation = 0;
     
     // Remove all objects from the space.
-    cpSpaceEachShape(space, (cpSpaceShapeIteratorFunc)postShapeFree, space);
-	cpSpaceEachConstraint(space, (cpSpaceConstraintIteratorFunc)postConstraintFree, space);
-	cpSpaceEachBody(space, (cpSpaceBodyIteratorFunc)postBodyFree, space);
+    cpSpaceEachShape(space, (cpSpaceShapeIteratorFunc)scheduleForRemoval, space);
+	//cpSpaceEachConstraint(space, (cpSpaceConstraintIteratorFunc)postConstraintFree, space);
+	//cpSpaceEachBody(space, (cpSpaceBodyIteratorFunc)postBodyFree, space);
 
     // Add a starting sprite back in.
     [self addNewSpriteX: screenCenter.x Y:screenCenter.y];
@@ -112,29 +186,9 @@ gameVelocityFunc(cpBody *body, cpVect gravity, cpFloat damping, cpFloat dt)
     // Create next sprite.
     CCSpriteBatchNode *batch = (CCSpriteBatchNode*) [viewLayer getChildByTag:kTagBatchNode];
     Particle *sprite = nil;
-    int spriteNum = rand() % 6;
-    switch (spriteNum) {
-        case 0:
-            sprite = [Particle particleWithColor:kParticleRed];
-            break;
-        case 1:
-            sprite = [Particle particleWithColor:kParticleOrange];
-            break;
-        case 2:
-            sprite = [Particle particleWithColor:kParticleYellow];
-            break;
-        case 3:
-            sprite = [Particle particleWithColor:kParticleGreen];
-            break;
-        case 4:
-            sprite = [Particle particleWithColor:kParticleBlue];
-            break;
-        case 5:
-            sprite = [Particle particleWithColor:kParticlePurple];
-            break;
-        default:
-            break;
-    }
+    //int spriteNum = rand() % 6;
+    ParticleColors color = rand() % 6;
+    sprite = [Particle particleWithColor:color]; 
     [batch addChild: sprite];
 	sprite.position = position;
 
@@ -154,7 +208,9 @@ gameVelocityFunc(cpBody *body, cpVect gravity, cpFloat damping, cpFloat dt)
     cpShape* shape = cpCircleShapeNew(body, 15.0f, CGPointZero);
     cpShapeSetFriction(shape, kParticleFriction);
     cpShapeSetElasticity(shape, kParticleElasticity);
+    cpShapeSetCollisionType(shape, kParticleCollisionType); // Is this really the best way to do this?
 	shape->data = sprite;
+    sprite.shape = shape;
 
     cpSpaceAddBody(space, body);
 	cpSpaceAddShape(space, shape);
@@ -232,7 +288,7 @@ gameVelocityFunc(cpBody *body, cpVect gravity, cpFloat damping, cpFloat dt)
 
 - (id)init
 {
-    self = [super initWithColor:ccc4(255, 255, 255, 255)];
+    self = [super initWithColor:ccc4(0, 0, 0, 255)];
     if (self) {
         self.isTouchEnabled = YES;
         self.isAccelerometerEnabled = NO;
@@ -247,6 +303,13 @@ gameVelocityFunc(cpBody *body, cpVect gravity, cpFloat damping, cpFloat dt)
         space = cpSpaceNew();
         cpSpaceSetGravity(space, ccp(0,0));
         cpSpaceSetDamping(space, kParticleDamping);
+        cpSpaceAddCollisionHandler(space, 
+                                   kParticleCollisionType, kParticleCollisionType, 
+                                   collisionBegin, 
+                                   collisionPreSolve, 
+                                   collisionPostSolve, 
+                                   collisionSeparate, 
+                                   NULL);
         
         // Load sprite sheet.
         sceneSpriteBatchNode = [CCSpriteBatchNode batchNodeWithFile:@"scene1Atlas.png"];
@@ -270,7 +333,7 @@ gameVelocityFunc(cpBody *body, cpVect gravity, cpFloat damping, cpFloat dt)
         [self addChild:menu z:100];
 
         // Configure viewport layer.  Used to allow rotation of game.
-        viewLayer = [CCLayerColor layerWithColor:ccc4(255, 255, 255, 255) 
+        viewLayer = [CCLayerColor layerWithColor:ccc4(100, 100, 100, 255) 
                                            width:winSize.width * 0.5 
                                           height:winSize.width * 0.5];
         CGSize viewSize = [viewLayer contentSize];

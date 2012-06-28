@@ -11,11 +11,12 @@
 
 #define kMainMenuTagValue 10
 
-#define kParticleMass       5.0f
-#define kParticleFriction   0.0f
-#define kParticleElasticity 0.2f
-#define kVelocityLimit      1500.0f
-#define kParticleDamping    0.1f
+#define kParticleMass           5.0f
+#define kParticleFriction       0.0f
+#define kParticleElasticity     0.2f
+#define kVelocityLimit          1500.0f
+#define kParticleDamping        0.1f
+#define kParticleCollisionType  1
 
 typedef enum {
     kNoSceneUninitialized=0,

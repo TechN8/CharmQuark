@@ -8,11 +8,29 @@
 
 #import "Particle.h"
 
-
 @implementation Particle
 
 @synthesize particleColor;
 @synthesize streak;
+@synthesize matchedParticles;
+@synthesize shape;
+
+- (void) addMatchingParticle:(Particle*)particle {
+    [matchedParticles addObject:particle];
+}
+
+- (void) removeMatchingParticle:(Particle*)particle {
+    [matchedParticles removeObject:particle];
+}
+
+- (void) addMatchingParticlesToSet:(NSMutableSet*)particleSet {
+    [particleSet addObject:self];
+    for (Particle *particle in matchedParticles) {
+        if (![particleSet containsObject:particle]) {
+            [particle addMatchingParticlesToSet:particleSet];
+        }
+    }
+}
 
 + (id) particleWithColor:(ParticleColors)color 
 {
@@ -46,6 +64,8 @@
     if (self) {
         self.particleColor = color;
         self.streak = nil;
+        self.matchedParticles = [[[NSMutableArray alloc] init] autorelease];
+        self.shape = NULL;
     }
     return self;
 }
@@ -61,6 +81,7 @@
 - (void)dealloc
 {
     [streak release];
+    [matchedParticles release];
     [super dealloc];
 }
 

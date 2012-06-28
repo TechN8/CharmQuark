@@ -17,3 +17,6 @@ Give player additional pieces periodically.  Period should decrease as score inc
 
 Remove (n) or more overlapping pieces, add to score.  Should have multiplier for more than (n).
 
+Particle Linking and Traversal
+------------------------------
+Each particle maintains a list of particles of the same color it is in contact with.
