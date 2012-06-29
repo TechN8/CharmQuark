@@ -20,3 +20,45 @@ Remove (n) or more overlapping pieces, add to score.  Should have multiplier for
 Particle Linking and Traversal
 ------------------------------
 Each particle maintains a list of particles of the same color it is in contact with.
+
+TODO
+----
+. Scoring
+    Count pieces removed in post step.  (Only Once)
+    Create set of scored particles.
+
+. Game Start Condition
+    Start board with a set of random particles.
+
+. Game End Condition
+    Piece limit (more than X and you lose).
+    Distance limit. (Lose if resting particles are outside of sensors.)
+
+. Adjust touch controls.
+    Increase level rotation rate.
+    Launch only from left.
+    
+. Automatic drop with timer.
+
+. Finish Main menu with options and website links.
+
+. Replace reset button with pause menu.
+
+. Artwork.
+
+. Sound effects.
+
+New Name?
+---------
+Catseye - Would need artwork to look like glass marbles.
+Celestial Spheres - Make the pieces look spacey?  Space themed background.
+
+Monetization
+------------
+$0.99 initial price.
+Enhancement: Unlock additional backgrounds / modes by playing.  Offer in-app purchase to skip score requirements for unlock.
+    
+Future Enhancement Ideas
+------------------------
+Left or right handed option.
+

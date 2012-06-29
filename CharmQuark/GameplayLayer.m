@@ -14,6 +14,7 @@ static CGFloat simRate = 1 / 120.0;
 static CGPoint up = {0, 1};
 static CGPoint screenCenter;
 static CGPoint viewCenter;
+static CGPoint nextParticlePos;
 
 enum {
 	kTagBatchNode = 1,
@@ -31,13 +32,13 @@ static void postStepRemoveParticle(cpSpace *space, cpShape *shape, void *unused)
     cpSpaceRemoveShape(space, shape);
     cpShapeFree(shape);
 
-    // Free particle last.
+    // Free particle last or you will get EXECBADACCESS!
     //[sprite.streak reset];
     [sprite.parent removeChild:sprite cleanup:YES];
 }
 
 static void scheduleForRemoval(cpShape *shape, void *space) {
-    cpSpaceAddPostStepCallback(space, (cpPostStepFunc)postStepRemoveParticle, shape, NULL);
+    cpSpaceAddPostStepCallback(space, (cpPostStepFunc)postStepRemoveParticle, shape, shape);
 }
 
 static int collisionBegin(cpArbiter *arb, struct cpSpace *space, void *data)
@@ -68,12 +69,13 @@ static int collisionBegin(cpArbiter *arb, struct cpSpace *space, void *data)
 
 static int collisionPreSolve(cpArbiter *arb, cpSpace *space, void *data)
 {
+    // Doing nothing here.
     return true;
 }
 
 static void collisionPostSolve(cpArbiter *arb, cpSpace *space, void *data)
 {
-    
+    // Doing nothing here.
 }
 
 void collisionSeparate(cpArbiter *arb, cpSpace *space, void *data)
@@ -91,40 +93,6 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, void *data)
     }
 }
 
-
-/*********************************************/
-/* These should be consolidated if possible.
-static void shapeFreeWrap(cpSpace *space, cpShape *shape, void *unused) {
-    Particle *sprite = shape->data;
-    [sprite.streak reset];
-    [sprite.parent removeChild:sprite cleanup:YES];
-	cpSpaceRemoveShape(space, shape);
-	cpShapeFree(shape);
-}
-
-static void postShapeFree(cpShape *shape, cpSpace *space) {
-	cpSpaceAddPostStepCallback(space, (cpPostStepFunc)shapeFreeWrap, shape, NULL);
-}
-
-static void constraintFreeWrap(cpSpace *space, cpConstraint *constraint, void *unused) {
-	cpSpaceRemoveConstraint(space, constraint);
-	cpConstraintFree(constraint);
-}
-
-static void postConstraintFree(cpConstraint *constraint, cpSpace *space) {
-	cpSpaceAddPostStepCallback(space, (cpPostStepFunc)constraintFreeWrap, constraint, NULL);
-}
-
-static void bodyFreeWrap(cpSpace *space, cpBody *body, void *unused) {
-	cpSpaceRemoveBody(space, body);
-	cpBodyFree(body);
-}
-
-static void postBodyFree(cpBody *body, cpSpace *space) {
-	cpSpaceAddPostStepCallback(space, (cpPostStepFunc)bodyFreeWrap, body, NULL);
-}
-*******************************/
-
 // This function synchronizes the body with the sprite.
 static void eachShape(cpShape *ptr, void* unused) {
 	cpShape *shape = (cpShape*) ptr;
@@ -137,30 +105,26 @@ static void eachShape(cpShape *ptr, void* unused) {
 	}
 }
 
-/*
-static void
-planetGravityVelocityFunc(cpBody *body, cpVect gravity, cpFloat damping, cpFloat dt)
-{
-	// Gravitational acceleration is proportional to the inverse square of
-	// distance, and directed toward the restPosition. 
-	cpVect p = cpBodyGetPos(body);
-    cpVect d = cpvsub(p, restPosition);
-	cpFloat sqdist = cpvlengthsq(d);
-    cpVect g = cpvmult(d, -gravityStrength / (sqdist * cpfsqrt(sqdist)));
-	cpBodyUpdateVelocity(body, g, damping, dt);
-}
-*/
-
-static void
-gameVelocityFunc(cpBody *body, cpVect gravity, cpFloat damping, cpFloat dt)
+// This is what makes the particles cluster.
+static void gameVelocityFunc(cpBody *body, cpVect gravity, cpFloat damping, cpFloat dt)
 {
 	cpVect p = cpBodyGetPos(body);
     cpVect d = cpvsub(p, viewCenter);
 	//cpVect g = cpvmult(d, -100 * powf(cpvlength(d), 3.0f) / powf(1.5f * viewCenter.y, 2.0));
     cpVect g = cpvmult(d, -200 * cpvlength(d) / (1.5f * viewCenter.y));
-    //cpBodySetMass(body, 5.0f + cpvlength(d));
+    //cpBodySetMass(body, 5.0f + cpvlength(d));  // Test, make moving objects more massive.
 	cpBodyUpdateVelocity(body, g, damping, dt);
 }
+
+@interface GameplayLayer()
+
+-(void)resetViewportAndParticles;
+-(Particle*)randomParticle;
+-(void) addNewSpriteX: (float)x Y:(float)y;
+-(void) step: (ccTime) dt;
+-(void) addNewSpriteX:(float)x Y:(float)y;
+
+@end
 
 @implementation GameplayLayer
 
@@ -170,27 +134,30 @@ gameVelocityFunc(cpBody *body, cpVect gravity, cpFloat damping, cpFloat dt)
     
     // Remove all objects from the space.
     cpSpaceEachShape(space, (cpSpaceShapeIteratorFunc)scheduleForRemoval, space);
-	//cpSpaceEachConstraint(space, (cpSpaceConstraintIteratorFunc)postConstraintFree, space);
-	//cpSpaceEachBody(space, (cpSpaceBodyIteratorFunc)postBodyFree, space);
+}
 
-    // Add a starting sprite back in.
-    [self addNewSpriteX: screenCenter.x Y:screenCenter.y];
+-(Particle*)randomParticle {
+    Particle *sprite = nil;
+    ParticleColors color = rand() % 6;
+    sprite = [Particle particleWithColor:color]; 
+    return sprite;
 }
 
 -(void) addNewSpriteX: (float)x Y:(float)y
 {
     // Convert position from world to viewLayer coordinates.
-    CGPoint position = ccp(x,y);
-    position = CGPointApplyAffineTransform(position, viewLayer.worldToNodeTransform);
+    CGPoint position = [viewLayer convertToNodeSpace:ccp(x,y)];
 
     // Create next sprite.
-    CCSpriteBatchNode *batch = (CCSpriteBatchNode*) [viewLayer getChildByTag:kTagBatchNode];
-    Particle *sprite = nil;
-    //int spriteNum = rand() % 6;
-    ParticleColors color = rand() % 6;
-    sprite = [Particle particleWithColor:color]; 
-    [batch addChild: sprite];
+    Particle *sprite = [Particle particleWithColor:nextParticle.particleColor];
+    [self removeChild:nextParticle cleanup:NO];
+    nextParticle = [self randomParticle];
+    nextParticle.position = nextParticlePos;
+    [self addChild:nextParticle];
+    
 	sprite.position = position;
+    CCSpriteBatchNode *batch = (CCSpriteBatchNode*) [viewLayer getChildByTag:kTagBatchNode];
+    [batch addChild: sprite];
 
     // Add motion streak.
     //CCMotionStreak *streak = [CCMotionStreak streakWithFade:0.5 minSeg:3 width:2 color:ccGREEN texture: nil];
@@ -296,10 +263,11 @@ gameVelocityFunc(cpBody *body, cpVect gravity, cpFloat damping, cpFloat dt)
         CGSize winSize = [[CCDirector sharedDirector] winSize];
         
         screenCenter = ccp(winSize.width * 0.7f, winSize.height * 0.5f);
+        nextParticlePos = ccp(winSize.width * 0.6f, winSize.height * 0.95f);
 
         // Set up simulation.
-        //cpInitChipmunk();
-        //cpBody *staticBody = cpBodyNew(INFINITY, INFINITY);
+        // Uncomment this when you need something to attach the sensor shapes to.
+        // cpBody *staticBody = cpBodyNew(INFINITY, INFINITY);
         space = cpSpaceNew();
         cpSpaceSetGravity(space, ccp(0,0));
         cpSpaceSetDamping(space, kParticleDamping);
@@ -312,16 +280,10 @@ gameVelocityFunc(cpBody *body, cpVect gravity, cpFloat damping, cpFloat dt)
                                    NULL);
         
         // Load sprite sheet.
-        sceneSpriteBatchNode = [CCSpriteBatchNode batchNodeWithFile:@"scene1Atlas.png"];
-        //sceneSpriteBatchNode = [[CCSpriteBatchNode alloc] init];
+        sceneSpriteBatchNode = [CCSpriteBatchNode batchNodeWithFile:@"scene1Atlas.png" capacity:100];
         [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"scene1Atlas.plist"];
         
         // Set up controls
-//        CCMenuItemImage *resetButton 
-//        = [CCMenuItemImage itemWithNormalImage:@"ResetButton.png" 
-//                                 selectedImage:@"ResetButtonSelected.png" 
-//                                        target:self 
-//                                      selector:@selector(resetViewportAndParticles)];
         CCSprite *resetSprite = [CCSprite spriteWithSpriteFrameName:@"ResetButton.png"];
         CCSprite *resetSpriteSelected = [CCSprite spriteWithSpriteFrameName:@"ResetButtonSelected.png"];
         CCMenuItemSprite *resetButton = [CCMenuItemSprite itemWithNormalSprite:resetSprite 
@@ -345,6 +307,11 @@ gameVelocityFunc(cpBody *body, cpVect gravity, cpFloat damping, cpFloat dt)
         
         // This will set up the initial particle system.
         [self resetViewportAndParticles];
+        
+        // Set up the next particle.
+        nextParticle = [self randomParticle];
+        nextParticle.position = nextParticlePos;
+        [self addChild:nextParticle];
         
         // Zero out touch handling angles.
         initialTouchAngle = 0;

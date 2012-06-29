@@ -9,6 +9,8 @@
 #import "cocos2d.h"
 #import "chipmunk.h"
 
+@class Particle;
+
 @interface GameplayLayer : CCLayerColor {
     // Chipmunk
     cpSpace *space;
@@ -27,9 +29,7 @@
 
     // Sprites
     CCSpriteBatchNode *sceneSpriteBatchNode;
+    Particle *nextParticle;
 }
-
--(void) step: (ccTime) dt;
--(void) addNewSpriteX:(float)x Y:(float)y;
 
 @end
