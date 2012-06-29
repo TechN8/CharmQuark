@@ -15,17 +15,29 @@ static CGPoint up = {0, 1};
 static CGPoint screenCenter;
 static CGPoint viewCenter;
 static CGPoint nextParticlePos;
+static CGPoint scorePosition;
 
 enum {
 	kTagBatchNode = 1,
 };
 
+@interface GameplayLayer()
+
+-(void)resetViewportAndParticles;
+-(Particle*)randomParticle;
+-(void) addNewSpriteX: (float)x Y:(float)y;
+-(void) step: (ccTime) dt;
+-(void) addNewSpriteX:(float)x Y:(float)y;
+-(void) scoreParticles:(NSMutableSet*)particles;
+
+@end
+
 #pragma mark -
 #pragma mark C Functions
 
-static void postStepRemoveParticle(cpSpace *space, cpShape *shape, void *unused) {
+static void postStepRemoveParticle(cpSpace *space, cpShape *shape, GameplayLayer *self) {
     // You have these parameters reversed?
-    Particle *sprite = shape->data;
+    Particle *particle = shape->data;
     cpSpaceRemoveBody(space, shape->body);
     cpBodyFree(shape->body);
     
@@ -34,14 +46,15 @@ static void postStepRemoveParticle(cpSpace *space, cpShape *shape, void *unused)
 
     // Free particle last or you will get EXECBADACCESS!
     //[sprite.streak reset];
-    [sprite.parent removeChild:sprite cleanup:YES];
+    [self.scoredParticles removeObject:particle];
+    [particle removeFromParentAndCleanup:YES];
 }
 
-static void scheduleForRemoval(cpShape *shape, void *space) {
-    cpSpaceAddPostStepCallback(space, (cpPostStepFunc)postStepRemoveParticle, shape, shape);
+static void scheduleForRemoval(cpShape *shape, GameplayLayer *self) {
+    cpSpaceAddPostStepCallback(self.space, (cpPostStepFunc)postStepRemoveParticle, shape, self);
 }
 
-static int collisionBegin(cpArbiter *arb, struct cpSpace *space, void *data)
+static int collisionBegin(cpArbiter *arb, struct cpSpace *space, GameplayLayer *self)
 {
     // Check for chain, if found use cpSpaceAddPostStepCallback to remove and score.
     CP_ARBITER_GET_SHAPES(arb, a, b);
@@ -55,30 +68,28 @@ static int collisionBegin(cpArbiter *arb, struct cpSpace *space, void *data)
         [p2 addMatchingParticle:p1];
         
         // Count chain
-        NSMutableSet *allMatches = [NSMutableSet setWithCapacity:4];
-        [p1 addMatchingParticlesToSet:allMatches];
-        if ([allMatches count] > 3) {
-            for (Particle *particle in allMatches) {
-                scheduleForRemoval(particle.shape, space);
-            }
+        NSMutableSet *matchedParticles = [NSMutableSet setWithCapacity:4];
+        [p1 addMatchingParticlesToSet:matchedParticles];
+        if ([matchedParticles count] > 3) {
+            [self scoreParticles:matchedParticles];
         }
     }
     
     return true;
 }
 
-static int collisionPreSolve(cpArbiter *arb, cpSpace *space, void *data)
+static int collisionPreSolve(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 {
     // Doing nothing here.
     return true;
 }
 
-static void collisionPostSolve(cpArbiter *arb, cpSpace *space, void *data)
+static void collisionPostSolve(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 {
     // Doing nothing here.
 }
 
-void collisionSeparate(cpArbiter *arb, cpSpace *space, void *data)
+void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 {
     // Unlink particle objects.
     CP_ARBITER_GET_SHAPES(arb, a, b);
@@ -116,24 +127,19 @@ static void gameVelocityFunc(cpBody *body, cpVect gravity, cpFloat damping, cpFl
 	cpBodyUpdateVelocity(body, g, damping, dt);
 }
 
-@interface GameplayLayer()
-
--(void)resetViewportAndParticles;
--(Particle*)randomParticle;
--(void) addNewSpriteX: (float)x Y:(float)y;
--(void) step: (ccTime) dt;
--(void) addNewSpriteX:(float)x Y:(float)y;
-
-@end
-
 @implementation GameplayLayer
+
+@synthesize space;
+@synthesize scoredParticles;
+@synthesize score;
+@synthesize scoreLabel;
 
 -(void)resetViewportAndParticles {
     // Reset angle
     viewLayer.rotation = 0;
     
     // Remove all objects from the space.
-    cpSpaceEachShape(space, (cpSpaceShapeIteratorFunc)scheduleForRemoval, space);
+    cpSpaceEachShape(space, (cpSpaceShapeIteratorFunc)scheduleForRemoval, self);
 }
 
 -(Particle*)randomParticle {
@@ -184,6 +190,30 @@ static void gameVelocityFunc(cpBody *body, cpVect gravity, cpFloat damping, cpFl
 	
 }
 
+-(void) scoreParticles:(NSMutableSet*)particles {
+    NSInteger points = 0;
+    NSMutableSet *newScoredParticles = [[NSMutableSet alloc] initWithCapacity:10];
+    for (Particle *particle in particles) {
+        // See if this one has already been scored.
+        if (![scoredParticles containsObject:particle]) {
+            // Add to global score.  Prevents duplicate scores for multi-way collisions.
+            [scoredParticles addObject:particle];
+            [newScoredParticles addObject:particle];
+            scheduleForRemoval(particle.shape, self);
+            points += 10;
+        } 
+    }
+    // Add multiplier.
+    NSInteger multiplier = 1 + [newScoredParticles count] - kMinMatchSize ;
+    [newScoredParticles release];
+    if (multiplier > 1) {
+        // TODO Show an animation!
+        points *= multiplier;
+    }
+    score += points;
+    [scoreLabel setString:[[NSString alloc] initWithFormat:@"%d", score]];
+}
+
 -(void) step: (ccTime)dt {
     static ccTime remainder = 0;
     dt += remainder;
@@ -192,7 +222,7 @@ static void gameVelocityFunc(cpBody *body, cpVect gravity, cpFloat damping, cpFl
     
     for (int i = 0; i < steps; i++) {
         cpSpaceStep(space, simRate);
-        cpSpaceEachShape(space, &eachShape, nil);
+        cpSpaceEachShape(space, &eachShape, self);
     }
 }
 
@@ -264,6 +294,7 @@ static void gameVelocityFunc(cpBody *body, cpVect gravity, cpFloat damping, cpFl
         
         screenCenter = ccp(winSize.width * 0.7f, winSize.height * 0.5f);
         nextParticlePos = ccp(winSize.width * 0.6f, winSize.height * 0.95f);
+        scorePosition = ccp(winSize.width * 0.8f, winSize.height * 0.95f);
 
         // Set up simulation.
         // Uncomment this when you need something to attach the sensor shapes to.
@@ -273,11 +304,11 @@ static void gameVelocityFunc(cpBody *body, cpVect gravity, cpFloat damping, cpFl
         cpSpaceSetDamping(space, kParticleDamping);
         cpSpaceAddCollisionHandler(space, 
                                    kParticleCollisionType, kParticleCollisionType, 
-                                   collisionBegin, 
-                                   collisionPreSolve, 
-                                   collisionPostSolve, 
-                                   collisionSeparate, 
-                                   NULL);
+                                   (cpCollisionBeginFunc)collisionBegin, 
+                                   (cpCollisionPreSolveFunc)collisionPreSolve, 
+                                   (cpCollisionPostSolveFunc)collisionPostSolve, 
+                                   (cpCollisionSeparateFunc)collisionSeparate, 
+                                   self);
         
         // Load sprite sheet.
         sceneSpriteBatchNode = [CCSpriteBatchNode batchNodeWithFile:@"scene1Atlas.png" capacity:100];
@@ -293,6 +324,15 @@ static void gameVelocityFunc(cpBody *body, cpVect gravity, cpFloat damping, cpFl
         CCMenu *menu = [CCMenu menuWithItems:resetButton, nil];
         [menu setPosition:ccp(winSize.width * 0.5f, winSize.height * 0.95f)];
         [self addChild:menu z:100];
+        
+        // Add score label.  Replace this later with your own image file.
+        CCTexture2DPixelFormat currentFormat = [CCTexture2D defaultAlphaPixelFormat];
+        [CCTexture2D setDefaultAlphaPixelFormat:kCCTexture2DPixelFormat_RGBA4444];
+        scoreLabel = [[CCLabelAtlas alloc]  initWithString:@"0" charMapFile:@"fps_images.png" itemWidth:12 itemHeight:32 startCharMap:'.'];
+        [CCTexture2D setDefaultAlphaPixelFormat:currentFormat];
+
+        [scoreLabel setPosition:scorePosition];
+        [self addChild:scoreLabel z:100];
 
         // Configure viewport layer.  Used to allow rotation of game.
         viewLayer = [CCLayerColor layerWithColor:ccc4(100, 100, 100, 255) 
@@ -317,6 +357,9 @@ static void gameVelocityFunc(cpBody *body, cpVect gravity, cpFloat damping, cpFl
         initialTouchAngle = 0;
         currentTouchAngle = 0;
         initialRotation = 0;
+        
+        // Set up fields
+        self.scoredParticles = [NSMutableSet setWithCapacity:10];
 		
         // Start timer.
 		[self schedule: @selector(step:)];
@@ -327,6 +370,7 @@ static void gameVelocityFunc(cpBody *body, cpVect gravity, cpFloat damping, cpFl
 - (void)dealloc
 {
     //TODO Clean up your mess.
+    [scoredParticles release];
     [super dealloc];
 }
 

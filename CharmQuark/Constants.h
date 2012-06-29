@@ -17,6 +17,7 @@
 #define kVelocityLimit          1500.0f
 #define kParticleDamping        0.1f
 #define kParticleCollisionType  1
+#define kMinMatchSize           4;
 
 typedef enum {
     kNoSceneUninitialized=0,

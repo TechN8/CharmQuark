@@ -478,7 +478,7 @@
 		D8D54477159225B6006C9D8E /* README.mdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.mdown; sourceTree = "<group>"; };
 		D8D5459C15922624006C9D8E /* fps_images-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "fps_images-hd.png"; path = "Resources/fps_images-hd.png"; sourceTree = "<group>"; };
 		D8D5459D15922624006C9D8E /* fps_images-ipadhd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "fps_images-ipadhd.png"; path = "Resources/fps_images-ipadhd.png"; sourceTree = "<group>"; };
-		D8D5459E15922624006C9D8E /* fps_images.GlyphProject */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = fps_images.GlyphProject; path = Resources/fps_images.GlyphProject; sourceTree = "<group>"; };
+		D8D5459E15922624006C9D8E /* fps_images.GlyphProject */ = {isa = PBXFileReference; explicitFileType = file.bplist; name = fps_images.GlyphProject; path = Resources/fps_images.GlyphProject; sourceTree = "<group>"; };
 		D8D5459F15922624006C9D8E /* fps_images.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fps_images.png; path = Resources/fps_images.png; sourceTree = "<group>"; };
 		D8D545A715922664006C9D8E /* aabb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aabb.h; sourceTree = "<group>"; };
 		D8D545A915922664006C9D8E /* mat4stack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mat4stack.h; sourceTree = "<group>"; };

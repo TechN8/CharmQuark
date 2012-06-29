@@ -15,21 +15,26 @@
     // Chipmunk
     cpSpace *space;
     
-    // Things to add
-    // Score
-    
     // Viewport
     CCLayerColor *viewLayer;
+    CCSpriteBatchNode *sceneSpriteBatchNode;
     
 	// Touch handling
 	CGFloat initialTouchAngle;
 	CGFloat currentTouchAngle;
 	CGFloat initialRotation;
     BOOL touchesMoved;
-
-    // Sprites
-    CCSpriteBatchNode *sceneSpriteBatchNode;
+    
+    // Game Objects
     Particle *nextParticle;
+    CCLabelAtlas *scoreLabel;
+    NSMutableSet *scoredParticles;
+    long score;
 }
+
+@property (assign) cpSpace *space;
+@property (retain) NSMutableSet *scoredParticles;
+@property (assign) long score;
+@property (retain) CCLabelAtlas *scoreLabel;
 
 @end
