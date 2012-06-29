@@ -23,9 +23,11 @@ Each particle maintains a list of particles of the same color it is in contact w
 
 TODO
 ----
-. Scoring
-    Count pieces removed in post step.  (Only Once)
-    Create set of scored particles.
+. Adjust touch controls.
+    Increase level rotation rate.
+    Launch only from left.
+    
+. Automatic drop with timer.
 
 . Game Start Condition
     Start board with a set of random particles.
@@ -34,12 +36,6 @@ TODO
     Piece limit (more than X and you lose).
     Distance limit. (Lose if resting particles are outside of sensors.)
 
-. Adjust touch controls.
-    Increase level rotation rate.
-    Launch only from left.
-    
-. Automatic drop with timer.
-
 . Finish Main menu with options and website links.
 
 . Replace reset button with pause menu.
@@ -47,6 +43,11 @@ TODO
 . Artwork.
 
 . Sound effects.
+    What should this sound like?
+
+X Scoring
+    Count pieces removed in post step.  (Only Once)
+    Create set of scored particles.
 
 New Name?
 ---------

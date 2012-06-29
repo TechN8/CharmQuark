@@ -9,6 +9,25 @@
 #import "cocos2d.h"
 #import "chipmunk.h"
 
+// Gameplay Constants
+#define kMinMatchSize           4
+#define kPointsPerMatch         100
+
+// Simulation Constants
+#define kSimulationRate         0.00833
+#define kParticleMass           5.0f
+#define kParticleFriction       0.0f
+#define kParticleElasticity     0.2f
+#define kVelocityLimit          1500.0f
+#define kParticleDamping        0.1f
+#define kParticleCollisionType  1
+#define kUnitVectorUp           ccp(0, 1)
+
+
+enum {
+	kTagBatchNode = 1,
+};
+
 @class Particle;
 
 @interface GameplayLayer : CCLayerColor {

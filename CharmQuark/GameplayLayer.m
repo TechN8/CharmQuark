@@ -10,16 +10,12 @@
 #import "Particle.h"
 #import "Constants.h"
 
-static CGFloat simRate = 1 / 120.0;
-static CGPoint up = {0, 1};
+//static CGFloat kSimulationRate = 1 / 60.0;
+
 static CGPoint screenCenter;
 static CGPoint viewCenter;
 static CGPoint nextParticlePos;
 static CGPoint scorePosition;
-
-enum {
-	kTagBatchNode = 1,
-};
 
 @interface GameplayLayer()
 
@@ -68,9 +64,9 @@ static int collisionBegin(cpArbiter *arb, struct cpSpace *space, GameplayLayer *
         [p2 addMatchingParticle:p1];
         
         // Count chain
-        NSMutableSet *matchedParticles = [NSMutableSet setWithCapacity:4];
+        NSMutableSet *matchedParticles = [NSMutableSet setWithCapacity:kMinMatchSize];
         [p1 addMatchingParticlesToSet:matchedParticles];
-        if ([matchedParticles count] > 3) {
+        if ([matchedParticles count] >= kMinMatchSize) {
             [self scoreParticles:matchedParticles];
         }
     }
@@ -200,7 +196,7 @@ static void gameVelocityFunc(cpBody *body, cpVect gravity, cpFloat damping, cpFl
             [scoredParticles addObject:particle];
             [newScoredParticles addObject:particle];
             scheduleForRemoval(particle.shape, self);
-            points += 10;
+            points += kPointsPerMatch;
         } 
     }
     // Add multiplier.
@@ -217,11 +213,11 @@ static void gameVelocityFunc(cpBody *body, cpVect gravity, cpFloat damping, cpFl
 -(void) step: (ccTime)dt {
     static ccTime remainder = 0;
     dt += remainder;
-    int steps = dt / simRate;
-    remainder = fmodf(dt, simRate);
+    int steps = dt / kSimulationRate;
+    remainder = fmodf(dt, kSimulationRate);
     
     for (int i = 0; i < steps; i++) {
-        cpSpaceStep(space, simRate);
+        cpSpaceStep(space, kSimulationRate);
         cpSpaceEachShape(space, &eachShape, self);
     }
 }
@@ -240,7 +236,7 @@ static void gameVelocityFunc(cpBody *body, cpVect gravity, cpFloat damping, cpFl
 	CGPoint location = [touch locationInView: [touch view]];
     
     CGPoint ray = ccpSub(location, screenCenter);
-    initialTouchAngle = CC_RADIANS_TO_DEGREES(ccpAngleSigned(up, ray));
+    initialTouchAngle = CC_RADIANS_TO_DEGREES(ccpAngleSigned(kUnitVectorUp, ray));
     
     touchesMoved = NO;
 }
@@ -253,7 +249,7 @@ static void gameVelocityFunc(cpBody *body, cpVect gravity, cpFloat damping, cpFl
 	CGPoint location = [touch locationInView: [touch view]];
 
     CGPoint ray = ccpSub(location, screenCenter);
-    currentTouchAngle = CC_RADIANS_TO_DEGREES(ccpAngleSigned(up, ray));
+    currentTouchAngle = CC_RADIANS_TO_DEGREES(ccpAngleSigned(kUnitVectorUp, ray));
     
 	GLfloat newRotation = fmodf(initialRotation + currentTouchAngle - initialTouchAngle, 360.0);
     
