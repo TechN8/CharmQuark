@@ -12,6 +12,7 @@
 // Gameplay Constants
 #define kMinMatchSize           4
 #define kPointsPerMatch         100
+#define kRotationRate           1.4
 
 // Simulation Constants
 #define kSimulationRate         0.00833
@@ -35,7 +36,7 @@ enum {
     cpSpace *space;
     
     // Viewport
-    CCLayerColor *viewLayer;
+    CCNode *centerNode;
     CCSpriteBatchNode *sceneSpriteBatchNode;
     
 	// Touch handling

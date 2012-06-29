@@ -13,7 +13,6 @@
 //static CGFloat kSimulationRate = 1 / 60.0;
 
 static CGPoint screenCenter;
-static CGPoint viewCenter;
 static CGPoint nextParticlePos;
 static CGPoint scorePosition;
 
@@ -21,9 +20,8 @@ static CGPoint scorePosition;
 
 -(void)resetViewportAndParticles;
 -(Particle*)randomParticle;
--(void) addNewSpriteX: (float)x Y:(float)y;
 -(void) step: (ccTime) dt;
--(void) addNewSpriteX:(float)x Y:(float)y;
+-(void) addParticle:(Particle*)particle atPosition:(CGPoint)position;
 -(void) scoreParticles:(NSMutableSet*)particles;
 
 @end
@@ -112,14 +110,11 @@ static void eachShape(cpShape *ptr, void* unused) {
 	}
 }
 
-// This is what makes the particles cluster.
+// This is what makes the particles cluster.  Tries to move towards the origin.
 static void gameVelocityFunc(cpBody *body, cpVect gravity, cpFloat damping, cpFloat dt)
 {
 	cpVect p = cpBodyGetPos(body);
-    cpVect d = cpvsub(p, viewCenter);
-	//cpVect g = cpvmult(d, -100 * powf(cpvlength(d), 3.0f) / powf(1.5f * viewCenter.y, 2.0));
-    cpVect g = cpvmult(d, -200 * cpvlength(d) / (1.5f * viewCenter.y));
-    //cpBodySetMass(body, 5.0f + cpvlength(d));  // Test, make moving objects more massive.
+    cpVect g = cpvmult(p, -200 * cpvlength(p) / (1.5f * screenCenter.y));
 	cpBodyUpdateVelocity(body, g, damping, dt);
 }
 
@@ -132,10 +127,20 @@ static void gameVelocityFunc(cpBody *body, cpVect gravity, cpFloat damping, cpFl
 
 -(void)resetViewportAndParticles {
     // Reset angle
-    viewLayer.rotation = 0;
+    centerNode.rotation = 0;
     
     // Remove all objects from the space.
     cpSpaceEachShape(space, (cpSpaceShapeIteratorFunc)scheduleForRemoval, self);
+    
+    // Add the initial set of particles.
+    for (NSInteger i = 0; i < 7; i++) {
+        Particle *particle = [self randomParticle];
+        [self addParticle:particle atPosition:ccp(screenCenter.x+(rand()%32), screenCenter.y+(rand()%32))];
+    }
+   
+    // Clear the scoreboard
+    score = 0;
+    [scoreLabel setString:@"0"];
 }
 
 -(Particle*)randomParticle {
@@ -145,21 +150,15 @@ static void gameVelocityFunc(cpBody *body, cpVect gravity, cpFloat damping, cpFl
     return sprite;
 }
 
--(void) addNewSpriteX: (float)x Y:(float)y
+-(void) addParticle:(Particle*)particle atPosition:(CGPoint)position
 {
     // Convert position from world to viewLayer coordinates.
-    CGPoint position = [viewLayer convertToNodeSpace:ccp(x,y)];
+    position = [centerNode convertToNodeSpace:position];
 
-    // Create next sprite.
-    Particle *sprite = [Particle particleWithColor:nextParticle.particleColor];
-    [self removeChild:nextParticle cleanup:NO];
-    nextParticle = [self randomParticle];
-    nextParticle.position = nextParticlePos;
-    [self addChild:nextParticle];
-    
-	sprite.position = position;
-    CCSpriteBatchNode *batch = (CCSpriteBatchNode*) [viewLayer getChildByTag:kTagBatchNode];
-    [batch addChild: sprite];
+    // Set position and add to batch node.
+	particle.position = position;
+    CCSpriteBatchNode *batch = (CCSpriteBatchNode*) [centerNode getChildByTag:kTagBatchNode];
+    [batch addChild: particle];
 
     // Add motion streak.
     //CCMotionStreak *streak = [CCMotionStreak streakWithFade:0.5 minSeg:3 width:2 color:ccGREEN texture: nil];
@@ -178,8 +177,8 @@ static void gameVelocityFunc(cpBody *body, cpVect gravity, cpFloat damping, cpFl
     cpShapeSetFriction(shape, kParticleFriction);
     cpShapeSetElasticity(shape, kParticleElasticity);
     cpShapeSetCollisionType(shape, kParticleCollisionType); // Is this really the best way to do this?
-	shape->data = sprite;
-    sprite.shape = shape;
+	shape->data = particle;
+    particle.shape = shape;
 
     cpSpaceAddBody(space, body);
 	cpSpaceAddShape(space, shape);
@@ -230,7 +229,7 @@ static void gameVelocityFunc(cpBody *body, cpVect gravity, cpFloat damping, cpFl
 	UITouch *touch = [touches anyObject];
 	
 	// Save game angle from start of touches
-	initialRotation = viewLayer.rotation;
+	initialRotation = centerNode.rotation;
 	
 	// Capture initial touch and angle from center.
 	CGPoint location = [touch locationInView: [touch view]];
@@ -251,9 +250,9 @@ static void gameVelocityFunc(cpBody *body, cpVect gravity, cpFloat damping, cpFl
     CGPoint ray = ccpSub(location, screenCenter);
     currentTouchAngle = CC_RADIANS_TO_DEGREES(ccpAngleSigned(kUnitVectorUp, ray));
     
-	GLfloat newRotation = fmodf(initialRotation + currentTouchAngle - initialTouchAngle, 360.0);
+	GLfloat newRotation = fmodf(initialRotation + (currentTouchAngle - initialTouchAngle) * kRotationRate, 360.0);
     
-	viewLayer.rotation = newRotation;
+	centerNode.rotation = newRotation;
     
     touchesMoved = YES;
 }
@@ -270,7 +269,13 @@ static void gameVelocityFunc(cpBody *body, cpVect gravity, cpFloat damping, cpFl
 		
 		location = [[CCDirector sharedDirector] convertToGL: location]; // You are an idiot!
 		
-		[self addNewSpriteX: location.x Y:location.y];
+        Particle *particle = [Particle particleWithColor:nextParticle.particleColor];
+        [self removeChild:nextParticle cleanup:NO];
+        nextParticle = [self randomParticle];
+        nextParticle.position = nextParticlePos;
+        [self addChild:nextParticle];
+
+        [self addParticle:particle atPosition:location];
 	}
     
     touchesMoved = NO;
@@ -329,17 +334,13 @@ static void gameVelocityFunc(cpBody *body, cpVect gravity, cpFloat damping, cpFl
 
         [scoreLabel setPosition:scorePosition];
         [self addChild:scoreLabel z:100];
-
-        // Configure viewport layer.  Used to allow rotation of game.
-        viewLayer = [CCLayerColor layerWithColor:ccc4(100, 100, 100, 255) 
-                                           width:winSize.width * 0.5 
-                                          height:winSize.width * 0.5];
-        CGSize viewSize = [viewLayer contentSize];
-        viewCenter = ccp(viewSize.width * 0.5, viewSize.height * 0.5);
-        viewLayer.position = ccpSub(screenCenter, viewCenter);
-        viewLayer.rotation = 0;
-        [viewLayer addChild:sceneSpriteBatchNode z:0 tag:kTagBatchNode];
-        [self addChild:viewLayer];
+        
+        // Configure the node which controls rotation.
+        centerNode = [CCNode node];
+        centerNode.position = screenCenter;
+        centerNode.rotation = 0;
+        [centerNode addChild:sceneSpriteBatchNode z:0 tag:kTagBatchNode];
+        [self addChild:centerNode];
         
         // This will set up the initial particle system.
         [self resetViewportAndParticles];

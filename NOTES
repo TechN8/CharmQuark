@@ -45,7 +45,8 @@ TODO
 . Sound effects.
     What should this sound like?
 
-X Scoring
+. Scoring
+    Don't score moving pieces unless they have been in contact for some time.
     Count pieces removed in post step.  (Only Once)
     Create set of scored particles.
 
