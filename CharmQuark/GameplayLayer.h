@@ -12,13 +12,13 @@
 // Gameplay Constants
 #define kMinMatchSize           4
 #define kPointsPerMatch         100
-#define kRotationRate           1.4
+#define kRotationRate           1.0
 
 // Simulation Constants
 #define kSimulationRate         0.00833
 #define kParticleMass           5.0f
 #define kParticleFriction       0.0f
-#define kParticleElasticity     0.2f
+#define kParticleElasticity     0.3f
 #define kVelocityLimit          1500.0f
 #define kParticleDamping        0.1f
 #define kParticleCollisionType  1

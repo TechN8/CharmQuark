@@ -30,7 +30,7 @@
                 <key>sourceSize</key>
                 <string>{32,32}</string>
             </dict>
-            <key>Orange.png</key>
+            <key>Indigo.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{70,2},{32,32}}</string>
@@ -43,7 +43,7 @@
                 <key>sourceSize</key>
                 <string>{32,32}</string>
             </dict>
-            <key>Purple.png</key>
+            <key>Orange.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{2,36},{32,32}}</string>
@@ -95,10 +95,23 @@
                 <key>sourceSize</key>
                 <string>{32,32}</string>
             </dict>
-            <key>Yellow.png</key>
+            <key>Violet.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{36,70},{32,32}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{32,32}}</string>
+                <key>sourceSize</key>
+                <string>{32,32}</string>
+            </dict>
+            <key>Yellow.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{70,70},{32,32}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -118,7 +131,7 @@
             <key>size</key>
             <string>{128,128}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:5a3cacd7f8b55ad0e4e5624ed357563d$</string>
+            <string>$TexturePacker:SmartUpdate:d740c1247ddd9b01896141983026b004$</string>
             <key>textureFileName</key>
             <string>scene1Atlas.png</string>
         </dict>

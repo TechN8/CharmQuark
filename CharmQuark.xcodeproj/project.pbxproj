@@ -195,19 +195,21 @@
 		D8739941159CB1D9009F7D84 /* Blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Blue.png; sourceTree = "<group>"; };
 		D8739942159CB1D9009F7D84 /* Green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Green.png; sourceTree = "<group>"; };
 		D8739943159CB1D9009F7D84 /* Orange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Orange.png; sourceTree = "<group>"; };
-		D8739944159CB1D9009F7D84 /* Purple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Purple.png; sourceTree = "<group>"; };
 		D8739945159CB1D9009F7D84 /* Red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Red.png; sourceTree = "<group>"; };
 		D8739946159CB1D9009F7D84 /* Yellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Yellow.png; sourceTree = "<group>"; };
 		D8739948159CB1D9009F7D84 /* Blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Blue.png; sourceTree = "<group>"; };
 		D8739949159CB1D9009F7D84 /* Green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Green.png; sourceTree = "<group>"; };
 		D873994A159CB1D9009F7D84 /* Orange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Orange.png; sourceTree = "<group>"; };
-		D873994B159CB1D9009F7D84 /* Purple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Purple.png; sourceTree = "<group>"; };
 		D873994C159CB1D9009F7D84 /* Red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Red.png; sourceTree = "<group>"; };
 		D873994D159CB1D9009F7D84 /* Yellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Yellow.png; sourceTree = "<group>"; };
 		D873994F159CB1ED009F7D84 /* ResetButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ResetButton.png; sourceTree = "<group>"; };
 		D8739950159CB1ED009F7D84 /* ResetButtonSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ResetButtonSelected.png; sourceTree = "<group>"; };
 		D8739952159CB1ED009F7D84 /* ResetButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ResetButton.png; sourceTree = "<group>"; };
 		D8739953159CB1ED009F7D84 /* ResetButtonSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ResetButtonSelected.png; sourceTree = "<group>"; };
+		D873998C159E93A2009F7D84 /* Indigo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Indigo.png; sourceTree = "<group>"; };
+		D873998D159E93A2009F7D84 /* Violet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Violet.png; sourceTree = "<group>"; };
+		D8739990159E9426009F7D84 /* Indigo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Indigo.png; sourceTree = "<group>"; };
+		D8739991159E9426009F7D84 /* Violet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Violet.png; sourceTree = "<group>"; };
 		D8C3DE49159B9571000A5F3B /* NOTES */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = NOTES; sourceTree = "<group>"; };
 		D8C3DE53159C9E63000A5F3B /* scene1Atlas-hd.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "scene1Atlas-hd.plist"; sourceTree = "<group>"; };
 		D8C3DE54159C9E63000A5F3B /* scene1Atlas-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scene1Atlas-hd.png"; sourceTree = "<group>"; };
@@ -603,10 +605,11 @@
 		D8739940159CB1D9009F7D84 /* iPhone */ = {
 			isa = PBXGroup;
 			children = (
+				D873998C159E93A2009F7D84 /* Indigo.png */,
+				D873998D159E93A2009F7D84 /* Violet.png */,
 				D8739941159CB1D9009F7D84 /* Blue.png */,
 				D8739942159CB1D9009F7D84 /* Green.png */,
 				D8739943159CB1D9009F7D84 /* Orange.png */,
-				D8739944159CB1D9009F7D84 /* Purple.png */,
 				D8739945159CB1D9009F7D84 /* Red.png */,
 				D8739946159CB1D9009F7D84 /* Yellow.png */,
 			);
@@ -616,10 +619,11 @@
 		D8739947159CB1D9009F7D84 /* iPhone-hd */ = {
 			isa = PBXGroup;
 			children = (
+				D8739990159E9426009F7D84 /* Indigo.png */,
+				D8739991159E9426009F7D84 /* Violet.png */,
 				D8739948159CB1D9009F7D84 /* Blue.png */,
 				D8739949159CB1D9009F7D84 /* Green.png */,
 				D873994A159CB1D9009F7D84 /* Orange.png */,
-				D873994B159CB1D9009F7D84 /* Purple.png */,
 				D873994C159CB1D9009F7D84 /* Red.png */,
 				D873994D159CB1D9009F7D84 /* Yellow.png */,
 			);

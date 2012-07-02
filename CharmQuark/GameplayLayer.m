@@ -26,9 +26,6 @@ static CGPoint scorePosition;
 
 @end
 
-#pragma mark -
-#pragma mark C Functions
-
 static void postStepRemoveParticle(cpSpace *space, cpShape *shape, GameplayLayer *self) {
     // You have these parameters reversed?
     Particle *particle = shape->data;
@@ -48,55 +45,7 @@ static void scheduleForRemoval(cpShape *shape, GameplayLayer *self) {
     cpSpaceAddPostStepCallback(self.space, (cpPostStepFunc)postStepRemoveParticle, shape, self);
 }
 
-static int collisionBegin(cpArbiter *arb, struct cpSpace *space, GameplayLayer *self)
-{
-    // Check for chain, if found use cpSpaceAddPostStepCallback to remove and score.
-    CP_ARBITER_GET_SHAPES(arb, a, b);
-    
-    Particle *p1 = a->data;
-    Particle *p2 = b->data;
-    
-    if (p1.particleColor == p2.particleColor) {
-        // Link particle objects.
-        [p1 addMatchingParticle:p2];
-        [p2 addMatchingParticle:p1];
-        
-        // Count chain
-        NSMutableSet *matchedParticles = [NSMutableSet setWithCapacity:kMinMatchSize];
-        [p1 addMatchingParticlesToSet:matchedParticles];
-        if ([matchedParticles count] >= kMinMatchSize) {
-            [self scoreParticles:matchedParticles];
-        }
-    }
-    
-    return true;
-}
 
-static int collisionPreSolve(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
-{
-    // Doing nothing here.
-    return true;
-}
-
-static void collisionPostSolve(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
-{
-    // Doing nothing here.
-}
-
-void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
-{
-    // Unlink particle objects.
-    CP_ARBITER_GET_SHAPES(arb, a, b);
-    
-    Particle *p1 = a->data;
-    Particle *p2 = b->data;
-    
-    if (p1.particleColor == p2.particleColor) {
-        // Link particle objects.
-        [p1 removeMatchingParticle:p2];
-        [p2 removeMatchingParticle:p1];
-    }
-}
 
 // This function synchronizes the body with the sprite.
 static void eachShape(cpShape *ptr, void* unused) {
@@ -114,8 +63,83 @@ static void eachShape(cpShape *ptr, void* unused) {
 static void gameVelocityFunc(cpBody *body, cpVect gravity, cpFloat damping, cpFloat dt)
 {
 	cpVect p = cpBodyGetPos(body);
-    cpVect g = cpvmult(p, -200 * cpvlength(p) / (1.5f * screenCenter.y));
+    //cpVect g = cpvmult(p, -200 * cpvlength(p) / (1.5f * screenCenter.y));
+    cpVect g = cpvmult(cpvnormalize(p), -1500);
 	cpBodyUpdateVelocity(body, g, damping, dt);
+}
+
+#pragma mark Collision Handlers
+
+static int collisionBegin(cpArbiter *arb, struct cpSpace *space, GameplayLayer *self)
+{
+    // Keep track of what particles this particle is touching.
+    CP_ARBITER_GET_SHAPES(arb, a, b);
+    
+    Particle *p1 = a->data;
+    Particle *p2 = b->data;
+    
+    if (p1.particleColor == p2.particleColor) {
+        // Link particle objects.
+        [p1 addMatchingParticle:p2];
+        [p2 addMatchingParticle:p1];
+            
+//            // Count chain
+//            NSMutableSet *matchedParticles = [NSMutableSet setWithCapacity:kMinMatchSize];
+//            [p1 addMatchingParticlesToSet:matchedParticles];
+//            if ([matchedParticles count] >= kMinMatchSize) {
+//                [self scoreParticles:matchedParticles];
+//            }
+    }
+    
+    return true;
+}
+
+static int collisionPreSolve(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
+{
+    // Doing nothing here.
+    return true;
+}
+
+static void collisionPostSolve(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
+{
+    if (cpArbiterIsFirstContact(arb)) {
+        // TODO: Play sound effects here.
+    } else {
+        // Don't do this on the first collision.
+        CP_ARBITER_GET_SHAPES(arb, a, b);
+        
+        Particle *p1 = a->data;
+        Particle *p2 = b->data;
+        
+        if (p1.particleColor == p2.particleColor) {
+            if (cpvlength(cpvsub(a->body->v, b->body->v)) < 0.5) {
+                // Should already be linked, so...
+                
+                // Count chain
+                NSMutableSet *matchedParticles = [NSMutableSet setWithCapacity:kMinMatchSize];
+                [p1 addMatchingParticlesToSet:matchedParticles];
+                if ([matchedParticles count] >= kMinMatchSize) {
+                    [self scoreParticles:matchedParticles];
+                    cpArbiterIgnore(arb);  // Stop calling this, we're done.
+                }
+            }
+        }
+    } 
+}
+
+void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
+{
+    // Unlink particle objects.
+    CP_ARBITER_GET_SHAPES(arb, a, b);
+    
+    Particle *p1 = a->data;
+    Particle *p2 = b->data;
+    
+    if (p1.particleColor == p2.particleColor) {
+        // Link particle objects.
+        [p1 removeMatchingParticle:p2];
+        [p2 removeMatchingParticle:p1];
+    }
 }
 
 @implementation GameplayLayer
@@ -144,10 +168,11 @@ static void gameVelocityFunc(cpBody *body, cpVect gravity, cpFloat damping, cpFl
 }
 
 -(Particle*)randomParticle {
-    Particle *sprite = nil;
-    ParticleColors color = rand() % 6;
-    sprite = [Particle particleWithColor:color]; 
-    return sprite;
+    Particle *particle = nil;
+    ParticleColors color = rand() % 7;
+    particle = [Particle particleWithColor:color]; 
+    //particle = [Particle particleWithColor:kParticleGreen]; 
+    return particle;
 }
 
 -(void) addParticle:(Particle*)particle atPosition:(CGPoint)position
@@ -159,12 +184,6 @@ static void gameVelocityFunc(cpBody *body, cpVect gravity, cpFloat damping, cpFl
 	particle.position = position;
     CCSpriteBatchNode *batch = (CCSpriteBatchNode*) [centerNode getChildByTag:kTagBatchNode];
     [batch addChild: particle];
-
-    // Add motion streak.
-    //CCMotionStreak *streak = [CCMotionStreak streakWithFade:0.5 minSeg:3 width:2 color:ccGREEN texture: nil];
-    //sprite.streak = streak;
-    //streak.position = position;
-    //[viewLayer addChild:streak];
 
 	// Create physics body.
     cpBody *body = cpBodyNew(kParticleMass, cpMomentForCircle(1.0f, 0, 15.0f, CGPointZero));
@@ -206,7 +225,7 @@ static void gameVelocityFunc(cpBody *body, cpVect gravity, cpFloat damping, cpFl
         points *= multiplier;
     }
     score += points;
-    [scoreLabel setString:[[NSString alloc] initWithFormat:@"%d", score]];
+    [scoreLabel setString:[[[NSString alloc] initWithFormat:@"%d", score] autorelease]];
 }
 
 -(void) step: (ccTime)dt {

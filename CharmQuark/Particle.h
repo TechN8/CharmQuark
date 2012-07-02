@@ -16,7 +16,8 @@ typedef enum {
     kParticleYellow,
     kParticleGreen,
     kParticleBlue,
-    kParticlePurple,
+    kParticleIndigo,
+    kParticleViolet,
 } ParticleColors;
 
 @interface Particle : CCSprite {

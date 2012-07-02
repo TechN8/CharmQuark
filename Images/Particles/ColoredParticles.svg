@@ -16,7 +16,7 @@
    version="1.1"
    inkscape:version="0.48+devel r9906"
    enable-background="new"
-   inkscape:export-filename="/Users/nathan/Documents/XCode Projects/CharmQuark/Images/Particles/Red.png"
+   inkscape:export-filename="/Users/nathan/Documents/XCode Projects/CharmQuark/Images/Particles/iPhone/Red.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90"
    sodipodi:docname="ColoredParticles.svg">
@@ -64,17 +64,17 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="20.683252"
-     inkscape:cx="18.997594"
-     inkscape:cy="15.762752"
-     inkscape:current-layer="layer5"
+     inkscape:zoom="29.250535"
+     inkscape:cx="14.456735"
+     inkscape:cy="18.126491"
+     inkscape:current-layer="layer2"
      showgrid="true"
      inkscape:grid-bbox="true"
      inkscape:document-units="px"
      inkscape:window-width="1382"
      inkscape:window-height="852"
-     inkscape:window-x="294"
-     inkscape:window-y="76"
+     inkscape:window-x="442"
+     inkscape:window-y="77"
      inkscape:window-maximized="0">
     <inkscape:grid
        type="xygrid"
@@ -95,12 +95,12 @@
   <g
      inkscape:groupmode="layer"
      id="layer8"
-     inkscape:label="Purple"
+     inkscape:label="Violet"
      style="display:none"
      sodipodi:insensitive="true">
     <path
        sodipodi:type="arc"
-       style="fill:#b011ff;fill-opacity:0.8745098;stroke:none;display:inline"
+       style="fill:#fe11ff;fill-opacity:0.8745098;stroke:none;display:inline"
        id="path4587"
        sodipodi:cx="16"
        sodipodi:cy="16"
@@ -109,6 +109,25 @@
        d="M 31,16 A 15,15 0 1 1 1,16 15,15 0 1 1 31,16 z">
       <title
          id="title4589">BaseGradient</title>
+    </path>
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer3"
+     inkscape:label="Indigo"
+     style="display:none"
+     sodipodi:insensitive="true">
+    <path
+       d="M 31,16 A 15,15 0 1 1 1,16 15,15 0 1 1 31,16 z"
+       sodipodi:ry="15"
+       sodipodi:rx="15"
+       sodipodi:cy="16"
+       sodipodi:cx="16"
+       id="path3128"
+       style="fill:#5c11ff;fill-opacity:0.8745098;stroke:none;display:inline"
+       sodipodi:type="arc">
+      <title
+         id="title3130">BaseGradient</title>
     </path>
   </g>
   <g
@@ -124,7 +143,7 @@
        sodipodi:cy="16"
        sodipodi:cx="16"
        id="path4581"
-       style="fill:#1187ff;fill-opacity:0.8745098;stroke:none;display:inline"
+       style="fill:#11a8ff;fill-opacity:0.8745098;stroke:none;display:inline"
        sodipodi:type="arc">
       <title
          id="title4583">BaseGradient</title>
@@ -153,7 +172,7 @@
      inkscape:groupmode="layer"
      id="layer5"
      inkscape:label="Yellow"
-     style="display:inline">
+     style="display:none">
     <path
        d="M 31,16 A 15,15 0 1 1 1,16 15,15 0 1 1 31,16 z"
        sodipodi:ry="15"
@@ -161,7 +180,7 @@
        sodipodi:cy="16"
        sodipodi:cx="16"
        id="path4565"
-       style="fill:#e6e723;fill-opacity:0.87450981;stroke:none;display:inline"
+       style="fill:#e6e723;fill-opacity:0.8745098;stroke:none;display:inline"
        sodipodi:type="arc">
       <title
          id="title4567">BaseGradient</title>
@@ -190,8 +209,7 @@
      inkscape:groupmode="layer"
      id="layer2"
      inkscape:label="Red"
-     style="display:none"
-     sodipodi:insensitive="true">
+     style="display:inline">
     <path
        d="M 31,16 A 15,15 0 1 1 1,16 15,15 0 1 1 31,16 z"
        sodipodi:ry="15"
@@ -199,7 +217,7 @@
        sodipodi:cy="16"
        sodipodi:cx="16"
        id="path4522"
-       style="fill:#ff1111;fill-opacity:0.8745098;stroke:none;display:inline"
+       style="fill:#f50000;fill-opacity:0.87450981;stroke:none;display:inline"
        sodipodi:type="arc">
       <title
          id="title4524">BaseGradient</title>
@@ -221,8 +239,7 @@
        sodipodi:ry="15"
        d="M 31,16 A 15,15 0 1 1 1,16 15,15 0 1 1 31,16 z">
       <title
-         id="title4511"
-         style="fill:url(#radialGradient4519);fill-opacity:1">BaseGradient</title>
+         id="title4511">BaseGradient</title>
     </path>
   </g>
 </svg>

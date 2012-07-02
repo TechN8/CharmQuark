@@ -55,8 +55,11 @@
         case kParticleBlue:
             self = [super initWithSpriteFrameName:@"Blue.png"];
             break;
-        case kParticlePurple:
-            self = [super initWithSpriteFrameName:@"Purple.png"];
+        case kParticleIndigo:
+            self = [super initWithSpriteFrameName:@"Indigo.png"];
+            break;
+        case kParticleViolet:
+            self = [super initWithSpriteFrameName:@"Violet.png"];
             break;
         default:
             break;
@@ -66,6 +69,13 @@
         self.streak = nil;
         self.matchedParticles = [[[NSMutableArray alloc] init] autorelease];
         self.shape = NULL;
+        
+        
+        // Add motion streak.
+        // CCMotionStreak can't be parented to batch node....  Sad.
+//        CCTexture2D *texture = nil; 
+//        self.streak = [CCMotionStreak streakWithFade:0.5 minSeg:3 width:2 color:ccWHITE texture: texture];
+//        [self addChild:streak];
     }
     return self;
 }
