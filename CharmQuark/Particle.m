@@ -13,7 +13,7 @@
 @synthesize particleColor;
 @synthesize streak;
 @synthesize matchedParticles;
-@synthesize shape;
+@synthesize body;
 
 - (void) addMatchingParticle:(Particle*)particle {
     [matchedParticles addObject:particle];
@@ -68,7 +68,7 @@
         self.particleColor = color;
         self.streak = nil;
         self.matchedParticles = [[[NSMutableArray alloc] init] autorelease];
-        self.shape = NULL;
+        self.body = NULL;
         
         
         // Add motion streak.

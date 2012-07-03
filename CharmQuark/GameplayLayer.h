@@ -18,7 +18,7 @@
 #define kSimulationRate         0.00833
 #define kParticleMass           5.0f
 #define kParticleFriction       0.0f
-#define kParticleElasticity     0.3f
+#define kParticleElasticity     0.5f
 #define kVelocityLimit          1500.0f
 #define kParticleDamping        0.1f
 #define kParticleCollisionType  1
@@ -43,7 +43,8 @@ enum {
 	CGFloat initialTouchAngle;
 	CGFloat currentTouchAngle;
 	CGFloat initialRotation;
-    BOOL touchesMoved;
+    UITouch *rotationTouch;
+    UITouch *launchTouch;
     
     // Game Objects
     Particle *nextParticle;

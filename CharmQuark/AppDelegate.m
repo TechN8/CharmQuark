@@ -65,10 +65,13 @@
 								   pixelFormat:kEAGLColorFormatRGB565	// kEAGLColorFormatRGBA8
 								   depthFormat:0						// GL_DEPTH_COMPONENT16_OES
 						];
+
+    // Enable multi-touch.
+    [glView setMultipleTouchEnabled:YES];
 	
 	// attach the openglView to the director
 	[director setView:glView];
-	
+    
 	// Enables High Res mode (Retina Display) on iPhone 4 and maintains low res on all other devices
 	if( ! [director enableRetinaDisplay:YES] )
 		CCLOG(@"Retina Display Not supported");

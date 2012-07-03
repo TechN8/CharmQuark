@@ -25,13 +25,13 @@ typedef enum {
     CCMotionStreak *streak;
     ParticleColors particleColor;
     NSMutableArray *matchedParticles;
-    cpShape* shape;
+    cpBody* body;
 }
 
 @property (retain) CCMotionStreak *streak;
 @property ParticleColors particleColor;
 @property (retain) NSMutableArray *matchedParticles;
-@property (assign) cpShape *shape;
+@property (assign) cpBody *body;
 
 + (id) particleWithColor:(ParticleColors)color;
 

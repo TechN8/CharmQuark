@@ -26,33 +26,38 @@ static CGPoint scorePosition;
 
 @end
 
-static void postStepRemoveParticle(cpSpace *space, cpShape *shape, GameplayLayer *self) {
-    // You have these parameters reversed?
-    Particle *particle = shape->data;
-    cpSpaceRemoveBody(space, shape->body);
-    cpBodyFree(shape->body);
-    
+static void removeShapesFromBody(cpBody *body, cpShape *shape, GameplayLayer *self) {
+    cpSpace *space = cpBodyGetSpace(body);
     cpSpaceRemoveShape(space, shape);
     cpShapeFree(shape);
-
-    // Free particle last or you will get EXECBADACCESS!
-    //[sprite.streak reset];
-    [self.scoredParticles removeObject:particle];
-    [particle removeFromParentAndCleanup:YES];
 }
 
-static void scheduleForRemoval(cpShape *shape, GameplayLayer *self) {
-    cpSpaceAddPostStepCallback(self.space, (cpPostStepFunc)postStepRemoveParticle, shape, self);
+static void postStepRemoveParticle(cpSpace *space, cpBody *body, GameplayLayer *self) {
+    Particle *particle = body->data;
+
+    cpBodyEachShape(body, (cpBodyShapeIteratorFunc)removeShapesFromBody, self);
+    
+    cpSpaceRemoveBody(space, body);
+    cpBodyFree(body);
+    
+    if (particle) {
+        // Free particle last or you will get EXECBADACCESS!
+        //[sprite.streak reset];
+        [self.scoredParticles removeObject:particle];
+        [particle removeFromParentAndCleanup:YES];
+    }
+}
+
+static void scheduleForRemoval(cpBody *body, GameplayLayer *self) {
+    cpSpaceAddPostStepCallback(self.space, (cpPostStepFunc)postStepRemoveParticle, body, self);
 }
 
 
 
 // This function synchronizes the body with the sprite.
-static void eachShape(cpShape *ptr, void* unused) {
-	cpShape *shape = (cpShape*) ptr;
-	Particle *sprite = shape->data;
+static void eachBody(cpBody *body, void* unused) {
+	Particle *sprite = body->data;
 	if( sprite ) {
-		cpBody *body = shape->body;
 		[sprite setPosition: body->p];
         //[sprite.streak setPosition:body->p];
 		[sprite setRotation: (float) CC_RADIANS_TO_DEGREES( -body->a )];
@@ -73,7 +78,7 @@ static void gameVelocityFunc(cpBody *body, cpVect gravity, cpFloat damping, cpFl
 static int collisionBegin(cpArbiter *arb, struct cpSpace *space, GameplayLayer *self)
 {
     // Keep track of what particles this particle is touching.
-    CP_ARBITER_GET_SHAPES(arb, a, b);
+    CP_ARBITER_GET_BODIES(arb, a, b);
     
     Particle *p1 = a->data;
     Particle *p2 = b->data;
@@ -82,55 +87,45 @@ static int collisionBegin(cpArbiter *arb, struct cpSpace *space, GameplayLayer *
         // Link particle objects.
         [p1 addMatchingParticle:p2];
         [p2 addMatchingParticle:p1];
-            
-//            // Count chain
-//            NSMutableSet *matchedParticles = [NSMutableSet setWithCapacity:kMinMatchSize];
-//            [p1 addMatchingParticlesToSet:matchedParticles];
-//            if ([matchedParticles count] >= kMinMatchSize) {
-//                [self scoreParticles:matchedParticles];
-//            }
     }
-    
     return true;
 }
 
 static int collisionPreSolve(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 {
-    // Doing nothing here.
-    return true;
+    // Don't do this on the first collision.
+    CP_ARBITER_GET_BODIES(arb, a, b);
+    
+    Particle *p1 = a->data;
+    Particle *p2 = b->data;
+    
+    if (p1.particleColor == p2.particleColor) {
+        //        cpArbiterSetElasticity(arb, 0.2);
+        if (cpvlength(cpvsub(a->v, b->v)) < 0.001) {
+            // Should already be linked, so...
+            
+            // Count chain
+            NSMutableSet *matchedParticles = [NSMutableSet setWithCapacity:kMinMatchSize];
+            [p1 addMatchingParticlesToSet:matchedParticles];
+            if ([matchedParticles count] >= kMinMatchSize) {
+                [self scoreParticles:matchedParticles];
+                //cpArbiterIgnore(arb);  // Stop calling this, we're done.
+            }
+        }
+        return true;
+    }
+    return false;
 }
 
 static void collisionPostSolve(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 {
-    if (cpArbiterIsFirstContact(arb)) {
-        // TODO: Play sound effects here.
-    } else {
-        // Don't do this on the first collision.
-        CP_ARBITER_GET_SHAPES(arb, a, b);
-        
-        Particle *p1 = a->data;
-        Particle *p2 = b->data;
-        
-        if (p1.particleColor == p2.particleColor) {
-            if (cpvlength(cpvsub(a->body->v, b->body->v)) < 0.5) {
-                // Should already be linked, so...
-                
-                // Count chain
-                NSMutableSet *matchedParticles = [NSMutableSet setWithCapacity:kMinMatchSize];
-                [p1 addMatchingParticlesToSet:matchedParticles];
-                if ([matchedParticles count] >= kMinMatchSize) {
-                    [self scoreParticles:matchedParticles];
-                    cpArbiterIgnore(arb);  // Stop calling this, we're done.
-                }
-            }
-        }
-    } 
+    // Do nothing here.  Since we're using sensors.
 }
 
 void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 {
     // Unlink particle objects.
-    CP_ARBITER_GET_SHAPES(arb, a, b);
+    CP_ARBITER_GET_BODIES(arb, a, b);
     
     Particle *p1 = a->data;
     Particle *p2 = b->data;
@@ -154,7 +149,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     centerNode.rotation = 0;
     
     // Remove all objects from the space.
-    cpSpaceEachShape(space, (cpSpaceShapeIteratorFunc)scheduleForRemoval, self);
+    cpSpaceEachBody(space, (cpSpaceBodyIteratorFunc)scheduleForRemoval, self);
     
     // Add the initial set of particles.
     for (NSInteger i = 0; i < 7; i++) {
@@ -190,18 +185,21 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     cpBodySetPos(body, position);
     body->velocity_func = gameVelocityFunc;
     cpBodySetVelLimit(body, kVelocityLimit);
+    body->data = particle;
+    particle.body = body;
 
     // Create physics shape.
+    cpShape* sensor = cpCircleShapeNew(body, 20.0f, CGPointZero);
+    cpShapeSetSensor(sensor, YES);
+    cpShapeSetCollisionType(sensor, kParticleCollisionType); // Is this really the best way to do this?
+
     cpShape* shape = cpCircleShapeNew(body, 15.0f, CGPointZero);
     cpShapeSetFriction(shape, kParticleFriction);
     cpShapeSetElasticity(shape, kParticleElasticity);
-    cpShapeSetCollisionType(shape, kParticleCollisionType); // Is this really the best way to do this?
-	shape->data = particle;
-    particle.shape = shape;
 
     cpSpaceAddBody(space, body);
 	cpSpaceAddShape(space, shape);
-	
+	cpSpaceAddShape(space, sensor);
 }
 
 -(void) scoreParticles:(NSMutableSet*)particles {
@@ -213,7 +211,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
             // Add to global score.  Prevents duplicate scores for multi-way collisions.
             [scoredParticles addObject:particle];
             [newScoredParticles addObject:particle];
-            scheduleForRemoval(particle.shape, self);
+            scheduleForRemoval(particle.body, self);
             points += kPointsPerMatch;
         } 
     }
@@ -236,7 +234,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     
     for (int i = 0; i < steps; i++) {
         cpSpaceStep(space, kSimulationRate);
-        cpSpaceEachShape(space, &eachShape, self);
+        cpSpaceEachBody(space, &eachBody, self);
     }
 }
 
@@ -244,60 +242,90 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 #pragma mark CCTouchDelegateProtocol
 - (void)ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    // We only support single touches, so anyObject retrieves just that touch from touches
-	UITouch *touch = [touches anyObject];
-	
-	// Save game angle from start of touches
-	initialRotation = centerNode.rotation;
-	
-	// Capture initial touch and angle from center.
-	CGPoint location = [touch locationInView: [touch view]];
+    CGSize winSize = [[CCDirector sharedDirector] winSize];
     
-    CGPoint ray = ccpSub(location, screenCenter);
-    initialTouchAngle = CC_RADIANS_TO_DEGREES(ccpAngleSigned(kUnitVectorUp, ray));
-    
-    touchesMoved = NO;
+    for (UITouch *touch in touches) {
+        CGPoint location = [touch locationInView: [touch view]];
+		// location = [[CCDirector sharedDirector] convertToGL: location];
+        if (location.x < winSize.width * 0.5) {
+            // Touches on the left drop pieces on end.
+            if (nil == launchTouch) {
+                launchTouch = touch;
+            }
+        } else if (nil == rotationTouch) {
+            // Touches on the right are for rotation.  
+            
+            rotationTouch = touch;
+            
+            // Save game angle from start of touches
+            initialRotation = centerNode.rotation;
+            
+            CGPoint ray = ccpSub(location, screenCenter);
+            initialTouchAngle = CC_RADIANS_TO_DEGREES(ccpAngleSigned(kUnitVectorUp, ray));
+        }        
+    }
 }
 
 
 - (void)ccTouchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
-	UITouch *touch = [touches anyObject];
-	
-	CGPoint location = [touch locationInView: [touch view]];
-
-    CGPoint ray = ccpSub(location, screenCenter);
-    currentTouchAngle = CC_RADIANS_TO_DEGREES(ccpAngleSigned(kUnitVectorUp, ray));
-    
-	GLfloat newRotation = fmodf(initialRotation + (currentTouchAngle - initialTouchAngle) * kRotationRate, 360.0);
-    
-	centerNode.rotation = newRotation;
-    
-    touchesMoved = YES;
+    for (UITouch *touch in touches) {
+        if (touch == launchTouch) {
+            // Do nothing, animate crosshair later.
+        }
+        if (touch == rotationTouch) {
+            CGPoint location = [touch locationInView: [touch view]];
+            //location = [[CCDirector sharedDirector] convertToGL: location];
+            CGPoint ray = ccpSub(location, screenCenter);
+            currentTouchAngle = CC_RADIANS_TO_DEGREES(ccpAngleSigned(kUnitVectorUp, ray));
+            
+            GLfloat newRotation = fmodf(initialRotation + (currentTouchAngle - initialTouchAngle) * kRotationRate, 360.0);
+            
+            centerNode.rotation = newRotation;
+        }
+    }    
 }
 
 - (void)ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    if (touchesMoved) {
-        return;
+    for (UITouch *touch in touches) {
+        if (touch == launchTouch) {
+            // Drop a new piece.
+            CGPoint location = [touch locationInView: [touch view]];
+            location = [[CCDirector sharedDirector] convertToGL: location];
+            location.x = 0;
+            
+            Particle *particle = [Particle particleWithColor:nextParticle.particleColor];
+            [self removeChild:nextParticle cleanup:NO];
+            nextParticle = [self randomParticle];
+            nextParticle.position = nextParticlePos;
+            [self addChild:nextParticle];
+            
+            [self addParticle:particle atPosition:location];
+            
+            // Forget this touch.
+            launchTouch = nil;
+        }
+        if (touch == rotationTouch) {
+            // Forget this touch.
+            rotationTouch = nil;
+        }
     }
-    
-    // Yeah, there should only be one?
-	for( UITouch *touch in touches ) {
-        CGPoint location = [touch locationInView: [touch view]];
-		
-		location = [[CCDirector sharedDirector] convertToGL: location]; // You are an idiot!
-		
-        Particle *particle = [Particle particleWithColor:nextParticle.particleColor];
-        [self removeChild:nextParticle cleanup:NO];
-        nextParticle = [self randomParticle];
-        nextParticle.position = nextParticlePos;
-        [self addChild:nextParticle];
+}
 
-        [self addParticle:particle atPosition:location];
-	}
-    
-    touchesMoved = NO;
+- (void)ccTouchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    for (UITouch *touch in touches) {
+        if (touch == launchTouch) {
+            // Forget this touch.
+            launchTouch = nil;
+        }
+        if (touch == rotationTouch) {
+            // Forget this touch.
+            rotationTouch = nil;
+        }
+    }
+
 }
 
 #pragma mark -
@@ -312,7 +340,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
         
         CGSize winSize = [[CCDirector sharedDirector] winSize];
         
-        screenCenter = ccp(winSize.width * 0.7f, winSize.height * 0.5f);
+        screenCenter = ccp(winSize.width - winSize.height * 0.5, winSize.height * 0.5f);
         nextParticlePos = ccp(winSize.width * 0.6f, winSize.height * 0.95f);
         scorePosition = ccp(winSize.width * 0.8f, winSize.height * 0.95f);
 
@@ -369,7 +397,9 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
         nextParticle.position = nextParticlePos;
         [self addChild:nextParticle];
         
-        // Zero out touch handling angles.
+        // Zero out touch handling.
+        rotationTouch = nil;
+        launchTouch = nil;
         initialTouchAngle = 0;
         currentTouchAngle = 0;
         initialRotation = 0;

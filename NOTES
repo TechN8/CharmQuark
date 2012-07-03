@@ -20,12 +20,16 @@ Remove (n) or more overlapping pieces, add to score.  Should have multiplier for
 Particle Linking and Traversal
 ------------------------------
 Each particle maintains a list of particles of the same color it is in contact with.
+This works, but sometimes does not find largest chain because particles may be slightly separated.  How can I make sure there is a collision?
+Each time a _pair_ is made, add one of the items to an array to be checked.
+Each step, check the array for chains of length > 3.
+Chain should be exist for N second before being scored.
 
 TODO
 ----
 . Adjust touch controls.
-    Increase level rotation rate.
     Launch only from left.
+    Increase level rotation rate.
     
 . Automatic drop with timer.
 
@@ -46,9 +50,7 @@ TODO
     What should this sound like?
 
 * Scoring
-    Don't score moving pieces unless their speeds match.
-    Count pieces removed in post step.  (Only Once)
-    Create set of scored particles.
+    Fix scoring bugs: Doesn't always match largest set.
 
 New Name?
 ---------
