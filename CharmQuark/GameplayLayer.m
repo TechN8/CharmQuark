@@ -55,7 +55,7 @@ static void scheduleForRemoval(cpBody *body, GameplayLayer *self) {
 
 
 // This function synchronizes the body with the sprite.
-static void eachBody(cpBody *body, void* unused) {
+static void syncSpriteToBody(cpBody *body, void* unused) {
 	Particle *sprite = body->data;
 	if( sprite ) {
 		[sprite setPosition: body->p];
@@ -234,7 +234,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     
     for (int i = 0; i < steps; i++) {
         cpSpaceStep(space, kSimulationRate);
-        cpSpaceEachBody(space, &eachBody, self);
+        cpSpaceEachBody(space, &syncSpriteToBody, self);
     }
 }
 
