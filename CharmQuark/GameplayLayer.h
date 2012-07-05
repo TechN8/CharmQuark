@@ -34,8 +34,10 @@ enum {
 @interface GameplayLayer : CCLayerColor {
     // Chipmunk
     cpSpace *space;
+    Particle *nextParticle;
+    CCLabelAtlas *scoreLabel;
     
-    // Viewport
+    // Cocos2D View Objects
     CCNode *centerNode;
     CCSpriteBatchNode *sceneSpriteBatchNode;
     
@@ -46,16 +48,22 @@ enum {
     UITouch *rotationTouch;
     UITouch *launchTouch;
     
-    // Game Objects
-    Particle *nextParticle;
-    CCLabelAtlas *scoreLabel;
-    NSMutableSet *scoredParticles;
+    // Game State
     long score;
+    NSMutableSet *collidedParticles;
+    NSMutableSet *countedParticles;
+    NSMutableArray *scoredParticles;
+    NSMutableSet *visitedParticles;
+    BOOL scoring;
 }
 
 @property (assign) cpSpace *space;
-@property (retain) NSMutableSet *scoredParticles;
+@property (retain) NSMutableSet *collidedParticles;
+@property (retain) NSMutableSet *countedParticles;
+@property (retain) NSMutableArray *scoredParticles;
+@property (retain) NSMutableSet *visitedParticles;
 @property (assign) long score;
 @property (retain) CCLabelAtlas *scoreLabel;
+@property (assign) BOOL scoring;
 
 @end

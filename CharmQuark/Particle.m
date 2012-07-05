@@ -12,22 +12,29 @@
 
 @synthesize particleColor;
 @synthesize streak;
-@synthesize matchedParticles;
 @synthesize body;
+@synthesize matchingParticles;
+@synthesize timeSinceLastCollision;
 
-- (void) addMatchingParticle:(Particle*)particle {
-    [matchedParticles addObject:particle];
+- (void) linkMatchingParticle:(Particle*)particle {
+    // Put particles in eachothers node arrays.
+    [matchingParticles addObject:particle];
+    [particle.matchingParticles addObject:self];
+    timeSinceLastCollision = 0;
 }
 
-- (void) removeMatchingParticle:(Particle*)particle {
-    [matchedParticles removeObject:particle];
+- (void) separateMatchingParticle:(Particle*)particle {
+    [matchingParticles removeObject:particle];
+    [particle.matchingParticles removeObject:self];
+    timeSinceLastCollision = 0;
 }
 
-- (void) addMatchingParticlesToSet:(NSMutableSet*)particleSet {
+- (void) addMatchingParticlesToSet:(NSMutableSet*)particleSet addTime:(ccTime)time {
+    timeSinceLastCollision = timeSinceLastCollision + time;
     [particleSet addObject:self];
-    for (Particle *particle in matchedParticles) {
+    for (Particle *particle in matchingParticles) {
         if (![particleSet containsObject:particle]) {
-            [particle addMatchingParticlesToSet:particleSet];
+            [particle addMatchingParticlesToSet:particleSet addTime:time];
         }
     }
 }
@@ -67,9 +74,9 @@
     if (self) {
         self.particleColor = color;
         self.streak = nil;
-        self.matchedParticles = [[[NSMutableArray alloc] init] autorelease];
+        self.matchingParticles = [NSMutableSet setWithCapacity:6];
         self.body = NULL;
-        
+        self.timeSinceLastCollision = 0;
         
         // Add motion streak.
         // CCMotionStreak can't be parented to batch node....  Sad.
@@ -91,7 +98,7 @@
 - (void)dealloc
 {
     [streak release];
-    [matchedParticles release];
+    [matchingParticles release];
     [super dealloc];
 }
 

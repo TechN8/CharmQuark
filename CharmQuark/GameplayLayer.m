@@ -22,9 +22,12 @@ static CGPoint scorePosition;
 -(Particle*)randomParticle;
 -(void) step: (ccTime) dt;
 -(void) addParticle:(Particle*)particle atPosition:(CGPoint)position;
--(void) scoreParticles:(NSMutableSet*)particles;
+-(void) scoreParticles:(ccTime)dt;
 
 @end
+
+#pragma mark -
+#pragma mark Chipmunk Callbacks
 
 static void removeShapesFromBody(cpBody *body, cpShape *shape, GameplayLayer *self) {
     cpSpace *space = cpBodyGetSpace(body);
@@ -43,7 +46,7 @@ static void postStepRemoveParticle(cpSpace *space, cpBody *body, GameplayLayer *
     if (particle) {
         // Free particle last or you will get EXECBADACCESS!
         //[sprite.streak reset];
-        [self.scoredParticles removeObject:particle];
+        //[self.particleSets removeObject:particle.matchingParticles];  // HACK!
         [particle removeFromParentAndCleanup:YES];
     }
 }
@@ -51,8 +54,6 @@ static void postStepRemoveParticle(cpSpace *space, cpBody *body, GameplayLayer *
 static void scheduleForRemoval(cpBody *body, GameplayLayer *self) {
     cpSpaceAddPostStepCallback(self.space, (cpPostStepFunc)postStepRemoveParticle, body, self);
 }
-
-
 
 // This function synchronizes the body with the sprite.
 static void syncSpriteToBody(cpBody *body, void* unused) {
@@ -69,10 +70,12 @@ static void gameVelocityFunc(cpBody *body, cpVect gravity, cpFloat damping, cpFl
 {
 	cpVect p = cpBodyGetPos(body);
     //cpVect g = cpvmult(p, -200 * cpvlength(p) / (1.5f * screenCenter.y));
+    // TODO This can crash of the body is at (0,0)?
     cpVect g = cpvmult(cpvnormalize(p), -1500);
 	cpBodyUpdateVelocity(body, g, damping, dt);
 }
 
+#pragma mark -
 #pragma mark Collision Handlers
 
 static int collisionBegin(cpArbiter *arb, struct cpSpace *space, GameplayLayer *self)
@@ -85,41 +88,23 @@ static int collisionBegin(cpArbiter *arb, struct cpSpace *space, GameplayLayer *
     
     if (p1.particleColor == p2.particleColor) {
         // Link particle objects.
-        [p1 addMatchingParticle:p2];
-        [p2 addMatchingParticle:p1];
+        [p1 linkMatchingParticle:p2];
+        
+        [self.collidedParticles addObject:p1];
+        [self.collidedParticles addObject:p2];
     }
     return true;
 }
 
 static int collisionPreSolve(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 {
-    // Don't do this on the first collision.
-    CP_ARBITER_GET_BODIES(arb, a, b);
-    
-    Particle *p1 = a->data;
-    Particle *p2 = b->data;
-    
-    if (p1.particleColor == p2.particleColor) {
-        //        cpArbiterSetElasticity(arb, 0.2);
-        if (cpvlength(cpvsub(a->v, b->v)) < 0.001) {
-            // Should already be linked, so...
-            
-            // Count chain
-            NSMutableSet *matchedParticles = [NSMutableSet setWithCapacity:kMinMatchSize];
-            [p1 addMatchingParticlesToSet:matchedParticles];
-            if ([matchedParticles count] >= kMinMatchSize) {
-                [self scoreParticles:matchedParticles];
-                //cpArbiterIgnore(arb);  // Stop calling this, we're done.
-            }
-        }
-        return true;
-    }
-    return false;
+    // Do nothing here.
+    return true;
 }
 
 static void collisionPostSolve(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 {
-    // Do nothing here.  Since we're using sensors.
+    // Play sound effects here?
 }
 
 void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
@@ -131,18 +116,64 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     Particle *p2 = b->data;
     
     if (p1.particleColor == p2.particleColor) {
-        // Link particle objects.
-        [p1 removeMatchingParticle:p2];
-        [p2 removeMatchingParticle:p1];
+        // Unlink particle objects.
+        [p1 separateMatchingParticle:p2];
+
+        if (p1.matchingParticles.count == 0) {
+            [self.collidedParticles removeObject:p1];
+        }
+        
+        if (p2.matchingParticles.count == 0) {
+            [self.collidedParticles removeObject:p2];
+        }
+        
+//        if (self.scoring) {
+//            // This means we don't add new particleSets!
+//            [self.particleSets removeObject:p1.matchingParticles];
+//            [self.particleSets removeObject:p2.matchingParticles];
+//            return;
+//        }
+        
+        // Update particle sets.  They should start out as the same object.
+//        ParticleSet *set1 = p1.matchingParticles;
+//        [set1 removeAllObjects];
+//        p2.matchingParticles = nil;
+//
+//        [p1 addMatchingParticlesToSet:set1];
+//        if (set1.count == 1) {
+//            // Only one left, stop tracking this set
+//            [self.particleSets removeObject:set1];
+//            p1.matchingParticles = nil;
+//        } else if ([set1 containsObject:p2]) {
+//            // P2 is still connected to p1 via some other path.
+//            p2.matchingParticles = set1;
+//        } 
+//        
+//        if (nil == p2.matchingParticles) {
+//            ParticleSet *set2 = [[ParticleSet alloc] init];
+//            [p2 addMatchingParticlesToSet:set2];
+//            if (set2.count > 1) {
+//                [self.particleSets addObject:set2];  // This is the problem.  We leak this on remove.
+//                p2.matchingParticles = set2;
+//            }
+//        }
+
+        // We're done.
     }
 }
+
+#pragma mark -
 
 @implementation GameplayLayer
 
 @synthesize space;
-@synthesize scoredParticles;
+@synthesize collidedParticles;
 @synthesize score;
 @synthesize scoreLabel;
+@synthesize scoring;
+@synthesize visitedParticles;
+@synthesize scoredParticles;
+@synthesize countedParticles;
 
 -(void)resetViewportAndParticles {
     // Reset angle
@@ -158,6 +189,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     }
    
     // Clear the scoreboard
+    [collidedParticles removeAllObjects];
     score = 0;
     [scoreLabel setString:@"0"];
 }
@@ -189,7 +221,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     particle.body = body;
 
     // Create physics shape.
-    cpShape* sensor = cpCircleShapeNew(body, 20.0f, CGPointZero);
+    cpShape* sensor = cpCircleShapeNew(body, 18.0f, CGPointZero);
     cpShapeSetSensor(sensor, YES);
     cpShapeSetCollisionType(sensor, kParticleCollisionType); // Is this really the best way to do this?
 
@@ -202,29 +234,49 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 	cpSpaceAddShape(space, sensor);
 }
 
--(void) scoreParticles:(NSMutableSet*)particles {
-    NSInteger points = 0;
-    NSMutableSet *newScoredParticles = [[NSMutableSet alloc] initWithCapacity:10];
-    for (Particle *particle in particles) {
-        // See if this one has already been scored.
-        if (![scoredParticles containsObject:particle]) {
-            // Add to global score.  Prevents duplicate scores for multi-way collisions.
-            [scoredParticles addObject:particle];
-            [newScoredParticles addObject:particle];
-            scheduleForRemoval(particle.body, self);
-            points += kPointsPerMatch;
-        } 
+-(void) scoreParticles:(ccTime)dt {
+    scoring = YES;
+    NSInteger matches = 0;
+    
+    // Reset
+    [visitedParticles removeAllObjects];
+    
+    // Iterate on collidedParticles
+    for (Particle *particle in collidedParticles) {
+        // Don't double count.
+        if (![visitedParticles containsObject:particle]) {
+            
+            // Add self and all matching to scoredParticles && visitedParticles.
+            [countedParticles removeAllObjects];
+            [particle addMatchingParticlesToSet:countedParticles addTime:dt];
+            [visitedParticles unionSet:countedParticles];
+            
+            // If scoredParticles > kMinMatchSize then move them to final array?
+            if (countedParticles.count >= kMinMatchSize) {
+                for (Particle *p in countedParticles) {
+                    [scoredParticles addObject:p];
+                }
+            }
+        }
     }
-    // Add multiplier.
-    NSInteger multiplier = 1 + [newScoredParticles count] - kMinMatchSize ;
-    [newScoredParticles release];
-    if (multiplier > 1) {
-        // TODO Show an animation!
-        points *= multiplier;
-    }
-    score += points;
+    
+    
+    // Update score
+    matches = [scoredParticles count];
+    NSInteger multiplier = 1 + matches - kMinMatchSize ;
+    // TODO: Run some kind of animation here.
+    score += matches * kPointsPerMatch * multiplier;
     [scoreLabel setString:[[[NSString alloc] initWithFormat:@"%d", score] autorelease]];
-}
+    
+    // Delete scored particles.  Have to do this here to not break mutablesets and such.
+    while (scoredParticles.count > 0) {
+        Particle *particle = [scoredParticles objectAtIndex:0];
+        [scoredParticles removeObject:particle];
+        postStepRemoveParticle(space, particle.body, self);  // Don't need to schedule, called from update.
+    }
+
+    scoring = NO;
+ }
 
 -(void) step: (ccTime)dt {
     static ccTime remainder = 0;
@@ -236,6 +288,8 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
         cpSpaceStep(space, kSimulationRate);
         cpSpaceEachBody(space, &syncSpriteToBody, self);
     }
+
+    [self scoreParticles:dt];  // Doesn't need to run at simulation resolution.
 }
 
 #pragma mark -
@@ -404,8 +458,12 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
         currentTouchAngle = 0;
         initialRotation = 0;
         
-        // Set up fields
-        self.scoredParticles = [NSMutableSet setWithCapacity:10];
+        // Set up scoring fields
+        self.collidedParticles = [NSMutableSet setWithCapacity:100];
+        self.visitedParticles = [NSMutableSet setWithCapacity:100];
+        self.scoredParticles = [NSMutableArray arrayWithCapacity:20];
+        self.countedParticles = [NSMutableSet setWithCapacity:10];
+        self.scoring = NO;
 		
         // Start timer.
 		[self schedule: @selector(step:)];
@@ -416,7 +474,10 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 - (void)dealloc
 {
     //TODO Clean up your mess.
+    [collidedParticles release];
     [scoredParticles release];
+    [visitedParticles release];
+    [countedParticles release];
     [super dealloc];
 }
 

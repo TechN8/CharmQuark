@@ -10,6 +10,8 @@
 #import "cocos2d.h"
 #import "chipmunk.h"
 
+#define kMinMatchAge            0.5
+
 typedef enum {
     kParticleRed = 0,
     kParticleOrange,
@@ -24,24 +26,25 @@ typedef enum {
     //ParticleTypes type;
     CCMotionStreak *streak;
     ParticleColors particleColor;
-    NSMutableArray *matchedParticles;
     cpBody* body;
+    NSMutableSet *matchingParticles;
+    ccTime timeSinceLastCollision;
 }
 
 @property (retain) CCMotionStreak *streak;
 @property ParticleColors particleColor;
-@property (retain) NSMutableArray *matchedParticles;
-@property (assign) cpBody *body;
+@property cpBody *body;
+@property (retain) NSMutableSet *matchingParticles;
+@property ccTime timeSinceLastCollision;
 
 + (id) particleWithColor:(ParticleColors)color;
 
 - (id) initWithParticleColor:(ParticleColors)color;
 
-- (void) addMatchingParticle:(Particle*)particle;
+- (void) linkMatchingParticle:(Particle*)particle;
 
-- (void) removeMatchingParticle:(Particle*)particle;
+- (void) separateMatchingParticle:(Particle*)particle;
 
-- (void) addMatchingParticlesToSet:(NSMutableSet*)particleSet;
-
+- (void) addMatchingParticlesToSet:(NSMutableSet*)set addTime:(ccTime)time;
 
 @end
