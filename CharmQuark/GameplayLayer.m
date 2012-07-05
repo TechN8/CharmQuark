@@ -56,12 +56,19 @@ static void scheduleForRemoval(cpBody *body, GameplayLayer *self) {
 }
 
 // This function synchronizes the body with the sprite.
-static void syncSpriteToBody(cpBody *body, void* unused) {
+static void syncSpriteToBody(cpBody *body, GameplayLayer* self) {
 	Particle *sprite = body->data;
 	if( sprite ) {
 		[sprite setPosition: body->p];
         //[sprite.streak setPosition:body->p];
 		[sprite setRotation: (float) CC_RADIANS_TO_DEGREES( -body->a )];
+        
+        cpFloat r = cpvlength(cpBodyGetPos(body));
+        cpFloat v = cpvlength(cpBodyGetVel(body));
+        if (sprite.live && r > kFailRadius) {
+            // Game over.
+            self.gameOver = YES;
+        }
 	}
 }
 
@@ -85,9 +92,13 @@ static int collisionBegin(cpArbiter *arb, struct cpSpace *space, GameplayLayer *
     
     Particle *p1 = a->data;
     Particle *p2 = b->data;
+ 
+    // Make these live.
+    p1.live = YES;
+    p2.live = YES;
     
+    // Check for and link matching particles.
     if (p1.particleColor == p2.particleColor) {
-        // Link particle objects.
         [p1 linkMatchingParticle:p2];
         
         [self.collidedParticles addObject:p1];
@@ -174,6 +185,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 @synthesize visitedParticles;
 @synthesize scoredParticles;
 @synthesize countedParticles;
+@synthesize gameOver;
 
 -(void)resetViewportAndParticles {
     // Reset angle
@@ -192,11 +204,12 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     [collidedParticles removeAllObjects];
     score = 0;
     [scoreLabel setString:@"0"];
+    gameOver = NO;
 }
 
 -(Particle*)randomParticle {
     Particle *particle = nil;
-    ParticleColors color = rand() % 7;
+    ParticleColors color = rand() % 9;
     particle = [Particle particleWithColor:color]; 
     //particle = [Particle particleWithColor:kParticleGreen]; 
     return particle;
@@ -221,7 +234,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     particle.body = body;
 
     // Create physics shape.
-    cpShape* sensor = cpCircleShapeNew(body, 18.0f, CGPointZero);
+    cpShape* sensor = cpCircleShapeNew(body, 16.0f, CGPointZero);
     cpShapeSetSensor(sensor, YES);
     cpShapeSetCollisionType(sensor, kParticleCollisionType); // Is this really the best way to do this?
 
@@ -286,10 +299,48 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     
     for (int i = 0; i < steps; i++) {
         cpSpaceStep(space, kSimulationRate);
-        cpSpaceEachBody(space, &syncSpriteToBody, self);
+        cpSpaceEachBody(space, (cpSpaceBodyIteratorFunc)syncSpriteToBody, self);
     }
 
     [self scoreParticles:dt];  // Doesn't need to run at simulation resolution.
+}
+
+#pragma mark -
+#pragma mark CCNode
+
+-(void)draw {
+    [super draw];
+#ifdef DEBUG
+    
+    // Debug draw for fail radius.
+    if (gameOver) {
+        ccDrawColor4B(255, 0, 0, 128);
+    } else {
+        ccDrawColor4B(0, 255, 0, 128);
+    }
+    ccDrawCircle(screenCenter, kFailRadius, 0, 30, NO);
+    
+    // Debug draw for rotation touch.
+    CGPoint location;
+    if (nil != rotationTouch) {
+        ccDrawColor4B(0, 0, 255, 200);
+        location = [rotationTouch locationInView:[rotationTouch view]];
+        location = [[CCDirector sharedDirector] convertToGL: location];
+        ccDrawCircle(location, 50, 0, 30, NO);
+        ccDrawLine(screenCenter, location);
+    }
+    
+    // Debug draw for launch.
+    if (nil != launchTouch) {
+        ccDrawColor4B(0, 0, 255, 200);
+        location = [launchTouch locationInView:[launchTouch view]];
+        location = [[CCDirector sharedDirector] convertToGL: location];
+        ccDrawCircle(location, 50, 0, 30, NO);
+        location.x = 0;
+        ccDrawLine(screenCenter, location);
+    }
+    
+#endif
 }
 
 #pragma mark -
@@ -464,6 +515,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
         self.scoredParticles = [NSMutableArray arrayWithCapacity:20];
         self.countedParticles = [NSMutableSet setWithCapacity:10];
         self.scoring = NO;
+        self.gameOver = NO;
 		
         // Start timer.
 		[self schedule: @selector(step:)];

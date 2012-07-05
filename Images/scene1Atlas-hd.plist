@@ -4,7 +4,7 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>Blue.png</key>
+            <key>Black.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{2,2},{64,64}}</string>
@@ -17,7 +17,7 @@
                 <key>sourceSize</key>
                 <string>{64,64}</string>
             </dict>
-            <key>Green.png</key>
+            <key>Blue.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{68,2},{64,64}}</string>
@@ -30,7 +30,7 @@
                 <key>sourceSize</key>
                 <string>{64,64}</string>
             </dict>
-            <key>Indigo.png</key>
+            <key>Green.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{134,2},{64,64}}</string>
@@ -43,7 +43,7 @@
                 <key>sourceSize</key>
                 <string>{64,64}</string>
             </dict>
-            <key>Orange.png</key>
+            <key>Indigo.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{2,68},{64,64}}</string>
@@ -56,7 +56,7 @@
                 <key>sourceSize</key>
                 <string>{64,64}</string>
             </dict>
-            <key>Red.png</key>
+            <key>Orange.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{68,68},{64,64}}</string>
@@ -69,7 +69,7 @@
                 <key>sourceSize</key>
                 <string>{64,64}</string>
             </dict>
-            <key>ResetButton.png</key>
+            <key>Red.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{134,68},{64,64}}</string>
@@ -82,7 +82,7 @@
                 <key>sourceSize</key>
                 <string>{64,64}</string>
             </dict>
-            <key>ResetButtonSelected.png</key>
+            <key>ResetButton.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{2,134},{64,64}}</string>
@@ -95,7 +95,7 @@
                 <key>sourceSize</key>
                 <string>{64,64}</string>
             </dict>
-            <key>Violet.png</key>
+            <key>ResetButtonSelected.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{68,134},{64,64}}</string>
@@ -108,10 +108,36 @@
                 <key>sourceSize</key>
                 <string>{64,64}</string>
             </dict>
-            <key>Yellow.png</key>
+            <key>Violet.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{134,134},{64,64}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{64,64}}</string>
+                <key>sourceSize</key>
+                <string>{64,64}</string>
+            </dict>
+            <key>White.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,200},{64,64}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{64,64}}</string>
+                <key>sourceSize</key>
+                <string>{64,64}</string>
+            </dict>
+            <key>Yellow.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{68,200},{64,64}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -129,9 +155,9 @@
             <key>realTextureFileName</key>
             <string>scene1Atlas-hd.png</string>
             <key>size</key>
-            <string>{256,256}</string>
+            <string>{256,512}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:f1d04cf2f203d80b0f2277e35eac510f$</string>
+            <string>$TexturePacker:SmartUpdate:50bcaaff2ef2be0ebe1f7ec90ada9728$</string>
             <key>textureFileName</key>
             <string>scene1Atlas-hd.png</string>
         </dict>

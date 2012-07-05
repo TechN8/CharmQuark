@@ -13,13 +13,15 @@
 #define kMinMatchAge            0.5
 
 typedef enum {
-    kParticleRed = 0,
+    kParticleWhite = 0,
+    kParticleRed,
     kParticleOrange,
     kParticleYellow,
     kParticleGreen,
     kParticleBlue,
     kParticleIndigo,
     kParticleViolet,
+    kParticleBlack,
 } ParticleColors;
 
 @interface Particle : CCSprite {
@@ -29,6 +31,7 @@ typedef enum {
     cpBody* body;
     NSMutableSet *matchingParticles;
     ccTime timeSinceLastCollision;
+    BOOL live;
 }
 
 @property (retain) CCMotionStreak *streak;
@@ -36,6 +39,7 @@ typedef enum {
 @property cpBody *body;
 @property (retain) NSMutableSet *matchingParticles;
 @property ccTime timeSinceLastCollision;
+@property BOOL live;
 
 + (id) particleWithColor:(ParticleColors)color;
 

@@ -16,9 +16,9 @@
    version="1.1"
    inkscape:version="0.48+devel r9906"
    enable-background="new"
-   inkscape:export-filename="/Users/nathan/Documents/XCode Projects/CharmQuark/Images/Particles/iPhone/Red.png"
-   inkscape:export-xdpi="90"
-   inkscape:export-ydpi="90"
+   inkscape:export-filename="/Users/nathan/Documents/XCode Projects/CharmQuark/Images/Particles/iPhone-hd/White.png"
+   inkscape:export-xdpi="180"
+   inkscape:export-ydpi="180"
    sodipodi:docname="ColoredParticles.svg">
   <defs
      id="defs3993">
@@ -30,7 +30,7 @@
          id="stop4515" />
       <stop
          id="stop4556"
-         offset="0.79166669"
+         offset="0.72916669"
          style="stop-color:#e6e6e6;stop-opacity:0.7079646;" />
       <stop
          style="stop-color:#cdcdcd;stop-opacity:0.50442475;"
@@ -64,17 +64,17 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="29.250535"
-     inkscape:cx="14.456735"
-     inkscape:cy="18.126491"
-     inkscape:current-layer="layer2"
+     inkscape:zoom="20.75"
+     inkscape:cx="16"
+     inkscape:cy="16"
+     inkscape:current-layer="layer10"
      showgrid="true"
      inkscape:grid-bbox="true"
      inkscape:document-units="px"
      inkscape:window-width="1382"
      inkscape:window-height="852"
-     inkscape:window-x="442"
-     inkscape:window-y="77"
+     inkscape:window-x="307"
+     inkscape:window-y="65"
      inkscape:window-maximized="0">
     <inkscape:grid
        type="xygrid"
@@ -94,13 +94,32 @@
   </metadata>
   <g
      inkscape:groupmode="layer"
+     id="layer10"
+     inkscape:label="Black"
+     sodipodi:insensitive="true"
+     style="display:none">
+    <path
+       d="M 31,16 A 15,15 0 1 1 1,16 15,15 0 1 1 31,16 z"
+       sodipodi:ry="15"
+       sodipodi:rx="15"
+       sodipodi:cy="16"
+       sodipodi:cx="16"
+       id="path9698"
+       style="fill:#000000;fill-opacity:0.8745098;stroke:none;display:inline"
+       sodipodi:type="arc">
+      <title
+         id="title9700">BaseGradient</title>
+    </path>
+  </g>
+  <g
+     inkscape:groupmode="layer"
      id="layer8"
      inkscape:label="Violet"
      style="display:none"
      sodipodi:insensitive="true">
     <path
        sodipodi:type="arc"
-       style="fill:#fe11ff;fill-opacity:0.8745098;stroke:none;display:inline"
+       style="fill:#fe39ff;fill-opacity:0.8745098;stroke:none;display:inline"
        id="path4587"
        sodipodi:cx="16"
        sodipodi:cy="16"
@@ -172,7 +191,8 @@
      inkscape:groupmode="layer"
      id="layer5"
      inkscape:label="Yellow"
-     style="display:none">
+     style="display:none"
+     sodipodi:insensitive="true">
     <path
        d="M 31,16 A 15,15 0 1 1 1,16 15,15 0 1 1 31,16 z"
        sodipodi:ry="15"
@@ -180,7 +200,7 @@
        sodipodi:cy="16"
        sodipodi:cx="16"
        id="path4565"
-       style="fill:#e6e723;fill-opacity:0.8745098;stroke:none;display:inline"
+       style="fill:#d6e200;fill-opacity:0.8745098;stroke:none;display:inline"
        sodipodi:type="arc">
       <title
          id="title4567">BaseGradient</title>
@@ -194,7 +214,7 @@
      sodipodi:insensitive="true">
     <path
        sodipodi:type="arc"
-       style="fill:#ff7811;fill-opacity:0.8745098;stroke:none;display:inline"
+       style="fill:#f57e00;fill-opacity:0.8745098;stroke:none;display:inline"
        id="path4558"
        sodipodi:cx="16"
        sodipodi:cy="16"
@@ -209,7 +229,8 @@
      inkscape:groupmode="layer"
      id="layer2"
      inkscape:label="Red"
-     style="display:inline">
+     style="display:none"
+     sodipodi:insensitive="true">
     <path
        d="M 31,16 A 15,15 0 1 1 1,16 15,15 0 1 1 31,16 z"
        sodipodi:ry="15"
@@ -217,15 +238,34 @@
        sodipodi:cy="16"
        sodipodi:cx="16"
        id="path4522"
-       style="fill:#f50000;fill-opacity:0.87450981;stroke:none;display:inline"
+       style="fill:#c60000;fill-opacity:0.8745098;stroke:none;display:inline"
        sodipodi:type="arc">
       <title
          id="title4524">BaseGradient</title>
     </path>
   </g>
   <g
+     inkscape:groupmode="layer"
+     id="layer9"
+     inkscape:label="White"
+     style="display:inline"
+     sodipodi:insensitive="true">
+    <path
+       sodipodi:type="arc"
+       style="fill:#c6c6c6;fill-opacity:0.8745098;stroke:none;display:inline"
+       id="path9691"
+       sodipodi:cx="16"
+       sodipodi:cy="16"
+       sodipodi:rx="15"
+       sodipodi:ry="15"
+       d="M 31,16 A 15,15 0 1 1 1,16 15,15 0 1 1 31,16 z">
+      <title
+         id="title9693">BaseGradient</title>
+    </path>
+  </g>
+  <g
      id="layer1"
-     inkscape:label="Higlight"
+     inkscape:label="Highlight"
      inkscape:groupmode="layer"
      style="display:inline;filter:url(#filter4548)"
      sodipodi:insensitive="true">

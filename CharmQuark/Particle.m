@@ -15,6 +15,7 @@
 @synthesize body;
 @synthesize matchingParticles;
 @synthesize timeSinceLastCollision;
+@synthesize live;
 
 - (void) linkMatchingParticle:(Particle*)particle {
     // Put particles in eachothers node arrays.
@@ -47,6 +48,9 @@
 - (id) initWithParticleColor:(ParticleColors)color 
 {
     switch (color) {
+        case kParticleWhite:
+            self = [super initWithSpriteFrameName:@"White.png"];
+            break;
         case kParticleRed:
             self = [super initWithSpriteFrameName:@"Red.png"];
             break;
@@ -68,6 +72,9 @@
         case kParticleViolet:
             self = [super initWithSpriteFrameName:@"Violet.png"];
             break;
+        case kParticleBlack:
+            self = [super initWithSpriteFrameName:@"Black.png"];
+            break;
         default:
             break;
     }
@@ -77,6 +84,7 @@
         self.matchingParticles = [NSMutableSet setWithCapacity:6];
         self.body = NULL;
         self.timeSinceLastCollision = 0;
+        self.live = NO;
         
         // Add motion streak.
         // CCMotionStreak can't be parented to batch node....  Sad.

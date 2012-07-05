@@ -27,30 +27,45 @@ Chain should be exist for N second before being scored.
 
 TODO
 ----
-. Adjust touch controls.
-    Launch only from left.
-    Increase level rotation rate.
-    
-. Automatic drop with timer.
+. Game End Condition
+    Distance limit. (Lose if resting particles are outside of sensors.)
+    Piece limit (more than X and you lose).
 
 . Game Start Condition
-    Start board with a set of random particles.
+    Start board with a better set of random particles.
+    Fix pop-in animation
 
-. Game End Condition
-    Piece limit (more than X and you lose).
-    Distance limit. (Lose if resting particles are outside of sensors.)
+. Automatic drop with timer?
+
+. Show next 2 pieces?
 
 . Finish Main menu with options and website links.
 
 . Replace reset button with pause menu.
 
+. Animations
+    Exploding particle.
+    Trail effect on dropped particle?
+    Score and multiplier animations.
+    Thumb guides.  (Do in draw override for GameplayLayer).
+        . Aiming recticle.
+        . Turn radius.
+
 . Artwork.
+    Prettier sprites.  
+        Ideas: 
+            . Vector-look with physics symbols.  Magnetic field lines on grid bacground.
+            . Astronomical bodies (stars, comets, planets).  Starfield background.
+            . Marbles.  Wooden bowl background.
+            . Other?
+
+. Special pieces.
+    Match anything?
+    High KE/mass particle. (Hard hit)
+    Exploding particle.  (Shuffle)
 
 . Sound effects.
-    What should this sound like?
-
-* Scoring
-    Fix scoring bugs: Doesn't always match largest set.
+    What should this sound like?  Depends on artwork.
 
 New Name?
 ---------
