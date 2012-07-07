@@ -15,27 +15,35 @@
 @synthesize body;
 @synthesize matchingParticles;
 @synthesize timeSinceLastCollision;
-@synthesize live;
 
-- (void) linkMatchingParticle:(Particle*)particle {
-    // Put particles in eachothers node arrays.
-    [matchingParticles addObject:particle];
-    [particle.matchingParticles addObject:self];
-    timeSinceLastCollision = 0;
+- (BOOL) isLive {
+    return touchingCount > 1;
 }
 
-- (void) separateMatchingParticle:(Particle*)particle {
-    [matchingParticles removeObject:particle];
-    [particle.matchingParticles removeObject:self];
-    timeSinceLastCollision = 0;
+- (void) touchParticle:(Particle*)particle {
+    touchingCount++;
+    
+    if (particleColor == particle.particleColor) {
+        // Put particles in eachothers node arrays.
+        [matchingParticles addObject:particle];
+    }
+}
+
+- (void) separateFromParticle:(Particle*)particle {
+    touchingCount--;
+
+    if (particleColor == particle.particleColor) {
+        [matchingParticles removeObject:particle];
+    }
 }
 
 - (void) addMatchingParticlesToSet:(NSMutableSet*)particleSet addTime:(ccTime)time {
-    timeSinceLastCollision = timeSinceLastCollision + time;
-    [particleSet addObject:self];
-    for (Particle *particle in matchingParticles) {
-        if (![particleSet containsObject:particle]) {
-            [particle addMatchingParticlesToSet:particleSet addTime:time];
+    if ([self isLive]) {
+        [particleSet addObject:self];
+        for (Particle *particle in matchingParticles) {
+            if (![particleSet containsObject:particle]) {
+                [particle addMatchingParticlesToSet:particleSet addTime:time];
+            }
         }
     }
 }
@@ -83,8 +91,7 @@
         self.streak = nil;
         self.matchingParticles = [NSMutableSet setWithCapacity:6];
         self.body = NULL;
-        self.timeSinceLastCollision = 0;
-        self.live = NO;
+        touchingCount = 0;
         
         // Add motion streak.
         // CCMotionStreak can't be parented to batch node....  Sad.

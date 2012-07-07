@@ -13,7 +13,7 @@
 #define kMinMatchSize           4
 #define kPointsPerMatch         100
 #define kRotationRate           1.0
-#define kFailRadius             110
+#define kFailRadius             110.0
 
 // Simulation Constants
 #define kSimulationRate         0.00833
@@ -51,7 +51,7 @@ enum {
     
     // Game State
     long score;
-    NSMutableSet *collidedParticles;
+    NSMutableSet *particles;
     NSMutableSet *countedParticles;
     NSMutableArray *scoredParticles;
     NSMutableSet *visitedParticles;
@@ -60,10 +60,10 @@ enum {
 }
 
 @property cpSpace *space;
-@property (retain) NSMutableSet *collidedParticles;
+@property (retain) NSMutableSet *particles;
 @property (retain) NSMutableSet *countedParticles;
-@property (retain) NSMutableArray *scoredParticles;
 @property (retain) NSMutableSet *visitedParticles;
+@property (retain) NSMutableArray *scoredParticles;
 @property long score;
 @property (retain) CCLabelAtlas *scoreLabel;
 @property BOOL scoring;

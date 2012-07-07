@@ -31,7 +31,7 @@ typedef enum {
     cpBody* body;
     NSMutableSet *matchingParticles;
     ccTime timeSinceLastCollision;
-    BOOL live;
+    NSInteger touchingCount;
 }
 
 @property (retain) CCMotionStreak *streak;
@@ -39,15 +39,17 @@ typedef enum {
 @property cpBody *body;
 @property (retain) NSMutableSet *matchingParticles;
 @property ccTime timeSinceLastCollision;
-@property BOOL live;
+
 
 + (id) particleWithColor:(ParticleColors)color;
 
 - (id) initWithParticleColor:(ParticleColors)color;
 
-- (void) linkMatchingParticle:(Particle*)particle;
+- (BOOL) isLive;
 
-- (void) separateMatchingParticle:(Particle*)particle;
+- (void) touchParticle:(Particle*)particle;
+
+- (void) separateFromParticle:(Particle*)particle;
 
 - (void) addMatchingParticlesToSet:(NSMutableSet*)set addTime:(ccTime)time;
 
