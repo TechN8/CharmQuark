@@ -55,7 +55,7 @@ enum {
     NSMutableSet *countedParticles;
     NSMutableArray *scoredParticles;
     NSMutableSet *visitedParticles;
-    NSMutableSet *inFlightParticles;
+    NSMutableArray *inFlightParticles;
     BOOL scoring;
     BOOL gameOver;
 }
@@ -65,6 +65,7 @@ enum {
 @property (retain) NSMutableSet *countedParticles;
 @property (retain) NSMutableSet *visitedParticles;
 @property (retain) NSMutableArray *scoredParticles;
+@property (retain) NSMutableArray *inFlightParticles;
 @property long score;
 @property (retain) CCLabelAtlas *scoreLabel;
 @property BOOL scoring;
