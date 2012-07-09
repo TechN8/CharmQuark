@@ -27,37 +27,45 @@ Chain should be exist for N second before being scored.
 
 TODO
 ----
-. Game End Condition
-    Distance limit. (Lose if resting particles are outside of sensors.)
-    Piece limit (more than X and you lose).
+. Automatic drop of extra random pieces.  No auto drop of user pieces.
+
+. Game over overlay.
+    Should have final score and buttons for restart, exit, tweet, FB.
 
 . Game Start Condition
     Start board with a better set of random particles.
-    Fix pop-in animation
-
-. Automatic drop with timer?
+    Fix pop-in animation.  Manually code initial particle positions.
 
 . Show next 2 pieces?
 
-. Finish Main menu with options and website links.
+. Main menu with options and website links.
+    . Play
+    . Options (Sound Volumes).
+    . Website link
+    . Social media links.
 
 . Replace reset button with pause menu.
+    . Resume
+    . Restart
+    . Exit
 
 . Animations
-    Exploding particle.
+    Exploding particle.  (Try to do a jet with particle effect.)
     Trail effect on dropped particle?
     Score and multiplier animations.
-    Thumb guides.  (Do in draw override for GameplayLayer).
+    Thumb guides.  (Do these with sprites).
         . Aiming recticle.
         . Turn radius.
 
 . Artwork.
-    Prettier sprites.  
+    . Prettier sprites.  
         Ideas: 
             . Vector-look with physics symbols.  Magnetic field lines on grid bacground.
             . Astronomical bodies (stars, comets, planets).  Starfield background.
             . Marbles.  Wooden bowl background.
             . Other?
+    . Background
+    . Font for score
 
 . Special pieces.
     Match anything?

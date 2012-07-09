@@ -200,6 +200,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     CCSpriteBatchNode *batch = (CCSpriteBatchNode*) [centerNode getChildByTag:kTagBatchNode];
     [batch addChild: particle];
 
+    // May want to add the below to the Particle class.
 	// Create physics body.
     cpBody *body = cpBodyNew(kParticleMass, cpMomentForCircle(1.0f, 0, 15.0f, CGPointZero));
     cpBodySetPos(body, position);
@@ -207,20 +208,21 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     cpBodySetVelLimit(body, kVelocityLimit);
     body->data = particle;
     particle.body = body;
+    cpSpaceAddBody(space, body);
 
     // Create physics shape.
-//    cpShape* sensor = cpCircleShapeNew(body, 15.0f, CGPointZero);
-//    cpShapeSetSensor(sensor, YES);
-//    cpShapeSetCollisionType(sensor, kParticleCollisionType); // Is this really the best way to do this?
-
     cpShape* shape = cpCircleShapeNew(body, 15.0f, CGPointZero);
-    cpShapeSetCollisionType(shape, kParticleCollisionType);
     cpShapeSetFriction(shape, kParticleFriction);
     cpShapeSetElasticity(shape, kParticleElasticity);
-
-    cpSpaceAddBody(space, body);
+    //cpShapeSetCollisionType(shape, kParticleCollisionType);
 	cpSpaceAddShape(space, shape);
-	//cpSpaceAddShape(space, sensor);
+
+    // Create sensor shape.
+    cpShape* sensor = cpCircleShapeNew(body, 17.0f, CGPointZero);
+    cpShapeSetSensor(sensor, YES);
+    cpShapeSetCollisionType(sensor, kParticleCollisionType); // Is this really the best way to do this?
+	cpSpaceAddShape(space, sensor);
+
 }
 
 -(void) scoreParticles:(ccTime)dt {
@@ -257,7 +259,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     score += matches * kPointsPerMatch * multiplier;
     [scoreLabel setString:[[[NSString alloc] initWithFormat:@"%d", score] autorelease]];
     
-    // Delete scored particles.  Have to do this here to not break mutablesets and such.
+    // Delete scored particles.  If this is done in the iterator, will throw exceptions.
     while (scoredParticles.count > 0) {
         Particle *particle = [scoredParticles objectAtIndex:0];
         [scoredParticles removeObject:particle];
