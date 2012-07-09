@@ -15,6 +15,7 @@
 static CGPoint screenCenter;
 static CGPoint nextParticlePos;
 static CGPoint scorePosition;
+static CGPoint launchPoint;
 static ccTime deltaTime;
 
 @interface GameplayLayer()
@@ -45,9 +46,6 @@ static void postStepRemoveParticle(cpSpace *space, cpBody *body, GameplayLayer *
     cpBodyFree(body);
     
     if (particle) {
-        // Free particle last or you will get EXECBADACCESS!
-        //[sprite.streak reset];
-        //[self.particleSets removeObject:particle.matchingParticles];  // HACK!
         [particle removeFromParentAndCleanup:YES];
     }
 }
@@ -61,10 +59,6 @@ static void syncSpriteToBody(cpBody *body, GameplayLayer* self) {
 	Particle *sprite = body->data;
 	if( sprite ) {
 		[sprite setPosition: body->p];
-        //[sprite setRotation: (float) CC_RADIANS_TO_DEGREES( -body->a )];
-        //[sprite.streak setPosition:body->p];
-		
-        
         
         if ([sprite isLive] && (cpvlength(cpBodyGetPos(body)) >= kFailRadius)) {
             // Game over.
@@ -78,8 +72,11 @@ static void gameVelocityFunc(cpBody *body, cpVect gravity, cpFloat damping, cpFl
 {
 	cpVect p = cpBodyGetPos(body);
     //cpVect g = cpvmult(p, -200 * cpvlength(p) / (1.5f * screenCenter.y));
-    // TODO This can crash of the body is at (0,0)?
-    cpVect g = cpvmult(cpvnormalize(p), -1500);
+    cpVect g = cpv(0.0, 0.0);
+    if (0.0f != cpvdist(g, p)) {
+        // This can crash of the body is at (0,0).
+        g = cpvmult(cpvnormalize(p), -1500);
+    }
 	cpBodyUpdateVelocity(body, g, damping, dt);
 }
 
@@ -97,13 +94,6 @@ static int collisionBegin(cpArbiter *arb, struct cpSpace *space, GameplayLayer *
     [p1 touchParticle:p2];
     [p2 touchParticle:p1];
     
-//    // Check for and link matching particles.
-//    if (p1.particleColor == p2.particleColor) {
-//        [p1 touchParticle:p2];
-//        
-//        [self.collidedParticles addObject:p1];
-//        [self.collidedParticles addObject:p2];
-//    }
     return true;
 }
 
@@ -128,21 +118,6 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     
     [p1 separateFromParticle:p2];
     [p2 separateFromParticle:p1];
-    
-//    if (p1.particleColor == p2.particleColor) {
-//        // Unlink particle objects.
-//        [p1 separateFromParticle:p2];
-//
-//        if (p1.matchingParticles.count == 0) {
-//            [self.collidedParticles removeObject:p1];
-//        }
-//        
-//        if (p2.matchingParticles.count == 0) {
-//            [self.collidedParticles removeObject:p2];
-//        }
-//
-//        // We're done.
-//    }
 }
 
 #pragma mark -
@@ -184,7 +159,48 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     ParticleColors color = rand() % 9;
     particle = [Particle particleWithColor:color]; 
     //particle = [Particle particleWithColor:kParticleGreen]; 
+    
+    // May want to add the below to the Particle class.
+	// Create physics body.
+    cpBody *body = cpBodyNew(kParticleMass, cpMomentForCircle(1.0f, 0, 15.0f, CGPointZero));
+
+    body->data = particle;
+    particle.body = body;
+
+    // Create physics shape.
+    cpShape* shape = cpCircleShapeNew(body, 15.0f, CGPointZero);
+    cpShapeSetFriction(shape, kParticleFriction);
+    cpShapeSetElasticity(shape, kParticleElasticity);
+    //cpShapeSetCollisionType(shape, kParticleCollisionType);
+	cpSpaceAddShape(space, shape);
+    
+    // Create sensor shape.
+    cpShape* sensor = cpCircleShapeNew(body, 15.0f, CGPointZero);
+    cpShapeSetSensor(sensor, YES);
+    cpShapeSetCollisionType(sensor, kParticleCollisionType); // Is this really the best way to do this?
+	cpSpaceAddShape(space, sensor);
+    
     return particle;
+}
+
+-(void) launchParticle:(Particle*)particle {
+    cpVect targetPoint;
+    if (nil == launchTouch) {
+        targetPoint = screenCenter;
+    } else {
+        targetPoint = [launchTouch locationInView:[launchTouch view]];
+        targetPoint = [[CCDirector sharedDirector] convertToGL: targetPoint];
+        targetPoint.x = screenCenter.x;
+    }
+
+    cpVect launchVect = cpvmult(cpvnormalize(cpvsub(targetPoint, launchPoint)), 200);
+    
+    cpBody *body = particle.body;
+    cpBodySetPos(body, launchPoint);
+    cpBodySetVel(body, launchVect);
+    
+    // Now what?
+    [inFlightParticles addObject:particle];
 }
 
 -(void) addParticle:(Particle*)particle atPosition:(CGPoint)position
@@ -194,35 +210,24 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     
     // Convert position from world to viewLayer coordinates.
     position = [centerNode convertToNodeSpace:position];
-
-    // Set position and add to batch node.
 	particle.position = position;
+    
+    // Remove from layer and add to batch node.
+    [particle retain];
+    [particle removeFromParentAndCleanup:NO];
     CCSpriteBatchNode *batch = (CCSpriteBatchNode*) [centerNode getChildByTag:kTagBatchNode];
     [batch addChild: particle];
-
-    // May want to add the below to the Particle class.
-	// Create physics body.
-    cpBody *body = cpBodyNew(kParticleMass, cpMomentForCircle(1.0f, 0, 15.0f, CGPointZero));
-    cpBodySetPos(body, position);
+    [particle release];
+    
+    // Add body to space.
+    cpBody *body = particle.body;
     body->velocity_func = gameVelocityFunc;
     cpBodySetVelLimit(body, kVelocityLimit);
-    body->data = particle;
-    particle.body = body;
+    cpBodySetPos(body, position);
     cpSpaceAddBody(space, body);
-
-    // Create physics shape.
-    cpShape* shape = cpCircleShapeNew(body, 15.0f, CGPointZero);
-    cpShapeSetFriction(shape, kParticleFriction);
-    cpShapeSetElasticity(shape, kParticleElasticity);
-    //cpShapeSetCollisionType(shape, kParticleCollisionType);
-	cpSpaceAddShape(space, shape);
-
-    // Create sensor shape.
-    cpShape* sensor = cpCircleShapeNew(body, 17.0f, CGPointZero);
-    cpShapeSetSensor(sensor, YES);
-    cpShapeSetCollisionType(sensor, kParticleCollisionType); // Is this really the best way to do this?
-	cpSpaceAddShape(space, sensor);
-
+    
+    // Remove from in-flight list.
+    [inFlightParticles removeObject:particle];
 }
 
 -(void) scoreParticles:(ccTime)dt {
@@ -310,13 +315,16 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     }
     
     // Debug draw for launch.
-    if (nil != launchTouch) {
-        ccDrawColor4B(0, 0, 255, 200);
+    ccDrawColor4B(0, 0, 255, 200);
+    CGPoint start = {0, screenCenter.y};
+    if (nil == launchTouch) {
+        ccDrawLine(start, screenCenter);
+    } else {
         location = [launchTouch locationInView:[launchTouch view]];
         location = [[CCDirector sharedDirector] convertToGL: location];
         ccDrawCircle(location, 50, 0, 30, NO);
-        location.x = 0;
-        ccDrawLine(screenCenter, location);
+        location.x = screenCenter.x;
+        ccDrawLine(start, location);
     }
     
 //#endif
@@ -379,13 +387,11 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
             location = [[CCDirector sharedDirector] convertToGL: location];
             location.x = 0;
             
-            Particle *particle = [Particle particleWithColor:nextParticle.particleColor];
-            [self removeChild:nextParticle cleanup:NO];
+            // TODO Actually launch here.
+            [self addParticle:nextParticle atPosition:location];
             nextParticle = [self randomParticle];
             nextParticle.position = nextParticlePos;
             [self addChild:nextParticle];
-            
-            [self addParticle:particle atPosition:location];
             
             // Forget this touch.
             launchTouch = nil;
@@ -427,6 +433,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
         screenCenter = ccp(winSize.width - winSize.height * 0.5, winSize.height * 0.5f);
         nextParticlePos = ccp(winSize.width * 0.6f, winSize.height * 0.95f);
         scorePosition = ccp(winSize.width * 0.8f, winSize.height * 0.95f);
+        launchPoint = ccp(0, winSize.height * 0.5f);
 
         // Set up simulation.
         // Uncomment this when you need something to attach the sensor shapes to.

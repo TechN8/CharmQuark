@@ -27,6 +27,13 @@ Chain should be exist for N second before being scored.
 
 TODO
 ----
+. Adjust aiming interface.  Piece launches from center, can be aimed up or down.
+
+. Add drop timer.  Will launch straight or in direction of aim.
+
+. Allow board to be rotated until new piece radius reaches some minimum.
+    Can do this by running new piece as rogue body until it is attached to the space when it reaches the appropriate distance. 
+
 . Automatic drop of extra random pieces.  No auto drop of user pieces.
 
 . Game over overlay.

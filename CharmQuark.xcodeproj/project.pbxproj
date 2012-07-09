@@ -7,10 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D8223ADA15A62D5C00CAB34A /* Black.png in Resources */ = {isa = PBXBuildFile; fileRef = D8223AD815A62D5C00CAB34A /* Black.png */; };
-		D8223ADB15A62D5C00CAB34A /* White.png in Resources */ = {isa = PBXBuildFile; fileRef = D8223AD915A62D5C00CAB34A /* White.png */; };
-		D8223ADF15A62D6600CAB34A /* Black.png in Resources */ = {isa = PBXBuildFile; fileRef = D8223ADD15A62D6600CAB34A /* Black.png */; };
-		D8223AE015A62D6600CAB34A /* White.png in Resources */ = {isa = PBXBuildFile; fileRef = D8223ADE15A62D6600CAB34A /* White.png */; };
 		D8C3DE57159C9E63000A5F3B /* scene1Atlas-hd.plist in Resources */ = {isa = PBXBuildFile; fileRef = D8C3DE53159C9E63000A5F3B /* scene1Atlas-hd.plist */; };
 		D8C3DE58159C9E63000A5F3B /* scene1Atlas-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = D8C3DE54159C9E63000A5F3B /* scene1Atlas-hd.png */; };
 		D8C3DE59159C9E63000A5F3B /* scene1Atlas.plist in Resources */ = {isa = PBXBuildFile; fileRef = D8C3DE55159C9E63000A5F3B /* scene1Atlas.plist */; };
@@ -1429,10 +1425,6 @@
 				D8C3DE58159C9E63000A5F3B /* scene1Atlas-hd.png in Resources */,
 				D8C3DE59159C9E63000A5F3B /* scene1Atlas.plist in Resources */,
 				D8C3DE5A159C9E63000A5F3B /* scene1Atlas.png in Resources */,
-				D8223ADA15A62D5C00CAB34A /* Black.png in Resources */,
-				D8223ADB15A62D5C00CAB34A /* White.png in Resources */,
-				D8223ADF15A62D6600CAB34A /* Black.png in Resources */,
-				D8223AE015A62D6600CAB34A /* White.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

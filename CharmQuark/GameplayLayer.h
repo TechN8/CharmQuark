@@ -55,6 +55,7 @@ enum {
     NSMutableSet *countedParticles;
     NSMutableArray *scoredParticles;
     NSMutableSet *visitedParticles;
+    NSMutableSet *inFlightParticles;
     BOOL scoring;
     BOOL gameOver;
 }
