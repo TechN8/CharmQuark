@@ -1,4 +1,5 @@
-/*
+ CocosDenshion Sound Engine
+
  Copyright (c) 2010 Steve Oldmeadow
 
  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -18,28 +19,3 @@
  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
-
- $Id$
- */
-
-#import "cocos2d.h"
-#import "SimpleAudioEngine.h"
-
-/** Base class for actions that modify audio properties
- @since v 1.0
- */
-@interface CDXPropertyModifierAction : CCActionInterval {
-	CDPropertyModifier *modifier;
-	float lastSetValue;
-}
-/** creates the action */
-+(id) actionWithDuration:(ccTime)t modifier:(CDPropertyModifier*) aModifier;
-
-/** initializes the action */
--(id) initWithDuration:(ccTime)t modifier:(CDPropertyModifier*) aModifier;
-
-+(void) fadeSoundEffects:(ccTime)t finalVolume:(float)endVol curveType:(tCDInterpolationType)curve shouldStop:(BOOL) stop;
-+(void) fadeSoundEffect:(ccTime)t finalVolume:(float)endVol curveType:(tCDInterpolationType)curve shouldStop:(BOOL) stop effect:(CDSoundSource*) effect;
-+(void) fadeBackgroundMusic:(ccTime)t finalVolume:(float)endVol curveType:(tCDInterpolationType) curve shouldStop:(BOOL) stop;
-
-@end

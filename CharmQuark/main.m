@@ -2,7 +2,7 @@
 //  main.m
 //  CharmQuark
 //
-//  Created by Nathan Babb on 6/18/12.
+//  Created by Nathan Babb on 7/10/12.
 //  Copyright Aether Theory, LLC 2012. All rights reserved.
 //
 
@@ -11,7 +11,7 @@
 int main(int argc, char *argv[]) {
     
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-    int retVal = UIApplicationMain(argc, argv, nil, @"AppDelegate");
+    int retVal = UIApplicationMain(argc, argv, nil, @"AppController");
     [pool release];
     return retVal;
 }

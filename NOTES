@@ -27,23 +27,11 @@ Chain should be exist for N second before being scored.
 
 TODO
 ----
-. Adjust aiming interface.  Piece launches from center, can be aimed up or down.
 
-. Add drop timer.  Will launch straight or in direction of aim.
+. Pause function which suspends all scheduled timers.
 
-. Allow board to be rotated until new piece radius reaches some minimum.
-    Can do this by running new piece as rogue body until it is attached to the space when it reaches the appropriate distance. 
-
-. Automatic drop of extra random pieces.  No auto drop of user pieces.
-
-. Game over overlay.
+. Game over overlay.  Scenes->GameScene->GameOverLayer
     Should have final score and buttons for restart, exit, tweet, FB.
-
-. Game Start Condition
-    Start board with a better set of random particles.
-    Fix pop-in animation.  Manually code initial particle positions.
-
-. Show next 2 pieces?
 
 . Main menu with options and website links.
     . Play
@@ -51,10 +39,15 @@ TODO
     . Website link
     . Social media links.
 
-. Replace reset button with pause menu.
+. Replace reset button with pause menu. Scenes->GameScene->PauseLayer.
     . Resume
     . Restart
     . Exit
+
+. Blur background on overlay layers.
+    UIImage *tempImage =[GameScene takeAsUIImage];
+    CCTexture2DMutable *mutableTexture = [[[CCTexture2DMutable alloc] tempImage autorelease];
+    [AWTextureFilter blur:mutableTexture radius:6];
 
 . Animations
     Exploding particle.  (Try to do a jet with particle effect.)
@@ -81,6 +74,13 @@ TODO
 
 . Sound effects.
     What should this sound like?  Depends on artwork.
+    
+Questionable Enhancements
+-------------------------
+    
+. Automatic drop of extra random pieces?  No auto drop of user pieces?
+
+. Show next 2 pieces?
 
 New Name?
 ---------
