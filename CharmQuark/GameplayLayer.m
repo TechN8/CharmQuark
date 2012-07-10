@@ -15,13 +15,13 @@
 static CGPoint puzzleCenter;
 static CGPoint nextParticlePos;
 static CGPoint scorePosition;
+static CGPoint levelPosition;
 static CGPoint launchPoint;
-static ccTime deltaTime;
 static cpFloat launchV;
 
 @interface GameplayLayer()
 
--(void)resetViewportAndParticles;
+-(void)resetGame;
 -(Particle*)randomParticle;
 -(void) step: (ccTime) dt;
 -(void) addParticle:(Particle*)particle atPosition:(CGPoint)position;
@@ -144,17 +144,25 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 //@synthesize inFlightParticles;
 @synthesize gameOver;
 
--(void)resetViewportAndParticles {
+-(void)resetGame {
     // Each level should be the same?
-    //srand(94876);
+    srand(94876);
     
     // Reset angle
     centerNode.rotation = 0;
     
-    // Clear the scoreboard
     score = 0;
-    [scoreLabel setString:@"0"];
     gameOver = NO;
+    dropTime = kDropTimeInit;
+    launchV = kLaunchVInit;
+    colors = kColorsInit;
+    level = 1;
+    matchesToNextLevel = kMatchesPerLevel;
+    timeScale = kTimeScaleInit;
+    
+    // Clear the scoreboard
+    [levelLabel setString:@"1"];
+    [scoreLabel setString:@"0"];
     
     // Reset aim.
     targetPoint = puzzleCenter;
@@ -276,6 +284,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
                 for (Particle *p in countedParticles) {
                     [scoredParticles addObject:p];
                 }
+                matchesToNextLevel--;
             }
         }
     }
@@ -287,6 +296,17 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     // TODO: Run some kind of animation here.
     score += matches * kPointsPerMatch * multiplier;
     [scoreLabel setString:[[[NSString alloc] initWithFormat:@"%d", score] autorelease]];
+    
+    // Update level
+    if (matchesToNextLevel <= 0) {
+        matchesToNextLevel = kMatchesPerLevel;
+        level++;
+        timeScale += kTimeScaleStep;
+        if (timeScale >= kTimeScaleMax) {
+            timeScale = kTimeScaleMax;
+        }
+        [levelLabel setString:[[[NSString alloc] initWithFormat:@"%d", level] autorelease]];
+    }
     
     // Delete scored particles.  If this is done in the iterator, will throw exceptions.
     while (scoredParticles.count > 0) {
@@ -311,8 +331,10 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 }
 
 -(void) step: (ccTime)dt {
-    deltaTime = dt;
     static ccTime remainder = 0;
+    
+    dt *= timeScale;
+    
     dt += remainder;
     int steps = dt / kSimulationRate;
     remainder = fmodf(dt, kSimulationRate);
@@ -478,6 +500,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
         puzzleCenter = ccp(winSize.width - winSize.height * 0.5, winSize.height * 0.5f);
         //nextParticlePos = ccp(winSize.width * 0.6f, winSize.height * 0.95f);
         scorePosition = ccp(winSize.width * 0.8f, winSize.height * 0.95f);
+        levelPosition = ccp(winSize.width * 0.8f, winSize.height * 0.90f);
         launchPoint = ccp(0, winSize.height * 0.5f);
         nextParticlePos = launchPoint;
         
@@ -492,10 +515,6 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
         scoredParticles = [[[NSMutableArray alloc] initWithCapacity:20] retain];
         countedParticles = [[[NSMutableSet alloc] initWithCapacity:10] retain];
         inFlightParticles = [[[NSMutableArray alloc] initWithCapacity:5] retain];
-        gameOver = NO;
-        dropTime = kDropTimeInit;
-        launchV = kLaunchVInit;
-        colors = kColorsInit;
 
         // Set up simulation.
         // Uncomment this when you need something to attach the sensor shapes to.
@@ -531,9 +550,16 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
         [CCTexture2D setDefaultAlphaPixelFormat:kCCTexture2DPixelFormat_RGBA4444];
         scoreLabel = [[CCLabelAtlas alloc]  initWithString:@"0" charMapFile:@"fps_images.png" itemWidth:12 itemHeight:32 startCharMap:'.'];
         [CCTexture2D setDefaultAlphaPixelFormat:currentFormat];
-
         [scoreLabel setPosition:scorePosition];
         [self addChild:scoreLabel z:100];
+
+        // Add level label.  Replace this later with your own image file.
+        currentFormat = [CCTexture2D defaultAlphaPixelFormat];
+        [CCTexture2D setDefaultAlphaPixelFormat:kCCTexture2DPixelFormat_RGBA4444];
+        levelLabel = [[CCLabelAtlas alloc]  initWithString:@"0" charMapFile:@"fps_images.png" itemWidth:12 itemHeight:32 startCharMap:'.'];
+        [CCTexture2D setDefaultAlphaPixelFormat:currentFormat];
+        [levelLabel setPosition:levelPosition];
+        [self addChild:levelLabel z:100];
         
         // Configure the node which controls rotation.
         centerNode = [CCNode node];
@@ -543,7 +569,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
         [self addChild:centerNode];
         
         // This will set up the initial particle system.
-        [self resetViewportAndParticles];
+        [self resetGame];
         
         // Set up the next particle.
         nextParticle = [self randomParticle];

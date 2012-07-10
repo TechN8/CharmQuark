@@ -12,16 +12,22 @@
 // Gameplay Constants
 #define kMinMatchSize           4
 #define kPointsPerMatch         100
+#define kMatchesPerLevel        1
 #define kRotationRate           1.0
 #define kFailRadius             110.0
 #define kColorsInit             6
 #define kColorsMax              6 //9
-#define kLaunchVInit            500.0f
+
+#define kLaunchVInit            300.0f
 #define kLaunchVMax             1800.0f
 #define kLaunchVStep            100.0f
-#define kDropTimeInit           2.0f
+#define kDropTimeInit           5.0f
 #define kDropTimeMin            2.0f
 #define kDropTimeStep           0.5f
+
+#define kTimeScaleInit          1.0f
+#define kTimeScaleStep          0.5f
+#define kTimeScaleMax           10.0f
 
 // Simulation Constants
 #define kSimulationRate         0.00833
@@ -47,6 +53,7 @@ enum {
     cpSpace *space;
     Particle *nextParticle;
     CCLabelAtlas *scoreLabel;
+    CCLabelAtlas *levelLabel;
     
     // Cocos2D View Objects
     CCNode *centerNode;
@@ -72,6 +79,10 @@ enum {
     BOOL gameOver;
     cpFloat dropTime;
     NSInteger colors;
+    long level;
+    NSInteger matchesToNextLevel;
+    //ccTime timeToNextDrop;
+    ccTime timeScale;
 }
 
 @property cpSpace *space;
