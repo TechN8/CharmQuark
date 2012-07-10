@@ -12,11 +12,12 @@
 
 //static CGFloat kSimulationRate = 1 / 60.0;
 
-static CGPoint screenCenter;
+static CGPoint puzzleCenter;
 static CGPoint nextParticlePos;
 static CGPoint scorePosition;
 static CGPoint launchPoint;
 static ccTime deltaTime;
+static cpFloat launchV;
 
 @interface GameplayLayer()
 
@@ -75,7 +76,7 @@ static void gameVelocityFunc(cpBody *body, cpVect gravity, cpFloat damping, cpFl
     cpVect g = cpv(0.0, 0.0);
     if (0.0f != cpvdist(g, p)) {
         // This can crash of the body is at (0,0).
-        g = cpvmult(cpvnormalize(p), -1500);
+        g = cpvmult(cpvnormalize(p), -1 * launchV);
     }
 	cpBodyUpdateVelocity(body, g, damping, dt);
 }
@@ -100,6 +101,15 @@ static int collisionBegin(cpArbiter *arb, struct cpSpace *space, GameplayLayer *
 static int collisionPreSolve(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 {
     // Do nothing here.
+    CP_ARBITER_GET_BODIES(arb, a, b);
+    Particle *p1 = a->data;
+    Particle *p2 = b->data;
+    
+    if (p1.particleColor == p2.particleColor) {
+        cpArbiterSetElasticity(arb, kParticleElasticityB);
+        cpArbiterSetFriction(arb, kParticleFrictionB);
+    }
+    
     return true;
 }
 
@@ -125,14 +135,13 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 @implementation GameplayLayer
 
 @synthesize space;
-@synthesize particles;
 @synthesize score;
-@synthesize scoreLabel;
-@synthesize scoring;
-@synthesize visitedParticles;
-@synthesize scoredParticles;
-@synthesize countedParticles;
-@synthesize inFlightParticles;
+//@synthesize scoreLabel;
+//@synthesize particles;
+//@synthesize visitedParticles;
+//@synthesize scoredParticles;
+//@synthesize countedParticles;
+//@synthesize inFlightParticles;
 @synthesize gameOver;
 
 -(void)resetViewportAndParticles {
@@ -147,6 +156,9 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     [scoreLabel setString:@"0"];
     gameOver = NO;
     
+    // Reset aim.
+    targetPoint = puzzleCenter;
+    
     // Remove all objects from the space.
     cpSpaceEachBody(space, (cpSpaceBodyIteratorFunc)scheduleForRemoval, self);
     [particles removeAllObjects];
@@ -154,7 +166,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     // Add the initial set of particles.
     for (NSInteger i = 0; i < 7; i++) {
         Particle *particle = [self randomParticle];
-        [self addParticle:particle atPosition:ccp(screenCenter.x+(rand()%32), screenCenter.y+(rand()%32))];
+        [self addParticle:particle atPosition:ccp(puzzleCenter.x+(rand()%32), puzzleCenter.y+(rand()%32))];
     }
     
     // Fast forward the space
@@ -167,7 +179,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 
 -(Particle*)randomParticle {
     Particle *particle = nil;
-    ParticleColors color = rand() % 3; //9;
+    ParticleColors color = rand() % colors; //9;
     particle = [Particle particleWithColor:color]; 
     //particle = [Particle particleWithColor:kParticleGreen]; 
     
@@ -182,7 +194,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 }
 
 -(void) launchParticle:(Particle*)particle atTarget:(CGPoint)target {
-    cpVect launchVect = cpvmult(cpvnormalize(cpvsub(target, launchPoint)), 500);
+    cpVect launchVect = cpvmult(cpvnormalize(cpvsub(target, launchPoint)), launchV);
     
     cpBody *body = particle.body;
     cpBodySetPos(body, launchPoint);
@@ -227,10 +239,10 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     //cpShapeSetCollisionType(shape, kParticleCollisionType);
 	cpSpaceAddShape(space, shape);
     
-    // Create sensor shape.
-    cpShape* sensor = cpCircleShapeNew(body, 18.0f, CGPointZero);
+    // Create sensor shape to handle slow collisions.
+    cpShape* sensor = cpCircleShapeNew(body, 15.5f, CGPointZero);
     cpShapeSetSensor(sensor, YES);
-    cpShapeSetCollisionType(sensor, kParticleCollisionType); // Is this really the best way to do this?
+    cpShapeSetCollisionType(sensor, kParticleCollisionType);
 	cpSpaceAddShape(space, sensor);
     
     // Add body to space.
@@ -244,7 +256,6 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 }
 
 -(void) scoreParticles:(ccTime)dt {
-    scoring = YES;
     NSInteger matches = 0;
     
     // Reset
@@ -283,8 +294,6 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
         [scoredParticles removeObject:particle];
         postStepRemoveParticle(space, particle.body, self);  // Don't need to schedule, called from update.
     }
-
-    scoring = NO;
  }
 
 -(void) moveInFlightBodies {
@@ -293,8 +302,8 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
         cpBody * body = particle.body;
         cpBodyUpdatePosition(body, kSimulationRate);
         [particle setPosition: body->p];
-        cpFloat d = cpvlength(cpvsub(screenCenter, body->p));
-        if (d < kFailRadius || body->p.x > screenCenter.x) {
+        cpFloat d = cpvlength(cpvsub(puzzleCenter, body->p));
+        if (d < kFailRadius || body->p.x > puzzleCenter.x) {
             [self addParticle:particle atPosition:body->p];
             i--;
         }
@@ -317,6 +326,14 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     }
 }
 
+-(void) drop {
+    [self launchParticle:nextParticle atTarget:targetPoint];
+    // Refactor these three lines
+    nextParticle = [self randomParticle];
+    nextParticle.position = nextParticlePos;
+    [self addChild:nextParticle];
+}
+
 #pragma mark -
 #pragma mark CCNode
 
@@ -330,7 +347,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     } else {
         ccDrawColor4B(0, 255, 0, 128);
     }
-    ccDrawCircle(screenCenter, kFailRadius, 0, 30, NO);
+    ccDrawCircle(puzzleCenter, kFailRadius, 0, 30, NO);
     
     // Debug draw for rotation touch.
     CGPoint location;
@@ -339,21 +356,13 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
         location = [rotationTouch locationInView:[rotationTouch view]];
         location = [[CCDirector sharedDirector] convertToGL: location];
         ccDrawCircle(location, 50, 0, 30, NO);
-        ccDrawLine(screenCenter, location);
+        ccDrawLine(puzzleCenter, location);
     }
     
     // Debug draw for launch.
     ccDrawColor4B(0, 0, 255, 200);
-    CGPoint start = {0, screenCenter.y};
-    if (nil == launchTouch) {
-        ccDrawLine(start, screenCenter);
-    } else {
-        location = [launchTouch locationInView:[launchTouch view]];
-        location = [[CCDirector sharedDirector] convertToGL: location];
-        ccDrawCircle(location, 50, 0, 30, NO);
-        location.x = screenCenter.x;
-        ccDrawLine(start, location);
-    }
+    CGPoint start = {0, puzzleCenter.y};
+    ccDrawLine(start, targetPoint);
     
 //#endif
 }
@@ -380,7 +389,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
             // Save game angle from start of touches
             initialRotation = centerNode.rotation;
             
-            CGPoint ray = ccpSub(location, screenCenter);
+            CGPoint ray = ccpSub(location, puzzleCenter);
             initialTouchAngle = CC_RADIANS_TO_DEGREES(ccpAngleSigned(kUnitVectorUp, ray));
         }        
     }
@@ -390,15 +399,19 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 - (void)ccTouchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
     for (UITouch *touch in touches) {
+        CGPoint location = [touch locationInView: [touch view]];
         if (touch == launchTouch) {
-            // Do nothing, animate crosshair later.
+            // This is now an aim.
+            aimTouch = launchTouch;
+            launchTouch = nil;
+        }
+        if (touch == aimTouch) {
+            location = [[CCDirector sharedDirector] convertToGL: location];
+            targetPoint.y = location.y;
         }
         if (touch == rotationTouch) {
-            CGPoint location = [touch locationInView: [touch view]];
-            //location = [[CCDirector sharedDirector] convertToGL: location];
-            CGPoint ray = ccpSub(location, screenCenter);
+            CGPoint ray = ccpSub(location, puzzleCenter);
             currentTouchAngle = CC_RADIANS_TO_DEGREES(ccpAngleSigned(kUnitVectorUp, ray));
-            
             GLfloat newRotation = fmodf(initialRotation + (currentTouchAngle - initialTouchAngle) * kRotationRate, 360.0);
             
             centerNode.rotation = newRotation;
@@ -409,21 +422,17 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 - (void)ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
     for (UITouch *touch in touches) {
+        if (touch == aimTouch) {
+            aimTouch = nil;
+        }
         if (touch == launchTouch) {
-            // Drop a new piece.
-            CGPoint location = [touch locationInView: [touch view]];
-            location = [[CCDirector sharedDirector] convertToGL: location];
-            
-//            // This is the old launch
-//            location.x = 0;
-//            [self addParticle:nextParticle atPosition:location];
-            
             // Launch!
-            location.x = screenCenter.x;
-            [self launchParticle:nextParticle atTarget:location];
+            [self unschedule:@selector(drop)];
+            [self launchParticle:nextParticle atTarget:targetPoint];
             nextParticle = [self randomParticle];
             nextParticle.position = nextParticlePos;
             [self addChild:nextParticle];
+            [self schedule:@selector(drop) interval:dropTime];
             
             // Forget this touch.
             launchTouch = nil;
@@ -438,6 +447,9 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 - (void)ccTouchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
 {
     for (UITouch *touch in touches) {
+        if (touch == aimTouch) {
+            aimTouch = nil;
+        }
         if (touch == launchTouch) {
             // Forget this touch.
             launchTouch = nil;
@@ -462,10 +474,28 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
         
         CGSize winSize = [[CCDirector sharedDirector] winSize];
         
-        screenCenter = ccp(winSize.width - winSize.height * 0.5, winSize.height * 0.5f);
-        nextParticlePos = ccp(winSize.width * 0.6f, winSize.height * 0.95f);
+        // Static variables.
+        puzzleCenter = ccp(winSize.width - winSize.height * 0.5, winSize.height * 0.5f);
+        //nextParticlePos = ccp(winSize.width * 0.6f, winSize.height * 0.95f);
         scorePosition = ccp(winSize.width * 0.8f, winSize.height * 0.95f);
         launchPoint = ccp(0, winSize.height * 0.5f);
+        nextParticlePos = launchPoint;
+        
+        // Field initializations
+        rotationTouch = nil;
+        launchTouch = nil;
+        initialTouchAngle = 0;
+        currentTouchAngle = 0;
+        initialRotation = 0;
+        particles = [[[NSMutableSet alloc] initWithCapacity:100] retain];
+        visitedParticles = [[[NSMutableSet alloc] initWithCapacity:100] retain];
+        scoredParticles = [[[NSMutableArray alloc] initWithCapacity:20] retain];
+        countedParticles = [[[NSMutableSet alloc] initWithCapacity:10] retain];
+        inFlightParticles = [[[NSMutableArray alloc] initWithCapacity:5] retain];
+        gameOver = NO;
+        dropTime = kDropTimeInit;
+        launchV = kLaunchVInit;
+        colors = kColorsInit;
 
         // Set up simulation.
         // Uncomment this when you need something to attach the sensor shapes to.
@@ -507,7 +537,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
         
         // Configure the node which controls rotation.
         centerNode = [CCNode node];
-        centerNode.position = screenCenter;
+        centerNode.position = puzzleCenter;
         centerNode.rotation = 0;
         [centerNode addChild:sceneSpriteBatchNode z:0 tag:kTagBatchNode];
         [self addChild:centerNode];
@@ -519,27 +549,12 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
         nextParticle = [self randomParticle];
         nextParticle.position = nextParticlePos;
         [self addChild:nextParticle];
-        
-        // Zero out touch handling.
-        rotationTouch = nil;
-        launchTouch = nil;
-        initialTouchAngle = 0;
-        currentTouchAngle = 0;
-        initialRotation = 0;
-        
-        // Set up particle tracking fields
-        self.particles = [NSMutableSet setWithCapacity:100];
-        self.visitedParticles = [NSMutableSet setWithCapacity:100];
-        self.scoredParticles = [NSMutableArray arrayWithCapacity:20];
-        self.countedParticles = [NSMutableSet setWithCapacity:10];
-        self.inFlightParticles = [NSMutableArray arrayWithCapacity:5];
-
-        // Set up scoring fields
-        self.scoring = NO;
-        self.gameOver = NO;
 		
-        // Start timer.
+        // Start animation / simulation timer.
 		[self schedule: @selector(step:)];
+        
+        // Start automatic drop timer.
+        [self schedule: @selector(drop) interval:dropTime];
     }
     return self;
 }

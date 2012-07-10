@@ -13,15 +13,15 @@
 #define kMinMatchAge            0.5
 
 typedef enum {
-    kParticleWhite = 0,
-    kParticleRed,
-    kParticleOrange,
-    kParticleYellow,
+    kParticleRed = 0,
     kParticleGreen,
     kParticleBlue,
+    kParticleYellow,
     kParticleIndigo,
-    kParticleViolet,
     kParticleBlack,
+    kParticleWhite,
+    kParticleOrange,
+    kParticleViolet,
 } ParticleColors;
 
 @interface Particle : CCSprite {
