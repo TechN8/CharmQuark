@@ -51,6 +51,8 @@ typedef enum {
 
 - (void) separateFromParticle:(Particle*)particle;
 
-- (void) addMatchingParticlesToSet:(NSMutableSet*)set addTime:(ccTime)time;
+- (void) addMatchingParticlesToSet:(NSMutableSet*)set minMatch:(NSInteger) minMatch;
+
+- (void) explode;
 
 @end

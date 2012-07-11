@@ -587,6 +587,8 @@
 		D847E2CF15AC93770044FC48 /* ResetButtonSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ResetButtonSelected.png; sourceTree = "<group>"; };
 		D847E52415ACA1070044FC48 /* IntroLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IntroLayer.h; sourceTree = "<group>"; };
 		D847E52515ACA1070044FC48 /* IntroLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IntroLayer.m; sourceTree = "<group>"; };
+		D847E54015ACEC750044FC48 /* NOTES */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = NOTES; sourceTree = "<group>"; };
+		D847E54115ACEC750044FC48 /* Scratchpad.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Scratchpad.svg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -612,6 +614,7 @@
 		D847E05615AC87FF0044FC48 = {
 			isa = PBXGroup;
 			children = (
+				D847E54015ACEC750044FC48 /* NOTES */,
 				D847E07715AC87FF0044FC48 /* CharmQuark */,
 				D847E06415AC87FF0044FC48 /* Frameworks */,
 				D847E06215AC87FF0044FC48 /* Products */,
@@ -1129,8 +1132,8 @@
 			children = (
 				D847E51715AC97560044FC48 /* Constants */,
 				D847E51615AC97500044FC48 /* Singletons */,
-				D847E51815AC976F0044FC48 /* GameObjects */,
 				D847E51C15AC97CF0044FC48 /* Scenes */,
+				D847E51815AC976F0044FC48 /* GameObjects */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -1138,6 +1141,7 @@
 		D847E28F15AC93770044FC48 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				D847E54115ACEC750044FC48 /* Scratchpad.svg */,
 				D847E29015AC93770044FC48 /* Menus */,
 				D847E2A615AC93770044FC48 /* packTextures.sh */,
 				D847E2A715AC93770044FC48 /* Particles */,
@@ -1344,9 +1348,9 @@
 			isa = PBXGroup;
 			children = (
 				D847E52015ACA0910044FC48 /* Intro */,
-				D847E51915AC97A80044FC48 /* Game */,
 				D847E51A15AC97B10044FC48 /* MainMenu */,
 				D847E51B15AC97C50044FC48 /* OptionsMenu */,
+				D847E51915AC97A80044FC48 /* Game */,
 			);
 			name = Scenes;
 			sourceTree = "<group>";
@@ -1370,6 +1374,7 @@
 				D847E05D15AC87FF0044FC48 /* Sources */,
 				D847E05E15AC87FF0044FC48 /* Frameworks */,
 				D847E05F15AC87FF0044FC48 /* Resources */,
+				D847E54415ADB5AB0044FC48 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1449,6 +1454,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		D847E54415ADB5AB0044FC48 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "KEYWORDS=\"TODO:|FIXME:|\\?\\?\\?:|\\!\\!\\!:\"\nfind \"${SRCROOT}\" \\( -name \"*.h\" -or -name \"*.m\" -or -name \"*.mm\"  \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($KEYWORDS).*\\$\" | perl -p -e \"s/($KEYWORDS)/ warning: \\$1/\"";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		D847E05D15AC87FF0044FC48 /* Sources */ = {

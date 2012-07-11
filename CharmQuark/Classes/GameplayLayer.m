@@ -25,7 +25,7 @@ static cpFloat launchV;
 -(Particle*)randomParticle;
 -(void) step: (ccTime) dt;
 -(void) addParticle:(Particle*)particle atPosition:(CGPoint)position;
--(void) scoreParticles:(ccTime)dt;
+-(void) scoreParticles;
 -(void) pause;
 -(void) resume;
 -(void) end;
@@ -50,6 +50,7 @@ static void postStepRemoveParticle(cpSpace *space, cpBody *body, GameplayLayer *
     cpBodyFree(body);
     
     if (particle) {
+        [particle explode];
         [particle removeFromParentAndCleanup:YES];
     }
 }
@@ -194,8 +195,10 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     [self addChild:nextParticle];
     
     // Reschedule droptimer.
-    [self unschedule:@selector(drop)];
     [self schedule: @selector(drop) interval:dropTime];
+    
+    // Schedule scoring timer.
+    [self schedule:@selector(scoreParticles) interval:0.5];
     
     // Start animation / simulation timer.
     [self schedule: @selector(step:)];
@@ -283,7 +286,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     [inFlightParticles removeObject:particle];
 }
 
--(void) scoreParticles:(ccTime)dt {
+-(void) scoreParticles {
     NSInteger matches = 0;
     
     // Reset
@@ -296,7 +299,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
             
             // Add self and all matching to scoredParticles && visitedParticles.
             [countedParticles removeAllObjects];
-            [particle addMatchingParticlesToSet:countedParticles addTime:dt];
+            [particle addMatchingParticlesToSet:countedParticles minMatch:kMinMatchSize];
             [visitedParticles unionSet:countedParticles];
             
             // If scoredParticles > kMinMatchSize then move them to final array?
@@ -313,18 +316,21 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     // Update score
     matches = [scoredParticles count];
     NSInteger multiplier = 1 + matches - kMinMatchSize ;
-    // TODO: Run some kind of animation here.
-    score += matches * kPointsPerMatch * multiplier;
-    [scoreLabel setString:[[[NSString alloc] initWithFormat:@"%d", score] autorelease]];
+    
+    // Run some kind of animation here to display points.
+    if (matches > 0) {
+        score += matches * kPointsPerMatch * multiplier;
+        [scoreLabel setString:[[[NSString alloc] initWithFormat:@"%d", score] autorelease]];
+        id scaleUp = [CCScaleTo actionWithDuration:0.2f scaleX:1.5 scaleY:0.0];
+        id scaleDown = [CCScaleTo actionWithDuration:0.2f scale:1.0];
+        id seq = [CCSequence actions: scaleUp, scaleDown, nil];
+        [scoreLabel runAction:seq];
+    }
     
     // Update level
     if (matchesToNextLevel <= 0) {
         matchesToNextLevel = kMatchesPerLevel;
         level++;
-//        timeScale += kTimeScaleStep;
-//        if (timeScale >= kTimeScaleMax) {
-//            timeScale = kTimeScaleMax;
-//        }
         dropTime -= kDropTimeStep;
         if (dropTime <= kDropTimeMin) {
             dropTime = kDropTimeMin;
@@ -338,6 +344,9 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     while (scoredParticles.count > 0) {
         Particle *particle = [scoredParticles objectAtIndex:0];
         [scoredParticles removeObject:particle];
+        
+        // TODO: Add a method which animates out the particle before removing the sprite.
+        //[particle explode];
         postStepRemoveParticle(space, particle.body, self);  // Don't need to schedule, called from update.
     }
  }
@@ -365,7 +374,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     int steps = dt / kSimulationRate;
     remainder = fmodf(dt, kSimulationRate);
     
-    [self scoreParticles:dt];  // Doesn't need to run at simulation resolution.
+    //[self scoreParticles];  // Doesn't need to run at simulation resolution.
 
     for (int i = 0; i < steps; i++) {
         cpSpaceStep(space, kSimulationRate);
@@ -433,14 +442,12 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 {
     for (UITouch *touch in touches) {
         CGPoint location = [touch locationInView: [touch view]];
-        if (touch == launchTouch) {
-            // This is now an aim.
-            aimTouch = launchTouch;
-            launchTouch = nil;
-        }
+//        if (touch == launchTouch) {
+//            // This is now an aim.
+//            aimTouch = launchTouch;
+//            launchTouch = nil;
+//        }
         if (touch == aimTouch) {
-//            location = [[CCDirector sharedDirector] convertToGL: location];
-//            targetPoint.y = location.y;
             CGPoint ray = ccpSub(location, launchPoint);
             aimTouchAngleCur = CC_RADIANS_TO_DEGREES(ccpAngleSigned(kUnitVectorUp, ray));
             GLfloat newRotation = fmodf(aimAngleInit + (aimTouchAngleInit - aimTouchAngleCur) * kRotationRate, 360.0);
@@ -635,7 +642,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 
 - (void)dealloc
 {
-    //TODO Clean up your mess.
+    // Clean up your mess.
     [particles release];
     [scoredParticles release];
     [visitedParticles release];

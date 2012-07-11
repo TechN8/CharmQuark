@@ -48,14 +48,14 @@ enum {
 @interface GameplayLayer : CCLayerColor {
     // Chipmunk
     cpSpace *space;
-    Particle *nextParticle;
+    
+    // Cocos2D Objects
     CCLabelAtlas *scoreLabel;
     CCLabelAtlas *levelLabel;
-    
-    // Cocos2D View Objects
     CCNode *centerNode;
     CCSpriteBatchNode *sceneSpriteBatchNode;
     CCMenuItemSprite *resetButton;
+    Particle *nextParticle;
     
 	// Touch handling
     UITouch *rotationTouch;

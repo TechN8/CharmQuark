@@ -21,17 +21,23 @@ Particle Linking and Traversal
 ------------------------------
 Each particle maintains a list of particles of the same color it is in contact with.
 This works, but sometimes does not find largest chain because particles may be slightly separated.  How can I make sure there is a collision?
-Each time a _pair_ is made, add one of the items to an array to be checked.
-Each step, check the array for chains of length > 3.
-Chain should be exist for N second before being scored.
+    . Currently, am not counting pieces which are touching less than 2 other pieces, unless the set already has 4 pieces.
+    . Moved scoring to it's own scheduled task.
 
 TODO
 ----
 
-. Pause function which suspends all scheduled timers.
+X Pause function which suspends all scheduled timers.
+
+. Animation test for particle match.
 
 . Game over overlay.  Scenes->GameScene->GameOverLayer
-    Should have final score and buttons for restart, exit, tweet, FB.
+    Should have final score and buttons for restart, exit, tweet...
+
+. Replace reset button with pause menu. Scenes->GameScene->PauseLayer.
+    . Resume
+    . Restart
+    . Exit
 
 . Main menu with options and website links.
     . Play
@@ -39,17 +45,13 @@ TODO
     . Website link
     . Social media links.
 
-. Replace reset button with pause menu. Scenes->GameScene->PauseLayer.
-    . Resume
-    . Restart
-    . Exit
 
 . Blur background on overlay layers.
     UIImage *tempImage =[GameScene takeAsUIImage];
     CCTexture2DMutable *mutableTexture = [[[CCTexture2DMutable alloc] tempImage autorelease];
     [AWTextureFilter blur:mutableTexture radius:6];
 
-. Animations
+. Final Animations
     Exploding particle.  (Try to do a jet with particle effect.)
     Trail effect on dropped particle?
     Score and multiplier animations.
