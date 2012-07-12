@@ -27,24 +27,24 @@ This works, but sometimes does not find largest chain because particles may be s
 TODO
 ----
 
-X Pause function which suspends all scheduled timers.
-
-. Animation test for particle match.
+. High score record.
 
 . Game over overlay.  Scenes->GameScene->GameOverLayer
-    Should have final score and buttons for restart, exit, tweet...
-
-. Replace reset button with pause menu. Scenes->GameScene->PauseLayer.
-    . Resume
-    . Restart
-    . Exit
+    . Show high score
+    . Twitter button
 
 . Main menu with options and website links.
     . Play
     . Options (Sound Volumes).
     . Website link
     . Social media links.
+    
+. Game modes
+    * Survival
+    . Time Attack
+    . Meditation (This is kind of long, should save game between sessions.)
 
+. Help Screen
 
 . Blur background on overlay layers.
     UIImage *tempImage =[GameScene takeAsUIImage];
@@ -56,8 +56,6 @@ X Pause function which suspends all scheduled timers.
     Trail effect on dropped particle?
     Score and multiplier animations.
     Thumb guides.  (Do these with sprites).
-        . Aiming recticle.
-        . Turn radius.
 
 . Artwork.
     . Prettier sprites.  
@@ -66,7 +64,7 @@ X Pause function which suspends all scheduled timers.
             . Astronomical bodies (stars, comets, planets).  Starfield background.
             . Marbles.  Wooden bowl background.
             . Other?
-    . Background
+    . Background & Scoreboard
     . Font for score
 
 . Special pieces.

@@ -7,6 +7,7 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="32"
@@ -44,18 +45,18 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="24.09375"
-     inkscape:cx="15.958495"
+     inkscape:zoom="26.2564"
+     inkscape:cx="16.7583"
      inkscape:cy="16"
      inkscape:document-units="px"
-     inkscape:current-layer="g3906"
+     inkscape:current-layer="layer3"
      showgrid="true"
-     inkscape:window-width="1319"
-     inkscape:window-height="959"
-     inkscape:window-x="163"
-     inkscape:window-y="4"
+     inkscape:window-width="1566"
+     inkscape:window-height="1030"
+     inkscape:window-x="134"
+     inkscape:window-y="0"
      inkscape:window-maximized="0"
-     inkscape:snap-global="false"
+     inkscape:snap-global="true"
      inkscape:snap-bbox="true">
     <inkscape:grid
        type="xygrid"
@@ -73,7 +74,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -82,7 +83,8 @@
      inkscape:groupmode="layer"
      id="layer1"
      transform="translate(0,-1020.3622)"
-     style="opacity:0.8;display:none">
+     style="opacity:0.8;display:inline"
+     sodipodi:insensitive="true">
     <path
        sodipodi:type="arc"
        style="fill:none;stroke:#c8c8c8;stroke-opacity:1"
@@ -95,27 +97,28 @@
        transform="matrix(1.1538462,0,0,1.1538462,-3.0384623,1018.4776)" />
   </g>
   <g
-     style="opacity:0.8"
+     style="opacity:0.8;display:none"
      transform="translate(0,-1020.3622)"
      id="g3906"
      inkscape:groupmode="layer"
-     inkscape:label="SelectedButtonBase">
+     inkscape:label="SelectedButtonBase"
+     sodipodi:insensitive="true">
     <path
        transform="matrix(1.1538462,0,0,1.1538462,-3.0384623,1018.4776)"
-       d="M 29,15.5 C 29,22.403559 23.403559,28 16.5,28 9.5964406,28 4,22.403559 4,15.5 4,8.5964406 9.5964406,3 16.5,3 23.403559,3 29,8.5964406 29,15.5 z"
+       d="m 29,15.5 a 12.5,12.5 0 1 1 -25,0 12.5,12.5 0 1 1 25,0 z"
        sodipodi:ry="12.5"
        sodipodi:rx="12.5"
        sodipodi:cy="15.5"
        sodipodi:cx="16.5"
        id="path3908"
-       style="fill:#fdfe92;stroke:#c8c8c8;stroke-opacity:1;opacity:1;fill-opacity:1"
+       style="fill:#d1fcff;fill-opacity:1;stroke:#c8c8c8;stroke-opacity:1"
        sodipodi:type="arc" />
   </g>
   <g
      inkscape:groupmode="layer"
      id="layer2"
      inkscape:label="Reset"
-     style="opacity:0.8;display:inline">
+     style="opacity:0.8;display:none">
     <path
        sodipodi:type="arc"
        style="fill:none;stroke:#c8c8c8;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
@@ -144,5 +147,26 @@
        inkscape:transform-center-x="-0.3660254"
        inkscape:transform-center-y="0.3660254"
        transform="translate(6.2339963,5.4754719)" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer3"
+     inkscape:label="Pause"
+     style="display:inline">
+    <rect
+       style="fill:#c8c8c8;fill-opacity:1;stroke:#c8c8c8;stroke-opacity:1;stroke-linejoin:round;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;opacity:0.8"
+       id="rect3846"
+       width="5"
+       height="18"
+       x="9"
+       y="7" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#rect3846"
+       id="use3850"
+       transform="translate(9,0)"
+       width="32"
+       height="32" />
   </g>
 </svg>

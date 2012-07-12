@@ -9,8 +9,8 @@
 #import "GameplayLayer.h"
 #import "Particle.h"
 #import "Constants.h"
-
-//static CGFloat kSimulationRate = 1 / 60.0;
+#import "PauseLayer.h"
+#import "GameOverLayer.h"
 
 static CGPoint puzzleCenter;
 static CGPoint nextParticlePos;
@@ -315,11 +315,12 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     
     // Update score
     matches = [scoredParticles count];
-    NSInteger multiplier = 1 + matches - kMinMatchSize ;
+    //NSInteger multiplier = 1 + matches - kMinMatchSize ;
+    NSInteger points = kPointsPerMatch * (matches - kMinMatchSize + 1);
     
     // Run some kind of animation here to display points.
     if (matches > 0) {
-        score += matches * kPointsPerMatch * multiplier;
+        score += points;
         [scoreLabel setString:[[[NSString alloc] initWithFormat:@"%d", score] autorelease]];
         id scaleUp = [CCScaleTo actionWithDuration:0.2f scaleX:1.5 scaleY:0.0];
         id scaleDown = [CCScaleTo actionWithDuration:0.2f scale:1.0];
@@ -393,17 +394,25 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 
 -(void) pause {
     [self pauseSchedulerAndActions];
-    [resetButton setTarget:self selector:@selector(resume)];
+    PauseLayer *pauseLayer = [[PauseLayer alloc] init];
+    [self addChild:pauseLayer z:1000];
+    GLubyte opacity = pauseLayer.opacity;
+    pauseLayer.opacity = 0;
+    [pauseLayer runAction:[CCFadeTo actionWithDuration:1.0f opacity:opacity]];
 }
 
 -(void) resume {
     [self resumeSchedulerAndActions];
-    [resetButton setTarget:self selector:@selector(pause)];
 }
 
 -(void)end {
     gameOver = YES;
     [self unscheduleAllSelectors];
+    GameOverLayer *gameOverLayer = [[GameOverLayer alloc] init];
+    [self addChild:gameOverLayer z:1000];
+    GLubyte opacity = gameOverLayer.opacity;
+    gameOverLayer.opacity = 0;
+    [gameOverLayer runAction:[CCFadeTo actionWithDuration:1.0f opacity:opacity]];
 }
 
 #pragma mark -
@@ -552,13 +561,23 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"scene1Atlas.plist"];
     
     // Set up controls
-    CCSprite *resetSprite = [CCSprite spriteWithSpriteFrameName:@"ResetButton.png"];
-    CCSprite *resetSpriteSelected = [CCSprite spriteWithSpriteFrameName:@"ResetButtonSelected.png"];
-    resetButton = [CCMenuItemSprite itemWithNormalSprite:resetSprite 
-                                          selectedSprite:resetSpriteSelected
+//    CCSprite *resetSprite = [CCSprite spriteWithSpriteFrameName:@"ResetButton.png"];
+//    CCSprite *resetSpriteSelected = [CCSprite spriteWithSpriteFrameName:@"ResetButtonSelected.png"];
+//    resetButton = [CCMenuItemSprite itemWithNormalSprite:resetSprite 
+//                                          selectedSprite:resetSpriteSelected
+//                                                  target:self
+//                                                selector:@selector(resetGame)];
+//    CCMenu *menu = [CCMenu menuWithItems:resetButton, nil];
+    
+    CCSprite *pauseSprite = [CCSprite spriteWithSpriteFrameName:@"PauseButton.png"];
+    CCSprite *pauseSpriteSelected = [CCSprite spriteWithSpriteFrameName:@"PauseButtonSelected.png"];
+    CCMenuItemSprite *pauseButton = [CCMenuItemSprite itemWithNormalSprite:pauseSprite 
+                                          selectedSprite:pauseSpriteSelected
                                                   target:self
-                                                selector:@selector(resetGame)];
-    CCMenu *menu = [CCMenu menuWithItems:resetButton, nil];
+                                                selector:@selector(pause)];
+    CCMenu *menu = [CCMenu menuWithItems:pauseButton, nil];
+    
+    
     [menu setPosition:ccp(winSize.width * 0.5f, winSize.height * 0.95f)];
     [self addChild:menu z:100];
     

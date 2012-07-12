@@ -11,8 +11,8 @@
 
 // Gameplay Constants
 #define kMinMatchSize           4
-#define kPointsPerMatch         100
-#define kMatchesPerLevel        10
+#define kPointsPerMatch         800
+#define kMatchesPerLevel        5
 #define kRotationRate           1.0
 #define kFailRadius             110.0
 #define kColorsInit             6
