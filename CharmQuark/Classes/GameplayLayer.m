@@ -11,6 +11,7 @@
 #import "Constants.h"
 #import "PauseLayer.h"
 #import "GameOverLayer.h"
+#import "SpriteBlur.h"
 
 static CGPoint puzzleCenter;
 static CGPoint nextParticlePos;
@@ -394,11 +395,28 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 
 -(void) pause {
     [self pauseSchedulerAndActions];
-    PauseLayer *pauseLayer = [[PauseLayer alloc] init];
+
+    CGSize winSize = [[CCDirector sharedDirector] winSize];
+    CCRenderTexture *tf = [CCRenderTexture renderTextureWithWidth:winSize.width height:winSize.height];
+    // Grab screen shot
+    [tf begin];
+    [self visit];
+    [tf end];
+    // Blur screen with shader example.  
+    // TODO: Refactor this to happen in the setBackgroundNode call.
+    SpriteBlur *sb = [[SpriteBlur alloc] initWithTexture:tf.sprite.texture rect:tf.sprite.textureRect];
+    sb.position = ccp(winSize.width * 0.5, winSize.height * 0.5);
+    [sb setBlurSize:4.0f];
+    sb.flipY = YES;
+    [tf begin];
+    [sb visit];
+    [tf end];
+    
+    PauseLayer *pauseLayer = [[PauseLayer alloc] initWithColor:ccc4(0,0,0,255)];
+    [pauseLayer setBackgroundNode:tf];
     [self addChild:pauseLayer z:1000];
-    GLubyte opacity = pauseLayer.opacity;
-    pauseLayer.opacity = 0;
-    [pauseLayer runAction:[CCFadeTo actionWithDuration:1.0f opacity:opacity]];
+    [pauseLayer runAction:[CCFadeIn actionWithDuration:1.0f]];
+    //[self runAction:[CCFadeOut actionWithDuration:1.0f]];
 }
 
 -(void) resume {
@@ -408,7 +426,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 -(void)end {
     gameOver = YES;
     [self unscheduleAllSelectors];
-    GameOverLayer *gameOverLayer = [[GameOverLayer alloc] init];
+    GameOverLayer *gameOverLayer = [[GameOverLayer alloc] initWithColor:ccc4(0,0,0,128)];
     [self addChild:gameOverLayer z:1000];
     GLubyte opacity = gameOverLayer.opacity;
     gameOverLayer.opacity = 0;

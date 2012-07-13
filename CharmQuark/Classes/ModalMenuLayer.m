@@ -15,6 +15,12 @@
     NSAssert(NO, @"Must override initMenus for ModalMenuLayer.");
 }
 
+-(void)setBackgroundNode:(CCNode*)node {
+    CGSize winSize = [[CCDirector sharedDirector] winSize];
+    node.position = ccp(winSize.width * 0.5f, winSize.height * 0.5f);
+    [self addChild:node z:0];
+}
+
 #pragma mark - CCTargetedTouchDelegate
 
 // This will consume any touches to this layer.
@@ -28,15 +34,14 @@
     [[[CCDirector sharedDirector] touchDispatcher] addTargetedDelegate:self priority:kCCMenuHandlerPriority swallowsTouches:YES];
 }
 
+
+
 #pragma mark - NSObject
 
--(id)init {
-    self = [super initWithColor:ccc4(200, 255, 200, 128)];
+-(id)initWithColor:(ccColor4B)color {
+    self = [super initWithColor:color];
     if (self) {
         self.isTouchEnabled = YES;
-        
-        //TODO: Add Background
-        
         [self initMenus];
     }
     return self;

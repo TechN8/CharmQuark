@@ -35,6 +35,7 @@
     [menu alignItemsVerticallyWithPadding:5];
     menu.position = ccp(winSize.width * 0.5, winSize.height * 0.5f);
     [self addChild:menu z:100];
+    [menu runAction:[CCFadeIn actionWithDuration:1.0]];
 }
 
 @end

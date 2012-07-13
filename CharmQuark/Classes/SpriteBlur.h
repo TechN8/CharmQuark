@@ -1,5 +1,5 @@
 //
-//  ModalMenuLayer.h
+//  SpriteBlur.h
 //  CharmQuark
 //
 //  Created by Nathan Babb on 7/12/12.
@@ -9,12 +9,15 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 
-@interface ModalMenuLayer : CCLayerColor {
+@interface SpriteBlur : CCSprite
+{
+	CGPoint blur_;
+	GLfloat	sub_[4];
     
+	GLuint	blurLocation;
+	GLuint	subLocation;
 }
 
--(void)initMenus;
-
--(void)setBackgroundNode:(CCNode*)node;
-
+-(void) setBlurSize:(CGFloat)f;
 @end
+
