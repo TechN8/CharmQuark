@@ -11,7 +11,6 @@
 		D80B620115AE2500006F2472 /* PauseLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = D80B620015AE2500006F2472 /* PauseLayer.m */; };
 		D80B620415AF055A006F2472 /* ModalMenuLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = D80B620315AF055A006F2472 /* ModalMenuLayer.m */; };
 		D80B623F15AF47D1006F2472 /* example_Blur.fsh in Resources */ = {isa = PBXBuildFile; fileRef = D80B623D15AF43D9006F2472 /* example_Blur.fsh */; };
-		D80B624215AF4A4C006F2472 /* SpriteBlur.m in Sources */ = {isa = PBXBuildFile; fileRef = D80B624115AF4A4C006F2472 /* SpriteBlur.m */; };
 		D847E06615AC87FF0044FC48 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D847E06515AC87FF0044FC48 /* QuartzCore.framework */; };
 		D847E06815AC87FF0044FC48 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D847E06715AC87FF0044FC48 /* OpenGLES.framework */; };
 		D847E06A15AC87FF0044FC48 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D847E06915AC87FF0044FC48 /* OpenAL.framework */; };
@@ -205,9 +204,7 @@
 		D80B620015AE2500006F2472 /* PauseLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PauseLayer.m; sourceTree = "<group>"; };
 		D80B620215AF055A006F2472 /* ModalMenuLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModalMenuLayer.h; sourceTree = "<group>"; };
 		D80B620315AF055A006F2472 /* ModalMenuLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModalMenuLayer.m; sourceTree = "<group>"; };
-		D80B623D15AF43D9006F2472 /* example_Blur.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = example_Blur.fsh; path = Resources/example_Blur.fsh; sourceTree = "<group>"; };
-		D80B624015AF4A4C006F2472 /* SpriteBlur.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpriteBlur.h; sourceTree = "<group>"; };
-		D80B624115AF4A4C006F2472 /* SpriteBlur.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpriteBlur.m; sourceTree = "<group>"; };
+		D80B623D15AF43D9006F2472 /* example_Blur.fsh */ = {isa = PBXFileReference; explicitFileType = sourcecode.c; fileEncoding = 4; name = example_Blur.fsh; path = Resources/example_Blur.fsh; sourceTree = "<group>"; };
 		D847E06115AC87FF0044FC48 /* CharmQuark.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CharmQuark.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D847E06515AC87FF0044FC48 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		D847E06715AC87FF0044FC48 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -1324,8 +1321,6 @@
 				D847E28115AC93610044FC48 /* Particle.m */,
 				D80B620215AF055A006F2472 /* ModalMenuLayer.h */,
 				D80B620315AF055A006F2472 /* ModalMenuLayer.m */,
-				D80B624015AF4A4C006F2472 /* SpriteBlur.h */,
-				D80B624115AF4A4C006F2472 /* SpriteBlur.m */,
 			);
 			name = GameObjects;
 			sourceTree = "<group>";
@@ -1644,7 +1639,6 @@
 				D80B61FD15AE24F5006F2472 /* GameOverLayer.m in Sources */,
 				D80B620115AE2500006F2472 /* PauseLayer.m in Sources */,
 				D80B620415AF055A006F2472 /* ModalMenuLayer.m in Sources */,
-				D80B624215AF4A4C006F2472 /* SpriteBlur.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

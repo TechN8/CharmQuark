@@ -15,7 +15,7 @@
 #define kMatchesPerLevel        5
 #define kRotationRate           1.0
 #define kFailRadius             110.0
-#define kColorsInit             6
+#define kColorsInit             3
 #define kColorsMax              6 //9
 
 #define kLaunchV                800.0f
@@ -71,26 +71,24 @@ enum {
     UITouch *launchTouch;
     
     // Game State
-    long score;
+    NSInteger score;
+    NSInteger combo;
+    NSInteger level;
+    NSInteger matchesToNextLevel;
+
+    cpFloat dropTime;
+    NSInteger colors;
+
     NSMutableSet *particles;
     NSMutableSet *countedParticles;
     NSMutableArray *scoredParticles;
     NSMutableSet *visitedParticles;
     NSMutableArray *inFlightParticles;
-    //CGPoint targetPoint;
-    BOOL scoring;
-    BOOL gameOver;
-    cpFloat dropTime;
-    NSInteger colors;
-    long level;
-    NSInteger matchesToNextLevel;
-    //ccTime timeToNextDrop;
-    ccTime timeScale;
 
     CGFloat aimAngle;
 }
 
 @property cpSpace *space;
-@property long score;
+@property NSInteger score;
 
 @end

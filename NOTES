@@ -27,9 +27,20 @@ This works, but sometimes does not find largest chain because particles may be s
 TODO
 ----
 
-. High score record.
+. Saved Data Plist
+    . High score list(s).
+    . Music & sound settings.
 
-. Game over overlay.  Scenes->GameScene->GameOverLayer
+. High score record.
+    . Put on gamecenter.
+
+. Add chain reaction scoring.
+    . Increment counter each time scoreParticles runs with score.  This is the combo length.
+    . If scoreParticles runs with no score, comboLength = 0
+    . Chain scoring acts as second multiplier.
+    . Play combo animation.
+
+. Game over menu.  Scenes->GameScene->GameOverLayer
     . Show high score
     . Twitter button
 
@@ -45,11 +56,6 @@ TODO
     . Meditation (This is kind of long, should save game between sessions.)
 
 . Help Screen
-
-. Blur background on overlay layers.
-    UIImage *tempImage =[GameScene takeAsUIImage];
-    CCTexture2DMutable *mutableTexture = [[[CCTexture2DMutable alloc] tempImage autorelease];
-    [AWTextureFilter blur:mutableTexture radius:6];
 
 . Final Animations
     Exploding particle.  (Try to do a jet with particle effect.)
@@ -67,13 +73,17 @@ TODO
     . Background & Scoreboard
     . Font for score
 
-. Special pieces.
-    Match anything?
-    High KE/mass particle. (Hard hit)
-    Exploding particle.  (Shuffle)
-
 . Sound effects.
-    What should this sound like?  Depends on artwork.
+    Grab some samples from http://lhcsound.hep.ucl.ac.uk. 
+        These are all CC and generated from LHC data!
+
+. Localization
+    Google translate menus.  Game is pretty self explanitory.
+
+. Blur background on overlay layers.
+    UIImage *tempImage =[GameScene takeAsUIImage];
+    CCTexture2DMutable *mutableTexture = [[[CCTexture2DMutable alloc] tempImage autorelease];
+    [AWTextureFilter blur:mutableTexture radius:6];
     
 Questionable Enhancements
 -------------------------
@@ -95,4 +105,10 @@ Enhancement: Unlock additional backgrounds / modes by playing.  Offer in-app pur
 Future Enhancement Ideas
 ------------------------
 Left or right handed option.
+
+Special pieces.
+    Match anything?
+    High KE/mass particle. (Hard hit)
+    Exploding particle.  (Shuffle)
+    High moment of inertia.
 

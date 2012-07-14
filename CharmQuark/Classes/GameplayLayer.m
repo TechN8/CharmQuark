@@ -11,7 +11,6 @@
 #import "Constants.h"
 #import "PauseLayer.h"
 #import "GameOverLayer.h"
-#import "SpriteBlur.h"
 
 static CGPoint puzzleCenter;
 static CGPoint nextParticlePos;
@@ -51,7 +50,6 @@ static void postStepRemoveParticle(cpSpace *space, cpBody *body, GameplayLayer *
     cpBodyFree(body);
     
     if (particle) {
-        [particle explode];
         [particle removeFromParentAndCleanup:YES];
     }
 }
@@ -149,12 +147,13 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     centerNode.rotation = 0;
     
     score = 0;
-    gameOver = NO;
-    dropTime = kDropTimeInit;
-    launchV = kLaunchV;
-    colors = kColorsInit;
+    combo = 0;
     level = 1;
     matchesToNextLevel = kMatchesPerLevel;
+
+    launchV = kLaunchV;
+    dropTime = kDropTimeInit;
+    colors = kColorsInit;
     
     // Clear the scoreboard
     [levelLabel setString:@"1"];
@@ -287,8 +286,37 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     [inFlightParticles removeObject:particle];
 }
 
+-(void) addPoints:(NSInteger)points {
+    // TODO: Better animation here.
+    if (points > 0) {
+        score += points;
+        [scoreLabel setString:[[[NSString alloc] initWithFormat:@"%d", score] autorelease]];
+        id scaleUp = [CCScaleTo actionWithDuration:0.2f scaleX:1.5 scaleY:0.0];
+        id scaleDown = [CCScaleTo actionWithDuration:0.2f scale:1.0];
+        id seq = [CCSequence actions: scaleUp, scaleDown, nil];
+        [scoreLabel runAction:seq];
+    }
+}
+
+-(void) updateLevel {
+    // Update level
+    // TODO: Need animation here too.
+    if (matchesToNextLevel <= 0) {
+        matchesToNextLevel += kMatchesPerLevel;
+        level++;
+        dropTime -= kDropTimeStep;
+        if (dropTime <= kDropTimeMin) {
+            dropTime = kDropTimeMin;
+        }
+        [levelLabel setString:[[[NSString alloc] initWithFormat:@"%d", level] autorelease]];
+        [self unschedule:@selector(drop)];
+        [self schedule:@selector(drop) interval:dropTime];
+    }
+}
+
 -(void) scoreParticles {
-    NSInteger matches = 0;
+    NSInteger multiplier = 0;
+    NSInteger points = 0;
     
     // Reset
     [visitedParticles removeAllObjects];
@@ -309,46 +337,38 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
                     [scoredParticles addObject:p];
                 }
                 matchesToNextLevel--;
+                multiplier = countedParticles.count - kMinMatchSize;
+                points = kPointsPerMatch;
+                if (multiplier) {
+                    points *= multiplier + 1;
+                    // TODO: Play multiplier animation at p->position.
+                }
+                
+                if (combo) {
+                    points *= combo + 1;
+                    // TODO: Run combo animation at p->position.
+                }
+                combo++;
             }
         }
     }
-    
-    
-    // Update score
-    matches = [scoredParticles count];
-    //NSInteger multiplier = 1 + matches - kMinMatchSize ;
-    NSInteger points = kPointsPerMatch * (matches - kMinMatchSize + 1);
-    
-    // Run some kind of animation here to display points.
-    if (matches > 0) {
-        score += points;
-        [scoreLabel setString:[[[NSString alloc] initWithFormat:@"%d", score] autorelease]];
-        id scaleUp = [CCScaleTo actionWithDuration:0.2f scaleX:1.5 scaleY:0.0];
-        id scaleDown = [CCScaleTo actionWithDuration:0.2f scale:1.0];
-        id seq = [CCSequence actions: scaleUp, scaleDown, nil];
-        [scoreLabel runAction:seq];
+
+    // Reset combo if no points.
+    if (!points) {
+        combo = 0;
     }
     
-    // Update level
-    if (matchesToNextLevel <= 0) {
-        matchesToNextLevel = kMatchesPerLevel;
-        level++;
-        dropTime -= kDropTimeStep;
-        if (dropTime <= kDropTimeMin) {
-            dropTime = kDropTimeMin;
-        }
-        [levelLabel setString:[[[NSString alloc] initWithFormat:@"%d", level] autorelease]];
-        [self unschedule:@selector(drop)];
-        [self schedule:@selector(drop) interval:dropTime];
-    }
+    [self addPoints:points]; // Update score.
+    
+    [self updateLevel]; // Update level.
     
     // Delete scored particles.  If this is done in the iterator, will throw exceptions.
     while (scoredParticles.count > 0) {
         Particle *particle = [scoredParticles objectAtIndex:0];
         [scoredParticles removeObject:particle];
         
-        // TODO: Add a method which animates out the particle before removing the sprite.
-        //[particle explode];
+        [particle explode];  // Play the explosion animation.
+        
         postStepRemoveParticle(space, particle.body, self);  // Don't need to schedule, called from update.
     }
  }
@@ -386,6 +406,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 }
 
 -(void) drop {
+    launchTouch = nil; // Prevent double launch on touch end.
     [self launchParticle:nextParticle];
     // Refactor these three lines
     nextParticle = [self randomParticle];
@@ -394,29 +415,23 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 }
 
 -(void) pause {
+    CGSize winSize = [[CCDirector sharedDirector] winSize];
+
     [self pauseSchedulerAndActions];
 
-    CGSize winSize = [[CCDirector sharedDirector] winSize];
-    CCRenderTexture *tf = [CCRenderTexture renderTextureWithWidth:winSize.width height:winSize.height];
     // Grab screen shot
+    CCRenderTexture *tf = [CCRenderTexture renderTextureWithWidth:winSize.width height:winSize.height];
+    tf.position = ccp(winSize.width * 0.5, winSize.height * 0.5);
     [tf begin];
     [self visit];
+    // TODO: Throw a GL_BLEND fade texture on top of the screen shot.
     [tf end];
-    // Blur screen with shader example.  
-    // TODO: Refactor this to happen in the setBackgroundNode call.
-    SpriteBlur *sb = [[SpriteBlur alloc] initWithTexture:tf.sprite.texture rect:tf.sprite.textureRect];
-    sb.position = ccp(winSize.width * 0.5, winSize.height * 0.5);
-    [sb setBlurSize:4.0f];
-    sb.flipY = YES;
-    [tf begin];
-    [sb visit];
-    [tf end];
-    
+   
+    // Throw up modal layer.
     PauseLayer *pauseLayer = [[PauseLayer alloc] initWithColor:ccc4(0,0,0,255)];
     [pauseLayer setBackgroundNode:tf];
     [self addChild:pauseLayer z:1000];
     [pauseLayer runAction:[CCFadeIn actionWithDuration:1.0f]];
-    //[self runAction:[CCFadeOut actionWithDuration:1.0f]];
 }
 
 -(void) resume {
@@ -424,13 +439,24 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 }
 
 -(void)end {
-    gameOver = YES;
+    CGSize winSize = [[CCDirector sharedDirector] winSize];
+
     [self unscheduleAllSelectors];
-    GameOverLayer *gameOverLayer = [[GameOverLayer alloc] initWithColor:ccc4(0,0,0,128)];
+
+    // Grab screen shot
+    CCRenderTexture *tf = [CCRenderTexture renderTextureWithWidth:winSize.width height:winSize.height];
+    tf.position = ccp(winSize.width * 0.5, winSize.height * 0.5);
+
+    [tf begin];
+    [self visit];
+    // TODO: Throw a GL_BLEND fade texture on top of the screen shot.
+    [tf end];
+    
+    // Throw up modal layer.
+    GameOverLayer *gameOverLayer = [[GameOverLayer alloc] initWithColor:ccc4(0,0,0,255)];
+    [gameOverLayer setBackgroundNode:tf];
     [self addChild:gameOverLayer z:1000];
-    GLubyte opacity = gameOverLayer.opacity;
-    gameOverLayer.opacity = 0;
-    [gameOverLayer runAction:[CCFadeTo actionWithDuration:1.0f opacity:opacity]];
+    [gameOverLayer runAction:[CCFadeIn actionWithDuration:1.0f]];
 }
 
 #pragma mark -
@@ -631,11 +657,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     //#ifdef DEBUG
     
     // Debug draw for fail radius.
-    if (gameOver) {
-        ccDrawColor4B(255, 0, 0, 128);
-    } else {
-        ccDrawColor4B(0, 255, 0, 128);
-    }
+    ccDrawColor4B(0, 255, 0, 128);
     ccDrawCircle(puzzleCenter, kFailRadius + 15, 0, 30, NO);
     
     // Debug draw for rotation touch.

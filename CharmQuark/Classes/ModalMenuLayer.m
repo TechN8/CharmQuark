@@ -34,7 +34,25 @@
     [[[CCDirector sharedDirector] touchDispatcher] addTargetedDelegate:self priority:kCCMenuHandlerPriority swallowsTouches:YES];
 }
 
+#pragma mark - CCNode
 
+// Set the opacity of all of our children that support it
+-(void) setOpacity: (GLubyte) opacity
+{
+    [super setOpacity:opacity];
+    for( CCNode *node in [self children] )
+    {
+        if( [node conformsToProtocol:@protocol( CCRGBAProtocol)] )
+        {
+            [(id<CCRGBAProtocol>) node setOpacity: opacity];
+        }
+        // Handle children that don't support opacity
+        else
+        {
+            node.visible = ( opacity != 0 );
+        }
+    }
+}
 
 #pragma mark - NSObject
 

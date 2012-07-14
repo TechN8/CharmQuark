@@ -8,7 +8,6 @@
 
 #import "PauseLayer.h"
 #import "GameManager.h"
-#import "SpriteBlur.h"
 
 @implementation PauseLayer
 
@@ -33,12 +32,10 @@
 
 -(void)initMenus {
     CGSize winSize = [[CCDirector sharedDirector] winSize];
-
     CCLabelTTF *title = [CCLabelTTF labelWithString:@"Game Paused" fontName:@"American Typewriter" fontSize:40.0f];
     title.color = ccWHITE;
     title.position = ccp(winSize.width * 0.5, winSize.height * 0.8);
     [self addChild:title z:100];
-    //[title runAction:[CCFadeIn actionWithDuration:1.0]];
     
     //TODO: Replace with CCMenuItemAtlasFont
     //Resume
@@ -50,34 +47,15 @@
     [quitItem setFontName:@"American Typewriter"];
     [quitItem setColor:ccWHITE];
     CCMenu *menu = [CCMenu menuWithItems:resumeItem, quitItem, nil];
-    [menu alignItemsVerticallyWithPadding:5];
+    [menu alignItemsVerticallyWithPadding:10];
     menu.position = ccp(winSize.width * 0.5, winSize.height * 0.5f);
     [self addChild:menu z:100];
-    //[menu runAction:[CCFadeIn actionWithDuration:1.0]];
 }
 
 #pragma mark - CCNode
 
 -(void)onEnter {
     [super onEnter];
-}
-
-// Set the opacity of all of our children that support it
--(void) setOpacity: (GLubyte) opacity
-{
-    [super setOpacity:opacity];
-    for( CCNode *node in [self children] )
-    {
-        if( [node conformsToProtocol:@protocol( CCRGBAProtocol)] )
-        {
-            [(id<CCRGBAProtocol>) node setOpacity: opacity];
-        }
-        // Handle children that don't support opacity
-        else
-        {
-            node.visible = ( opacity != 0 );
-        }
-    }
 }
 
 @end
