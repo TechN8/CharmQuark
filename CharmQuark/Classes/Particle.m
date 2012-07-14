@@ -144,8 +144,8 @@
     emitter.position = self.position;
     emitter.posVar = CGPointZero;
     // size, in pixels
-    emitter.startSize = 15.0f;
-    emitter.startSizeVar = 10.0f;
+    emitter.startSize = self.contentSize.height * 0.5;
+    emitter.startSizeVar = self.contentSize.height * 0.1;
     emitter.endSize = kCCParticleStartSizeEqualToEndSize;
     emitter.blendAdditive = NO;
     emitter.emissionRate = emitter.totalParticles/emitter.duration;

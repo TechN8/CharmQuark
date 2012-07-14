@@ -205,6 +205,7 @@
 		D80B620215AF055A006F2472 /* ModalMenuLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModalMenuLayer.h; sourceTree = "<group>"; };
 		D80B620315AF055A006F2472 /* ModalMenuLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModalMenuLayer.m; sourceTree = "<group>"; };
 		D80B623D15AF43D9006F2472 /* example_Blur.fsh */ = {isa = PBXFileReference; explicitFileType = sourcecode.c; fileEncoding = 4; name = example_Blur.fsh; path = Resources/example_Blur.fsh; sourceTree = "<group>"; };
+		D80B624715B1BC51006F2472 /* TASKS */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TASKS; sourceTree = "<group>"; };
 		D847E06115AC87FF0044FC48 /* CharmQuark.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CharmQuark.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D847E06515AC87FF0044FC48 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		D847E06715AC87FF0044FC48 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -626,6 +627,7 @@
 			isa = PBXGroup;
 			children = (
 				D847E54015ACEC750044FC48 /* NOTES */,
+				D80B624715B1BC51006F2472 /* TASKS */,
 				D847E07715AC87FF0044FC48 /* CharmQuark */,
 				D847E06415AC87FF0044FC48 /* Frameworks */,
 				D847E06215AC87FF0044FC48 /* Products */,

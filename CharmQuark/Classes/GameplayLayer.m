@@ -17,7 +17,10 @@ static CGPoint nextParticlePos;
 static CGPoint scorePosition;
 static CGPoint levelPosition;
 static CGPoint launchPoint;
+static CGSize fieldSize = {1024.0, 768.0};
 static cpFloat launchV;
+static CGFloat scaleFactor;
+
 
 @interface GameplayLayer()
 
@@ -60,11 +63,12 @@ static void scheduleForRemoval(cpBody *body, GameplayLayer *self) {
 
 // This function synchronizes the body with the sprite.
 static void syncSpriteToBody(cpBody *body, GameplayLayer* self) {
-	Particle *sprite = body->data;
-	if( sprite ) {
-		[sprite setPosition: body->p];
+	Particle *particle = body->data;
+	if( particle ) {
+		[particle setPosition: cpvmult(body->p, scaleFactor)];
         
-        if ([sprite isLive] && (cpvlength(cpBodyGetPos(body)) >= kFailRadius)) {
+        if ([particle isLive] && 
+            (cpvlength(cpBodyGetPos(body)) >= kFailRadius - kParticleRadius)) {
             [self end];
         }
 	}
@@ -78,7 +82,7 @@ static void gravityVelocityIntegrator(cpBody *body, cpVect gravity, cpFloat damp
     cpVect g = cpv(0.0, 0.0);
     if (0.0f != cpvdist(g, p)) {
         // This can crash of the body is at (0,0).
-        g = cpvmult(cpvnormalize(p), -1 * launchV);
+        g = cpvmult(cpvnormalize(p), -1 * kGravity);
     }
 	cpBodyUpdateVelocity(body, g, damping, dt);
 }
@@ -222,8 +226,6 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 
 -(void) launchParticle:(Particle*)particle {
 //    cpVect launchVect = cpvmult(cpvnormalize(cpvsub(target, launchPoint)), launchV);
-    
-//    cpVect launchVect = cpvmult(cpv, <#const cpFloat s#>)
     cpVect rot = cpvforangle(CC_DEGREES_TO_RADIANS(aimAngle));
     cpVect launchVect = cpvmult(rot, launchV);
     
@@ -264,14 +266,14 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     }
     
     // Create physics shape.
-    cpShape* shape = cpCircleShapeNew(body, 15.0f, CGPointZero);
+    cpShape* shape = cpCircleShapeNew(body, kParticleRadius, CGPointZero);
     cpShapeSetFriction(shape, kParticleFriction);
     cpShapeSetElasticity(shape, kParticleElasticity);
     //cpShapeSetCollisionType(shape, kParticleCollisionType);
 	cpSpaceAddShape(space, shape);
     
     // Create sensor shape to handle slow collisions.
-    cpShape* sensor = cpCircleShapeNew(body, 15.5f, CGPointZero);
+    cpShape* sensor = cpCircleShapeNew(body, kParticleRadius + 0.5, CGPointZero);
     cpShapeSetSensor(sensor, YES);
     cpShapeSetCollisionType(sensor, kParticleCollisionType);
 	cpSpaceAddShape(space, sensor);
@@ -279,7 +281,8 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     // Add body to space.
     body->velocity_func = gravityVelocityIntegrator;
     cpBodySetVelLimit(body, kVelocityLimit);
-    cpBodySetPos(body, position);
+    //cpBodySetPos(body, position);
+    cpBodySetPos(body, cpvmult(position, 1.0/scaleFactor));
     cpSpaceAddBody(space, body);
     
     // Remove from in-flight list.
@@ -378,10 +381,10 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
         Particle *particle = [inFlightParticles objectAtIndex:i];
         cpBody * body = particle.body;
         cpBodyUpdatePosition(body, kSimulationRate);
-        [particle setPosition: body->p];
-        cpFloat d = cpvlength(cpvsub(puzzleCenter, body->p));
-        if (d < kFailRadius + 30.0 || body->p.x > puzzleCenter.x) {
-            [self addParticle:particle atPosition:body->p];
+        [particle setPosition: ccp(body->p.x * scaleFactor, body->p.y)];
+        cpFloat d = cpvlength(cpvsub(puzzleCenter, particle.position));
+        if (d < (kFailRadius + kParticleRadius) * scaleFactor) {
+            [self addParticle:particle atPosition:particle.position];
             i--;
         }
     }
@@ -575,6 +578,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     scorePosition = ccp(winSize.width * 0.8f, winSize.height * 0.95f);
     levelPosition = ccp(winSize.width * 0.8f, winSize.height * 0.90f);
     launchPoint = ccp(0, winSize.height * 0.5f);
+    //launchPoint = cpv(-1 * puzzleCenter.x * scaleFactor, 0);
     //nextParticlePos = ccp(winSize.width * 0.6f, winSize.height * 0.95f);
     nextParticlePos = launchPoint;
     
@@ -658,7 +662,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     
     // Debug draw for fail radius.
     ccDrawColor4B(0, 255, 0, 128);
-    ccDrawCircle(puzzleCenter, kFailRadius + 15, 0, 30, NO);
+    ccDrawCircle(puzzleCenter, kFailRadius * scaleFactor, 0, 30, NO);
     
     // Debug draw for rotation touch.
     CGPoint location;
@@ -672,10 +676,10 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     
     // Debug draw for launch.
     ccDrawColor4B(0, 0, 255, 200);
-    CGPoint start = {0, puzzleCenter.y};
+    CGPoint start = launchPoint;
     
     cpVect rot = cpvforangle(CC_DEGREES_TO_RADIANS(aimAngle));
-    cpVect launchVel = cpvmult(rot, launchV);
+    cpVect launchVel = cpvmult(rot, launchV * scaleFactor);
     launchVel = cpvadd(launchVel, launchPoint);
     
     ccDrawLine(start, launchVel);
@@ -695,6 +699,12 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
         scoredParticles = [[[NSMutableArray alloc] initWithCapacity:20] retain];
         countedParticles = [[[NSMutableSet alloc] initWithCapacity:10] retain];
         inFlightParticles = [[[NSMutableArray alloc] initWithCapacity:5] retain];
+        
+        if( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone ) {
+            scaleFactor = kiPhoneScaleFactor;
+        } else {
+            scaleFactor = kiPadScaleFactor;
+        }
     }
     return self;
 }
