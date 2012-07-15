@@ -8,6 +8,7 @@
 
 #import "PauseLayer.h"
 #import "GameManager.h"
+#import "RemoveFromParentAction.h"
 
 @implementation PauseLayer
 
@@ -23,7 +24,7 @@
 
 - (void) resumeParent {
     CCSequence *seq = [CCSequence actions:[CCFadeTo actionWithDuration:1.0f opacity:0], 
-                       [CCCallFunc actionWithTarget:self selector:@selector(removeSelf)], 
+                       [RemoveFromParentAction action], 
                        nil];
     [self runAction:seq];
 }
@@ -37,7 +38,7 @@
     title.position = ccp(winSize.width * 0.5, winSize.height * 0.8);
     [self addChild:title z:100];
     
-    //TODO: Replace with CCMenuItemAtlasFont
+    //TODO: Replace with CCMenuItemLabel using CCLabelBMFont
     //Resume
     CCMenuItemFont *resumeItem = [CCMenuItemFont itemWithString:@"Resume" target:self selector:@selector(resumeParent)];
     [resumeItem setFontName:@"American Typewriter"];

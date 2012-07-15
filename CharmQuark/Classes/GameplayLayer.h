@@ -12,19 +12,19 @@
 // Gameplay Constants
 #define kMinMatchSize           4
 #define kPointsPerMatch         800
-#define kMatchesPerLevel        1
+#define kMatchesPerLevel        5
 #define kRotationRate           1.0f
 #define kFailRadius             235.0f
 #define kColorsInit             6
 #define kColorsMax              6 //9
 
-#define kLaunchV                1000.0f
-#define kGravity                800.0f
+#define kLaunchV                1500.0f
+#define kGravity                1200.0f
 
 #define kLaunchVMax             1800.0f
 
-#define kDropTimeInit           1.0f //4.0f
-#define kDropTimeMin            1.0f
+#define kDropTimeInit           4.0f //4.0f
+#define kDropTimeMin            1.4f
 #define kDropTimeStep           0.2f
 
 // Simulation Constants
@@ -55,8 +55,8 @@ enum {
     cpSpace *space;
     
     // Cocos2D Objects
-    CCLabelAtlas *scoreLabel;
-    CCLabelAtlas *levelLabel;
+    CCLabelBMFont *scoreLabel;
+    CCLabelBMFont *levelLabel;
     CCNode *centerNode;
     CCSpriteBatchNode *sceneSpriteBatchNode;
     CCMenuItemSprite *resetButton;

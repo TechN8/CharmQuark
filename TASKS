@@ -1,10 +1,18 @@
-. Consistent simulation dimensions between iPhone and iPad
+X Consistent simulation dimensions between iPhone and iPad
     Use 1024 x 768 sim dimensions.
     Scale to 480x320 = * 0.46875 for iPhone draws.
 
-. Music - Play an MP3 in the bacground as the scene is running.
+. Drop Timer
 
 . Main menu scene
+
+. Music - Play an MP3 in the bacground as the scene is running.
+
+. Sound effects
+    . Collision
+    . Explosion
+    . Bonus / Multiplier
+    . Game Over (Collumnator dump?)
     
 . Animated background.
     Monochrome trace of CERN installation.

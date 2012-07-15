@@ -11,13 +11,14 @@
 #import "Constants.h"
 #import "PauseLayer.h"
 #import "GameOverLayer.h"
+#import "RemoveFromParentAction.h"
 
 static CGPoint puzzleCenter;
 static CGPoint nextParticlePos;
 static CGPoint scorePosition;
 static CGPoint levelPosition;
 static CGPoint launchPoint;
-static CGSize fieldSize = {1024.0, 768.0};
+//static CGSize fieldSize = {1024.0, 768.0};
 static cpFloat launchV;
 static CGFloat scaleFactor;
 
@@ -294,7 +295,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     if (points > 0) {
         score += points;
         [scoreLabel setString:[[[NSString alloc] initWithFormat:@"%d", score] autorelease]];
-        id scaleUp = [CCScaleTo actionWithDuration:0.2f scaleX:1.5 scaleY:0.0];
+        id scaleUp = [CCScaleTo actionWithDuration:0.2f scaleX:1.2 scaleY:1.0];
         id scaleDown = [CCScaleTo actionWithDuration:0.2f scale:1.0];
         id seq = [CCSequence actions: scaleUp, scaleDown, nil];
         [scoreLabel runAction:seq];
@@ -303,7 +304,6 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 
 -(void) updateLevel {
     // Update level
-    // TODO: Need animation here too.
     if (matchesToNextLevel <= 0) {
         matchesToNextLevel += kMatchesPerLevel;
         level++;
@@ -312,9 +312,29 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
             dropTime = kDropTimeMin;
         }
         [levelLabel setString:[[[NSString alloc] initWithFormat:@"%d", level] autorelease]];
+        id scaleUp = [CCScaleTo actionWithDuration:0.2f scaleX:1.2 scaleY:1.0];
+        id scaleDown = [CCScaleTo actionWithDuration:0.2f scale:1.0];
+        id seq = [CCSequence actions: scaleUp, scaleDown, nil];
+        [levelLabel runAction:seq];
+        
+        [self animateText:[NSString stringWithFormat:@"Level %d!", level] 
+               atPosition:[centerNode position]];
+        
         [self unschedule:@selector(drop)];
         [self schedule:@selector(drop) interval:dropTime];
     }
+}
+
+-(void) animateText:(NSString *)bonusString atPosition:(CGPoint)position {
+    CCLabelBMFont *label = [CCLabelBMFont labelWithString:bonusString fntFile:@"score.fnt"];
+    label.position = position;
+    id move = [CCMoveBy actionWithDuration:1.0f position:ccp(0, 100)];
+    id fade = [CCFadeOut actionWithDuration:1.0f];
+    id remove = [RemoveFromParentAction action];
+    id seq = [CCSequence actions:fade, remove, nil];
+    [self addChild:label z:100];
+    [label runAction:move];
+    [label runAction:seq];
 }
 
 -(void) scoreParticles {
@@ -340,18 +360,35 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
                     [scoredParticles addObject:p];
                 }
                 matchesToNextLevel--;
-                multiplier = countedParticles.count - kMinMatchSize;
+                multiplier = countedParticles.count - kMinMatchSize + 1;
                 points = kPointsPerMatch;
-                if (multiplier) {
-                    points *= multiplier + 1;
-                    // TODO: Play multiplier animation at p->position.
+                
+                NSString *bonusText = nil;
+                if (multiplier > 1) {
+                    points *= multiplier;
+                    // Play multiplier animation.
+                    bonusText = [NSString stringWithFormat:@"%dX Bonus!", multiplier];
                 }
                 
                 if (combo) {
                     points *= combo + 1;
-                    // TODO: Run combo animation at p->position.
+                    if (bonusText) {
+                        bonusText = [NSString stringWithFormat:@"%@\n%dX Combo!", bonusText, combo + 1];
+                    } else {
+                        bonusText = [NSString stringWithFormat:@"%dX Combo!", combo + 1];
+                    }
                 }
+                
+                if (bonusText) {
+                    [self animateText:bonusText
+                           atPosition:[centerNode position]];
+                }
+                
                 combo++;
+
+                [self addPoints:points]; // Update score.
+                [self animateText:[NSString stringWithFormat:@"%d", points]
+                       atPosition:[centerNode convertToWorldSpace:[[countedParticles anyObject] position]]];
             }
         }
     }
@@ -360,8 +397,6 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     if (!points) {
         combo = 0;
     }
-    
-    [self addPoints:points]; // Update score.
     
     [self updateLevel]; // Update level.
     
@@ -576,7 +611,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     // Static variables.
     puzzleCenter = ccp(winSize.width - winSize.height * 0.4, winSize.height * 0.5f);
     scorePosition = ccp(winSize.width * 0.8f, winSize.height * 0.95f);
-    levelPosition = ccp(winSize.width * 0.8f, winSize.height * 0.90f);
+    levelPosition = ccp(scorePosition.x, scorePosition.y - 25);
     launchPoint = ccp(0, winSize.height * 0.5f);
     //launchPoint = cpv(-1 * puzzleCenter.x * scaleFactor, 0);
     //nextParticlePos = ccp(winSize.width * 0.6f, winSize.height * 0.95f);
@@ -629,19 +664,14 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     [menu setPosition:ccp(winSize.width * 0.5f, winSize.height * 0.95f)];
     [self addChild:menu z:100];
     
-    // Add score label.  Replace this later with your own image file.
-    CCTexture2DPixelFormat currentFormat = [CCTexture2D defaultAlphaPixelFormat];
-    [CCTexture2D setDefaultAlphaPixelFormat:kCCTexture2DPixelFormat_RGBA4444];
-    scoreLabel = [[CCLabelAtlas alloc]  initWithString:@"0" charMapFile:@"fps_images.png" itemWidth:12 itemHeight:32 startCharMap:'.'];
-    [CCTexture2D setDefaultAlphaPixelFormat:currentFormat];
+    // Add score label.
+    scoreLabel = [CCLabelBMFont labelWithString:@"0" fntFile:@"score.fnt"];
     [scoreLabel setPosition:scorePosition];
     [self addChild:scoreLabel z:100];
     
-    // Add level label.  Replace this later with your own image file.
-    currentFormat = [CCTexture2D defaultAlphaPixelFormat];
-    [CCTexture2D setDefaultAlphaPixelFormat:kCCTexture2DPixelFormat_RGBA4444];
-    levelLabel = [[CCLabelAtlas alloc]  initWithString:@"0" charMapFile:@"fps_images.png" itemWidth:12 itemHeight:32 startCharMap:'.'];
-    [CCTexture2D setDefaultAlphaPixelFormat:currentFormat];
+    
+    // Add level label.
+    levelLabel = [CCLabelBMFont labelWithString:@"1" fntFile:@"score.fnt"];
     [levelLabel setPosition:levelPosition];
     [self addChild:levelLabel z:100];
     

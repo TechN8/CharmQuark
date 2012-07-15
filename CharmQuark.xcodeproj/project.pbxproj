@@ -195,6 +195,11 @@
 		D847E2F915AC93770044FC48 /* scene1Atlas.plist in Resources */ = {isa = PBXBuildFile; fileRef = D847E2BF15AC93770044FC48 /* scene1Atlas.plist */; };
 		D847E2FA15AC93770044FC48 /* scene1Atlas.png in Resources */ = {isa = PBXBuildFile; fileRef = D847E2C015AC93770044FC48 /* scene1Atlas.png */; };
 		D847E52615ACA1280044FC48 /* IntroLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = D847E52515ACA1070044FC48 /* IntroLayer.m */; };
+		D871773615B350230014E75E /* score.fnt in Resources */ = {isa = PBXBuildFile; fileRef = D871773215B350230014E75E /* score.fnt */; };
+		D871773715B350230014E75E /* score.png in Resources */ = {isa = PBXBuildFile; fileRef = D871773315B350230014E75E /* score.png */; };
+		D871773A15B350650014E75E /* score-hd.fnt in Resources */ = {isa = PBXBuildFile; fileRef = D871773815B350650014E75E /* score-hd.fnt */; };
+		D871773B15B350650014E75E /* score-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = D871773915B350650014E75E /* score-hd.png */; };
+		D871773F15B3544F0014E75E /* RemoveFromParentAction.m in Sources */ = {isa = PBXBuildFile; fileRef = D871773E15B3544F0014E75E /* RemoveFromParentAction.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -601,6 +606,14 @@
 		D847E52515ACA1070044FC48 /* IntroLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IntroLayer.m; sourceTree = "<group>"; };
 		D847E54015ACEC750044FC48 /* NOTES */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = NOTES; sourceTree = "<group>"; };
 		D847E54115ACEC750044FC48 /* Scratchpad.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Scratchpad.svg; sourceTree = "<group>"; };
+		D871773015B350230014E75E /* score.GlyphProject */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = score.GlyphProject; sourceTree = "<group>"; };
+		D871773115B350230014E75E /* score-hd.GlyphProject */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = "score-hd.GlyphProject"; sourceTree = "<group>"; };
+		D871773215B350230014E75E /* score.fnt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = score.fnt; sourceTree = "<group>"; };
+		D871773315B350230014E75E /* score.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = score.png; sourceTree = "<group>"; };
+		D871773815B350650014E75E /* score-hd.fnt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "score-hd.fnt"; sourceTree = "<group>"; };
+		D871773915B350650014E75E /* score-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "score-hd.png"; sourceTree = "<group>"; };
+		D871773D15B3544F0014E75E /* RemoveFromParentAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemoveFromParentAction.h; sourceTree = "<group>"; };
+		D871773E15B3544F0014E75E /* RemoveFromParentAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemoveFromParentAction.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1144,6 +1157,7 @@
 		D847E26B15AC93610044FC48 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				D871773C15B3543F0014E75E /* Actions */,
 				D847E51715AC97560044FC48 /* Constants */,
 				D847E51615AC97500044FC48 /* Singletons */,
 				D847E51C15AC97CF0044FC48 /* Scenes */,
@@ -1165,6 +1179,7 @@
 				D847E2C015AC93770044FC48 /* scene1Atlas.png */,
 				D847E2C115AC93770044FC48 /* Sprites */,
 				D847E2C815AC93770044FC48 /* UI */,
+				D871772315B344D90014E75E /* Fonts */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -1384,6 +1399,28 @@
 			name = Intro;
 			sourceTree = "<group>";
 		};
+		D871772315B344D90014E75E /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				D871773815B350650014E75E /* score-hd.fnt */,
+				D871773915B350650014E75E /* score-hd.png */,
+				D871773015B350230014E75E /* score.GlyphProject */,
+				D871773115B350230014E75E /* score-hd.GlyphProject */,
+				D871773215B350230014E75E /* score.fnt */,
+				D871773315B350230014E75E /* score.png */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		D871773C15B3543F0014E75E /* Actions */ = {
+			isa = PBXGroup;
+			children = (
+				D871773D15B3544F0014E75E /* RemoveFromParentAction.h */,
+				D871773E15B3544F0014E75E /* RemoveFromParentAction.m */,
+			);
+			name = Actions;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1391,10 +1428,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D847E25E15AC88020044FC48 /* Build configuration list for PBXNativeTarget "CharmQuark" */;
 			buildPhases = (
+				D8318D5B15B372870032D92E /* Run Script */,
 				D847E05D15AC87FF0044FC48 /* Sources */,
 				D847E05E15AC87FF0044FC48 /* Frameworks */,
 				D847E05F15AC87FF0044FC48 /* Resources */,
-				D847E54415ADB5AB0044FC48 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1471,19 +1508,24 @@
 				D847E2F815AC93770044FC48 /* scene1Atlas-hd.png in Resources */,
 				D847E2F915AC93770044FC48 /* scene1Atlas.plist in Resources */,
 				D847E2FA15AC93770044FC48 /* scene1Atlas.png in Resources */,
+				D871773615B350230014E75E /* score.fnt in Resources */,
+				D871773715B350230014E75E /* score.png in Resources */,
+				D871773A15B350650014E75E /* score-hd.fnt in Resources */,
+				D871773B15B350650014E75E /* score-hd.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		D847E54415ADB5AB0044FC48 /* ShellScript */ = {
+		D8318D5B15B372870032D92E /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "Run Script";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1641,6 +1683,7 @@
 				D80B61FD15AE24F5006F2472 /* GameOverLayer.m in Sources */,
 				D80B620115AE2500006F2472 /* PauseLayer.m in Sources */,
 				D80B620415AF055A006F2472 /* ModalMenuLayer.m in Sources */,
+				D871773F15B3544F0014E75E /* RemoveFromParentAction.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
