@@ -124,36 +124,18 @@ static int collisionPreSolve(cpArbiter *arb, cpSpace *space, GameplayLayer *self
     return TRUE;
 }
 
-// velocity of the two surfaces in relation to the collision normal at the collision point
-static inline cpFloat
-hit_velocity(cpBody *a, cpBody *b, cpVect p, cpVect n){
-    cpVect r1 = cpvsub(p, a->p);
-    cpVect r2 = cpvsub(p, b->p);
-    cpVect v1_sum = cpvadd(a->v, cpvmult(cpvperp(r1), a->w));
-    cpVect v2_sum = cpvadd(b->v, cpvmult(cpvperp(r2), b->w));
-    
-    return cpvdot(cpvsub(v2_sum, v1_sum), n);
-}
-
 static void collisionPostSolve(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 {
     // Do nothing here.
     CP_ARBITER_GET_BODIES(arb, a, b);
     
     if (cpArbiterIsFirstContact(arb)) {
+        cpFloat impulse = cpvlength(cpArbiterTotalImpulse(arb));
         
-        // Play sound effects here?
-//        cpVect p = cpArbiterGetPoint(arb, 0);
-//        cpVect n = cpArbiterGetNormal(arb, 0);
-//        
-        const cpFloat min = 1000.0f;
-        const cpFloat max = 5000.0f;
-//        cpFloat nspeed = cpfabs(hit_velocity(a, b, p, n));
-        
-        cpFloat nspeed = cpvlength(cpArbiterTotalImpulse(arb));
-        
-        if(nspeed > min){
-            ALfloat volume = fmax(fminf((nspeed - min)/(max - min), 1.0f), 0.0f);
+        if(impulse > kMinSoundImpulse){
+            ALfloat volume 
+            = fmax(fminf((impulse - kMinSoundImpulse)/(kMaxSoundImpulse - kMinSoundImpulse), 1.0f), 0.0f);
+            CCLOG(@"Impulse = %f. Volume = %f", impulse, volume);
             PLAYSOUNDEFFECT(PARTICLE_COLLIDE, volume);
         }
     }

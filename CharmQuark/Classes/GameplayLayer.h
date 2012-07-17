@@ -28,6 +28,9 @@
 #define kDropTimeMin            1.4f
 #define kDropTimeStep           0.2f
 
+#define kMinSoundImpulse        1200.0f
+#define kMaxSoundImpulse        10000.0f
+
 // Simulation Constants
 #define kSimulationRate         0.016667f
 #define kParticleRadius         32.0f

@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:osb="http://www.openswatchbook.org/uri/2009/osb"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="1024"
+   height="768"
+   id="svg3101"
+   version="1.1"
+   inkscape:version="0.48+devel r9906"
+   sodipodi:docname="CountdownClock.svg"
+   style="display:inline"
+   enable-background="new">
+  <defs
+     id="defs3103">
+    <linearGradient
+       id="linearGradient5970"
+       osb:paint="solid">
+      <stop
+         style="stop-color:#7bc9fd;stop-opacity:1;"
+         offset="0"
+         id="stop5972" />
+    </linearGradient>
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 384 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="1024 : 384 : 1"
+       inkscape:persp3d-origin="512 : 256 : 1"
+       id="perspective3919" />
+    <filter
+       inkscape:collect="always"
+       id="filter4029">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="2.7794748"
+         id="feGaussianBlur4031" />
+    </filter>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#000000"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.94401042"
+     inkscape:cx="512"
+     inkscape:cy="384"
+     inkscape:document-units="px"
+     inkscape:current-layer="svg3101"
+     showgrid="false"
+     inkscape:window-width="1493"
+     inkscape:window-height="913"
+     inkscape:window-x="235"
+     inkscape:window-y="14"
+     inkscape:window-maximized="0"
+     units="px"
+     inkscape:snap-bbox="true"
+     showborder="false"
+     borderlayer="false" />
+  <metadata
+     id="metadata3106">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Screen Ratios"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-284.36218)"
+     style="display:inline"
+     sodipodi:insensitive="true">
+    <rect
+       style="fill:#323232;fill-opacity:1;stroke:none"
+       id="rect3128"
+       width="1024"
+       height="768"
+       x="0"
+       y="284.36218" />
+    <rect
+       style="fill:#505050;fill-opacity:1;stroke:none"
+       id="rect3130"
+       width="1024"
+       height="682.66663"
+       x="0"
+       y="327.02887" />
+    <text
+       xml:space="preserve"
+       style="font-size:5px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:American Typewriter;-inkscape-font-specification:American Typewriter"
+       x="897.23584"
+       y="59.321381"
+       id="text3901"
+       sodipodi:linespacing="125%"
+       transform="translate(0,284.36218)"><tspan
+         sodipodi:role="line"
+         id="tspan3903"
+         x="897.23584"
+         y="59.321381" /></text>
+    <text
+       xml:space="preserve"
+       style="font-size:5px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;font-family:American Typewriter;-inkscape-font-specification:American Typewriter"
+       x="15.889655"
+       y="350.03943"
+       id="text3905"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3907"
+         x="15.889655"
+         y="350.03943"
+         style="font-size:16px;fill:#ffffff;fill-opacity:1">iPhone</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:5px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;font-family:American Typewriter;-inkscape-font-specification:American Typewriter"
+       x="15.889655"
+       y="311.90424"
+       id="text3909"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3911"
+         x="15.889655"
+         y="311.90424"
+         style="font-size:16px;fill:#ffffff;fill-opacity:1">iPad</tspan></text>
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="Map"
+     style="display:inline"
+     sodipodi:insensitive="true">
+    <g
+       id="g3995"
+       style="stroke:#c6cbcc;stroke-width:8;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       transform="matrix(0,1,-1,0,649.42321,101.09816)"
+       inkscape:export-filename="/Users/nathan/Documents/Xcode Projects/CharmQuark/CharmQuark/Images/Clock/iPhone-hd/LHCMap.png"
+       inkscape:export-xdpi="84.379997"
+       inkscape:export-ydpi="84.379997">
+      <path
+         transform="matrix(1.1580327,0,0,1.1580327,-220.66508,-146.70299)"
+         d="m 628.17104,448.61792 a 193.32414,193.32414 0 1 1 -386.64829,0 193.32414,193.32414 0 1 1 386.64829,0 z"
+         sodipodi:ry="193.32414"
+         sodipodi:rx="193.32414"
+         sodipodi:cy="448.61792"
+         sodipodi:cx="434.84689"
+         id="path3985"
+         style="fill:none;stroke:#c6cbcc;stroke-width:6.90826797;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         sodipodi:type="arc" />
+      <path
+         sodipodi:type="arc"
+         style="fill:none;stroke:#c6cbcc;stroke-width:15.49795628;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         id="path3987"
+         sodipodi:cx="434.84689"
+         sodipodi:cy="448.61792"
+         sodipodi:rx="193.32414"
+         sodipodi:ry="193.32414"
+         d="m 628.17104,448.61792 a 193.32414,193.32414 0 1 1 -386.64829,0 193.32414,193.32414 0 1 1 386.64829,0 z"
+         transform="matrix(0.51619708,0,0,0.51619708,60.275219,305.61594)" />
+      <path
+         sodipodi:nodetypes="cc"
+         inkscape:connector-curvature="0"
+         id="path3989"
+         d="m 364.29119,477.00876 c 38.86042,55.41913 96.30592,41.57677 128.0079,-24.56177"
+         style="fill:none;stroke:#c6cbcc;stroke-width:8;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         sodipodi:nodetypes="cc"
+         inkscape:connector-curvature="0"
+         id="path3991"
+         d="M 260.86967,634.05306 C 172.87879,610.79271 109.58369,550.71941 78.520257,464.53923"
+         style="fill:none;stroke:#c6cbcc;stroke-width:8;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         sodipodi:nodetypes="cc"
+         inkscape:connector-curvature="0"
+         id="path3993"
+         d="m 191.90119,500.72593 c -21.98573,60.63238 -23.84455,137.15439 -23.58475,147.99918"
+         style="fill:none;stroke:#c6cbcc;stroke-width:8;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+    </g>
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer4"
+     inkscape:label="Progress"
+     style="display:inline" />
+  <g
+     inkscape:groupmode="layer"
+     id="layer3"
+     inkscape:label="Spark"
+     style="display:none">
+    <path
+       sodipodi:type="star"
+       style="fill:#7bc9fd;fill-opacity:1;stroke:none;filter:url(#filter4029)"
+       id="path4003"
+       sodipodi:sides="4"
+       sodipodi:cx="584.73932"
+       sodipodi:cy="360.16553"
+       sodipodi:r1="55.094322"
+       sodipodi:r2="12.034387"
+       sodipodi:arg1="1.5515679"
+       sodipodi:arg2="2.3369661"
+       inkscape:flatsided="false"
+       inkscape:rounded="0"
+       inkscape:randomized="0"
+       d="m 585.79863,415.24966 -9.40372,-46.41249 -46.73973,-7.61233 46.4125,-9.40372 7.61233,-46.73973 9.40372,46.4125 46.73973,7.61233 -46.4125,9.40371 z"
+       transform="matrix(-0.35674492,0,0,-0.35674492,301.8221,638.54515)" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#path4003"
+       id="use4035"
+       transform="matrix(0,-1,1,0,-416.83861,351.16139)"
+       width="1024"
+       height="768" />
+  </g>
+  <path
+     sodipodi:type="arc"
+     style="fill:#ff0000;fill-opacity:1;stroke:none"
+     id="path6054"
+     sodipodi:cx="566.20135"
+     sodipodi:cy="305.61102"
+     sodipodi:rx="16.41931"
+     sodipodi:ry="16.41931"
+     d="m 582.62066,305.61102 a 16.41931,16.41931 0 1 1 -32.83861,0 16.41931,16.41931 0 1 1 32.83861,0 z"
+     transform="matrix(0,0.46370965,-0.46370965,0,301.86925,376.2773)"
+     inkscape:export-filename="/Users/nathan/Documents/Xcode Projects/CharmQuark/CharmQuark/Images/Clock/iPhone-hd/red-small.png"
+     inkscape:export-xdpi="84.379997"
+     inkscape:export-ydpi="84.379997" />
+  <path
+     transform="matrix(0,0.46370965,-0.46370965,0,283.46373,376.2773)"
+     d="m 582.62066,305.61102 a 16.41931,16.41931 0 1 1 -32.83861,0 16.41931,16.41931 0 1 1 32.83861,0 z"
+     sodipodi:ry="16.41931"
+     sodipodi:rx="16.41931"
+     sodipodi:cy="305.61102"
+     sodipodi:cx="566.20135"
+     id="path6056"
+     style="fill:#00ff00;fill-opacity:1;stroke:none"
+     sodipodi:type="arc"
+     inkscape:export-filename="/Users/nathan/Documents/Xcode Projects/CharmQuark/CharmQuark/Images/Clock/iPhone-hd/green-small.png"
+     inkscape:export-xdpi="84.375"
+     inkscape:export-ydpi="84.375" />
+  <path
+     sodipodi:type="arc"
+     style="fill:#0000ff;fill-opacity:1;stroke:none"
+     id="path6058"
+     sodipodi:cx="566.20135"
+     sodipodi:cy="305.61102"
+     sodipodi:rx="16.41931"
+     sodipodi:ry="16.41931"
+     d="m 582.62066,305.61102 a 16.41931,16.41931 0 1 1 -32.83861,0 16.41931,16.41931 0 1 1 32.83861,0 z"
+     transform="matrix(0,0.46370965,-0.46370965,0,265.05824,376.2773)"
+     inkscape:export-filename="/Users/nathan/Documents/Xcode Projects/CharmQuark/CharmQuark/Images/Clock/iPhone-hd/blue-small.png"
+     inkscape:export-xdpi="84.375"
+     inkscape:export-ydpi="84.375" />
+  <path
+     transform="matrix(0,0.46370965,-0.46370965,0,246.65267,376.2773)"
+     d="m 582.62066,305.61102 a 16.41931,16.41931 0 1 1 -32.83861,0 16.41931,16.41931 0 1 1 32.83861,0 z"
+     sodipodi:ry="16.41931"
+     sodipodi:rx="16.41931"
+     sodipodi:cy="305.61102"
+     sodipodi:cx="566.20135"
+     id="path6060"
+     style="fill:#00fdfd;fill-opacity:1;stroke:none"
+     sodipodi:type="arc"
+     inkscape:export-filename="/Users/nathan/Documents/Xcode Projects/CharmQuark/CharmQuark/Images/Clock/iPhone-hd/antired-small.png"
+     inkscape:export-xdpi="84.375"
+     inkscape:export-ydpi="84.375" />
+  <path
+     sodipodi:type="arc"
+     style="fill:#ff00ff;fill-opacity:1;stroke:none"
+     id="path6062"
+     sodipodi:cx="566.20135"
+     sodipodi:cy="305.61102"
+     sodipodi:rx="16.41931"
+     sodipodi:ry="16.41931"
+     d="m 582.62066,305.61102 a 16.41931,16.41931 0 1 1 -32.83861,0 16.41931,16.41931 0 1 1 32.83861,0 z"
+     transform="matrix(0,0.46370965,-0.46370965,0,228.24716,376.2773)"
+     inkscape:export-filename="/Users/nathan/Documents/Xcode Projects/CharmQuark/CharmQuark/Images/Clock/iPhone-hd/antigreen-small.png"
+     inkscape:export-xdpi="84.375"
+     inkscape:export-ydpi="84.375" />
+  <path
+     transform="matrix(0,0.46370965,-0.46370965,0,209.84163,376.2773)"
+     d="m 582.62066,305.61102 a 16.41931,16.41931 0 1 1 -32.83861,0 16.41931,16.41931 0 1 1 32.83861,0 z"
+     sodipodi:ry="16.41931"
+     sodipodi:rx="16.41931"
+     sodipodi:cy="305.61102"
+     sodipodi:cx="566.20135"
+     id="path6064"
+     style="fill:#ffff00;fill-opacity:1;stroke:none"
+     sodipodi:type="arc"
+     inkscape:export-xdpi="84.375"
+     inkscape:export-ydpi="84.375"
+     inkscape:export-filename="/Users/nathan/Documents/Xcode Projects/CharmQuark/CharmQuark/Images/Clock/iPhone-hd/antiblue-small.png" />
+  <path
+     transform="matrix(0,0.46370965,-0.46370965,0,191.43614,376.2773)"
+     d="m 582.62066,305.61102 a 16.41931,16.41931 0 1 1 -32.83861,0 16.41931,16.41931 0 1 1 32.83861,0 z"
+     sodipodi:ry="16.41931"
+     sodipodi:rx="16.41931"
+     sodipodi:cy="305.61102"
+     sodipodi:cx="566.20135"
+     id="path6066"
+     style="fill:#ffffff;fill-opacity:1;stroke:none"
+     sodipodi:type="arc"
+     inkscape:export-filename="/Users/nathan/Documents/Xcode Projects/CharmQuark/CharmQuark/Images/Clock/iPad-hd/white-small.png"
+     inkscape:export-xdpi="180"
+     inkscape:export-ydpi="180"
+     inkscape:transform-center-y="-33.103448" />
+  <path
+     inkscape:export-ydpi="84.379997"
+     inkscape:export-xdpi="84.379997"
+     inkscape:export-filename="/Users/nathan/Documents/Xcode Projects/CharmQuark/CharmQuark/Images/Clock/iPhone-hd/red-small.png"
+     transform="matrix(0,0.97446241,-0.97446241,0,581.90023,119.92702)"
+     d="m 582.62066,305.61102 a 16.41931,16.41931 0 1 1 -32.83861,0 16.41931,16.41931 0 1 1 32.83861,0 z"
+     sodipodi:ry="16.41931"
+     sodipodi:rx="16.41931"
+     sodipodi:cy="305.61102"
+     sodipodi:cx="566.20135"
+     id="path6089"
+     style="fill:#ff0000;fill-opacity:1;stroke:none"
+     sodipodi:type="arc" />
+  <path
+     inkscape:export-ydpi="84.375"
+     inkscape:export-xdpi="84.375"
+     inkscape:export-filename="/Users/nathan/Documents/Xcode Projects/CharmQuark/CharmQuark/Images/Clock/iPhone-hd/green-small.png"
+     sodipodi:type="arc"
+     style="fill:#00ff00;fill-opacity:1;stroke:none"
+     id="path6091"
+     sodipodi:cx="566.20135"
+     sodipodi:cy="305.61102"
+     sodipodi:rx="16.41931"
+     sodipodi:ry="16.41931"
+     d="m 582.62066,305.61102 a 16.41931,16.41931 0 1 1 -32.83861,0 16.41931,16.41931 0 1 1 32.83861,0 z"
+     transform="matrix(0,0.97446241,-0.97446241,0,544.23586,119.92702)" />
+  <path
+     inkscape:export-ydpi="84.375"
+     inkscape:export-xdpi="84.375"
+     inkscape:export-filename="/Users/nathan/Documents/Xcode Projects/CharmQuark/CharmQuark/Images/Clock/iPhone-hd/blue-small.png"
+     transform="matrix(0,0.97446241,-0.97446241,0,506.57149,119.92702)"
+     d="m 582.62066,305.61102 a 16.41931,16.41931 0 1 1 -32.83861,0 16.41931,16.41931 0 1 1 32.83861,0 z"
+     sodipodi:ry="16.41931"
+     sodipodi:rx="16.41931"
+     sodipodi:cy="305.61102"
+     sodipodi:cx="566.20135"
+     id="path6093"
+     style="fill:#0000ff;fill-opacity:1;stroke:none"
+     sodipodi:type="arc" />
+  <path
+     inkscape:export-ydpi="84.375"
+     inkscape:export-xdpi="84.375"
+     inkscape:export-filename="/Users/nathan/Documents/Xcode Projects/CharmQuark/CharmQuark/Images/Clock/iPhone-hd/antired-small.png"
+     sodipodi:type="arc"
+     style="fill:#00fdfd;fill-opacity:1;stroke:none"
+     id="path6095"
+     sodipodi:cx="566.20135"
+     sodipodi:cy="305.61102"
+     sodipodi:rx="16.41931"
+     sodipodi:ry="16.41931"
+     d="m 582.62066,305.61102 a 16.41931,16.41931 0 1 1 -32.83861,0 16.41931,16.41931 0 1 1 32.83861,0 z"
+     transform="matrix(0,0.97446241,-0.97446241,0,468.90713,119.92702)" />
+  <path
+     inkscape:export-ydpi="84.375"
+     inkscape:export-xdpi="84.375"
+     inkscape:export-filename="/Users/nathan/Documents/Xcode Projects/CharmQuark/CharmQuark/Images/Clock/iPhone-hd/antigreen-small.png"
+     transform="matrix(0,0.97446241,-0.97446241,0,431.24276,119.92702)"
+     d="m 582.62066,305.61102 a 16.41931,16.41931 0 1 1 -32.83861,0 16.41931,16.41931 0 1 1 32.83861,0 z"
+     sodipodi:ry="16.41931"
+     sodipodi:rx="16.41931"
+     sodipodi:cy="305.61102"
+     sodipodi:cx="566.20135"
+     id="path6097"
+     style="fill:#ff00ff;fill-opacity:1;stroke:none"
+     sodipodi:type="arc" />
+  <path
+     inkscape:export-filename="/Users/nathan/Documents/Xcode Projects/CharmQuark/CharmQuark/Images/Clock/iPhone-hd/antiblue-small.png"
+     inkscape:export-ydpi="84.375"
+     inkscape:export-xdpi="84.375"
+     sodipodi:type="arc"
+     style="fill:#ffff00;fill-opacity:1;stroke:none"
+     id="path6099"
+     sodipodi:cx="566.20135"
+     sodipodi:cy="305.61102"
+     sodipodi:rx="16.41931"
+     sodipodi:ry="16.41931"
+     d="m 582.62066,305.61102 a 16.41931,16.41931 0 1 1 -32.83861,0 16.41931,16.41931 0 1 1 32.83861,0 z"
+     transform="matrix(0,0.97446241,-0.97446241,0,393.57839,119.92702)" />
+  <path
+     inkscape:transform-center-y="-33.103448"
+     inkscape:export-ydpi="180"
+     inkscape:export-xdpi="180"
+     inkscape:export-filename="/Users/nathan/Documents/Xcode Projects/CharmQuark/CharmQuark/Images/Clock/iPad-hd/white-small.png"
+     sodipodi:type="arc"
+     style="fill:#ffffff;fill-opacity:1;stroke:none"
+     id="path6101"
+     sodipodi:cx="566.20135"
+     sodipodi:cy="305.61102"
+     sodipodi:rx="16.41931"
+     sodipodi:ry="16.41931"
+     d="m 582.62066,305.61102 a 16.41931,16.41931 0 1 1 -32.83861,0 16.41931,16.41931 0 1 1 32.83861,0 z"
+     transform="matrix(0,0.97446241,-0.97446241,0,355.91402,119.92702)" />
+</svg>

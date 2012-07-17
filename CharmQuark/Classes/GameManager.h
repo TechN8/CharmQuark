@@ -25,8 +25,8 @@
     SceneTypes lastLevel;
     
 }
-@property (readwrite) BOOL isMusicON;
-@property (readwrite) BOOL isSoundEffectsON;
+@property (nonatomic,readwrite) BOOL isMusicON;
+@property (nonatomic,readwrite) BOOL isSoundEffectsON;
 @property (readwrite) BOOL hasPlayerDied;
 @property (readwrite) GameManagerSoundState managerSoundState;
 //@property (readonly) SimpleAudioEngine *soundEngine;

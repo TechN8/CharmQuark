@@ -6,23 +6,16 @@ X Animated background.
     Monochrome trace of CERN installation.
     Use as drop timer for next particle launch.
 
+. Options
+    X Sound on/off
+    . Music on/off
+
 . Main menu scene
     X Play
     X Options (Sound Volumes).
     . Website link (direct to FaceBook?)
     . Social media links.
     . Background clock
-
-. Options
-    . Sound on/off
-    . Music on/off
-
-. Sound effects
-    . Launch
-    . Collision
-    . Explosion
-    . Bonus / Multiplier
-    . Game Over (Collumnator dump?)
 
 . Music - Play an MP3 in the bacground as the scene is running.
 
@@ -48,7 +41,7 @@ X Animated background.
     Trail effect on dropped particle?
     Thumb guides.  (Do these with sprites).
 
-. Artwork.
+. Final Artwork.
     . Prettier sprites.  
         Ideas: 
             . Vector-look with physics symbols.  Magnetic field lines on grid bacground.
@@ -58,7 +51,7 @@ X Animated background.
     . Background & Scoreboard
     . Font for score
 
-. Sound effects.
+. Final Sound effects.
     Grab some samples from http://lhcsound.hep.ucl.ac.uk. 
         These are all CC and generated from LHC data!
 

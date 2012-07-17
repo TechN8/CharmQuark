@@ -12,6 +12,10 @@
 #import "cocos2d.h"
 #import "chipmunk.h"
 
+NSString *kSoundEffectsOnKey	= @"isSoundEffectsOn";
+NSString *kMusicOnKey			= @"isMusicOn";
+// TODO: Add key for high score dictionary.
+
 @implementation GameManager
 static GameManager* _sharedGameManager = nil;
 @synthesize isMusicON;
@@ -45,6 +49,15 @@ static GameManager* _sharedGameManager = nil;
     return nil;  
 }
 
+-(void)setIsSoundEffectsON:(BOOL)value {
+    isSoundEffectsON = value;
+    [[NSUserDefaults standardUserDefaults] setBool:value forKey:kSoundEffectsOnKey];
+}
+
+-(void)setIsMusicON:(BOOL)value {
+    isMusicON = value;
+    [[NSUserDefaults standardUserDefaults] setBool:value forKey:kMusicOnKey];
+}
 
 -(CGSize)getDimensionsOfCurrentScene {
     CGSize screenSize = [[CCDirector sharedDirector] winSize];
@@ -101,7 +114,7 @@ static GameManager* _sharedGameManager = nil;
 
 -(ALuint)playSoundEffect:(NSString*)soundEffectKey gain:(Float32)gain {
     ALuint soundID = 0;
-    if (managerSoundState == kAudioManagerReady) {
+    if (isSoundEffectsON && managerSoundState == kAudioManagerReady) {
         NSNumber *isSFXLoaded = [soundEffectsState objectForKey:soundEffectKey];
         if ([isSFXLoaded boolValue] == SFX_LOADED) {
             soundID = [soundEngine playEffect:[listOfSoundEffectFiles objectForKey:soundEffectKey] 
@@ -110,7 +123,7 @@ static GameManager* _sharedGameManager = nil;
             CCLOG(@"GameMgr: SoundEffect %@ is not loaded, cannot play.",soundEffectKey);
         }
     } else {
-        CCLOG(@"GameMgr: Sound Manager is not ready, cannot play %@", soundEffectKey);
+        CCLOG(@"GameMgr: Sound Manager is not ready or sound disabled, cannot play %@", soundEffectKey);
     }
     return soundID;
 }
@@ -330,8 +343,19 @@ static GameManager* _sharedGameManager = nil;
     if (self != nil) {
         // Game Manager initialized
         CCLOG(@"Game Manager Singleton, init");
-        isMusicON = YES;
-        isSoundEffectsON = YES;
+        
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        if (nil == [defaults objectForKey:kMusicOnKey]) {
+            isMusicON = YES;
+        } else {
+            isMusicON = [defaults boolForKey:kMusicOnKey];
+        }
+        
+        if (nil == [defaults objectForKey:kSoundEffectsOnKey]) {
+            isSoundEffectsON = YES;
+        } else {
+            isSoundEffectsON = [defaults boolForKey:kSoundEffectsOnKey];
+        }
         hasPlayerDied = NO;
         currentScene = kNoSceneUninitialized;
         hasAudioBeenInitialized = NO;

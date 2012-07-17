@@ -24,6 +24,16 @@
     [self runAction:seq];
 }
 
+- (void) toggleSound {
+    GameManager *sharedGameManager = [GameManager sharedGameManager];
+    [sharedGameManager setIsSoundEffectsON:![sharedGameManager isSoundEffectsON]];
+    if ([[GameManager sharedGameManager] isSoundEffectsON]) {
+        [soundToggle setString:@"Turn Sound Off"];
+    } else {
+        [soundToggle setString:@"Turn Sound On"];
+    }
+}
+
 #pragma mark - ModalMenuLayer
 
 -(void)initMenus {
@@ -34,15 +44,30 @@
     [self addChild:title z:100];
     
     //TODO: Replace with CCMenuItemLabel using CCLabelBMFont
+
     //Resume
     CCMenuItemFont *resumeItem = [CCMenuItemFont itemWithString:@"Resume" target:self selector:@selector(resumeParent)];
     [resumeItem setFontName:@"American Typewriter"];
     [resumeItem setColor:ccWHITE];
+
     //Quit
     CCMenuItemFont *quitItem = [CCMenuItemFont itemWithString:@"Quit" target:self selector:@selector(quitGame)];
     [quitItem setFontName:@"American Typewriter"];
     [quitItem setColor:ccWHITE];
-    CCMenu *menu = [CCMenu menuWithItems:resumeItem, quitItem, nil];
+    
+    // Sound off
+    NSString *soundString = nil;
+    if ([[GameManager sharedGameManager] isSoundEffectsON]) {
+        soundString = @"Turn Sound Off";
+    } else {
+        soundString = @"Turn Sound On";
+    }
+    soundToggle = [CCMenuItemFont itemWithString:soundString target:self selector:@selector(toggleSound)];
+    [soundToggle setFontName:@"American Typewriter"];
+    [quitItem setColor:ccWHITE];
+
+    
+    CCMenu *menu = [CCMenu menuWithItems:resumeItem, quitItem, soundToggle, nil];
     [menu alignItemsVerticallyWithPadding:10];
     menu.position = ccp(winSize.width * 0.5, winSize.height * 0.5f);
     [self addChild:menu z:100];
