@@ -7,6 +7,7 @@
 
 #import "GameManager.h"
 #import "MainMenuScene.h"
+#import "IntroLayer.h"
 #import "GameScene.h"
 #import "cocos2d.h"
 #import "chipmunk.h"
@@ -82,7 +83,7 @@ static GameManager* _sharedGameManager = nil;
             waitCycles = waitCycles + 1;
         }
     }
-
+    
     if (managerSoundState == kAudioManagerReady) {
         if ([soundEngine isBackgroundMusicPlaying]) {
             [soundEngine stopBackgroundMusic];
@@ -98,12 +99,13 @@ static GameManager* _sharedGameManager = nil;
     }
 }
 
--(ALuint)playSoundEffect:(NSString*)soundEffectKey {
+-(ALuint)playSoundEffect:(NSString*)soundEffectKey gain:(Float32)gain {
     ALuint soundID = 0;
     if (managerSoundState == kAudioManagerReady) {
         NSNumber *isSFXLoaded = [soundEffectsState objectForKey:soundEffectKey];
         if ([isSFXLoaded boolValue] == SFX_LOADED) {
-            soundID = [soundEngine playEffect:[listOfSoundEffectFiles objectForKey:soundEffectKey]];
+            soundID = [soundEngine playEffect:[listOfSoundEffectFiles objectForKey:soundEffectKey] 
+                                        pitch:1.0 pan:0.0 gain:gain];
         } else {
             CCLOG(@"GameMgr: SoundEffect %@ is not loaded, cannot play.",soundEffectKey);
         }
@@ -204,25 +206,25 @@ static GameManager* _sharedGameManager = nil;
 
 -(void)loadAudioForSceneWithID:(NSNumber*)sceneIDNumber {
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-
+    
     SceneTypes sceneID = (SceneTypes) [sceneIDNumber intValue];
     // 1
     if (managerSoundState == kAudioManagerInitializing) {
-            int waitCycles = 0;
-            while (waitCycles < AUDIO_MAX_WAITTIME) {
-                [NSThread sleepForTimeInterval:0.1f];
-                if ((managerSoundState == kAudioManagerReady) || 
-                    (managerSoundState == kAudioManagerFailed)) {
-                    break;
-                }
-                waitCycles = waitCycles + 1;
+        int waitCycles = 0;
+        while (waitCycles < AUDIO_MAX_WAITTIME) {
+            [NSThread sleepForTimeInterval:0.1f];
+            if ((managerSoundState == kAudioManagerReady) || 
+                (managerSoundState == kAudioManagerFailed)) {
+                break;
             }
-   }
+            waitCycles = waitCycles + 1;
+        }
+    }
     
     if (managerSoundState == kAudioManagerFailed || managerSoundState == kAudioManagerUninitialized) {
         return; // Nothing to load, CocosDenshion not ready
     }
-
+    
     NSDictionary *soundEffectsToLoad = 
     [self getSoundEffectsListForSceneWithID:sceneID];
     if (soundEffectsToLoad == nil) { // 2
@@ -340,25 +342,27 @@ static GameManager* _sharedGameManager = nil;
 }
 
 -(void)runSceneWithID:(SceneTypes)sceneID {
-
+    
     lastLevel = curLevel;
     curLevel = sceneID;
     
     SceneTypes oldScene = currentScene;
     currentScene = sceneID;
-
+    
     id sceneToRun = nil;
     switch (sceneID) {
         case kMainMenuScene: 
             sceneToRun = [MainMenuScene node];
             break;
-        case kOptionsScene:
-        case kCreditsScene:
         case kIntroScene:
-        case kGameOverScene:
+            sceneToRun = [IntroLayer scene];
+            break;
         case kGameScene: 
             sceneToRun = [GameScene node];
             break;
+            
+        case kOptionsScene:
+        case kCreditsScene:
             
         default:
             CCLOG(@"Unknown ID, cannot switch scenes");
@@ -374,26 +378,26 @@ static GameManager* _sharedGameManager = nil;
     
     // Menu Scenes have a value of < 100
     if (sceneID < 100) {
-//        if (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad) { 
-//            CGSize screenSize = [CCDirector sharedDirector].winSizeInPixels; 
-//                [sceneToRun setScaleX:0.46875f];
-//                [sceneToRun setScaleY:0.41666f];
-//                CCLOG(@"GameMgr:Scaling for iPhone");
-//        }
+        //        if (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad) { 
+        //            CGSize screenSize = [CCDirector sharedDirector].winSizeInPixels; 
+        //                [sceneToRun setScaleX:0.46875f];
+        //                [sceneToRun setScaleY:0.41666f];
+        //                CCLOG(@"GameMgr:Scaling for iPhone");
+        //        }
     }
     
     [self performSelectorInBackground:@selector(loadAudioForSceneWithID:) withObject:[NSNumber numberWithInt:sceneID]];
     
-        
     if ([[CCDirector sharedDirector] runningScene] == nil) {
         [[CCDirector sharedDirector] runWithScene:sceneToRun];
-        
     } else {
-        
-        [[CCDirector sharedDirector] replaceScene:sceneToRun];
+        [[CCDirector sharedDirector] 
+         replaceScene:[CCTransitionFade transitionWithDuration:1.0 
+                                                         scene:sceneToRun 
+                                                     withColor:ccBLACK]];
     }
     [self performSelectorInBackground:@selector(unloadAudioForSceneWithID:) withObject:[NSNumber numberWithInt:oldScene]];
-
+    
 }
 -(void)openSiteWithLinkType:(LinkTypes)linkTypeToOpen {
     NSURL *urlToOpen = nil;

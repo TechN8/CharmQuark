@@ -40,7 +40,7 @@
 -(void)openSiteWithLinkType:(LinkTypes)linkTypeToOpen ;            // 3
 // Chapter 8
 -(void)setupAudioEngine;
--(ALuint)playSoundEffect:(NSString*)soundEffectKey;
+-(ALuint)playSoundEffect:(NSString*)soundEffectKey gain:(Float32)gain;
 -(void)stopSoundEffect:(ALuint)soundEffectID;
 -(void)playBackgroundTrack:(NSString*)trackFileName;
 // Chapter 9

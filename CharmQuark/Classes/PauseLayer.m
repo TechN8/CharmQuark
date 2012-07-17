@@ -16,15 +16,10 @@
     [[GameManager sharedGameManager] runSceneWithID:kMainMenuScene];
 }
 
-- (void) removeSelf {
-    CCNode *parent = self.parent;
-    [self removeFromParentAndCleanup:YES];
-    [parent resumeSchedulerAndActions];
-}
-
 - (void) resumeParent {
     CCSequence *seq = [CCSequence actions:[CCFadeTo actionWithDuration:1.0f opacity:0], 
-                       [RemoveFromParentAction action], 
+                       [RemoveFromParentAction action],
+                       [CCCallFunc actionWithTarget:self.parent selector:@selector(resumeSchedulerAndActions)], 
                        nil];
     [self runAction:seq];
 }

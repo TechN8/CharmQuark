@@ -1,9 +1,9 @@
 iOS device screen dimensions
 ----------------------------
-iPhone-3GS	480x320     (3/2)
-iPhone4+	960x640     (3/2)
-iPad-2      1024x768	(4/3)
-iPad3       2048×1536	(4/3)
+iPhone-3GS	480x320     (3/2)   42.1857dpi
+iPhone4+	960x640     (3/2)   84.375dpi
+iPad-2      1024x768	(4/3)   90dpi
+iPad3       2048×1536	(4/3)   180dpi
 
 Credits
 -------

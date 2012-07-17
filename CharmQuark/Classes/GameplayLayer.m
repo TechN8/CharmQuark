@@ -12,6 +12,8 @@
 #import "PauseLayer.h"
 #import "GameOverLayer.h"
 #import "RemoveFromParentAction.h"
+#import "Clock.h"
+#import "GameManager.h"
 
 static CGPoint puzzleCenter;
 static CGPoint nextParticlePos;
@@ -33,6 +35,8 @@ static CGFloat scaleFactor;
 -(void) pause;
 -(void) resume;
 -(void) end;
+-(void) launch;
+-(Particle *) readyNextParticle;
 
 @end
 
@@ -101,8 +105,8 @@ static int collisionBegin(cpArbiter *arb, struct cpSpace *space, GameplayLayer *
 
     [p1 touchParticle:p2];
     [p2 touchParticle:p1];
-    
-    return true;
+
+    return TRUE;
 }
 
 static int collisionPreSolve(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
@@ -116,13 +120,43 @@ static int collisionPreSolve(cpArbiter *arb, cpSpace *space, GameplayLayer *self
         cpArbiterSetElasticity(arb, kParticleElasticityB);
         cpArbiterSetFriction(arb, kParticleFrictionB);
     }
+
+    return TRUE;
+}
+
+// velocity of the two surfaces in relation to the collision normal at the collision point
+static inline cpFloat
+hit_velocity(cpBody *a, cpBody *b, cpVect p, cpVect n){
+    cpVect r1 = cpvsub(p, a->p);
+    cpVect r2 = cpvsub(p, b->p);
+    cpVect v1_sum = cpvadd(a->v, cpvmult(cpvperp(r1), a->w));
+    cpVect v2_sum = cpvadd(b->v, cpvmult(cpvperp(r2), b->w));
     
-    return true;
+    return cpvdot(cpvsub(v2_sum, v1_sum), n);
 }
 
 static void collisionPostSolve(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 {
-    // Play sound effects here?
+    // Do nothing here.
+    CP_ARBITER_GET_BODIES(arb, a, b);
+    
+    if (cpArbiterIsFirstContact(arb)) {
+        
+        // Play sound effects here?
+//        cpVect p = cpArbiterGetPoint(arb, 0);
+//        cpVect n = cpArbiterGetNormal(arb, 0);
+//        
+        const cpFloat min = 1000.0f;
+        const cpFloat max = 5000.0f;
+//        cpFloat nspeed = cpfabs(hit_velocity(a, b, p, n));
+        
+        cpFloat nspeed = cpvlength(cpArbiterTotalImpulse(arb));
+        
+        if(nspeed > min){
+            ALfloat volume = fmax(fminf((nspeed - min)/(max - min), 1.0f), 0.0f);
+            PLAYSOUNDEFFECT(PARTICLE_COLLIDE, volume);
+        }
+    }
 }
 
 void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
@@ -152,16 +186,18 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     centerNode.rotation = 0;
     
     score = 0;
-    combo = 0;
+    comboLevel = 0;
+    comboCount = 0;
     level = 1;
     matchesToNextLevel = kMatchesPerLevel;
 
     launchV = kLaunchV;
     dropTime = kDropTimeInit;
+    dropClock = dropTime;
     colors = kColorsInit;
     
     // Clear the scoreboard
-    [levelLabel setString:@"1"];
+    [levelLabel setString:@"Level 1"];
     [scoreLabel setString:@"0"];
     
     // Reset aim.
@@ -195,12 +231,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     if (nextParticle) {
         [nextParticle removeFromParentAndCleanup:YES];
     }
-    nextParticle = [self randomParticle];
-    nextParticle.position = nextParticlePos;
-    [self addChild:nextParticle];
-    
-    // Reschedule droptimer.
-    [self schedule: @selector(drop) interval:dropTime];
+    [self readyNextParticle];
     
     // Schedule scoring timer.
     [self schedule:@selector(scoreParticles) interval:0.5];
@@ -225,7 +256,21 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     return particle;
 }
 
--(void) launchParticle:(Particle*)particle {
+-(Particle *)readyNextParticle {
+    Particle *particle = nextParticle;
+    // Set up next particle
+    nextParticle = [self randomParticle];
+    nextParticle.position = nextParticlePos;
+    [clock setColor:nextParticle.particleColor];
+    [self addChild:nextParticle];
+    return particle;
+}
+
+-(void) launch {
+    Particle *particle = [self readyNextParticle];
+    
+    PLAYSOUNDEFFECT(PARTICLE_LAUNCH, 1.0);
+    
 //    cpVect launchVect = cpvmult(cpvnormalize(cpvsub(target, launchPoint)), launchV);
     cpVect rot = cpvforangle(CC_DEGREES_TO_RADIANS(aimAngle));
     cpVect launchVect = cpvmult(rot, launchV);
@@ -270,13 +315,13 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     cpShape* shape = cpCircleShapeNew(body, kParticleRadius, CGPointZero);
     cpShapeSetFriction(shape, kParticleFriction);
     cpShapeSetElasticity(shape, kParticleElasticity);
-    //cpShapeSetCollisionType(shape, kParticleCollisionType);
+    cpShapeSetCollisionType(shape, kShapeCollisionType);
 	cpSpaceAddShape(space, shape);
     
     // Create sensor shape to handle slow collisions.
     cpShape* sensor = cpCircleShapeNew(body, kParticleRadius + 0.5, CGPointZero);
     cpShapeSetSensor(sensor, YES);
-    cpShapeSetCollisionType(sensor, kParticleCollisionType);
+    cpShapeSetCollisionType(sensor, kSensorCollisionType);
 	cpSpaceAddShape(space, sensor);
     
     // Add body to space.
@@ -291,7 +336,6 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 }
 
 -(void) addPoints:(NSInteger)points {
-    // TODO: Better animation here.
     if (points > 0) {
         score += points;
         [scoreLabel setString:[[[NSString alloc] initWithFormat:@"%d", score] autorelease]];
@@ -311,7 +355,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
         if (dropTime <= kDropTimeMin) {
             dropTime = kDropTimeMin;
         }
-        [levelLabel setString:[[[NSString alloc] initWithFormat:@"%d", level] autorelease]];
+        [levelLabel setString:[NSString stringWithFormat:@"Level %d", level]];
         id scaleUp = [CCScaleTo actionWithDuration:0.2f scaleX:1.2 scaleY:1.0];
         id scaleDown = [CCScaleTo actionWithDuration:0.2f scale:1.0];
         id seq = [CCSequence actions: scaleUp, scaleDown, nil];
@@ -320,8 +364,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
         [self animateText:[NSString stringWithFormat:@"Level %d!", level] 
                atPosition:[centerNode position]];
         
-        [self unschedule:@selector(drop)];
-        [self schedule:@selector(drop) interval:dropTime];
+        //dropClock = dropTime;
     }
 }
 
@@ -370,12 +413,12 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
                     bonusText = [NSString stringWithFormat:@"%dX Bonus!", multiplier];
                 }
                 
-                if (combo) {
-                    points *= combo + 1;
+                if (comboLevel) {
+                    points *= comboLevel + 1;
                     if (bonusText) {
-                        bonusText = [NSString stringWithFormat:@"%@\n%dX Combo!", bonusText, combo + 1];
+                        bonusText = [NSString stringWithFormat:@"%@\n%dX Combo!", bonusText, comboLevel + 1];
                     } else {
-                        bonusText = [NSString stringWithFormat:@"%dX Combo!", combo + 1];
+                        bonusText = [NSString stringWithFormat:@"%dX Combo!", comboLevel + 1];
                     }
                 }
                 
@@ -384,7 +427,8 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
                            atPosition:[centerNode position]];
                 }
                 
-                combo++;
+                comboCount = 2;  // Two runs through to clear.
+                comboLevel++;
 
                 [self addPoints:points]; // Update score.
                 [self animateText:[NSString stringWithFormat:@"%d", points]
@@ -395,7 +439,10 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 
     // Reset combo if no points.
     if (!points) {
-        combo = 0;
+        comboCount--;
+        if (comboCount <=0) {
+            comboLevel = 0;
+        }
     }
     
     [self updateLevel]; // Update level.
@@ -427,15 +474,19 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 
 -(void) step: (ccTime)dt {
     static ccTime remainder = 0;
-    
-    //dt *= timeScale;
-    
     dt += remainder;
     int steps = dt / kSimulationRate;
     remainder = fmodf(dt, kSimulationRate);
-    
-    //[self scoreParticles];  // Doesn't need to run at simulation resolution.
 
+    // Update clock.
+    dropClock -= dt;
+    [clock setTime:(dropTime - dropClock) / dropTime];
+
+    if (dropClock <= 0) {
+        [self drop];
+        dropClock = dropTime;
+    }
+    
     for (int i = 0; i < steps; i++) {
         cpSpaceStep(space, kSimulationRate);
         cpSpaceEachBody(space, (cpSpaceBodyIteratorFunc)syncSpriteToBody, self);
@@ -445,11 +496,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 
 -(void) drop {
     launchTouch = nil; // Prevent double launch on touch end.
-    [self launchParticle:nextParticle];
-    // Refactor these three lines
-    nextParticle = [self randomParticle];
-    nextParticle.position = nextParticlePos;
-    [self addChild:nextParticle];
+    [self launch];
 }
 
 -(void) pause {
@@ -479,6 +526,8 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 -(void)end {
     CGSize winSize = [[CCDirector sharedDirector] winSize];
 
+    PLAYSOUNDEFFECT(GAME_OVER, 1.0);
+    
     [self unscheduleAllSelectors];
 
     // Grab screen shot
@@ -562,12 +611,8 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
         }
         if (touch == launchTouch) {
             // Launch!
-            [self unschedule:@selector(drop)];
-            [self launchParticle:nextParticle];
-            nextParticle = [self randomParticle];
-            nextParticle.position = nextParticlePos;
-            [self addChild:nextParticle];
-            [self schedule:@selector(drop) interval:dropTime];
+            dropClock = dropTime;
+            [self launch];
             
             // Forget this touch.
             launchTouch = nil;
@@ -609,13 +654,13 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     CGSize winSize = [[CCDirector sharedDirector] winSize];
     
     // Static variables.
-    puzzleCenter = ccp(winSize.width - winSize.height * 0.4, winSize.height * 0.5f);
-    scorePosition = ccp(winSize.width * 0.8f, winSize.height * 0.95f);
+    puzzleCenter = ccp(winSize.width - winSize.height * 0.4, winSize.height * 0.45f);
+    scorePosition = ccp(winSize.width * 0.95f, winSize.height * 0.95f);
     levelPosition = ccp(scorePosition.x, scorePosition.y - 25);
-    launchPoint = ccp(0, winSize.height * 0.5f);
+    launchPoint = ccp(0, winSize.height * 0.45f);
     //launchPoint = cpv(-1 * puzzleCenter.x * scaleFactor, 0);
-    //nextParticlePos = ccp(winSize.width * 0.6f, winSize.height * 0.95f);
-    nextParticlePos = launchPoint;
+    nextParticlePos = ccp(winSize.width * 0.1f, scorePosition.y - 25);
+    //nextParticlePos = launchPoint;
     
     // Field initializations
     rotationTouch = nil;
@@ -632,13 +677,19 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     cpSpaceSetGravity(space, ccp(0,0));
     cpSpaceSetDamping(space, kParticleDamping);
     cpSpaceAddCollisionHandler(space, 
-                               kParticleCollisionType, kParticleCollisionType, 
+                               kSensorCollisionType, kSensorCollisionType, 
                                (cpCollisionBeginFunc)collisionBegin, 
                                (cpCollisionPreSolveFunc)collisionPreSolve, 
-                               (cpCollisionPostSolveFunc)collisionPostSolve, 
+                               nil, 
                                (cpCollisionSeparateFunc)collisionSeparate, 
                                self);
-    
+    cpSpaceAddCollisionHandler(space, 
+                               kShapeCollisionType, kShapeCollisionType, 
+                               nil, 
+                               nil, 
+                               (cpCollisionPostSolveFunc)collisionPostSolve, 
+                               nil, 
+                               self);   
     // Load sprite sheet.
     sceneSpriteBatchNode = [CCSpriteBatchNode batchNodeWithFile:@"scene1Atlas.png" capacity:100];
     [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"scene1Atlas.plist"];
@@ -666,14 +717,25 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     
     // Add score label.
     scoreLabel = [CCLabelBMFont labelWithString:@"0" fntFile:@"score.fnt"];
+    [scoreLabel setAnchorPoint:ccp(1.0f, 0.5f)];
     [scoreLabel setPosition:scorePosition];
     [self addChild:scoreLabel z:100];
     
-    
     // Add level label.
-    levelLabel = [CCLabelBMFont labelWithString:@"1" fntFile:@"score.fnt"];
+    levelLabel = [CCLabelBMFont labelWithString:@"Level 1" fntFile:@"score.fnt"];
+    [levelLabel setAnchorPoint:ccp(1.0f, 0.5f)];
     [levelLabel setPosition:levelPosition];
     [self addChild:levelLabel z:100];
+    
+    // Add Next:
+    CCLabelBMFont *nextLabel = [CCLabelBMFont labelWithString:@"Next:" fntFile:@"score.fnt"];
+    nextLabel.position = ccp(winSize.width * 0.1f, winSize.height * 0.95f);
+    [self addChild:nextLabel z:100];
+    
+    // Add the background map.
+    clock = [Clock node];
+    clock.position = ccp(winSize.width * 0.18, winSize.height * 0.45);
+    [self addChild:clock z:0];
     
     // Configure the node which controls rotation.
     centerNode = [CCNode node];

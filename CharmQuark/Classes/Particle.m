@@ -81,7 +81,7 @@
         case kParticleOrange:
             self = [super initWithSpriteFrameName:@"Orange.png"];
             break;
-        case kParticleYellow:
+        case kParticleAntiBlue:
             self = [super initWithSpriteFrameName:@"Yellow.png"];
             break;
         case kParticleGreen:

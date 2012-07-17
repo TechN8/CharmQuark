@@ -16,7 +16,7 @@ typedef enum {
     kParticleRed = 0,
     kParticleGreen,
     kParticleBlue,
-    kParticleYellow,
+    kParticleAntiBlue,
     kParticleIndigo,
     kParticleBlack,
     kParticleWhite,

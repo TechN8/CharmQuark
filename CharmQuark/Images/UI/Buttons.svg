@@ -16,7 +16,7 @@
    version="1.1"
    inkscape:version="0.48+devel r9906"
    sodipodi:docname="Buttons.svg"
-   inkscape:export-filename="/Users/nathan/Documents/XCode Projects/CharmQuark/Images/UI/ResetButton-hd.png"
+   inkscape:export-filename="/Users/nathan/Documents/Xcode Projects/CharmQuark/CharmQuark/Images/UI/iPhone-hd/PauseButton.png"
    inkscape:export-xdpi="180"
    inkscape:export-ydpi="180">
   <defs
@@ -53,8 +53,8 @@
      showgrid="true"
      inkscape:window-width="1566"
      inkscape:window-height="1030"
-     inkscape:window-x="134"
-     inkscape:window-y="0"
+     inkscape:window-x="205"
+     inkscape:window-y="13"
      inkscape:window-maximized="0"
      inkscape:snap-global="true"
      inkscape:snap-bbox="true">
@@ -74,7 +74,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -154,7 +154,7 @@
      inkscape:label="Pause"
      style="display:inline">
     <rect
-       style="fill:#c8c8c8;fill-opacity:1;stroke:#c8c8c8;stroke-opacity:1;stroke-linejoin:round;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;opacity:0.8"
+       style="opacity:0.73999999;fill:#c8c8c8;fill-opacity:1;stroke:#c8c8c8;stroke-width:2;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="rect3846"
        width="5"
        height="18"

@@ -9,8 +9,8 @@
 #import "cocos2d.h"
 
 #import "AppDelegate.h"
-#import "GameScene.h"
 #import "IntroLayer.h"
+#import "GameManager.h"
 
 @implementation AppController
 
@@ -44,11 +44,11 @@
 	// set FPS at 60
 	[director_ setAnimationInterval:1.0/60];
 	
-	// attach the openglView to the director
-	[director_ setView:glView];
-	
 	// for rotation and other messages
 	[director_ setDelegate:self];
+	
+	// attach the openglView to the director
+	[director_ setView:glView];
 	
 	// 2D projection
 	[director_ setProjection:kCCDirectorProjection2D];
@@ -75,11 +75,15 @@
 	
 	// Assume that PVR images have premultiplied alpha
 	[CCTexture2D PVRImagesHavePremultipliedAlpha:YES];
-	
+    
 	// and add the scene to the stack. The director will run it when it automatically when the view is displayed.
-    [director_ pushScene:[IntroLayer scene]];
+    //[director_ pushScene:[IntroLayer scene]];
 	
-    // TODO Use GameManager here.
+    // Start Audio
+    [[GameManager sharedGameManager] setupAudioEngine];
+    
+    // Use GameManager here.
+    [[GameManager sharedGameManager] runSceneWithID:kIntroScene];
 	
 	// Create a Navigation Controller with the Director
 	navController_ = [[UINavigationController alloc] initWithRootViewController:director_];
@@ -91,7 +95,7 @@
 	
 	// make main window visible
 	[window_ makeKeyAndVisible];
-	
+
 	return YES;
 }
 

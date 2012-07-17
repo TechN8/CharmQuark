@@ -9,7 +9,7 @@
 
 // Import the interfaces
 #import "IntroLayer.h"
-#import "GameScene.h"
+#import "GameManager.h"
 
 
 #pragma mark - IntroLayer
@@ -60,6 +60,14 @@
 
 -(void) makeTransition:(ccTime)dt
 {
-	[[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:[GameScene node] withColor:ccWHITE]];
+    [[GameManager sharedGameManager] runSceneWithID:kMainMenuScene];
 }
+
+-(id)init {
+    self = [super init];
+    CGSize size = [[CCDirector sharedDirector] winSize];
+    CCLOG(@"Size = (%f, %f)", size.width, size.height);
+    return self;
+}
+
 @end

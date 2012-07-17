@@ -8,6 +8,7 @@
 
 #import "cocos2d.h"
 #import "chipmunk.h"
+#import "Clock.h"
 
 // Gameplay Constants
 #define kMinMatchSize           4
@@ -18,7 +19,7 @@
 #define kColorsInit             6
 #define kColorsMax              6 //9
 
-#define kLaunchV                1500.0f
+#define kLaunchV                1200.0f
 #define kGravity                1200.0f
 
 #define kLaunchVMax             1800.0f
@@ -37,7 +38,8 @@
 #define kParticleElasticityB    0.3f // 0.8f
 #define kVelocityLimit          2000.0f
 #define kParticleDamping        0.1f
-#define kParticleCollisionType  1
+#define kShapeCollisionType     1
+#define kSensorCollisionType    2
 #define kUnitVectorUp           ccp(0, 1)
 
 // Device support
@@ -61,6 +63,7 @@ enum {
     CCSpriteBatchNode *sceneSpriteBatchNode;
     CCMenuItemSprite *resetButton;
     Particle *nextParticle;
+    Clock *clock;
     
 	// Touch handling
     UITouch *rotationTouch;
@@ -77,11 +80,13 @@ enum {
     
     // Game State
     NSInteger score;
-    NSInteger combo;
+    NSInteger comboLevel;
+    NSInteger comboCount;
     NSInteger level;
     NSInteger matchesToNextLevel;
 
     cpFloat dropTime;
+    cpFloat dropClock;
     NSInteger colors;
 
     NSMutableSet *particles;

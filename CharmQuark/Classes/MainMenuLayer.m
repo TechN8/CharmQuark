@@ -9,6 +9,7 @@
 #import "MainMenuLayer.h"
 #import "Constants.h"
 #import "GameManager.h"
+#import "GameOverLayer.h"
 
 @interface MainMenuLayer()
 -(void)displayMainMenu;
@@ -20,59 +21,78 @@
     CCLOG(@"Show the Options screen");
 }
 
--(void)playGame {
+-(void)playSurvival {
     CCLOG(@"Play the game.");
     [[GameManager sharedGameManager] runSceneWithID:kGameScene];
 }
 
+-(void)showScores {
+    CCLOG(@"Show high scores.");
+}
+
+-(void)showCredits {
+    CCLOG(@"Show credits screen.");
+}
+
 -(void)displayMainMenu {
-    CGSize screenSize = [CCDirector sharedDirector].winSize; 
-    //    if (sceneSelectMenu != nil) {
-    //        [sceneSelectMenu removeFromParentAndCleanup:YES];
-    //    }
+    CGSize winSize = [CCDirector sharedDirector].winSize; 
+    //self.isTouchEnabled = YES;
+
+    CCLabelTTF *title = [CCLabelTTF labelWithString:@"Charm Quark" fontName:@"American Typewriter" fontSize:40.0f];
+    title.color = ccWHITE;
+    title.position = ccp(winSize.width * 0.5, winSize.height * 0.95);
+    [self addChild:title z:100];
     
-    CCMenuItemImage *playButton = [CCMenuItemImage 
-                                   itemWithNormalImage:@"PlayButtonNormal.png" 
-                                   selectedImage:@"PlayButtonSelected.png" 
-                                   disabledImage:nil 
-                                   target:self 
-                                   selector:@selector(playGame)];
-    CCMenuItemImage *optionsButton = [CCMenuItemImage 
-                                      itemWithNormalImage:@"OptionsButtonNormal.png" 
-                                      selectedImage:@"OptionsButtonSelected.png" 
-                                      disabledImage:nil 
-                                      target:self 
-                                      selector:@selector(showOptions)];
-    mainMenu = [CCMenu menuWithItems:playButton,optionsButton, nil];
-    [mainMenu alignItemsVerticallyWithPadding:screenSize.height * 0.059f];
-    [mainMenu setPosition:
-     ccp(screenSize.width * 2.0f,
-         screenSize.height / 2.0f)];
+    //TODO: Replace with CCMenuItemAtlasFont
+    //TODO: Add game mode sub-menu.
+    //Play
+    CCMenuItemFont *newGameItem = [CCMenuItemFont itemWithString:@"Play" target:self selector:@selector(playSurvival)];
+    [newGameItem setFontName:@"American Typewriter"];
+    [newGameItem setColor:ccWHITE];
+    
+    //Options
+    CCMenuItemFont *optionsItem = [CCMenuItemFont itemWithString:@"Options" target:self selector:@selector(showOptions)];
+    [optionsItem setFontName:@"American Typewriter"];
+    [optionsItem setColor:ccWHITE];
+    
+    //High Scores
+    CCMenuItemFont *scoresItem = [CCMenuItemFont itemWithString:@"Options" target:self selector:@selector(showScores)];
+    [scoresItem setFontName:@"American Typewriter"];
+    [scoresItem setColor:ccWHITE];
+    
+    //Credits
+    CCMenuItemFont *creditsItem = [CCMenuItemFont itemWithString:@"Options" target:self selector:@selector(showCredits)];
+    [creditsItem setFontName:@"American Typewriter"];
+    [creditsItem setColor:ccWHITE];
+    
+    mainMenu = [CCMenu menuWithItems:newGameItem, optionsItem, scoresItem, creditsItem, nil];
+    [mainMenu alignItemsVerticallyWithPadding:10];
+    
+    [self addChild:mainMenu z:100];
+
+    // Animate in menu.
+    [mainMenu setPosition:ccp(winSize.width * 0.5, - 1 * winSize.height)];
     id moveAction = 
     [CCMoveTo actionWithDuration:1.2f 
-                        position:ccp(screenSize.width * 0.9f,
-                                     screenSize.height/2.0f)];
+                        position:ccp(winSize.width * 0.5, winSize.height * 0.5)];
     id moveEffect = [CCEaseIn actionWithAction:moveAction rate:1.0f];
     //id playChorus = [CCCallFunc actionWithTarget:
     //                 self selector:@selector(playChorus)];
     //id sequenceAction = [CCSequence actions:moveEffect,playChorus,nil];
     [mainMenu runAction:moveEffect];
-    [self addChild:mainMenu z:0 tag:kMainMenuTagValue];
     
+}
+
+-(void)onEnter {
+    [super onEnter];
+
+    [self displayMainMenu];
 }
 
 -(id)init {
     self = [super init];
     if (self) {
-        CGSize screenSize = [CCDirector sharedDirector].winSize;
-        
-        CCSprite *background = [CCSprite spriteWithFile:@"MainMenuBackground.png"];
-        [background setPosition:ccp(screenSize.width/2, 
-                                    screenSize.height/2)];
-        [self addChild:background];
-        
-        [self displayMainMenu];
-        
+
     }
     return self;
 }
@@ -81,4 +101,5 @@
 {
     [super dealloc];
 }
+
 @end

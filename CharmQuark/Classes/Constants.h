@@ -38,8 +38,12 @@ typedef enum {
 #define SFX_NOTLOADED NO
 #define SFX_LOADED YES
 
-#define PLAYSOUNDEFFECT(...) \
-[[GameManager sharedGameManager] playSoundEffect:@#__VA_ARGS__]
+//#define PLAYSOUNDEFFECT(...) \
+//[[GameManager sharedGameManager] playSoundEffect:@#__VA_ARGS__]
+
+#define PLAYSOUNDEFFECT(__id__,__gain__) \
+[[GameManager sharedGameManager] playSoundEffect:@#__id__ gain:__gain__]
+
 
 #define STOPSOUNDEFFECT(...) \
 [[GameManager sharedGameManager] stopSoundEffect:__VA_ARGS__]

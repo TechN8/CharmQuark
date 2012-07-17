@@ -2,50 +2,50 @@ X Consistent simulation dimensions between iPhone and iPad
     Use 1024 x 768 sim dimensions.
     Scale to 480x320 = * 0.46875 for iPhone draws.
 
-. Drop Timer
+X Animated background.
+    Monochrome trace of CERN installation.
+    Use as drop timer for next particle launch.
 
 . Main menu scene
+    X Play
+    X Options (Sound Volumes).
+    . Website link (direct to FaceBook?)
+    . Social media links.
+    . Background clock
 
-. Music - Play an MP3 in the bacground as the scene is running.
+. Options
+    . Sound on/off
+    . Music on/off
 
 . Sound effects
+    . Launch
     . Collision
     . Explosion
     . Bonus / Multiplier
     . Game Over (Collumnator dump?)
-    
-. Animated background.
-    Monochrome trace of CERN installation.
-    Use as countdown timer for next particle launch.
+
+. Music - Play an MP3 in the bacground as the scene is running.
 
 . Saved Data Plist
     . High score list(s).
     . Music & sound settings.
 
-. High score record.
-    . Put on gamecenter.
-
 . Game over menu.  Scenes->GameScene->GameOverLayer
     . Show high score
     . Twitter button
 
-. Main menu with options and website links.
-    . Play
-    . Options (Sound Volumes).
-    . Website link
-    . Social media links.
+. Game Center Support
+    . High scores.
+    . Achievements later.
     
 . Game modes
     * Survival
     . Time Attack
     . Meditation (This is kind of long, should save game between sessions.)
 
-. Help Screen
-
 . Final Animations
     Exploding particle.  (Try to do a jet with particle effect.)
     Trail effect on dropped particle?
-    Score and multiplier animations.
     Thumb guides.  (Do these with sprites).
 
 . Artwork.
@@ -61,6 +61,8 @@ X Consistent simulation dimensions between iPhone and iPad
 . Sound effects.
     Grab some samples from http://lhcsound.hep.ucl.ac.uk. 
         These are all CC and generated from LHC data!
+
+. Help Screen(s)
 
 . Localization
     Google translate menus.  Game is pretty self explanitory.
