@@ -21,7 +21,7 @@ X Animated background.
 
 . Saved Data Plist
     . High score list(s).
-    . Music & sound settings.
+    X Music & sound settings.
 
 . Game over menu.  Scenes->GameScene->GameOverLayer
     . Show high score
@@ -41,16 +41,6 @@ X Animated background.
     Trail effect on dropped particle?
     Thumb guides.  (Do these with sprites).
 
-. Final Artwork.
-    . Prettier sprites.  
-        Ideas: 
-            . Vector-look with physics symbols.  Magnetic field lines on grid bacground.
-            . Astronomical bodies (stars, comets, planets).  Starfield background.
-            . Marbles.  Wooden bowl background.
-            . Other?
-    . Background & Scoreboard
-    . Font for score
-
 . Final Sound effects.
     Grab some samples from http://lhcsound.hep.ucl.ac.uk. 
         These are all CC and generated from LHC data!
@@ -59,6 +49,7 @@ X Animated background.
 
 . Localization
     Google translate menus.  Game is pretty self explanitory.
+    Will need to generate BMFonts with reduced subset of characters for Japanese / Chinese.
 
 . Blur background on overlay layers.
     UIImage *tempImage =[GameScene takeAsUIImage];
