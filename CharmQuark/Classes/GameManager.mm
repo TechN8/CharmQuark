@@ -14,6 +14,7 @@
 
 NSString *kSoundEffectsOnKey	= @"isSoundEffectsOn";
 NSString *kMusicOnKey			= @"isMusicOn";
+NSString *kHighScoreKey         = @"highScores";
 // TODO: Add key for high score dictionary.
 
 @implementation GameManager
@@ -68,7 +69,8 @@ static GameManager* _sharedGameManager = nil;
         case kCreditsScene:
         case kIntroScene:
         case kGameOverScene:
-        case kGameScene: 
+        case kGameSceneSurvival:
+        case kGameSceneTimeAttack:
             levelSize = screenSize;
             break;
         default:
@@ -149,8 +151,11 @@ static GameManager* _sharedGameManager = nil;
         case kGameOverScene:
             result = @"kGameOverScene";
             break;
-        case kGameScene:
-            result = @"kGameScene";
+        case kGameSceneSurvival:
+            result = @"kGameSceneSurvival";
+            break;
+        case kGameSceneTimeAttack:
+            result = @"kGameSceneTimeAttack";
             break;
         default:
             [NSException raise:NSGenericException format:@"Unexpected SceneType."];
@@ -381,10 +386,11 @@ static GameManager* _sharedGameManager = nil;
         case kIntroScene:
             sceneToRun = [IntroLayer scene];
             break;
-        case kGameScene: 
+        case kGameSceneSurvival: 
+        case kGameSceneTimeAttack: 
+            // Same scene used for both modes.
             sceneToRun = [GameScene node];
             break;
-            
         case kOptionsScene:
         case kCreditsScene:
             
@@ -423,6 +429,7 @@ static GameManager* _sharedGameManager = nil;
     [self performSelectorInBackground:@selector(unloadAudioForSceneWithID:) withObject:[NSNumber numberWithInt:oldScene]];
     
 }
+
 -(void)openSiteWithLinkType:(LinkTypes)linkTypeToOpen {
     NSURL *urlToOpen = nil;
     if (linkTypeToOpen == kLinkTypeMainSite) {
@@ -447,6 +454,30 @@ static GameManager* _sharedGameManager = nil;
         CCLOG(@"%@%@",@"Failed to open url:",[urlToOpen description]);
         [self runSceneWithID:kMainMenuScene];
     }    
+}
+
+-(NSInteger)getHighScoreForSceneWithID:(SceneTypes)sceneID {
+    NSInteger highScore = 0;
+    NSDictionary *highScoreDict = [[NSUserDefaults standardUserDefaults] dictionaryForKey:kHighScoreKey];
+    if (nil != highScoreDict) {
+        NSNumber *scoreNum = [highScoreDict valueForKey:[self formatSceneTypeToString:sceneID]];
+        if (nil != scoreNum) {
+            highScore = [scoreNum intValue];
+        }
+    }
+    return highScore;
+}
+
+-(void)setHighScore:(NSInteger)score forSceneWithID:(SceneTypes)sceneID {
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    NSMutableDictionary *newHighScoreDict = [[[NSMutableDictionary alloc] init] autorelease];
+    NSDictionary *oldHighScoreDict = [ud dictionaryForKey:kHighScoreKey];
+    if (nil != oldHighScoreDict) {
+        [newHighScoreDict addEntriesFromDictionary:oldHighScoreDict];
+    }
+    [newHighScoreDict setValue:[NSNumber numberWithInt:score] 
+                     forKey:[self formatSceneTypeToString:sceneID]];
+    [ud setValue:newHighScoreDict forKey:kHighScoreKey];
 }
 
 @end

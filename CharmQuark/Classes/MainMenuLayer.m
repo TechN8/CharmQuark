@@ -23,7 +23,12 @@
 
 -(void)playSurvival {
     CCLOG(@"Play the game.");
-    [[GameManager sharedGameManager] runSceneWithID:kGameScene];
+    [[GameManager sharedGameManager] runSceneWithID:kGameSceneSurvival];
+}
+
+-(void)playTimeAttack {
+    CCLOG(@"Play the game.");
+    [[GameManager sharedGameManager] runSceneWithID:kGameSceneTimeAttack];
 }
 
 -(void)showScores {
@@ -46,9 +51,13 @@
     //TODO: Replace with CCMenuItemAtlasFont
     //TODO: Add game mode sub-menu.
     //Play
-    CCMenuItemFont *newGameItem = [CCMenuItemFont itemWithString:@"Play" target:self selector:@selector(playSurvival)];
-    [newGameItem setFontName:@"Courier"];
-    [newGameItem setColor:ccWHITE];
+    CCMenuItemFont *survivalItem = [CCMenuItemFont itemWithString:@"Survival" target:self selector:@selector(playSurvival)];
+    [survivalItem setFontName:@"Courier"];
+    [survivalItem setColor:ccWHITE];
+
+    CCMenuItemFont *timeAttackItem = [CCMenuItemFont itemWithString:@"Time Attack" target:self selector:@selector(playTimeAttack)];
+    [timeAttackItem setFontName:@"Courier"];
+    [timeAttackItem setColor:ccWHITE];
     
     //Options
     CCMenuItemFont *optionsItem = [CCMenuItemFont itemWithString:@"Options" target:self selector:@selector(showOptions)];
@@ -65,7 +74,7 @@
     [creditsItem setFontName:@"Courier"];
     [creditsItem setColor:ccWHITE];
     
-    mainMenu = [CCMenu menuWithItems:newGameItem, optionsItem, scoresItem, creditsItem, nil];
+    mainMenu = [CCMenu menuWithItems:survivalItem, timeAttackItem, optionsItem, scoresItem, creditsItem, nil];
     [mainMenu alignItemsVerticallyWithPadding:10];
     
     [self addChild:mainMenu z:100];

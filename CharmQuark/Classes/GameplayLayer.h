@@ -8,7 +8,9 @@
 
 #import "cocos2d.h"
 #import "chipmunk.h"
-#import "Clock.h"
+#import "LHCMap.h"
+#import "Constants.h"
+#import "Particle.h"
 
 // Gameplay Constants
 #define kMinMatchSize           4
@@ -24,6 +26,7 @@
 
 #define kLaunchVMax             1800.0f
 
+#define kTimeLimit              120.0f
 #define kDropTimeInit           4.0f //4.0f
 #define kDropTimeMin            1.4f
 #define kDropTimeStep           0.2f
@@ -53,8 +56,6 @@ enum {
 	kTagBatchNode = 1,
 };
 
-@class Particle;
-
 @interface GameplayLayer : CCLayerColor {
     // Chipmunk
     cpSpace *space;
@@ -66,7 +67,8 @@ enum {
     CCSpriteBatchNode *sceneSpriteBatchNode;
     CCMenuItemSprite *resetButton;
     Particle *nextParticle;
-    Clock *clock;
+    LHCMap *map;
+    CCSprite *thumbGuide;
     
 	// Touch handling
     UITouch *rotationTouch;
@@ -82,14 +84,15 @@ enum {
     UITouch *launchTouch;
     
     // Game State
+    SceneTypes mode;
     NSInteger score;
     NSInteger comboLevel;
     NSInteger comboCount;
     NSInteger level;
     NSInteger matchesToNextLevel;
 
-    cpFloat dropTime;
-    cpFloat dropClock;
+    cpFloat dropFrequency;
+    cpFloat timeRemaining;
     NSInteger colors;
 
     NSMutableSet *particles;

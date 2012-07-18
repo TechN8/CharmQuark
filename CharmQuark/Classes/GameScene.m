@@ -10,6 +10,8 @@
 #import "GameplayLayer.h"
 
 @implementation GameScene
+
+#pragma mark - NSObject
 - (id)init
 {
     self = [super init];

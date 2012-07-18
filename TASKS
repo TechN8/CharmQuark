@@ -2,50 +2,49 @@ X Consistent simulation dimensions between iPhone and iPad
     Use 1024 x 768 sim dimensions.
     Scale to 480x320 = * 0.46875 for iPhone draws.
 
-X Animated background.
-    Monochrome trace of CERN installation.
-    Use as drop timer for next particle launch.
+. Thumb guides.  (Do these with sprites).
 
-. Options
-    X Sound on/off
-    . Music on/off
+. Inertia
 
-. Main menu scene
-    X Play
-    X Options (Sound Volumes).
-    . Website link (direct to FaceBook?)
-    . Social media links.
-    . Background clock
+. Detector animations.
+    . Blink yellow on particle.
+    . Blink red on game over collision.
 
-. Music - Play an MP3 in the bacground as the scene is running.
+. 9-Slice popup window for menus.
+    Use on all screens that aren't the gameplay layer.
 
-. Saved Data Plist
-    . High score list(s).
-    X Music & sound settings.
+. Credits screen.
 
-. Game over menu.  Scenes->GameScene->GameOverLayer
-    . Show high score
-    . Twitter button
+. Music
+    . Play a nice mp3 on the menus and game.
+    . Music on/off (Should behave as off if ipod is playing)
 
-. Game Center Support
-    . High scores.
-    . Achievements later.
-    
-. Game modes
-    * Survival
-    . Time Attack
-    . Meditation (This is kind of long, should save game between sessions.)
-
-. Final Animations
-    Exploding particle.  (Try to do a jet with particle effect.)
-    Trail effect on dropped particle?
-    Thumb guides.  (Do these with sprites).
+. Time attack adjustment
+    . Add levels and each level gets you 30 seconds...
 
 . Final Sound effects.
     Grab some samples from http://lhcsound.hep.ucl.ac.uk. 
         These are all CC and generated from LHC data!
 
-. Help Screen(s)
+. Main menu scene
+    X Options (Sound Volumes).
+    . Website link (direct to FaceBook?)
+    . Social media links.
+    . Background graphics.
+
+. Music - Play an MP3 in the bacground as the scene is running.
+    - GameScene - Track from LHC
+    - Menu - Something else?
+
+. Game Center Support for high score.
+    
+. More Animations
+   Trail effect on dropped particle?
+
+. Help Overlay
+    Should explain how to rotate and drop. 
+    Show on game scene first time.
+    Reset from options screen.
 
 . Localization
     Google translate menus.  Game is pretty self explanitory.
@@ -56,9 +55,8 @@ X Animated background.
     CCTexture2DMutable *mutableTexture = [[[CCTexture2DMutable alloc] tempImage autorelease];
     [AWTextureFilter blur:mutableTexture radius:6];
     
-Questionable Enhancements
--------------------------
+Future Enhancements
+-------------------
+. Game Center Achievements
+. Twitter / Facebook
     
-. Automatic drop of extra random pieces?  No auto drop of user pieces?
-
-. Show next 2 pieces?

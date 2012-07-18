@@ -7,7 +7,7 @@
 //
 
 #import "cocos2d.h"
-
+#import "Constants.h"
 
 @class GameplayLayer;
 @class ControlLayer;

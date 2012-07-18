@@ -10,7 +10,7 @@
 #import "cocos2d.h"
 #import "Particle.h"
 
-@interface Clock : CCNode {
+@interface LHCMap : CCNode {
     CCSprite *lhcMap;
     CCSprite *whitePacket;
     CCSprite *colorPacket;

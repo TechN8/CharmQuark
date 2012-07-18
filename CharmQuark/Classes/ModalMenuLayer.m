@@ -11,7 +11,7 @@
 
 @implementation ModalMenuLayer
 
--(void)initMenus {
+-(void)initUI {
     NSAssert(NO, @"Must override initMenus for ModalMenuLayer.");
 }
 
@@ -54,13 +54,17 @@
     }
 }
 
+-(void)onEnter {
+    [super onEnter];
+    [self initUI];
+}
+
 #pragma mark - NSObject
 
 -(id)initWithColor:(ccColor4B)color {
     self = [super initWithColor:color];
     if (self) {
         self.isTouchEnabled = YES;
-        [self initMenus];
     }
     return self;
 }

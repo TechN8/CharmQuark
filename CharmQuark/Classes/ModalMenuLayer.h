@@ -13,7 +13,7 @@
     
 }
 
--(void)initMenus;
+-(void)initUI;
 
 -(void)setBackgroundNode:(CCNode*)node;
 

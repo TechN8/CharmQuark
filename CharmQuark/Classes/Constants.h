@@ -18,7 +18,8 @@ typedef enum {
     kCreditsScene=3,
     kGameOverScene=4,
     kIntroScene=100,
-    kGameScene=101
+    kGameSceneSurvival=101,
+    kGameSceneTimeAttack=102
 } SceneTypes;
 
 // Audio Items

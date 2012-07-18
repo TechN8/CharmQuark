@@ -36,7 +36,7 @@
 
 #pragma mark - ModalMenuLayer
 
--(void)initMenus {
+-(void)initUI {
     CGSize winSize = [[CCDirector sharedDirector] winSize];
     CCLabelTTF *title = [CCLabelTTF labelWithString:@"Game Paused" fontName:@"American Typewriter" fontSize:40.0f];
     title.color = ccWHITE;

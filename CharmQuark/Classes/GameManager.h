@@ -45,4 +45,6 @@
 -(void)playBackgroundTrack:(NSString*)trackFileName;
 // Chapter 9
 -(CGSize)getDimensionsOfCurrentScene;
+-(NSInteger)getHighScoreForSceneWithID:(SceneTypes)sceneID;
+-(void)setHighScore:(NSInteger)score forSceneWithID:(SceneTypes)sceneID;
 @end

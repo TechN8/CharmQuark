@@ -7,12 +7,9 @@
 //
 
 #import "GameplayLayer.h"
-#import "Particle.h"
-#import "Constants.h"
 #import "PauseLayer.h"
 #import "GameOverLayer.h"
 #import "RemoveFromParentAction.h"
-#import "Clock.h"
 #import "GameManager.h"
 
 static CGPoint puzzleCenter;
@@ -168,16 +165,27 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     score = 0;
     comboLevel = 0;
     comboCount = 0;
-    level = 1;
-    matchesToNextLevel = kMatchesPerLevel;
+    
+    switch ([GameManager sharedGameManager].curLevel) {
+        case kGameSceneTimeAttack:
+            dropFrequency = kTimeLimit;
+            timeRemaining = dropFrequency;
+            [levelLabel setString:[NSString stringWithFormat:@"%d:%f.2", timeRemaining / 60, fmodf(timeRemaining, 60)]];
+            break;
+        case kGameSceneSurvival:
+        default:
+            level = 1;
+            matchesToNextLevel = kMatchesPerLevel;
+            dropFrequency = kDropTimeInit;
+            timeRemaining = dropFrequency;
+            [levelLabel setString:@"Level: 1"];
+            break;
+    }
 
     launchV = kLaunchV;
-    dropTime = kDropTimeInit;
-    dropClock = dropTime;
     colors = kColorsInit;
     
     // Clear the scoreboard
-    [levelLabel setString:@"Level: 1"];
     [scoreLabel setString:@"0"];
     
     // Reset aim.
@@ -241,7 +249,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     // Set up next particle
     nextParticle = [self randomParticle];
     nextParticle.position = nextParticlePos;
-    [clock setColor:nextParticle.particleColor];
+    [map setColor:nextParticle.particleColor];
     [self addChild:nextParticle];
     return particle;
 }
@@ -328,12 +336,12 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 
 -(void) updateLevel {
     // Update level
-    if (matchesToNextLevel <= 0) {
+    if (mode == kGameSceneSurvival && matchesToNextLevel <= 0) {
         matchesToNextLevel += kMatchesPerLevel;
         level++;
-        dropTime -= kDropTimeStep;
-        if (dropTime <= kDropTimeMin) {
-            dropTime = kDropTimeMin;
+        dropFrequency -= kDropTimeStep;
+        if (dropFrequency <= kDropTimeMin) {
+            dropFrequency = kDropTimeMin;
         }
         [levelLabel setString:[NSString stringWithFormat:@"Level: %d", level]];
         id scaleUp = [CCScaleTo actionWithDuration:0.2f scaleX:1.2 scaleY:1.0];
@@ -432,7 +440,9 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
         Particle *particle = [scoredParticles objectAtIndex:0];
         [scoredParticles removeObject:particle];
         
-        [particle explode];  // Play the explosion animation.
+        CCParticleSystemQuad *explosion = [particle explode];  // Play the explosion animation.
+        explosion.position = [centerNode convertToWorldSpace:particle.position];
+        [self addChild:explosion];
         
         postStepRemoveParticle(space, particle.body, self);  // Don't need to schedule, called from update.
     }
@@ -459,12 +469,26 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     remainder = fmodf(dt, kSimulationRate);
 
     // Update clock.
-    dropClock -= dt;
-    [clock setTime:(dropTime - dropClock) / dropTime];
+    timeRemaining -= dt;
+    [map setTime:(dropFrequency - timeRemaining) / dropFrequency];
 
-    if (dropClock <= 0) {
-        [self drop];
-        dropClock = dropTime;
+    if (mode == kGameSceneTimeAttack) {
+        int minutes = (int)timeRemaining / 60;
+        float seconds = timeRemaining > 0 ? fmodf(timeRemaining, 60.0) : 0.0;
+        [levelLabel setString:[NSString stringWithFormat:@"%1d:%2.2f", minutes, seconds]];
+    }
+    
+    if (timeRemaining <= 0) {
+        switch (mode) {
+            case kGameSceneTimeAttack:
+                [self end]; // Game over.
+                break;
+            case kGameSceneSurvival:
+                default:
+                [self drop];
+                timeRemaining = dropFrequency;
+                break;
+        }
     }
     
     for (int i = 0; i < steps; i++) {
@@ -521,6 +545,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     
     // Throw up modal layer.
     GameOverLayer *gameOverLayer = [[GameOverLayer alloc] initWithColor:ccc4(0,0,0,255)];
+    [gameOverLayer setScore:score];
     [gameOverLayer setBackgroundNode:tf];
     [self addChild:gameOverLayer z:1000];
     [gameOverLayer runAction:[CCFadeIn actionWithDuration:1.0f]];
@@ -574,15 +599,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     sceneSpriteBatchNode = [CCSpriteBatchNode batchNodeWithFile:@"scene1Atlas.png" capacity:100];
     [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"scene1Atlas.plist"];
     
-    // Set up controls
-    //    CCSprite *resetSprite = [CCSprite spriteWithSpriteFrameName:@"ResetButton.png"];
-    //    CCSprite *resetSpriteSelected = [CCSprite spriteWithSpriteFrameName:@"ResetButtonSelected.png"];
-    //    resetButton = [CCMenuItemSprite itemWithNormalSprite:resetSprite 
-    //                                          selectedSprite:resetSpriteSelected
-    //                                                  target:self
-    //                                                selector:@selector(resetGame)];
-    //    CCMenu *menu = [CCMenu menuWithItems:resetButton, nil];
-    
+    // Pause Button
     CCSprite *pauseSprite = [CCSprite spriteWithSpriteFrameName:@"pause.png"];
     CCSprite *pauseSpriteSelected = [CCSprite spriteWithSpriteFrameName:@"pause.png"];
     CCMenuItemSprite *pauseButton = [CCMenuItemSprite itemWithNormalSprite:pauseSprite 
@@ -590,8 +607,6 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
                                                                     target:self
                                                                   selector:@selector(pause)];
     CCMenu *menu = [CCMenu menuWithItems:pauseButton, nil];
-    
-    
     [menu setPosition:ccp(winSize.width * 0.95f, winSize.height * 0.95f)];
     [self addChild:menu z:100];
     
@@ -601,9 +616,16 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     [scoreLabel setPosition:scorePosition];
     [self addChild:scoreLabel z:100];
     
-    // Add level label.
-    levelLabel = [CCLabelBMFont labelWithString:@"Level: 1" fntFile:@"score.fnt"];
-    //[levelLabel setAnchorPoint:ccp(1.0f, 0.5f)];
+    // Add level label / clock
+    switch (mode) {
+        case kGameSceneTimeAttack:
+            levelLabel= [CCLabelBMFont labelWithString:@"2:00.00" fntFile:@"score.fnt"];
+            break;
+        case kGameSceneSurvival:
+        default:
+            levelLabel = [CCLabelBMFont labelWithString:@"Level: 1" fntFile:@"score.fnt"];
+            break;
+    }
     [levelLabel setPosition:levelPosition];
     [self addChild:levelLabel z:100];
     
@@ -613,16 +635,21 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     [nextLabel setAnchorPoint:ccp(1.0, 0.5)];
     [self addChild:nextLabel z:100];
     
-    // Add the clock.
-    clock = [Clock node];
-    clock.position = ccp(winSize.width * 0.20, winSize.height * 0.62);
+    // Add the map.
+    map = [LHCMap node];
+    map.position = ccp(winSize.width * 0.20, winSize.height * 0.62);
     //clock.scale = 0.75f;
-    [self addChild:clock z:0];
+    [self addChild:map z:0];
     
     // Add the detector.
     CCSprite *detector = [CCSprite spriteWithSpriteFrameName:@"detector.png"];
     detector.position = puzzleCenter;
     [self addChild:detector z:0];
+    
+    // Add the thumb guide.
+    thumbGuide = [CCSprite spriteWithSpriteFrameName:@"thumbguide.png"];
+    thumbGuide.opacity = 0;
+    [self addChild:thumbGuide z:100];
     
     // Configure the node which controls rotation.
     centerNode = [CCNode node];
@@ -641,14 +668,14 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     
     for (UITouch *touch in touches) {
         CGPoint location = [touch locationInView: [touch view]];
-		// location = [[CCDirector sharedDirector] convertToGL: location];
+		location = [[CCDirector sharedDirector] convertToGL: location];
         if (location.x < winSize.width * 0.5) {
             // Touches on the left drop pieces on end.
             if (nil == launchTouch) {
                 launchTouch = touch;
                 aimAngleInit = aimAngle;
                 CGPoint ray = ccpSub(location, launchPoint);
-                aimTouchAngleInit = CC_RADIANS_TO_DEGREES(ccpAngleSigned(kUnitVectorUp, ray));
+                aimTouchAngleInit = CC_RADIANS_TO_DEGREES(ccpAngleSigned(ray, kUnitVectorUp));
             }
         } else if (nil == rotationTouch) {
             // Touches on the right are for rotation.  
@@ -659,7 +686,12 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
             centerNodeAngleInit = centerNode.rotation;
             
             CGPoint ray = ccpSub(location, puzzleCenter);
-            rotTouchAngleInit = CC_RADIANS_TO_DEGREES(ccpAngleSigned(kUnitVectorUp, ray));
+            rotTouchAngleInit = CC_RADIANS_TO_DEGREES(ccpAngleSigned(ray, kUnitVectorUp));
+
+            // Show thumb guide.
+            thumbGuide.position = location;
+            thumbGuide.rotation = rotTouchAngleInit;
+            thumbGuide.opacity = 255;
         }        
     }
 }
@@ -669,6 +701,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 {
     for (UITouch *touch in touches) {
         CGPoint location = [touch locationInView: [touch view]];
+        location = [[CCDirector sharedDirector] convertToGL: location];
 //        if (touch == launchTouch) {
 //            // This is now an aim.
 //            aimTouch = launchTouch;
@@ -676,16 +709,19 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 //        }
         if (touch == aimTouch) {
             CGPoint ray = ccpSub(location, launchPoint);
-            aimTouchAngleCur = CC_RADIANS_TO_DEGREES(ccpAngleSigned(kUnitVectorUp, ray));
-            GLfloat newRotation = fmodf(aimAngleInit + (aimTouchAngleInit - aimTouchAngleCur) * kRotationRate, 360.0);
+            aimTouchAngleCur = CC_RADIANS_TO_DEGREES(ccpAngleSigned(ray, kUnitVectorUp));
+            GLfloat newRotation = fmodf(aimAngleInit + (aimTouchAngleCur - aimTouchAngleInit) * kRotationRate, 360.0);
             aimAngle = cpfclamp(newRotation, -20.0f, 20.0f);
         }
         if (touch == rotationTouch) {
             CGPoint ray = ccpSub(location, puzzleCenter);
-            rotTouchAngleCur = CC_RADIANS_TO_DEGREES(ccpAngleSigned(kUnitVectorUp, ray));
+            rotTouchAngleCur = CC_RADIANS_TO_DEGREES(ccpAngleSigned(ray, kUnitVectorUp));
             GLfloat newRotation = fmodf(centerNodeAngleInit + (rotTouchAngleCur - rotTouchAngleInit) * kRotationRate, 360.0);
             
+            // Move thumb guide.
             centerNode.rotation = newRotation;
+            thumbGuide.position = location;
+            thumbGuide.rotation = rotTouchAngleCur;
         }
     }    
 }
@@ -698,7 +734,9 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
         }
         if (touch == launchTouch) {
             // Launch!
-            dropClock = dropTime;
+            if (mode == kGameSceneSurvival) {
+                timeRemaining = dropFrequency;   
+            }
             [self launch];
             
             // Forget this touch.
@@ -707,6 +745,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
         if (touch == rotationTouch) {
             // Forget this touch.
             rotationTouch = nil;
+            thumbGuide.opacity = 0;
         }
     }
 }
@@ -733,7 +772,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 
 -(void)onEnter {
     [super onEnter];
-    
+    mode = [GameManager sharedGameManager].curLevel;
     [self initUI];
     
     // This will set up the initial particle system.

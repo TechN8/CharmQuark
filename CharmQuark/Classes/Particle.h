@@ -51,6 +51,6 @@ typedef enum {
 
 - (void) addMatchingParticlesToSet:(NSMutableSet*)set minMatch:(NSInteger) minMatch;
 
-- (void) explode;
+- (CCParticleSystemQuad *) explode;
 
 @end

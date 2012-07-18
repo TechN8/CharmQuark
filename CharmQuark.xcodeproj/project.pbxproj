@@ -11,7 +11,7 @@
 		D80B620115AE2500006F2472 /* PauseLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = D80B620015AE2500006F2472 /* PauseLayer.m */; };
 		D80B620415AF055A006F2472 /* ModalMenuLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = D80B620315AF055A006F2472 /* ModalMenuLayer.m */; };
 		D80B623F15AF47D1006F2472 /* example_Blur.fsh in Resources */ = {isa = PBXBuildFile; fileRef = D80B623D15AF43D9006F2472 /* example_Blur.fsh */; };
-		D8318D6415B4545E0032D92E /* Clock.m in Sources */ = {isa = PBXBuildFile; fileRef = D8318D6315B4545E0032D92E /* Clock.m */; };
+		D8318D6415B4545E0032D92E /* LHCMap.m in Sources */ = {isa = PBXBuildFile; fileRef = D8318D6315B4545E0032D92E /* LHCMap.m */; };
 		D8318D7915B49DFB0032D92E /* SoundEffects.plist in Resources */ = {isa = PBXBuildFile; fileRef = D8318D7015B49DF90032D92E /* SoundEffects.plist */; };
 		D8318D7A15B49DFB0032D92E /* 22k_enemy_phaser_fireV1.wav in Resources */ = {isa = PBXBuildFile; fileRef = D8318D7315B49DFB0032D92E /* 22k_enemy_phaser_fireV1.wav */; };
 		D8318D7B15B49DFB0032D92E /* 22k_viking_hammer_hitV1.wav in Resources */ = {isa = PBXBuildFile; fileRef = D8318D7415B49DFB0032D92E /* 22k_viking_hammer_hitV1.wav */; };
@@ -207,8 +207,8 @@
 		D80B620315AF055A006F2472 /* ModalMenuLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModalMenuLayer.m; sourceTree = "<group>"; };
 		D80B623D15AF43D9006F2472 /* example_Blur.fsh */ = {isa = PBXFileReference; explicitFileType = sourcecode.c; fileEncoding = 4; name = example_Blur.fsh; path = Resources/example_Blur.fsh; sourceTree = "<group>"; };
 		D80B624715B1BC51006F2472 /* TASKS */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TASKS; sourceTree = "<group>"; };
-		D8318D6215B4545E0032D92E /* Clock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Clock.h; sourceTree = "<group>"; };
-		D8318D6315B4545E0032D92E /* Clock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Clock.m; sourceTree = "<group>"; };
+		D8318D6215B4545E0032D92E /* LHCMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHCMap.h; sourceTree = "<group>"; };
+		D8318D6315B4545E0032D92E /* LHCMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHCMap.m; sourceTree = "<group>"; };
 		D8318D7015B49DF90032D92E /* SoundEffects.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SoundEffects.plist; sourceTree = "<group>"; };
 		D8318D7315B49DFB0032D92E /* 22k_enemy_phaser_fireV1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = 22k_enemy_phaser_fireV1.wav; sourceTree = "<group>"; };
 		D8318D7415B49DFB0032D92E /* 22k_viking_hammer_hitV1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = 22k_viking_hammer_hitV1.wav; sourceTree = "<group>"; };
@@ -1156,10 +1156,10 @@
 		D847E26B15AC93610044FC48 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				D8CE5B8F15B5FB0A00E76ADA /* UI */,
-				D871773C15B3543F0014E75E /* Actions */,
 				D847E51715AC97560044FC48 /* Constants */,
 				D847E51615AC97500044FC48 /* Singletons */,
+				D8CE5B8F15B5FB0A00E76ADA /* UI */,
+				D871773C15B3543F0014E75E /* Actions */,
 				D847E51C15AC97CF0044FC48 /* Scenes */,
 				D847E51815AC976F0044FC48 /* GameObjects */,
 			);
@@ -1211,8 +1211,8 @@
 				D847E27315AC93610044FC48 /* GameObject.m */,
 				D847E28015AC93610044FC48 /* Particle.h */,
 				D847E28115AC93610044FC48 /* Particle.m */,
-				D8318D6215B4545E0032D92E /* Clock.h */,
-				D8318D6315B4545E0032D92E /* Clock.m */,
+				D8318D6215B4545E0032D92E /* LHCMap.h */,
+				D8318D6315B4545E0032D92E /* LHCMap.m */,
 			);
 			name = GameObjects;
 			sourceTree = "<group>";
@@ -1257,10 +1257,11 @@
 		D847E51C15AC97CF0044FC48 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				D847E52015ACA0910044FC48 /* Intro */,
-				D847E51A15AC97B10044FC48 /* MainMenu */,
-				D847E51B15AC97C50044FC48 /* OptionsMenu */,
 				D847E51915AC97A80044FC48 /* Game */,
+				D847E51A15AC97B10044FC48 /* MainMenu */,
+				D8CE5BA315B7322800E76ADA /* High Score Name Entry */,
+				D847E52015ACA0910044FC48 /* Intro */,
+				D847E51B15AC97C50044FC48 /* OptionsMenu */,
 			);
 			name = Scenes;
 			sourceTree = "<group>";
@@ -1305,6 +1306,13 @@
 				D80B620315AF055A006F2472 /* ModalMenuLayer.m */,
 			);
 			name = UI;
+			sourceTree = "<group>";
+		};
+		D8CE5BA315B7322800E76ADA /* High Score Name Entry */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "High Score Name Entry";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1564,7 +1572,7 @@
 				D80B620115AE2500006F2472 /* PauseLayer.m in Sources */,
 				D80B620415AF055A006F2472 /* ModalMenuLayer.m in Sources */,
 				D871773F15B3544F0014E75E /* RemoveFromParentAction.m in Sources */,
-				D8318D6415B4545E0032D92E /* Clock.m in Sources */,
+				D8318D6415B4545E0032D92E /* LHCMap.m in Sources */,
 				D8CE5B9315B5FD0F00E76ADA /* CCSpriteScale9.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

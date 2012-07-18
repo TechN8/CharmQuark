@@ -163,20 +163,20 @@
             <key>pause.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{401,609},{47,45}}</string>
+                <string>{{401,609},{37,45}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{47,45}}</string>
+                <string>{{0,0},{37,45}}</string>
                 <key>sourceSize</key>
-                <string>{47,45}</string>
+                <string>{37,45}</string>
             </dict>
             <key>red-small.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{450,609},{15,15}}</string>
+                <string>{{440,609},{15,15}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -189,7 +189,7 @@
             <key>red.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{467,609},{64,64}}</string>
+                <string>{{457,609},{64,64}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -199,10 +199,23 @@
                 <key>sourceSize</key>
                 <string>{64,64}</string>
             </dict>
+            <key>thumbguide.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{523,609},{276,167}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{276,167}}</string>
+                <key>sourceSize</key>
+                <string>{276,167}</string>
+            </dict>
             <key>white-small.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{533,609},{15,15}}</string>
+                <string>{{801,609},{15,15}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -215,7 +228,7 @@
             <key>white.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{550,609},{64,64}}</string>
+                <string>{{818,609},{64,64}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -235,7 +248,7 @@
             <key>size</key>
             <string>{1024,1024}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:759f1ecad41a2ca8d60b75288edba8d9$</string>
+            <string>$TexturePacker:SmartUpdate:f48d16820068d2bb96f919a890ab60ae$</string>
             <key>textureFileName</key>
             <string>scene1Atlas-ipad.png</string>
         </dict>

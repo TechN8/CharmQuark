@@ -6,7 +6,7 @@
 //  Copyright 2012 Aether Theory, LLC. All rights reserved.
 //
 
-#import "Clock.h"
+#import "LHCMap.h"
 
 /*
  r = 1/2 height of LHCMap.png
@@ -20,7 +20,7 @@
 #define kacwStartAngle  90.0f
 #define kacwEndAngle    -270.0f
 
-@implementation Clock
+@implementation LHCMap
 
 -(void)setTime:(float)time {
     // Time is between 0 and 1;
