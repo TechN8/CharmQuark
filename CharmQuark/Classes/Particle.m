@@ -72,34 +72,27 @@
 - (id) initWithParticleColor:(ParticleColors)color 
 {
     switch (color) {
-        case kParticleWhite:
-            self = [super initWithSpriteFrameName:@"White.png"];
-            break;
         case kParticleRed:
-            self = [super initWithSpriteFrameName:@"Red.png"];
-            break;
-        case kParticleOrange:
-            self = [super initWithSpriteFrameName:@"Orange.png"];
-            break;
-        case kParticleAntiBlue:
-            self = [super initWithSpriteFrameName:@"Yellow.png"];
+            self = [super initWithSpriteFrameName:@"red.png"];
             break;
         case kParticleGreen:
-            self = [super initWithSpriteFrameName:@"Green.png"];
+            self = [super initWithSpriteFrameName:@"green.png"];
             break;
         case kParticleBlue:
-            self = [super initWithSpriteFrameName:@"Blue.png"];
+            self = [super initWithSpriteFrameName:@"blue.png"];
             break;
-        case kParticleIndigo:
-            self = [super initWithSpriteFrameName:@"Indigo.png"];
+        case kParticleAntiRed:
+            self = [super initWithSpriteFrameName:@"antired.png"];
             break;
-        case kParticleViolet:
-            self = [super initWithSpriteFrameName:@"Violet.png"];
+        case kParticleAntiGreen:
+            self = [super initWithSpriteFrameName:@"antigreen.png"];
             break;
-        case kParticleBlack:
-            self = [super initWithSpriteFrameName:@"Black.png"];
+        case kParticleAntiBlue:
+            self = [super initWithSpriteFrameName:@"antiblue.png"];
             break;
+        case kParticleWhite:
         default:
+            self = [super initWithSpriteFrameName:@"white.png"];
             break;
     }
     if (self) {

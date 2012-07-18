@@ -17,8 +17,6 @@
 
 static CGPoint puzzleCenter;
 static CGPoint nextParticlePos;
-static CGPoint scorePosition;
-static CGPoint levelPosition;
 static CGPoint launchPoint;
 //static CGSize fieldSize = {1024.0, 768.0};
 static cpFloat launchV;
@@ -179,7 +177,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     colors = kColorsInit;
     
     // Clear the scoreboard
-    [levelLabel setString:@"Level 1"];
+    [levelLabel setString:@"Level: 1"];
     [scoreLabel setString:@"0"];
     
     // Reset aim.
@@ -337,7 +335,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
         if (dropTime <= kDropTimeMin) {
             dropTime = kDropTimeMin;
         }
-        [levelLabel setString:[NSString stringWithFormat:@"Level %d", level]];
+        [levelLabel setString:[NSString stringWithFormat:@"Level: %d", level]];
         id scaleUp = [CCScaleTo actionWithDuration:0.2f scaleX:1.2 scaleY:1.0];
         id scaleDown = [CCScaleTo actionWithDuration:0.2f scale:1.0];
         id seq = [CCSequence actions: scaleUp, scaleDown, nil];
@@ -528,6 +526,113 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     [gameOverLayer runAction:[CCFadeIn actionWithDuration:1.0f]];
 }
 
+
+-(void)initUI {
+    self.isTouchEnabled = YES;
+    self.isAccelerometerEnabled = NO;
+    
+    CGSize winSize = [[CCDirector sharedDirector] winSize];
+    
+    // Static variables.
+    puzzleCenter = ccp(winSize.width - winSize.height * 0.45, winSize.height * 0.45f);
+    CGPoint scorePosition = ccp(winSize.width * 0.05f, winSize.height * 0.95f);
+    CGPoint levelPosition = ccp(winSize.width * 0.5f, winSize.height * 0.95f);
+    CGPoint nextLabelPosition = ccp(winSize.width * 0.80f, winSize.height * 0.95f);
+    nextParticlePos = ccp(winSize.width * 0.85f, winSize.height * 0.95f);
+
+    launchPoint = ccp(0, winSize.height * 0.45f);
+    
+    // Field initializations
+    rotationTouch = nil;
+    launchTouch = nil;
+    rotTouchAngleInit = 0;
+    rotTouchAngleCur = 0;
+    centerNodeAngleInit = 0;
+    nextParticle = nil;
+    
+    // Set up simulation.
+    // Uncomment this when you need something to attach the sensor shapes to.
+    // cpBody *staticBody = cpBodyNew(INFINITY, INFINITY);
+    space = cpSpaceNew();
+    cpSpaceSetGravity(space, ccp(0,0));
+    cpSpaceSetDamping(space, kParticleDamping);
+    cpSpaceAddCollisionHandler(space, 
+                               kSensorCollisionType, kSensorCollisionType, 
+                               (cpCollisionBeginFunc)collisionBegin, 
+                               (cpCollisionPreSolveFunc)collisionPreSolve, 
+                               nil, 
+                               (cpCollisionSeparateFunc)collisionSeparate, 
+                               self);
+    cpSpaceAddCollisionHandler(space, 
+                               kShapeCollisionType, kShapeCollisionType, 
+                               nil, 
+                               nil, 
+                               (cpCollisionPostSolveFunc)collisionPostSolve, 
+                               nil, 
+                               self);   
+    // Load sprite sheet.
+    sceneSpriteBatchNode = [CCSpriteBatchNode batchNodeWithFile:@"scene1Atlas.png" capacity:100];
+    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"scene1Atlas.plist"];
+    
+    // Set up controls
+    //    CCSprite *resetSprite = [CCSprite spriteWithSpriteFrameName:@"ResetButton.png"];
+    //    CCSprite *resetSpriteSelected = [CCSprite spriteWithSpriteFrameName:@"ResetButtonSelected.png"];
+    //    resetButton = [CCMenuItemSprite itemWithNormalSprite:resetSprite 
+    //                                          selectedSprite:resetSpriteSelected
+    //                                                  target:self
+    //                                                selector:@selector(resetGame)];
+    //    CCMenu *menu = [CCMenu menuWithItems:resetButton, nil];
+    
+    CCSprite *pauseSprite = [CCSprite spriteWithSpriteFrameName:@"pause.png"];
+    CCSprite *pauseSpriteSelected = [CCSprite spriteWithSpriteFrameName:@"pause.png"];
+    CCMenuItemSprite *pauseButton = [CCMenuItemSprite itemWithNormalSprite:pauseSprite 
+                                                            selectedSprite:pauseSpriteSelected
+                                                                    target:self
+                                                                  selector:@selector(pause)];
+    CCMenu *menu = [CCMenu menuWithItems:pauseButton, nil];
+    
+    
+    [menu setPosition:ccp(winSize.width * 0.95f, winSize.height * 0.95f)];
+    [self addChild:menu z:100];
+    
+    // Add score label.
+    scoreLabel = [CCLabelBMFont labelWithString:@"0" fntFile:@"score.fnt"];
+    [scoreLabel setAnchorPoint:ccp(0.0f, 0.5f)];
+    [scoreLabel setPosition:scorePosition];
+    [self addChild:scoreLabel z:100];
+    
+    // Add level label.
+    levelLabel = [CCLabelBMFont labelWithString:@"Level: 1" fntFile:@"score.fnt"];
+    //[levelLabel setAnchorPoint:ccp(1.0f, 0.5f)];
+    [levelLabel setPosition:levelPosition];
+    [self addChild:levelLabel z:100];
+    
+    // Add Next:
+    CCLabelBMFont *nextLabel = [CCLabelBMFont labelWithString:@"Next:" fntFile:@"score.fnt"];
+    nextLabel.position = nextLabelPosition;
+    [nextLabel setAnchorPoint:ccp(1.0, 0.5)];
+    [self addChild:nextLabel z:100];
+    
+    // Add the clock.
+    clock = [Clock node];
+    clock.position = ccp(winSize.width * 0.20, winSize.height * 0.62);
+    //clock.scale = 0.75f;
+    [self addChild:clock z:0];
+    
+    // Add the detector.
+    CCSprite *detector = [CCSprite spriteWithSpriteFrameName:@"detector.png"];
+    detector.position = puzzleCenter;
+    [self addChild:detector z:0];
+    
+    // Configure the node which controls rotation.
+    centerNode = [CCNode node];
+    centerNode.position = puzzleCenter;
+    centerNode.rotation = 0;
+    [centerNode addChild:sceneSpriteBatchNode z:0 tag:kTagBatchNode];
+    [self addChild:centerNode];
+    
+}
+
 #pragma mark -
 #pragma mark CCTouchDelegateProtocol
 - (void)ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -623,116 +728,23 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     }
 
 }
-
 #pragma mark -
 #pragma mark CCNode
 
 -(void)onEnter {
     [super onEnter];
     
-    self.isTouchEnabled = YES;
-    self.isAccelerometerEnabled = NO;
-    
-    CGSize winSize = [[CCDirector sharedDirector] winSize];
-    
-    // Static variables.
-    puzzleCenter = ccp(winSize.width - winSize.height * 0.4, winSize.height * 0.45f);
-    scorePosition = ccp(winSize.width * 0.95f, winSize.height * 0.95f);
-    levelPosition = ccp(scorePosition.x, scorePosition.y - 25);
-    launchPoint = ccp(0, winSize.height * 0.45f);
-    //launchPoint = cpv(-1 * puzzleCenter.x * scaleFactor, 0);
-    nextParticlePos = ccp(winSize.width * 0.1f, scorePosition.y - 25);
-    //nextParticlePos = launchPoint;
-    
-    // Field initializations
-    rotationTouch = nil;
-    launchTouch = nil;
-    rotTouchAngleInit = 0;
-    rotTouchAngleCur = 0;
-    centerNodeAngleInit = 0;
-    nextParticle = nil;
-    
-    // Set up simulation.
-    // Uncomment this when you need something to attach the sensor shapes to.
-    // cpBody *staticBody = cpBodyNew(INFINITY, INFINITY);
-    space = cpSpaceNew();
-    cpSpaceSetGravity(space, ccp(0,0));
-    cpSpaceSetDamping(space, kParticleDamping);
-    cpSpaceAddCollisionHandler(space, 
-                               kSensorCollisionType, kSensorCollisionType, 
-                               (cpCollisionBeginFunc)collisionBegin, 
-                               (cpCollisionPreSolveFunc)collisionPreSolve, 
-                               nil, 
-                               (cpCollisionSeparateFunc)collisionSeparate, 
-                               self);
-    cpSpaceAddCollisionHandler(space, 
-                               kShapeCollisionType, kShapeCollisionType, 
-                               nil, 
-                               nil, 
-                               (cpCollisionPostSolveFunc)collisionPostSolve, 
-                               nil, 
-                               self);   
-    // Load sprite sheet.
-    sceneSpriteBatchNode = [CCSpriteBatchNode batchNodeWithFile:@"scene1Atlas.png" capacity:100];
-    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"scene1Atlas.plist"];
-    
-    // Set up controls
-//    CCSprite *resetSprite = [CCSprite spriteWithSpriteFrameName:@"ResetButton.png"];
-//    CCSprite *resetSpriteSelected = [CCSprite spriteWithSpriteFrameName:@"ResetButtonSelected.png"];
-//    resetButton = [CCMenuItemSprite itemWithNormalSprite:resetSprite 
-//                                          selectedSprite:resetSpriteSelected
-//                                                  target:self
-//                                                selector:@selector(resetGame)];
-//    CCMenu *menu = [CCMenu menuWithItems:resetButton, nil];
-    
-    CCSprite *pauseSprite = [CCSprite spriteWithSpriteFrameName:@"PauseButton.png"];
-    CCSprite *pauseSpriteSelected = [CCSprite spriteWithSpriteFrameName:@"PauseButtonSelected.png"];
-    CCMenuItemSprite *pauseButton = [CCMenuItemSprite itemWithNormalSprite:pauseSprite 
-                                          selectedSprite:pauseSpriteSelected
-                                                  target:self
-                                                selector:@selector(pause)];
-    CCMenu *menu = [CCMenu menuWithItems:pauseButton, nil];
-    
-    
-    [menu setPosition:ccp(winSize.width * 0.5f, winSize.height * 0.95f)];
-    [self addChild:menu z:100];
-    
-    // Add score label.
-    scoreLabel = [CCLabelBMFont labelWithString:@"0" fntFile:@"score.fnt"];
-    [scoreLabel setAnchorPoint:ccp(1.0f, 0.5f)];
-    [scoreLabel setPosition:scorePosition];
-    [self addChild:scoreLabel z:100];
-    
-    // Add level label.
-    levelLabel = [CCLabelBMFont labelWithString:@"Level 1" fntFile:@"score.fnt"];
-    [levelLabel setAnchorPoint:ccp(1.0f, 0.5f)];
-    [levelLabel setPosition:levelPosition];
-    [self addChild:levelLabel z:100];
-    
-    // Add Next:
-    CCLabelBMFont *nextLabel = [CCLabelBMFont labelWithString:@"Next:" fntFile:@"score.fnt"];
-    nextLabel.position = ccp(winSize.width * 0.1f, winSize.height * 0.95f);
-    [self addChild:nextLabel z:100];
-    
-    // Add the background map.
-    clock = [Clock node];
-    clock.position = ccp(winSize.width * 0.18, winSize.height * 0.45);
-    [self addChild:clock z:0];
-    
-    // Configure the node which controls rotation.
-    centerNode = [CCNode node];
-    centerNode.position = puzzleCenter;
-    centerNode.rotation = 0;
-    [centerNode addChild:sceneSpriteBatchNode z:0 tag:kTagBatchNode];
-    [self addChild:centerNode];
+    [self initUI];
     
     // This will set up the initial particle system.
     [self resetGame];
 }
 
--(void)draw {
-    [super draw];
-    //#ifdef DEBUG
+-(void)visit {
+    [super visit];
+
+    return;
+#ifdef DEBUG
     
     // Debug draw for fail radius.
     ccDrawColor4B(0, 255, 0, 128);
@@ -758,7 +770,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     
     ccDrawLine(start, launchVel);
     
-    //#endif
+#endif
 }
 
 #pragma mark -
@@ -766,7 +778,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 
 - (id)init
 {
-    self = [super initWithColor:ccc4(0, 0, 0, 255)];
+    self = [super initWithColor:ccc4(20, 20, 20, 255)];
     if (self) {
         particles = [[[NSMutableSet alloc] initWithCapacity:100] retain];
         visitedParticles = [[[NSMutableSet alloc] initWithCapacity:100] retain];

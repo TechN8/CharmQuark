@@ -15,9 +15,9 @@
  Rotate CW and CCW in oposite directions.
  */
 
-#define kcwStartAngle   -32.0f
+#define kcwStartAngle   -90.0f
 #define kcwEndAngle     270.0f
-#define kacwStartAngle  32.0f
+#define kacwStartAngle  90.0f
 #define kacwEndAngle    -270.0f
 
 @implementation Clock
@@ -37,13 +37,13 @@
         case kParticleGreen:
             displayFrame = [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:@"green-small.png"];
             break;
-        case kParticleIndigo:
+        case kParticleBlue:
             displayFrame = [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:@"blue-small.png"];
             break;
-        case kParticleBlue:
+        case kParticleAntiRed:
             displayFrame = [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:@"antired-small.png"];
             break;
-        case kParticleViolet:
+        case kParticleAntiGreen:
             displayFrame = [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:@"antigreen-small.png"];
             break;
         case kParticleAntiBlue:
@@ -62,9 +62,9 @@
     self = [super init];
     if (self) {
         // Load background LHCMap.png
-        lhcMap = [CCSprite spriteWithSpriteFrameName:@"LHCMap.png"];
+        lhcMap = [CCSprite spriteWithSpriteFrameName:@"lhcmap.png"];
         whitePacket = [CCSprite spriteWithSpriteFrameName:@"white-small.png"];
-        colorPacket = [CCSprite spriteWithSpriteFrameName:@"antired-small.png"];
+        colorPacket = [CCSprite spriteWithSpriteFrameName:@"white-small.png"];
         
         [lhcMap setPosition:ccp(0,0)];
         [self addChild:lhcMap z:0];

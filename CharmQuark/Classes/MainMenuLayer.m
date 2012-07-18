@@ -38,7 +38,7 @@
     CGSize winSize = [CCDirector sharedDirector].winSize; 
     //self.isTouchEnabled = YES;
 
-    CCLabelTTF *title = [CCLabelTTF labelWithString:@"Charm Quark" fontName:@"American Typewriter" fontSize:40.0f];
+    CCLabelTTF *title = [CCLabelTTF labelWithString:@"Charm Quark" fontName:@"Courier" fontSize:40.0f];
     title.color = ccWHITE;
     title.position = ccp(winSize.width * 0.5, winSize.height * 0.95);
     [self addChild:title z:100];
@@ -47,22 +47,22 @@
     //TODO: Add game mode sub-menu.
     //Play
     CCMenuItemFont *newGameItem = [CCMenuItemFont itemWithString:@"Play" target:self selector:@selector(playSurvival)];
-    [newGameItem setFontName:@"American Typewriter"];
+    [newGameItem setFontName:@"Courier"];
     [newGameItem setColor:ccWHITE];
     
     //Options
     CCMenuItemFont *optionsItem = [CCMenuItemFont itemWithString:@"Options" target:self selector:@selector(showOptions)];
-    [optionsItem setFontName:@"American Typewriter"];
+    [optionsItem setFontName:@"Courier"];
     [optionsItem setColor:ccWHITE];
     
     //High Scores
-    CCMenuItemFont *scoresItem = [CCMenuItemFont itemWithString:@"Options" target:self selector:@selector(showScores)];
-    [scoresItem setFontName:@"American Typewriter"];
+    CCMenuItemFont *scoresItem = [CCMenuItemFont itemWithString:@"High Scores" target:self selector:@selector(showScores)];
+    [scoresItem setFontName:@"Courier"];
     [scoresItem setColor:ccWHITE];
     
     //Credits
-    CCMenuItemFont *creditsItem = [CCMenuItemFont itemWithString:@"Options" target:self selector:@selector(showCredits)];
-    [creditsItem setFontName:@"American Typewriter"];
+    CCMenuItemFont *creditsItem = [CCMenuItemFont itemWithString:@"Credits" target:self selector:@selector(showCredits)];
+    [creditsItem setFontName:@"Courier"];
     [creditsItem setColor:ccWHITE];
     
     mainMenu = [CCMenu menuWithItems:newGameItem, optionsItem, scoresItem, creditsItem, nil];
