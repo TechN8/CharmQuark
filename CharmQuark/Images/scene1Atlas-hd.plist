@@ -238,10 +238,23 @@
                 <key>sourceSize</key>
                 <string>{14,14}</string>
             </dict>
+            <key>detector.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{528,431},{441,441}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{441,441}}</string>
+                <key>sourceSize</key>
+                <string>{441,441}</string>
+            </dict>
             <key>green-small.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{528,431},{14,14}}</string>
+                <string>{{971,431},{14,14}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -254,7 +267,7 @@
             <key>red-small.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{544,431},{14,14}}</string>
+                <string>{{987,431},{14,14}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -267,7 +280,7 @@
             <key>white-small.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{560,431},{14,14}}</string>
+                <string>{{1003,431},{14,14}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -285,9 +298,9 @@
             <key>realTextureFileName</key>
             <string>scene1Atlas-hd.png</string>
             <key>size</key>
-            <string>{1024,512}</string>
+            <string>{1024,1024}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:b2e127cdfe8f493b2182b208f32c4c4e$</string>
+            <string>$TexturePacker:SmartUpdate:23f779056bac912db68b3bdf5f537857$</string>
             <key>textureFileName</key>
             <string>scene1Atlas-hd.png</string>
         </dict>
