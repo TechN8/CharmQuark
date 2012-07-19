@@ -15,7 +15,7 @@ IPHONE_DPI=42.19
 IPHONEHD_DIR=$EXPORT_DIR/iPhone-hd
 IPHONEHD_DPI=84.38
 
-SPRITE_IDS='red red-small green green-small blue blue-small antired antired-small antigreen antigreen-small antiblue antiblue-small white white-small lhcmap pause detector thumbguide'
+SPRITE_IDS='red red-small green green-small blue blue-small antired antired-small antigreen antigreen-small antiblue antiblue-small white white-small lhcmap pause detector thumbguide firebutton'
 
 mkdir -p $IPAD_DIR $IPADHD_DIR $IPHONE_DIR $IPHONEHD_DIR
 
