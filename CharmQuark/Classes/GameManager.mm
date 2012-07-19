@@ -15,7 +15,6 @@
 NSString *kSoundEffectsOnKey	= @"isSoundEffectsOn";
 NSString *kMusicOnKey			= @"isMusicOn";
 NSString *kHighScoreKey         = @"highScores";
-// TODO: Add key for high score dictionary.
 
 @implementation GameManager
 static GameManager* _sharedGameManager = nil;

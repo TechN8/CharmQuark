@@ -4,7 +4,18 @@
 <dict>
 	<key>kCreditsScene</key>
 	<dict/>
-	<key>kGameScene</key>
+	<key>kGameSceneSurvival</key>
+	<dict>
+		<key>PARTICLE_LAUNCH</key>
+		<string>22k_enemy_phaser_fireV1.wav</string>
+		<key>PARTICLE_COLLIDE</key>
+		<string>22k_viking_hammer_hitV1.wav</string>
+		<key>PARTICLE_EXPLODE</key>
+		<string>22k_viking_hammer_hitv2.wav</string>
+		<key>GAME_OVER</key>
+		<string>22k_viking_hitV1.wav</string>
+	</dict>
+	<key>kGameSceneTimeAttack</key>
 	<dict>
 		<key>PARTICLE_LAUNCH</key>
 		<string>22k_enemy_phaser_fireV1.wav</string>

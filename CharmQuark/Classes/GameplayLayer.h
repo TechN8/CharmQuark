@@ -34,6 +34,10 @@
 #define kMinSoundImpulse        1200.0f
 #define kMaxSoundImpulse        10000.0f
 
+#define kRotationFalloff        2.5f
+#define kRotationMaxAngleV      400.0f
+#define kRotationMinAngleV      2.5f
+
 // Simulation Constants
 #define kSimulationRate         0.016667f
 #define kParticleRadius         32.0f
@@ -57,6 +61,12 @@ enum {
     kTagUIBatchNode
 };
 
+enum {
+    kZBackground = 0,
+    kZUIElements = 100,
+    kZPopups = 1000
+};
+
 @interface GameplayLayer : CCLayerColor {
     // Chipmunk
     cpSpace *space;
@@ -69,17 +79,15 @@ enum {
     Particle *nextParticle;
     LHCMap *map;
     CCSprite *thumbGuide;
+    CCSprite *fireButton;
     
 	// Touch handling
     UITouch *rotationTouch;
-	CGFloat rotTouchAngleInit;
-	CGFloat rotTouchAngleCur;
+    NSTimeInterval rotationTouchTime;
+	CGPoint rotTouchPointInit;
+	CGPoint rotTouchPointCur;
 	CGFloat centerNodeAngleInit;
-    
-    UITouch *aimTouch;
-    CGFloat aimTouchAngleInit;
-    CGFloat aimTouchAngleCur;
-    CGFloat aimAngleInit;
+    CGFloat rotAngleV;
     
     UITouch *launchTouch;
     

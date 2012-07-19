@@ -2,10 +2,6 @@ X Consistent simulation dimensions between iPhone and iPad
     Use 1024 x 768 sim dimensions.
     Scale to 480x320 = * 0.46875 for iPhone draws.
 
-. Thumb guides.  (Do these with sprites).
-
-. Inertia
-
 . Detector animations.
     . Blink yellow on particle.
     . Blink red on game over collision.
@@ -40,6 +36,8 @@ X Consistent simulation dimensions between iPhone and iPad
     - Menu - Something else?
 
 . Game Center Support for high score.
+    
+. Run scoreParticles on gameover condition?
     
 . More Animations
    Trail effect on dropped particle?

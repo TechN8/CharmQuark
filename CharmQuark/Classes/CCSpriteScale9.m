@@ -80,6 +80,7 @@
 }
 
 - (void) dealloc {
+    [super dealloc];
 	if (vertexData) free(vertexData);
 }
 

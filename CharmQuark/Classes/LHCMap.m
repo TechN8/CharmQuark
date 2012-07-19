@@ -79,14 +79,14 @@
     clockwise = kcwStartAngle;
     CGPoint clockPos = ccp(center.x + radius * cosf(clockwise),
                            center.y + radius * sinf(clockwise));
-    [colorPacket setPosition:center];
+    [colorPacket setPosition:clockPos];
     [self addChild:colorPacket z:10];
     
     antiClockwise = kacwStartAngle;
     
     CGPoint antiClockPos = ccp(center.x + radius * cosf(antiClockwise),
                                center.y + radius * sinf(antiClockwise));
-    [whitePacket setPosition:center];
+    [whitePacket setPosition:antiClockPos];
     [self addChild:whitePacket z:10];
 }
 

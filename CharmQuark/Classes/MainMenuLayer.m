@@ -49,7 +49,6 @@
     [self addChild:title z:100];
     
     //TODO: Replace with CCMenuItemAtlasFont
-    //TODO: Add game mode sub-menu.
     //Play
     CCMenuItemFont *survivalItem = [CCMenuItemFont itemWithString:@"Survival" target:self selector:@selector(playSurvival)];
     [survivalItem setFontName:@"Courier"];
