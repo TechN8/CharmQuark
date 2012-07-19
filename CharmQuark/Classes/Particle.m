@@ -148,11 +148,11 @@
     emitter.endColor = ccc4f(0.5f, 0.5f, 0.5f, 0.0f);
     emitter.endColorVar = ccc4f(0.1f, 0.1f, 0.1f, 0.0f);
     
-    [emitter autoRemoveOnFinish];
-    CCNode *parent = self.parent;
-    if ([parent isKindOfClass:[CCSpriteBatchNode class]]) {
-        parent = [parent parent];
-    }
+    emitter.autoRemoveOnFinish=YES;
+//    CCNode *parent = self.parent;
+//    if ([parent isKindOfClass:[CCSpriteBatchNode class]]) {
+//        parent = [parent parent];
+//    }
     return emitter;
 }
 

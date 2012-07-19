@@ -250,7 +250,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     nextParticle = [self randomParticle];
     nextParticle.position = nextParticlePos;
     [map setColor:nextParticle.particleColor];
-    [self addChild:nextParticle];
+    [[self getChildByTag:kTagUIBatchNode] addChild:nextParticle];
     return particle;
 }
 
@@ -285,7 +285,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     // Remove from layer and add to batch node.
     //[particle retain];
     [particle removeFromParentAndCleanup:NO];
-    CCSpriteBatchNode *batch = (CCSpriteBatchNode*) [centerNode getChildByTag:kTagBatchNode];
+    CCSpriteBatchNode *batch = (CCSpriteBatchNode*) [centerNode getChildByTag:kTagPacketBatchNode];
     [batch addChild: particle];
     //[particle release];
     
@@ -596,9 +596,13 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
                                nil, 
                                self);   
     // Load sprite sheet.
-    sceneSpriteBatchNode = [CCSpriteBatchNode batchNodeWithFile:@"scene1Atlas.png" capacity:100];
     [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"scene1Atlas.plist"];
-    
+
+    // Configure the two batch nodes for rendering.
+    CCSpriteBatchNode *packetBatchNode = [CCSpriteBatchNode batchNodeWithFile:@"scene1Atlas.png" capacity:100];
+    CCSpriteBatchNode *uiBatchNode = [CCSpriteBatchNode batchNodeWithFile:@"scene1Atlas.png" capacity:100];
+    [self addChild:uiBatchNode z:0 tag:kTagUIBatchNode];
+
     // Pause Button
     CCSprite *pauseSprite = [CCSprite spriteWithSpriteFrameName:@"pause.png"];
     CCSprite *pauseSpriteSelected = [CCSprite spriteWithSpriteFrameName:@"pause.png"];
@@ -637,25 +641,25 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     
     // Add the map.
     map = [LHCMap node];
-    map.position = ccp(winSize.width * 0.20, winSize.height * 0.62);
+    map.position = ccp(winSize.width * 0.19, winSize.height * 0.62);
     //clock.scale = 0.75f;
-    [self addChild:map z:0];
+    [uiBatchNode addChild:map z:0];
     
     // Add the detector.
     CCSprite *detector = [CCSprite spriteWithSpriteFrameName:@"detector.png"];
     detector.position = puzzleCenter;
-    [self addChild:detector z:0];
+    [uiBatchNode addChild:detector z:0];
     
     // Add the thumb guide.
     thumbGuide = [CCSprite spriteWithSpriteFrameName:@"thumbguide.png"];
     thumbGuide.opacity = 0;
-    [self addChild:thumbGuide z:100];
+    [uiBatchNode addChild:thumbGuide z:100];
     
     // Configure the node which controls rotation.
     centerNode = [CCNode node];
     centerNode.position = puzzleCenter;
     centerNode.rotation = 0;
-    [centerNode addChild:sceneSpriteBatchNode z:0 tag:kTagBatchNode];
+    [centerNode addChild:packetBatchNode z:0 tag:kTagPacketBatchNode];
     [self addChild:centerNode];
     
 }

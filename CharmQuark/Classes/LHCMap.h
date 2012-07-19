@@ -10,12 +10,14 @@
 #import "cocos2d.h"
 #import "Particle.h"
 
-@interface LHCMap : CCNode {
-    CCSprite *lhcMap;
+@interface LHCMap : CCSprite {
+//    CCSprite *lhcMap;
     CCSprite *whitePacket;
     CCSprite *colorPacket;
-    CCNode *clockwise;
-    CCNode *antiClockwise;
+    float clockwise;
+    float antiClockwise;
+    CGPoint center;
+    CGFloat radius;
 }
 
 -(void)setTime:(float)time;

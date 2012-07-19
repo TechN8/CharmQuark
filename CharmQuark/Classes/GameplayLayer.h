@@ -53,7 +53,8 @@
 #define kiPadScaleFactor        1.0f
 
 enum {
-	kTagBatchNode = 1,
+	kTagPacketBatchNode = 1,
+    kTagUIBatchNode
 };
 
 @interface GameplayLayer : CCLayerColor {
@@ -64,7 +65,6 @@ enum {
     CCLabelBMFont *scoreLabel;
     CCLabelBMFont *levelLabel;
     CCNode *centerNode;
-    CCSpriteBatchNode *sceneSpriteBatchNode;
     CCMenuItemSprite *resetButton;
     Particle *nextParticle;
     LHCMap *map;
