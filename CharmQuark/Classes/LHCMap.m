@@ -33,7 +33,7 @@
     CGPoint antiClockPos = ccp(center.x + radius * cosf(antiClockwise),
                                center.y + radius * sinf(antiClockwise));
     [whitePacket setPosition:antiClockPos];
-
+    
 }
 
 -(void)setColor:(ParticleColors)color {
@@ -65,24 +65,11 @@
 }
 
 -(void)onEnter {
-    //        self.displayFrame = [CCSprite spriteWithSpriteFrameName:@"lhcmap.png"];
-    whitePacket = [CCSprite spriteWithSpriteFrameName:@"white-small.png"];
-    colorPacket = [CCSprite spriteWithSpriteFrameName:@"white-small.png"];
-    
-    //        [lhcMap setPosition:ccp(0,0)];
-    //        [self addChild:lhcMap z:0];
-    
-    radius = self.contentSize.height / 2.0 - whitePacket.contentSize.height / 4.0;
-    center = ccp(self.contentSize.width - self.contentSize.height / 2,
-                 self.contentSize.height / 2);
-    
-    clockwise = kcwStartAngle;
     CGPoint clockPos = ccp(center.x + radius * cosf(clockwise),
                            center.y + radius * sinf(clockwise));
     [colorPacket setPosition:clockPos];
     [self addChild:colorPacket z:10];
     
-    antiClockwise = kacwStartAngle;
     
     CGPoint antiClockPos = ccp(center.x + radius * cosf(antiClockwise),
                                center.y + radius * sinf(antiClockwise));
@@ -94,7 +81,20 @@
 
 -(id)init {
     // Load background LHCMap.png
-    return [super initWithSpriteFrameName:@"lhcmap.png"];
+    self = [super initWithSpriteFrameName:@"lhcmap.png"];
+    if (self) {
+        
+        whitePacket = [CCSprite spriteWithSpriteFrameName:@"white-small.png"];
+        colorPacket = [CCSprite spriteWithSpriteFrameName:@"white-small.png"];
+        
+        radius = self.contentSize.height / 2.0 - whitePacket.contentSize.height / 4.0;
+        center = ccp(self.contentSize.width - self.contentSize.height / 2,
+                     self.contentSize.height / 2);
+        
+        clockwise = kcwStartAngle;
+        antiClockwise = kacwStartAngle;
+    }    
+    return self;
 }
 
 @end

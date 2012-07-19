@@ -128,7 +128,7 @@
     // Gravity Mode: tagential
     emitter.tangentialAccel = 0;
     emitter.tangentialAccelVar = 0;
-    emitter.angle = fmodf((float)rand(), (float)RAND_MAX/360);
+    emitter.angle = fmodf((float)rand(), 360.0f);
     emitter.angleVar = 10;
     emitter.emissionRate = 10.0f;
     emitter.life = 0.5f;

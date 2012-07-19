@@ -11,6 +11,7 @@
 #import "LHCMap.h"
 #import "Constants.h"
 #import "Particle.h"
+#import "Detector.h"
 
 // Gameplay Constants
 #define kMinMatchSize           4
@@ -80,6 +81,7 @@ enum {
     LHCMap *map;
     CCSprite *thumbGuide;
     CCSprite *fireButton;
+    Detector *detector;
     
 	// Touch handling
     UITouch *rotationTouch;

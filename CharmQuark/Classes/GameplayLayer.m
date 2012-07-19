@@ -450,6 +450,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
         [scoredParticles removeObject:particle];
         
         CCParticleSystemQuad *explosion = [particle explode];  // Play the explosion animation.
+        [detector blinkAtAngle:explosion.angle];
         explosion.position = [centerNode convertToWorldSpace:particle.position];
         [self addChild:explosion];
         
@@ -664,7 +665,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     [uiBatchNode addChild:map z:kZBackground];
     
     // Add the detector.
-    CCSprite *detector = [CCSprite spriteWithSpriteFrameName:@"detector.png"];
+    detector = [Detector node];
     detector.position = puzzleCenter;
     [uiBatchNode addChild:detector z:kZBackground];
     

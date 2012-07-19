@@ -44,12 +44,12 @@
      borderopacity="1.0"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.03125"
-     inkscape:cx="512"
-     inkscape:cy="384"
+     inkscape:zoom="4.125"
+     inkscape:cx="746.33357"
+     inkscape:cy="654.2551"
      inkscape:document-units="px"
-     inkscape:current-layer="layer3"
-     showgrid="false"
+     inkscape:current-layer="layer9"
+     showgrid="true"
      inkscape:window-width="1681"
      inkscape:window-height="980"
      inkscape:window-x="45"
@@ -59,7 +59,8 @@
      inkscape:snap-bbox="true"
      showborder="false"
      borderlayer="false"
-     inkscape:snap-grids="true">
+     inkscape:snap-grids="true"
+     inkscape:snap-global="false">
     <inkscape:grid
        type="xygrid"
        id="grid3967"
@@ -1010,8 +1011,7 @@
      inkscape:groupmode="layer"
      id="layer9"
      inkscape:label="Outer Detector"
-     style="display:inline"
-     sodipodi:insensitive="true">
+     style="display:inline">
     <g
        id="detector"
        inkscape:export-filename="/Users/nathan/Documents/Xcode Projects/CharmQuark/CharmQuark/Images/Clock/iPhone-hd/detector.png"
@@ -1214,5 +1214,10 @@
          y="0"
          x="0" />
     </g>
+    <path
+       style="fill:#ff6600;fill-opacity:1;stroke:none;display:inline;enable-background:new"
+       d="M 720.03125 92.9375 C 709.80054 92.9375 699.67856 93.443204 689.71875 94.46875 L 694.78125 143 C 703.86065 141.98535 713.08736 141.4375 722.4375 141.4375 C 730.2168 141.4375 737.90492 141.8257 745.5 142.53125 L 750.53125 94.5 C 740.51049 93.461586 730.32676 92.9375 720.03125 92.9375 z "
+       id="blink"
+       inkscape:label="#path6519" />
   </g>
 </svg>

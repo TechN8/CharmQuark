@@ -20,7 +20,7 @@
             <key>antiblue.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{374,891},{60,60}}</string>
+                <string>{{374,940},{60,60}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -81,6 +81,19 @@
                 <string>{{0,0},{60,60}}</string>
                 <key>sourceSize</key>
                 <string>{60,60}</string>
+            </dict>
+            <key>blink.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{338,891},{57,47}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{57,47}}</string>
+                <key>sourceSize</key>
+                <string>{57,47}</string>
             </dict>
             <key>blue-small.png</key>
             <dict>
@@ -176,7 +189,7 @@
             <key>pause.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{338,891},{34,42}}</string>
+                <string>{{397,891},{34,42}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -261,7 +274,7 @@
             <key>size</key>
             <string>{1024,1024}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:578271974c003f466236611820cb7a95$</string>
+            <string>$TexturePacker:SmartUpdate:4ececdb6c31d8a231db0a3c1e42b1a00$</string>
             <key>textureFileName</key>
             <string>scene1Atlas-hd.png</string>
         </dict>
