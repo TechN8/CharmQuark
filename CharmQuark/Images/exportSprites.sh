@@ -15,7 +15,7 @@ IPHONE_DPI=42.19
 IPHONEHD_DIR=$EXPORT_DIR/iPhone-hd
 IPHONEHD_DPI=84.38
 
-SPRITE_IDS='white white-small lhcmap pause detector thumbguide firebutton blink'
+SPRITE_IDS='white white-small lhcmap pause detector thumbguide firebutton blink graph'
 PNG_IDS='window'
 
 mkdir -p $IPAD_DIR $IPADHD_DIR $IPHONE_DIR $IPHONEHD_DIR
@@ -35,3 +35,6 @@ $INKSCAPE --export-png=${i}-ipadhd.png --export-dpi=$IPADHD_DPI --export-id=$i -
 $INKSCAPE --export-png=${i}.png --export-dpi=$IPHONE_DPI --export-id=$i --export-id-only $INPUT_FILE
 $INKSCAPE --export-png=${i}-hd.png --export-dpi=$IPHONEHD_DPI --export-id=$i --export-id-only $INPUT_FILE
 done;
+
+#cp window-ipad.png window.png
+#cp window-ipadhd.png window-hd.png

@@ -38,10 +38,10 @@
 
 -(void)initUI {
     CGSize winSize = [[CCDirector sharedDirector] winSize];
-    CCLabelTTF *title = [CCLabelTTF labelWithString:@"Game Paused" fontName:@"American Typewriter" fontSize:40.0f];
-    title.color = ccWHITE;
-    title.position = ccp(winSize.width * 0.5, winSize.height * 0.8);
-    [self addChild:title z:100];
+//    CCLabelTTF *title = [CCLabelTTF labelWithString:@"Game Paused" fontName:@"American Typewriter" fontSize:30.0f];
+//    title.color = ccWHITE;
+//    title.position = ccp(winSize.width * 0.5, winSize.height * 0.82);
+//    [self addChild:title z:100];
     
     //TODO: Replace with CCMenuItemLabel using CCLabelBMFont
 

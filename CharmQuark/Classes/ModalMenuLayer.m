@@ -60,7 +60,7 @@
     CGSize winSize = [[CCDirector sharedDirector] winSize];
 
     Scale9Sprite *backGround = [[Scale9Sprite alloc] initWithFile:@"window.png" 
-                                                           ratioX:0.45 ratioY:0.4];
+                                                           ratioX:0.49 ratioY:0.49];
     [backGround setContentSize:CGSizeMake(winSize.width * .75, winSize.height * .75)];
     [backGround setPosition:ccp(winSize.width / 2, winSize.height / 2)];
     [self addChild:backGround];
