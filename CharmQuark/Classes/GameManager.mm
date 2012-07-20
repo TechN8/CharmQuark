@@ -365,6 +365,9 @@ static GameManager* _sharedGameManager = nil;
         hasAudioBeenInitialized = NO;
         soundEngine = nil;
         managerSoundState = kAudioManagerUninitialized;
+        
+        // Load sprite sheet.
+        [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"scene1Atlas.plist"];
     }
     return self;
 }

@@ -37,7 +37,7 @@
 
 - (void) separateFromParticle:(Particle*)particle {
     touchingCount--;
-
+    
     if (particleColor == particle.particleColor) {
         [matchingParticles removeObject:particle];
     }
@@ -71,32 +71,55 @@
 
 - (id) initWithParticleColor:(ParticleColors)color 
 {
-    switch (color) {
-        case kParticleRed:
-            self = [super initWithSpriteFrameName:@"red.png"];
-            break;
-        case kParticleGreen:
-            self = [super initWithSpriteFrameName:@"green.png"];
-            break;
-        case kParticleBlue:
-            self = [super initWithSpriteFrameName:@"blue.png"];
-            break;
-        case kParticleAntiRed:
-            self = [super initWithSpriteFrameName:@"antired.png"];
-            break;
-        case kParticleAntiGreen:
-            self = [super initWithSpriteFrameName:@"antigreen.png"];
-            break;
-        case kParticleAntiBlue:
-            self = [super initWithSpriteFrameName:@"antiblue.png"];
-            break;
-        case kParticleWhite:
-        default:
-            self = [super initWithSpriteFrameName:@"white.png"];
-            break;
-    }
+    //    switch (color) {
+    //        case kParticleRed:
+    //            self = [super initWithSpriteFrameName:@"red.png"];
+    //            break;
+    //        case kParticleGreen:
+    //            self = [super initWithSpriteFrameName:@"green.png"];
+    //            break;
+    //        case kParticleBlue:
+    //            self = [super initWithSpriteFrameName:@"blue.png"];
+    //            break;
+    //        case kParticleAntiRed:
+    //            self = [super initWithSpriteFrameName:@"antired.png"];
+    //            break;
+    //        case kParticleAntiGreen:
+    //            self = [super initWithSpriteFrameName:@"antigreen.png"];
+    //            break;
+    //        case kParticleAntiBlue:
+    //            self = [super initWithSpriteFrameName:@"antiblue.png"];
+    //            break;
+    //        case kParticleWhite:
+    //        default:
+    self = [super initWithSpriteFrameName:@"white.png"];
+    //            break;
+    //    }
     if (self) {
         self.particleColor = color;
+        switch (color) {
+            case kParticleRed:
+                self.color = kCC3ParticleRed;
+                break;
+            case kParticleGreen:
+                self.color = kCC3ParticleGreen;
+                break;
+            case kParticleBlue:
+                self.color = kCC3ParticleBlue;
+                break;
+            case kParticleAntiRed:
+                self.color = kCC3ParticleAntiRed;
+                break;
+            case kParticleAntiGreen:
+                self.color = kCC3ParticleAntiGreen;
+                break;
+            case kParticleAntiBlue:
+                self.color = kCC3ParticleAntiBlue;
+                break;
+            case kParticleWhite:
+            default:
+                break;
+        }
         self.streak = nil;
         self.matchingParticles = [NSMutableSet setWithCapacity:6];
         self.body = NULL;
@@ -104,9 +127,9 @@
         
         // Add motion streak.
         // CCMotionStreak can't be parented to batch node....  Sad.
-//        CCTexture2D *texture = nil; 
-//        self.streak = [CCMotionStreak streakWithFade:0.5 minSeg:3 width:2 color:ccWHITE texture: texture];
-//        [self addChild:streak];
+        //        CCTexture2D *texture = nil; 
+        //        self.streak = [CCMotionStreak streakWithFade:0.5 minSeg:3 width:2 color:ccWHITE texture: texture];
+        //        [self addChild:streak];
     }
     return self;
 }
@@ -128,7 +151,10 @@
     // Gravity Mode: tagential
     emitter.tangentialAccel = 0;
     emitter.tangentialAccelVar = 0;
-    emitter.angle = fmodf((float)rand(), 360.0f);
+    //Angle is OpenGL like and goes CCW.
+    //emitter.angle = (float)rand()/((float)RAND_MAX/360);
+    emitter.rotation = (float)rand()/((float)RAND_MAX/360);
+    emitter.angle = 0;
     emitter.angleVar = 10;
     emitter.emissionRate = 10.0f;
     emitter.life = 0.5f;
@@ -143,16 +169,17 @@
     emitter.blendAdditive = NO;
     emitter.emissionRate = emitter.totalParticles/emitter.duration;
     
-    emitter.startColor = ccc4f(1.0f, 1.0f, 1.0f, 1.0f);
+    emitter.startColor = ccc4FFromccc3B(self.color);
+    //emitter.startColor = ccc4f(1.0f, 1.0f, 1.0f, 1.0f);
     emitter.startColorVar = ccc4f(0.1f, 0.1f, 0.1f, 0.0f);
     emitter.endColor = ccc4f(0.5f, 0.5f, 0.5f, 0.0f);
     emitter.endColorVar = ccc4f(0.1f, 0.1f, 0.1f, 0.0f);
     
     emitter.autoRemoveOnFinish=YES;
-//    CCNode *parent = self.parent;
-//    if ([parent isKindOfClass:[CCSpriteBatchNode class]]) {
-//        parent = [parent parent];
-//    }
+    //    CCNode *parent = self.parent;
+    //    if ([parent isKindOfClass:[CCSpriteBatchNode class]]) {
+    //        parent = [parent parent];
+    //    }
     return emitter;
 }
 

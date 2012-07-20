@@ -1,23 +1,14 @@
 X Consistent simulation dimensions between iPhone and iPad
     Use 1024 x 768 sim dimensions.
     Scale to 480x320 = * 0.46875 for iPhone draws.
-    
-. Switch all particle sprites to a single white sprite with tinting.
-. Switch detector sprite
-. Don't shift blink sprites, display as they are.
+
 . Add some green bar graphs?
+. Blink red on game over collision.
+
 . Add some trails?
-
-
-. Detector animations.
-    . Blink yellow on particle.
-    . Blink red on game over collision.
     
 . Log
     Node which labels are attached to.  Can hold N and they will fade off the top.
-
-. 9-Slice popup window for menus.
-    Use on all screens that aren't the gameplay layer.
 
 . Credits screen.
 

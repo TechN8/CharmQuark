@@ -15,7 +15,8 @@ IPHONE_DPI=42.19
 IPHONEHD_DIR=$EXPORT_DIR/iPhone-hd
 IPHONEHD_DPI=84.38
 
-SPRITE_IDS='red red-small green green-small blue blue-small antired antired-small antigreen antigreen-small antiblue antiblue-small white white-small lhcmap pause detector thumbguide firebutton blink'
+SPRITE_IDS='white white-small lhcmap pause detector thumbguide firebutton blink'
+PNG_IDS='window'
 
 mkdir -p $IPAD_DIR $IPADHD_DIR $IPHONE_DIR $IPHONEHD_DIR
 
@@ -26,4 +27,11 @@ $INKSCAPE --export-png=$IPAD_DIR/$i.png --export-dpi=$IPAD_DPI --export-id=$i --
 $INKSCAPE --export-png=$IPADHD_DIR/$i.png --export-dpi=$IPADHD_DPI --export-id=$i --export-id-only $INPUT_FILE
 $INKSCAPE --export-png=$IPHONE_DIR/$i.png --export-dpi=$IPHONE_DPI --export-id=$i --export-id-only $INPUT_FILE
 $INKSCAPE --export-png=$IPHONEHD_DIR/$i.png --export-dpi=$IPHONEHD_DPI --export-id=$i --export-id-only $INPUT_FILE
+done;
+
+for i in $PNG_IDS; do
+$INKSCAPE --export-png=${i}-ipad.png --export-dpi=$IPAD_DPI --export-id=$i --export-id-only $INPUT_FILE
+$INKSCAPE --export-png=${i}-ipadhd.png --export-dpi=$IPADHD_DPI --export-id=$i --export-id-only $INPUT_FILE
+$INKSCAPE --export-png=${i}.png --export-dpi=$IPHONE_DPI --export-id=$i --export-id-only $INPUT_FILE
+$INKSCAPE --export-png=${i}-hd.png --export-dpi=$IPHONEHD_DPI --export-id=$i --export-id-only $INPUT_FILE
 done;

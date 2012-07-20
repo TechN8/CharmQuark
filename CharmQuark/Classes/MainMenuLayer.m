@@ -10,6 +10,7 @@
 #import "Constants.h"
 #import "GameManager.h"
 #import "GameOverLayer.h"
+#import "Scale9Sprite.h"
 
 @interface MainMenuLayer()
 -(void)displayMainMenu;
@@ -42,11 +43,17 @@
 -(void)displayMainMenu {
     CGSize winSize = [CCDirector sharedDirector].winSize; 
     //self.isTouchEnabled = YES;
-
-    CCLabelTTF *title = [CCLabelTTF labelWithString:@"Charm Quark" fontName:@"Courier" fontSize:40.0f];
-    title.color = ccWHITE;
-    title.position = ccp(winSize.width * 0.5, winSize.height * 0.95);
-    [self addChild:title z:100];
+    
+    Scale9Sprite *backGround = [[Scale9Sprite alloc] initWithFile:@"window.png" 
+                                                           ratioX:0.45 ratioY:0.4];
+    [backGround setContentSize:winSize];
+    [backGround setPosition:ccp(winSize.width / 2, winSize.height / 2)];
+    [self addChild:backGround];
+    
+//    CCLabelTTF *title = [CCLabelTTF labelWithString:@"Charm Quark" fontName:@"Courier" fontSize:40.0f];
+//    title.color = ccWHITE;
+//    title.position = ccp(winSize.width * 0.5, winSize.height * 0.95);
+//    [self addChild:title z:100];
     
     //TODO: Replace with CCMenuItemAtlasFont
     //Play

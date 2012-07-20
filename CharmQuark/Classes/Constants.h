@@ -11,6 +11,12 @@
 
 #define kMainMenuTagValue 10
 
+// Device support
+#define kiPhoneScaleFactor      0.46875f
+#define kiPhoneHDScaleFactor    0.9395f
+#define kiPadScaleFactor        1.0f
+#define kiPadHDScaleFactor      2.0f
+
 typedef enum {
     kNoSceneUninitialized=0,
     kMainMenuScene=1,

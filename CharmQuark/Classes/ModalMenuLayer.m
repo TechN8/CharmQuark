@@ -7,7 +7,7 @@
 //
 
 #import "ModalMenuLayer.h"
-
+#import "Scale9Sprite.h"
 
 @implementation ModalMenuLayer
 
@@ -56,6 +56,15 @@
 
 -(void)onEnter {
     [super onEnter];
+    
+    CGSize winSize = [[CCDirector sharedDirector] winSize];
+
+    Scale9Sprite *backGround = [[Scale9Sprite alloc] initWithFile:@"window.png" 
+                                                           ratioX:0.45 ratioY:0.4];
+    [backGround setContentSize:CGSizeMake(winSize.width * .75, winSize.height * .75)];
+    [backGround setPosition:ccp(winSize.width / 2, winSize.height / 2)];
+    [self addChild:backGround];
+
     [self initUI];
 }
 

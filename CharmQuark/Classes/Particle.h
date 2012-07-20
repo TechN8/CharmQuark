@@ -12,6 +12,13 @@
 
 #define kMinMatchAge            0.5
 
+#define kCC3ParticleRed         ccc3(255, 0, 0)
+#define kCC3ParticleGreen       ccc3(0, 255, 0)
+#define kCC3ParticleBlue        ccc3(0, 0, 255)
+#define kCC3ParticleAntiRed     ccc3(0, 255, 255)
+#define kCC3ParticleAntiGreen   ccc3(255, 0, 255)
+#define kCC3ParticleAntiBlue    ccc3(255, 255, 0)
+
 typedef enum {
     kParticleRed = 0,
     kParticleGreen,

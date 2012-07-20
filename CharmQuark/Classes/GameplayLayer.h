@@ -53,10 +53,6 @@
 #define kSensorCollisionType    2
 #define kUnitVectorUp           ccp(0, 1)
 
-// Device support
-#define kiPhoneScaleFactor      0.46875f
-#define kiPadScaleFactor        1.0f
-
 enum {
 	kTagPacketBatchNode = 1,
     kTagUIBatchNode

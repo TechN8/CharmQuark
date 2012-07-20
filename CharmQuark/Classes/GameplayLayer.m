@@ -450,7 +450,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
         [scoredParticles removeObject:particle];
         
         CCParticleSystemQuad *explosion = [particle explode];  // Play the explosion animation.
-        [detector blinkAtAngle:explosion.angle];
+        [detector blinkAtAngle:explosion.rotation];
         explosion.position = [centerNode convertToWorldSpace:particle.position];
         [self addChild:explosion];
         
@@ -527,19 +527,22 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 
     [self pauseSchedulerAndActions];
 
-    // Grab screen shot
-    CCRenderTexture *tf = [CCRenderTexture renderTextureWithWidth:winSize.width height:winSize.height];
-    tf.position = ccp(winSize.width * 0.5, winSize.height * 0.5);
-    [tf begin];
-    [self visit];
-    // TODO: Throw a GL_BLEND fade texture on top of the screen shot.
-    [tf end];
+//    // Grab screen shot
+//    CCRenderTexture *tf = [CCRenderTexture renderTextureWithWidth:winSize.width height:winSize.height];
+//    tf.position = ccp(winSize.width * 0.5, winSize.height * 0.5);
+//    [tf begin];
+//    [self visit];
+//    // TODO: Throw a GL_BLEND fade texture on top of the screen shot.
+//    [tf end];
    
     // Throw up modal layer.
-    PauseLayer *pauseLayer = [[PauseLayer alloc] initWithColor:ccc4(0,0,0,255)];
-    [pauseLayer setBackgroundNode:tf];
+    PauseLayer *pauseLayer = [[PauseLayer alloc] initWithColor:ccc4(0,0,0,0)];
+    CGPoint oldPos = pauseLayer.position;
+    pauseLayer.position = ccp(0, -1 * winSize.height);
+    //[pauseLayer setBackgroundNode:tf];
     [self addChild:pauseLayer z:kZPopups];
-    [pauseLayer runAction:[CCFadeIn actionWithDuration:1.0f]];
+    //[pauseLayer runAction:[CCFadeIn actionWithDuration:1.0f]];
+    [pauseLayer runAction:[CCMoveTo actionWithDuration:0.5f position:oldPos]];
 }
 
 -(void) resume {
@@ -553,21 +556,23 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     
     [self unscheduleAllSelectors];
 
-    // Grab screen shot
-    CCRenderTexture *tf = [CCRenderTexture renderTextureWithWidth:winSize.width height:winSize.height];
-    tf.position = ccp(winSize.width * 0.5, winSize.height * 0.5);
-
-    [tf begin];
-    [self visit];
-    // TODO: Throw a GL_BLEND fade texture on top of the screen shot.
-    [tf end];
+//    // Grab screen shot
+//    CCRenderTexture *tf = [CCRenderTexture renderTextureWithWidth:winSize.width height:winSize.height];
+//    tf.position = ccp(winSize.width * 0.5, winSize.height * 0.5);
+//
+//    [tf begin];
+//    [self visit];
+//    // TODO: Throw a GL_BLEND fade texture on top of the screen shot.
+//    [tf end];
     
     // Throw up modal layer.
-    GameOverLayer *gameOverLayer = [[GameOverLayer alloc] initWithColor:ccc4(0,0,0,255)];
+    GameOverLayer *gameOverLayer = [[GameOverLayer alloc] initWithColor:ccc4(0,0,0,0)];
+    CGPoint oldPos = gameOverLayer.position;
+    gameOverLayer.position = ccp(0, -1 * winSize.height);
     [gameOverLayer setScore:score];
-    [gameOverLayer setBackgroundNode:tf];
+//    [gameOverLayer setBackgroundNode:tf];
     [self addChild:gameOverLayer z:kZPopups];
-    [gameOverLayer runAction:[CCFadeIn actionWithDuration:1.0f]];
+    [gameOverLayer runAction:[CCMoveTo actionWithDuration:0.5f position:oldPos]];
 }
 
 
@@ -614,9 +619,6 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
                                (cpCollisionPostSolveFunc)collisionPostSolve, 
                                nil, 
                                self);   
-    // Load sprite sheet.
-    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"scene1Atlas.plist"];
-
     // Configure the two batch nodes for rendering.
     CCSpriteBatchNode *packetBatchNode = [CCSpriteBatchNode batchNodeWithFile:@"scene1Atlas.png" capacity:100];
     CCSpriteBatchNode *uiBatchNode = [CCSpriteBatchNode batchNodeWithFile:@"scene1Atlas.png" capacity:100];
@@ -811,8 +813,8 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     [self resetGame];
 }
 
--(void)visit {
-    [super visit];
+-(void)draw {
+    [super draw];
 
     return;
 #ifdef DEBUG

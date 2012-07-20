@@ -37,31 +37,28 @@
 }
 
 -(void)setColor:(ParticleColors)color {
-    CCSpriteFrame *displayFrame = nil;
     switch (color) {
         case kParticleRed:
-            displayFrame = [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:@"red-small.png"];
+            colorPacket.color = kCC3ParticleRed;
             break;
         case kParticleGreen:
-            displayFrame = [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:@"green-small.png"];
+            colorPacket.color = kCC3ParticleGreen;
             break;
         case kParticleBlue:
-            displayFrame = [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:@"blue-small.png"];
+            colorPacket.color = kCC3ParticleBlue;
             break;
         case kParticleAntiRed:
-            displayFrame = [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:@"antired-small.png"];
+            colorPacket.color = kCC3ParticleAntiRed;
             break;
         case kParticleAntiGreen:
-            displayFrame = [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:@"antigreen-small.png"];
+            colorPacket.color = kCC3ParticleAntiGreen;
             break;
         case kParticleAntiBlue:
-            displayFrame = [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:@"antiblue-small.png"];
+            colorPacket.color = kCC3ParticleAntiBlue;
             break;
         default:
-            displayFrame = [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:@"white-small.png"];
             break;
     }
-    [colorPacket setDisplayFrame:displayFrame];
 }
 
 -(void)onEnter {
