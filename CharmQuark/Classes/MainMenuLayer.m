@@ -57,7 +57,7 @@
     
     //TODO: Replace with CCMenuItemAtlasFont
     //Play
-    CCMenuItemFont *survivalItem = [CCMenuItemFont itemWithString:@"Accellerator" target:self selector:@selector(playSurvival)];
+    CCMenuItemFont *survivalItem = [CCMenuItemFont itemWithString:@"Accelerator" target:self selector:@selector(playSurvival)];
     [survivalItem setFontName:@"Courier"];
     [survivalItem setColor:ccWHITE];
 

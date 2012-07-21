@@ -222,7 +222,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     [self readyNextParticle];
     
     // Schedule scoring timer.
-    [self schedule:@selector(scoreParticles) interval:0.5];
+    [self schedule:@selector(scoreParticles) interval:kSweepRate];
     
     // Start animation / simulation timer.
     [self schedule: @selector(step:)];
@@ -351,7 +351,8 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
                 if (dropFrequency <= kDropTimeMin) {
                     dropFrequency = kDropTimeMin;
                 }
-                [levelLabel setString:[NSString stringWithFormat:@"Level: %d (%.1f)", level, dropFrequency]];
+                [levelLabel setString:[NSString stringWithFormat:@"Level %d", level]];
+//                [levelLabel setString:[NSString stringWithFormat:@"Level %d (%.1f)", level, dropFrequency]];
                 id scaleUp = [CCScaleTo actionWithDuration:0.2f scaleX:1.2 scaleY:1.0];
                 id scaleDown = [CCScaleTo actionWithDuration:0.2f scale:1.0];
                 id seq = [CCSequence actions: scaleUp, scaleDown, nil];
@@ -423,7 +424,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
                            atPosition:[centerNode position]];
                 }
                 
-                comboCount = 2;  // Two runs through to clear.
+                comboCount = 1 / kSweepRate;
                 comboLevel++;
 
                 [self addPoints:points]; // Update score.
@@ -506,6 +507,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     if (nil == rotationTouch && fabs(rotAngleV) > 1) {
         centerNode.rotation = fmodf(centerNode.rotation + rotAngleV * dt, 360.0);
         rotAngleV *= 1 - (kRotationFalloff * dt);
+        rotAngleV = 10; // DEBUG
     }
     
     // Update physics and move stuff.
@@ -518,7 +520,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 
 -(void) drop {
     launchTouch = nil; // Prevent double launch on touch end.
-    fireButton.opacity = nil;
+    fireButton.opacity = 0;
     [self launch];
 }
 
@@ -704,7 +706,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
         if (location.x > winSize.width * 0.9 
             && location.y > winSize.height * 0.9) {
             [self pause];
-        } else if (location.x < winSize.width * 0.5) {
+        } else if (location.x < winSize.width * 0.33) {
             // Touches on the left drop pieces on end.
             if (nil == launchTouch) {
                 launchTouch = touch;

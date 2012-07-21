@@ -21,6 +21,7 @@
 #define kFailRadius             235.0f
 #define kColorsInit             6
 #define kColorsMax              6 //9
+#define kSweepRate              0.25
 
 // Particle speed.
 #define kLaunchV                1200.0f
