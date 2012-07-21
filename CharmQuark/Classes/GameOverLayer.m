@@ -42,14 +42,14 @@
     
     CCLabelTTF *title = [CCLabelTTF labelWithString:@"Game Over" fontName:@"American Typewriter" fontSize:40.0f];
     title.color = ccRED;
-    title.position = ccp(winSize.width * 0.5, winSize.height * 0.8);
+    title.position = ccp(winSize.width * 0.5, winSize.height * 0.7);
     [self addChild:title z:100];
     
     // Score / High Score
     CCLabelTTF *scoreLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"Score %d", score] 
                                            fontName:@"American Typewriter" 
                                            fontSize:20.0f];
-    scoreLabel.position = ccp(winSize.width * 0.5, winSize.height * 0.7);
+    scoreLabel.position = ccp(winSize.width * 0.5, winSize.height * 0.6);
     scoreLabel.color = ccGREEN;
     [self addChild:scoreLabel z:100];
     
@@ -62,7 +62,7 @@
     CCLabelTTF *highScoreLabel = [CCLabelTTF labelWithString:highScoreString                                 
                                                     fontName:@"American Typewriter" 
                                                     fontSize:20.0f];
-    highScoreLabel.position = ccp(winSize.width * 0.5, winSize.height * 0.65);
+    highScoreLabel.position = ccp(winSize.width * 0.5, winSize.height * 0.55);
     highScoreLabel.color = ccGREEN;
     [self addChild:highScoreLabel z:100];
     
@@ -83,7 +83,7 @@
     
     CCMenu *menu = [CCMenu menuWithItems:newGameItem, quitItem, nil];
     [menu alignItemsVerticallyWithPadding:10];
-    menu.position = ccp(winSize.width * 0.5, winSize.height * 0.45f);
+    menu.position = ccp(winSize.width * 0.5, winSize.height * 0.38f);
     [self addChild:menu z:100];
     [menu runAction:[CCFadeIn actionWithDuration:1.0]];
 }
