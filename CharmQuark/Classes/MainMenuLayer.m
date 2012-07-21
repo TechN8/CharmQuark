@@ -32,6 +32,11 @@
     [[GameManager sharedGameManager] runSceneWithID:kGameSceneTimeAttack];
 }
 
+-(void)playMomMode {
+    CCLOG(@"Hi Mom.");
+    [[GameManager sharedGameManager] runSceneWithID:kGameSceneMomMode];
+}
+
 -(void)showScores {
     CCLOG(@"Show high scores.");
 }
@@ -66,21 +71,26 @@
     [timeAttackItem setColor:ccWHITE];
     
     //Options
-    CCMenuItemFont *optionsItem = [CCMenuItemFont itemWithString:@"Options" target:self selector:@selector(showOptions)];
-    [optionsItem setFontName:@"Courier"];
-    [optionsItem setColor:ccWHITE];
+    CCMenuItemFont *momModeItem = [CCMenuItemFont itemWithString:@"Meditation" target:self selector:@selector(playMomMode)];
+    [momModeItem setFontName:@"Courier"];
+    [momModeItem setColor:ccWHITE];
+
+//    //Options
+//    CCMenuItemFont *optionsItem = [CCMenuItemFont itemWithString:@"Options" target:self selector:@selector(showOptions)];
+//    [optionsItem setFontName:@"Courier"];
+//    [optionsItem setColor:ccWHITE];
+//    
+//    //High Scores
+//    CCMenuItemFont *scoresItem = [CCMenuItemFont itemWithString:@"High Scores" target:self selector:@selector(showScores)];
+//    [scoresItem setFontName:@"Courier"];
+//    [scoresItem setColor:ccWHITE];
+//    
+//    //Credits
+//    CCMenuItemFont *creditsItem = [CCMenuItemFont itemWithString:@"Credits" target:self selector:@selector(showCredits)];
+//    [creditsItem setFontName:@"Courier"];
+//    [creditsItem setColor:ccWHITE];
     
-    //High Scores
-    CCMenuItemFont *scoresItem = [CCMenuItemFont itemWithString:@"High Scores" target:self selector:@selector(showScores)];
-    [scoresItem setFontName:@"Courier"];
-    [scoresItem setColor:ccWHITE];
-    
-    //Credits
-    CCMenuItemFont *creditsItem = [CCMenuItemFont itemWithString:@"Credits" target:self selector:@selector(showCredits)];
-    [creditsItem setFontName:@"Courier"];
-    [creditsItem setColor:ccWHITE];
-    
-    mainMenu = [CCMenu menuWithItems:survivalItem, timeAttackItem, optionsItem, scoresItem, creditsItem, nil];
+    mainMenu = [CCMenu menuWithItems:survivalItem, timeAttackItem, momModeItem, nil];
     [mainMenu alignItemsVerticallyWithPadding:10];
     
     [self addChild:mainMenu z:100];

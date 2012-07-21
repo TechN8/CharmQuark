@@ -496,8 +496,9 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
                 [self end]; // Game over.
                 break;
             case kGameSceneSurvival:
-                default:
+            default:
                 [self drop];
+            case kGameSceneMomMode:
                 timeRemaining = dropFrequency;
                 break;
         }
@@ -507,7 +508,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     if (nil == rotationTouch && fabs(rotAngleV) > 1) {
         centerNode.rotation = fmodf(centerNode.rotation + rotAngleV * dt, 360.0);
         rotAngleV *= 1 - (kRotationFalloff * dt);
-        rotAngleV = 10; // DEBUG
+//        rotAngleV = 10; // DEBUG
     }
     
     // Update physics and move stuff.

@@ -70,6 +70,7 @@ static GameManager* _sharedGameManager = nil;
         case kGameOverScene:
         case kGameSceneSurvival:
         case kGameSceneTimeAttack:
+        case kGameSceneMomMode:
             levelSize = screenSize;
             break;
         default:
@@ -155,6 +156,9 @@ static GameManager* _sharedGameManager = nil;
             break;
         case kGameSceneTimeAttack:
             result = @"kGameSceneTimeAttack";
+            break;
+        case kGameSceneMomMode:
+            result = @"kGameSceneMomMode";
             break;
         default:
             [NSException raise:NSGenericException format:@"Unexpected SceneType."];
@@ -389,7 +393,8 @@ static GameManager* _sharedGameManager = nil;
             sceneToRun = [IntroLayer scene];
             break;
         case kGameSceneSurvival: 
-        case kGameSceneTimeAttack: 
+        case kGameSceneTimeAttack:
+        case kGameSceneMomMode:
             // Same scene used for both modes.
             sceneToRun = [GameScene node];
             break;
