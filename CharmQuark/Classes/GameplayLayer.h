@@ -22,26 +22,29 @@
 #define kColorsInit             6
 #define kColorsMax              6 //9
 
+// Particle speed.
 #define kLaunchV                1200.0f
 #define kGravity                1200.0f
-
 #define kLaunchVMax             1800.0f
 
+// Game clock settings.
 #define kTimeLimit              120.0f
 #define kDropTimeInit           4.0f //4.0f
 #define kDropTimeMin            1.4f
 #define kDropTimeStep           0.2f
 
+// Collision sound volume control
 #define kMinSoundImpulse        1200.0f
 #define kMaxSoundImpulse        10000.0f
 
+// Rotation inertia
 #define kRotationFalloff        2.5f
-#define kRotationMaxAngleV      400.0f
-#define kRotationMinAngleV      2.5f
+#define kRotationMaxAngleV      450.0f
+#define kRotationMinAngleV      2.0f
 
 // Simulation Constants
 #define kSimulationRate         0.016667f
-#define kParticleRadius         32.0f
+#define kParticleRadius         31.5f //32.0f
 #define kParticleMass           10.0f
 #define kParticleFriction       0.07f // 0.0f
 #define kParticleFrictionB      0.07f // 0.2f

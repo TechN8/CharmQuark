@@ -2,22 +2,26 @@ X Consistent simulation dimensions between iPhone and iPad
     Use 1024 x 768 sim dimensions.
     Scale to 480x320 = * 0.46875 for iPhone draws.
 
-. Add some green bar graphs?
 . Blink red on game over collision.
 
-. Add some trails?
-    
 . Log
     Node which labels are attached to.  Can hold N and they will fade off the top.
 
+. Remove map, replace with "pac-man" clock?
+
+. Do iPad version of detector with another ring...
+
+. Make explosion trail look more like a trail.
+
+. Actually draw some tracks...
+    
 . Credits screen.
+    [Show blinking detector in background];
+    [Do this on home screen too?]
 
 . Music
     . Play a nice mp3 on the menus and game.
     . Music on/off (Should behave as off if ipod is playing)
-
-. Time attack adjustment
-    . Add levels and each level gets you 30 seconds...
 
 . Final Sound effects.
     Grab some samples from http://lhcsound.hep.ucl.ac.uk. 

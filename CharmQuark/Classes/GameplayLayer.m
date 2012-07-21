@@ -165,6 +165,8 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     score = 0;
     comboLevel = 0;
     comboCount = 0;
+    level = 1;
+    matchesToNextLevel = kMatchesPerLevel;
     
     switch ([GameManager sharedGameManager].curLevel) {
         case kGameSceneTimeAttack:
@@ -174,8 +176,6 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
             break;
         case kGameSceneSurvival:
         default:
-            level = 1;
-            matchesToNextLevel = kMatchesPerLevel;
             dropFrequency = kDropTimeInit;
             timeRemaining = dropFrequency;
             [levelLabel setString:@"Level: 1"];
@@ -351,7 +351,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
                 if (dropFrequency <= kDropTimeMin) {
                     dropFrequency = kDropTimeMin;
                 }
-                [levelLabel setString:[NSString stringWithFormat:@"Level: %d", level]];
+                [levelLabel setString:[NSString stringWithFormat:@"Level: %d (%.1f)", level, dropFrequency]];
                 id scaleUp = [CCScaleTo actionWithDuration:0.2f scaleX:1.2 scaleY:1.0];
                 id scaleDown = [CCScaleTo actionWithDuration:0.2f scale:1.0];
                 id seq = [CCSequence actions: scaleUp, scaleDown, nil];
@@ -626,14 +626,17 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 
     // Pause Button
     CCSprite *pauseSprite = [CCSprite spriteWithSpriteFrameName:@"pause.png"];
-    CCSprite *pauseSpriteSelected = [CCSprite spriteWithSpriteFrameName:@"pause.png"];
-    CCMenuItemSprite *pauseButton = [CCMenuItemSprite itemWithNormalSprite:pauseSprite 
-                                                            selectedSprite:pauseSpriteSelected
-                                                                    target:self
-                                                                  selector:@selector(pause)];
-    CCMenu *menu = [CCMenu menuWithItems:pauseButton, nil];
-    [menu setPosition:ccp(winSize.width * 0.95f, winSize.height * 0.95f)];
-    [self addChild:menu z:kZUIElements];
+//    CCSprite *pauseSpriteSelected = [CCSprite spriteWithSpriteFrameName:@"pause.png"];
+//    CCMenuItemSprite *pauseButton = [CCMenuItemSprite itemWithNormalSprite:pauseSprite 
+//                                                            selectedSprite:pauseSpriteSelected
+//                                                                    target:self
+//                                                                  selector:@selector(pause)];
+//    CCMenu *menu = [CCMenu menuWithItems:pauseButton, nil];
+//    [menu setPosition:ccp(winSize.width * 0.95f, winSize.height * 0.95f)];
+//    [self addChild:menu z:kZUIElements];
+
+    [pauseSprite setPosition:ccp(winSize.width * 0.95f, winSize.height * 0.95f)];
+    [uiBatchNode addChild:pauseSprite z:kZUIElements];
     
     // Add score label.
     scoreLabel = [CCLabelBMFont labelWithString:@"0" fntFile:@"score.fnt"];
@@ -698,7 +701,10 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     for (UITouch *touch in touches) {
         CGPoint location = [touch locationInView: [touch view]];
 		location = [[CCDirector sharedDirector] convertToGL: location];
-        if (location.x < winSize.width * 0.5) {
+        if (location.x > winSize.width * 0.9 
+            && location.y > winSize.height * 0.9) {
+            [self pause];
+        } else if (location.x < winSize.width * 0.5) {
             // Touches on the left drop pieces on end.
             if (nil == launchTouch) {
                 launchTouch = touch;

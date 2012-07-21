@@ -11,7 +11,8 @@
 
 @interface Detector : CCSprite {
     CGPoint center;
-    CGFloat radius;
+    CGFloat blinkRadius;
+    CGFloat graphRadius;
 }
 
 -(void)blinkAtAngle:(CGFloat)angle;

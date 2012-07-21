@@ -14,7 +14,10 @@
 -(id)init {
     self = [super initWithSpriteFrameName:@"detector.png"];
     if (self) {
-        radius = self.contentSize.height * 0.445;
+        int radius = self.contentSize.height / 2;
+        blinkRadius = radius * 0.87;
+        graphRadius = radius * 0.52;
+
         center = ccp(self.contentSize.width / 2,
                      self.contentSize.height / 2);
     }
@@ -26,9 +29,6 @@
     light.anchorPoint = ccp(0.0, 0.5);
     light.color = ccYELLOW;
 
-    float blinkRadius = radius - 0.5 * light.contentSize.width;
-    float graphRadius = radius * 0.52;
-
     // Work in radians.
     angle = CC_DEGREES_TO_RADIANS(angle);
     
@@ -36,14 +36,15 @@
     float blinkAngle = angle - M_PI / 12;
     for (int i = 0; i < 3; i++) {
         CCSprite *blink = [CCSprite spriteWithSpriteFrameName:@"blink.png"];
-        blink.anchorPoint = ccp(0.0, 0.5);
         blink.color = ccYELLOW;
-        blink.position = ccp(center.x + blinkRadius * cosf(angle),
-                              center.y - blinkRadius * sinf(angle));
-        blink.rotation = CC_RADIANS_TO_DEGREES(angle);
+        blink.anchorPoint = ccp(0.5, 0.5);
+        blink.scaleX = 0.5 + (float)rand()/((float)RAND_MAX/0.5);
+        blink.position = ccp(center.x + blinkRadius * cosf(blinkAngle),
+                              center.y - blinkRadius * sinf(blinkAngle));
+        blink.rotation = CC_RADIANS_TO_DEGREES(blinkAngle);
         [self addChild:blink z:100];
-        id scaleOut = [CCScaleTo actionWithDuration:0.5 + (float)rand()/((float)RAND_MAX) 
-                                             scaleX:0.0 scaleY:0.7];
+        id scaleOut = [CCScaleTo actionWithDuration:0.7 + (float)rand()/((float)RAND_MAX) 
+                                             scaleX:0.1 scaleY:0.1];
         id remove = [RemoveFromParentAction action];
         id seq = [CCSequence actions:scaleOut, remove, nil];
         [blink runAction:seq];
@@ -52,7 +53,7 @@
     
     // Draw 7 graphs.
     float graphAngle = angle - M_PI / 12;
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < 5; i++) {
         CCSprite *graph = [CCSprite spriteWithSpriteFrameName:@"graph.png"];
         graph.color = ccGREEN;
         graph.anchorPoint = ccp(0,0.5);
@@ -60,7 +61,7 @@
         graph.position = ccp(center.x + graphRadius * cosf(graphAngle),
                              center.y - graphRadius * sinf(graphAngle));
         graph.rotation = CC_RADIANS_TO_DEGREES(graphAngle);
-        id scaleOut = [CCScaleTo actionWithDuration:0.5 + (float)rand()/((float)RAND_MAX) 
+        id scaleOut = [CCScaleTo actionWithDuration:0.7 + (float)rand()/((float)RAND_MAX) 
                                              scaleX:0.0 scaleY:0.7];
         id remove = [RemoveFromParentAction action];
         id seq = [CCSequence actions:scaleOut, remove, nil];

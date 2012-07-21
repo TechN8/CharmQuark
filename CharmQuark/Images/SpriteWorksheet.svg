@@ -48,7 +48,7 @@
      inkscape:cx="512"
      inkscape:cy="384"
      inkscape:document-units="px"
-     inkscape:current-layer="layer9"
+     inkscape:current-layer="layer4"
      showgrid="true"
      inkscape:window-width="1681"
      inkscape:window-height="980"
@@ -60,7 +60,8 @@
      showborder="false"
      borderlayer="false"
      inkscape:snap-grids="true"
-     inkscape:snap-global="true">
+     inkscape:snap-global="false"
+     inkscape:bbox-paths="false">
     <inkscape:grid
        type="xygrid"
        id="grid3967"
@@ -205,13 +206,12 @@
      style="display:inline"
      inkscape:label="Map (Small)"
      id="g6105"
-     inkscape:groupmode="layer"
-     sodipodi:insensitive="true">
+     inkscape:groupmode="layer">
     <g
        inkscape:export-ydpi="90"
        inkscape:export-xdpi="90"
        inkscape:export-filename="/Users/nathan/Documents/Xcode Projects/CharmQuark/CharmQuark/Images/Clock/iPad/LHCMap.png"
-       transform="matrix(0,0.77771819,-0.77812441,0,505.78572,54.769841)"
+       transform="matrix(0,0.77771819,-0.77812441,0,505.78572,214.68412)"
        style="stroke:#c6cbcc;stroke-width:10.28381729;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="lhcmap"
        inkscape:label="#g6107">
@@ -259,8 +259,7 @@
      inkscape:groupmode="layer"
      id="layer4"
      inkscape:label="Packets"
-     style="display:inline"
-     sodipodi:insensitive="true">
+     style="display:inline">
     <path
        sodipodi:type="arc"
        style="fill:#ff0000;fill-opacity:1;stroke:none;display:inline;enable-background:new"
@@ -444,40 +443,54 @@
        d="m 582.62066,305.61102 a 16.41931,16.41931 0 1 1 -32.83861,0 16.41931,16.41931 0 1 1 32.83861,0 z"
        transform="matrix(0,1.9489248,1.9489248,0,-160.4033,-418.04389)"
        inkscape:label="#path6099" />
-    <path
-       inkscape:transform-center-y="-33.103448"
-       inkscape:export-ydpi="180"
-       inkscape:export-xdpi="180"
-       inkscape:export-filename="/Users/nathan/Documents/Xcode Projects/CharmQuark/CharmQuark/Images/Particles/iPad-hd/white.png"
-       sodipodi:type="arc"
-       style="fill:#ffffff;fill-opacity:1;stroke:none;display:inline;enable-background:new"
+    <g
        id="white"
-       sodipodi:cx="566.20135"
-       sodipodi:cy="305.61102"
-       sodipodi:rx="16.41931"
-       sodipodi:ry="16.41931"
-       d="m 582.62066,305.61102 a 16.41931,16.41931 0 1 1 -32.83861,0 16.41931,16.41931 0 1 1 32.83861,0 z"
-       transform="matrix(0,1.9489248,1.9489248,0,-81.403304,-418.04389)"
-       inkscape:label="#path6101" />
+       inkscape:label="#g7012">
+      <path
+         inkscape:transform-center-y="-33.103448"
+         inkscape:export-ydpi="180"
+         inkscape:export-xdpi="180"
+         inkscape:export-filename="/Users/nathan/Documents/Xcode Projects/CharmQuark/CharmQuark/Images/Particles/iPad-hd/white.png"
+         sodipodi:type="arc"
+         style="fill:#c8c8c8;fill-opacity:1;stroke:none;display:inline;enable-background:new"
+         id="path6922"
+         sodipodi:cx="566.20135"
+         sodipodi:cy="305.61102"
+         sodipodi:rx="16.41931"
+         sodipodi:ry="16.41931"
+         d="m 582.62066,305.61102 a 16.41931,16.41931 0 1 1 -32.83861,0 16.41931,16.41931 0 1 1 32.83861,0 z"
+         transform="matrix(0,1.9489248,1.9489248,0,-81.612902,-417.48386)"
+         inkscape:label="#path6101" />
+      <path
+         transform="matrix(1.4736844,0,0,1.4736844,-218.42115,-299.89487)"
+         d="m 516,669 a 19,19 0 1 1 -38,0 19,19 0 1 1 38,0 z"
+         sodipodi:ry="19"
+         sodipodi:rx="19"
+         sodipodi:cy="669"
+         sodipodi:cx="497"
+         id="path6924"
+         style="fill:#ffffff;fill-opacity:1;stroke:none"
+         sodipodi:type="arc" />
+    </g>
   </g>
   <g
      inkscape:groupmode="layer"
      id="layer3"
      inkscape:label="UI Elements"
-     style="display:inline"
-     sodipodi:insensitive="true">
+     style="display:inline">
     <g
        id="pause"
-       inkscape:label="#g6315">
+       inkscape:label="#g6315"
+       style="stroke:#c1c1c1;stroke-opacity:1;fill:#999999;fill-opacity:1">
       <rect
          y="61.904964"
          x="988.80621"
          height="41.089756"
          width="11.405001"
          id="rect6305"
-         style="fill:none;stroke:#c6cbcc;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:0.58823529;stroke-dasharray:none" />
+         style="fill:#999999;stroke:#c1c1c1;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;fill-opacity:1" />
       <rect
-         style="fill:none;stroke:#c6cbcc;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:0.58823529;stroke-dasharray:none"
+         style="fill:#999999;stroke:#c1c1c1;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;fill-opacity:1"
          id="rect6307"
          width="11.405001"
          height="41.089756"
@@ -1070,14 +1083,15 @@
      inkscape:groupmode="layer"
      id="layer9"
      inkscape:label="Detector"
-     style="display:inline">
+     style="display:inline"
+     sodipodi:insensitive="true">
     <g
        id="detector"
-       inkscape:label="#g6892">
+       inkscape:label="#g6956">
       <path
          id="path6103"
          d="m 1020.7031,385.32813 c 0,-166.06193 -134.62556,-300.6875 -300.6875,-300.6875 -166.06193,0 -300.6875,134.62557 -300.6875,300.6875 0,166.06194 134.62557,300.65625 300.6875,300.65625 166.06194,0 300.6875,-134.59431 300.6875,-300.65625 z m -66.21875,0 c 0,129.50212 -104.96663,234.46875 -234.46875,234.46875 -129.50213,0 -234.5,-104.96663 -234.5,-234.46875 0,-129.50213 104.99787,-234.5 234.5,-234.5 129.50212,0 234.46875,104.99787 234.46875,234.5 z"
-         style="fill:#483737;fill-opacity:1;stroke:#666666;stroke-width:4;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         style="fill:#550000;fill-opacity:1;stroke:#666666;stroke-width:4;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
          inkscape:connector-curvature="0" />
       <path
          sodipodi:nodetypes="cc"
@@ -1297,20 +1311,20 @@
          inkscape:connector-curvature="0"
          id="path6861"
          d="m 720.00209,234.05398 c -83.54594,0 -151.25853,67.71259 -151.25853,151.25852 0,83.54594 67.71259,151.25853 151.25853,151.25853 83.54593,0 151.2856,-67.71259 151.2856,-151.25853 0,-83.54593 -67.73967,-151.25852 -151.2856,-151.25852 z m -0.002,16.18168 c 74.61224,0 135.10714,60.4646 135.10714,135.07684 0,74.61224 -60.4949,135.07685 -135.10714,135.07685 -74.61222,0 -135.07684,-60.46461 -135.07684,-135.07685 0,-74.61224 60.46462,-135.07684 135.07684,-135.07684 z"
-         style="fill:#504416;fill-opacity:1;stroke:#666666;stroke-width:4;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+         style="fill:#65561c;fill-opacity:1;stroke:#666666;stroke-width:4;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
     </g>
     <path
        style="fill:#ffffff;fill-opacity:1;stroke:none;display:inline;enable-background:new"
-       d="m 1012.3906,385.32812 c 0,-10.23071 -0.5057,-20.35269 -1.5312,-30.3125 l -48.53128,5.0625 c 1.01466,9.0794 1.5625,18.30611 1.5625,27.65625 0,7.77931 -0.38819,15.46742 -1.09375,23.0625 l 48.03123,5.03125 c 1.0384,-10.02076 1.5625,-20.20448 1.5625,-30.5 z"
+       d="m 943.6515,385.32812 c 0,-10.23071 -0.5057,-20.35269 -1.5312,-30.3125 l -48.53128,5.0625 c 1.01466,9.0794 1.5625,18.30611 1.5625,27.65625 0,7.77931 -0.38819,15.46742 -1.09375,23.0625 l 48.03123,5.03125 c 1.0384,-10.02076 1.5625,-20.20448 1.5625,-30.5 z"
        id="blink"
        inkscape:label="#path6519"
        inkscape:connector-curvature="0" />
     <rect
        style="fill:#ffffff;fill-opacity:1;stroke:none"
        id="graph"
-       width="4.9999719"
+       width="5.9999661"
        height="20"
-       x="877"
+       x="880"
        y="375.3125"
        rx="0"
        ry="16.997358"
