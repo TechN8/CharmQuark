@@ -9,41 +9,46 @@ X Consistent simulation dimensions between iPhone and iPad
 
 . Remove map, replace with "pac-man" clock?
 
-. Do iPad version of detector with another ring...
-
 . Make explosion trail look more like a trail.
 
+    OR
+
 . Actually draw some tracks...
-    
+
+. Do iPad version of detector with another ring...
+
 . Credits screen.
     [Show blinking detector in background];
     [Do this on home screen too?]
 
 . Music
     . Play a nice mp3 on the menus and game.
+        - GameScene - Track from LHC
+        - Menu - Something else?
     . Music on/off (Should behave as off if ipod is playing)
 
 . Final Sound effects.
     Grab some samples from http://lhcsound.hep.ucl.ac.uk. 
         These are all CC and generated from LHC data!
-
+        
 . Main menu scene
+    X Accellerator
+    X Time Attack
+    X Meditation
     X Options (Sound Volumes).
+    . High scores
+        - Separate scene / layer, or show next to mode selectors...
     . Website link (direct to FaceBook?)
     . Social media links.
-    . Background graphics.
-
-. Music - Play an MP3 in the bacground as the scene is running.
-    - GameScene - Track from LHC
-    - Menu - Something else?
+    . Background graphics 
+        - Make this screen look like a computer desktop.
+        - 3 icons for game modes.
+        - 
 
 . Game Center Support for high score.
     
 . Run scoreParticles on gameover condition?
     
-. More Animations
-   Trail effect on dropped particle?
-
 . Help Overlay
     Should explain how to rotate and drop. 
     Show on game scene first time.
@@ -52,11 +57,6 @@ X Consistent simulation dimensions between iPhone and iPad
 . Localization
     Google translate menus.  Game is pretty self explanitory.
     Will need to generate BMFonts with reduced subset of characters for Japanese / Chinese.
-
-. Blur background on overlay layers.
-    UIImage *tempImage =[GameScene takeAsUIImage];
-    CCTexture2DMutable *mutableTexture = [[[CCTexture2DMutable alloc] tempImage autorelease];
-    [AWTextureFilter blur:mutableTexture radius:6];
     
 Future Enhancements
 -------------------
