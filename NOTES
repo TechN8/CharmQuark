@@ -12,9 +12,9 @@ Simulation Scaling
 kSimDimensions  ccp(1024,768)
 kPuzzleCenter   ccp(680, 384)
 kiPhoneScale    0.46875f
-kiPhoneSkew     ccp(0,0);
+kiPhoneSkew     ccp(0,20);
 kiPadScale      1.125
-kiPadSkew       ccp(128,128)
+kiPadSkew       ccp(256,128)
 
 simToView(x,y)
     x = x * scale + skew

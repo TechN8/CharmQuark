@@ -12,10 +12,15 @@
 #define kMainMenuTagValue 10
 
 // Device support
-#define kiPhoneScaleFactor      0.46875f
-#define kiPhoneHDScaleFactor    0.9395f
-#define kiPadScaleFactor        1.0f
-#define kiPadHDScaleFactor      2.0f
+#define kSimDimensions  ccp(1024,768)
+#define kPuzzleCenter   ccp(720, 384)
+#define kLaunchPoint    ccp(0, 384)
+#define kiPhoneScale    0.46875f
+#define kiPhoneSkew     ccp(0,-20);
+//#define kiPadScale      1.0
+//#define kiPadSkew       ccp(0,0);
+#define kiPadScale      0.875
+#define kiPadSkew       ccp(0, 48)
 
 typedef enum {
     kNoSceneUninitialized=0,
