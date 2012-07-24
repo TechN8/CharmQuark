@@ -2,17 +2,23 @@ X Consistent simulation dimensions between iPhone and iPad
     Use 1024 x 768 sim dimensions.
     Scale to 480x320 = * 0.46875 for iPhone draws.
 
-. Remove map, replace with "pac-man" clock?
+. Adjust centerNode decelleration.
+
+. Configure ad-hoc build.
+
+. Add in-flight particle as rogue body with shape in simulation.
+    - Will need to convert between GameplayLayer and Sim coordinates on each step.
+    - Add body to space after first collision.
+    
+. Run scoreParticles on gameover condition before gameOver.
+
+. Logo
+
+. Splash screens & update icon?
 
 . Make explosion trail look more like a trail.
-
-    OR
-
+    or
 . Actually draw some tracks...
-
-. Icons
-
-. Splash screens.
 
 . Do iPad version of detector with another ring...
     - Will need to change iPad scale factor for this to make pieces move at correct speed.
@@ -47,12 +53,17 @@ X Consistent simulation dimensions between iPhone and iPad
 
 . Game Center Support for high score.
     
-. Run scoreParticles on gameover condition?
     
 . Help Overlay
     Should explain how to rotate and drop. 
     Show on game scene first time.
     Reset from options screen.
+
+. Remove map, replace with "pac-man" clock?
+    or
+. Adjust map downwards and move log.
+    or
+. Leave it alone.
 
 . Localization
     Google translate menus.  Game is pretty self explanitory.
