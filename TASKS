@@ -1,14 +1,15 @@
 X Consistent simulation dimensions between iPhone and iPad
     Use 1024 x 768 sim dimensions.
-    Scale to 480x320 = * 0.46875 for iPhone draws.
-
-. Adjust centerNode decelleration.
+    Scale to 480x320 = * 0.46875 for iPhone draws. (May need to adjust.)
+    Scale factor should be iPhone puzzleCenter.x / iPad puzzleCenter.x.
 
 . Configure ad-hoc build.
 
 . Add in-flight particle as rogue body with shape in simulation.
     - Will need to convert between GameplayLayer and Sim coordinates on each step.
     - Add body to space after first collision.
+    
+. Proper scaling for Thumb guides.  Need to compare iPhone and iPad DPI.
     
 . Run scoreParticles on gameover condition before gameOver.
 

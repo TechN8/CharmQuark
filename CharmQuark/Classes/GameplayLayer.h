@@ -40,8 +40,8 @@
 #define kMaxSoundImpulse        10000.0f
 
 // Rotation inertia
-#define kRotationFalloff        2.5f
-#define kRotationMaxAngleV      450.0f
+#define kRotationFalloff        5.0f
+#define kRotationMaxAngleV      500.0f
 #define kRotationMinAngleV      2.0f
 
 // Simulation Constants
