@@ -12,6 +12,7 @@
 #import "Constants.h"
 #import "Particle.h"
 #import "Detector.h"
+#import "LogViewer.h"
 
 // Gameplay Constants
 #define kMinMatchSize           4
@@ -82,6 +83,7 @@ enum {
     CCSprite *thumbGuide;
     CCSprite *fireButton;
     Detector *detector;
+    LogViewer *logViewer;
     
 	// Touch handling
     UITouch *rotationTouch;

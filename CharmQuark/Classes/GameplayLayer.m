@@ -29,7 +29,7 @@ static CGFloat scaleFactor;
 -(void) scoreParticles;
 -(void) pause;
 -(void) resume;
--(void) end;
+-(void) end:(Particle*)particle;
 -(void) launch;
 -(Particle *) readyNextParticle;
 
@@ -69,7 +69,7 @@ static void syncSpriteToBody(cpBody *body, GameplayLayer* self) {
         
         if ([particle isLive] && 
             (cpvlength(cpBodyGetPos(body)) >= kFailRadius - kParticleRadius)) {
-            [self end];
+            [self end:particle];
         }
 	}
 }
@@ -178,7 +178,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
         default:
             dropFrequency = kDropTimeInit;
             timeRemaining = dropFrequency;
-            [levelLabel setString:@"Level: 1"];
+            [levelLabel setString:@"Level 1"];
             break;
     }
 
@@ -327,10 +327,10 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     if (points > 0) {
         score += points;
         [scoreLabel setString:[[[NSString alloc] initWithFormat:@"%d", score] autorelease]];
-        id scaleUp = [CCScaleTo actionWithDuration:0.2f scaleX:1.2 scaleY:1.0];
-        id scaleDown = [CCScaleTo actionWithDuration:0.2f scale:1.0];
-        id seq = [CCSequence actions: scaleUp, scaleDown, nil];
-        [scoreLabel runAction:seq];
+//        id scaleUp = [CCScaleTo actionWithDuration:0.2f scaleX:1.2 scaleY:1.0];
+//        id scaleDown = [CCScaleTo actionWithDuration:0.2f scale:1.0];
+//        id seq = [CCSequence actions: scaleUp, scaleDown, nil];
+//        [scoreLabel runAction:seq];
     }
 }
 
@@ -340,9 +340,10 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
         matchesToNextLevel += kMatchesPerLevel;
         switch (mode) {
             case kGameSceneTimeAttack:
-                timeRemaining += 30; // Add 30 seconds
-                [self animateText:[NSString stringWithFormat:@"+30 Seconds!", level] 
-                       atPosition:[centerNode position]];
+                timeRemaining += 10; // Add 30 seconds
+                [logViewer addMessage:[NSString stringWithFormat:@"+30 Seconds!", level]];
+//                [self animateText:[NSString stringWithFormat:@"+30 Seconds!", level] 
+//                       atPosition:[centerNode position]];
                 break;
             case kGameSceneSurvival:
             default:
@@ -357,9 +358,10 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
                 id scaleDown = [CCScaleTo actionWithDuration:0.2f scale:1.0];
                 id seq = [CCSequence actions: scaleUp, scaleDown, nil];
                 [levelLabel runAction:seq];
-                
-                [self animateText:[NSString stringWithFormat:@"Level %d!", level] 
-                       atPosition:[centerNode position]];
+
+                [logViewer addMessage:[NSString stringWithFormat:@"Level %d!", level]];
+//                [self animateText:[NSString stringWithFormat:@"Level %d!", level] 
+//                       atPosition:[centerNode position]];
                 break;
         }
     }
@@ -407,30 +409,23 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
                 if (multiplier > 1) {
                     points *= multiplier;
                     // Play multiplier animation.
-                    bonusText = [NSString stringWithFormat:@"%dX Bonus!", multiplier];
+                    [logViewer addMessage:[NSString stringWithFormat:@"%dX Bonus!", multiplier]];
                 }
                 
                 if (comboLevel) {
                     points *= comboLevel + 1;
-                    if (bonusText) {
-                        bonusText = [NSString stringWithFormat:@"%@\n%dX Combo!", bonusText, comboLevel + 1];
-                    } else {
-                        bonusText = [NSString stringWithFormat:@"%dX Combo!", comboLevel + 1];
-                    }
+                    [logViewer addMessage:[NSString stringWithFormat:@"%dX Combo!", comboLevel + 1]];
                 }
                 
                 if (bonusText) {
-                    [self animateText:bonusText
-                           atPosition:[centerNode position]];
+                    [logViewer addMessage:bonusText];
                 }
                 
                 comboCount = 1 / kSweepRate;
                 comboLevel++;
 
                 [self addPoints:points]; // Update score.
-                [self animateText:[NSString stringWithFormat:@"%d", points]
-                       atPosition:[centerNode convertToWorldSpace:
-                                   [(CCNode *)[countedParticles anyObject] position]]];
+                [logViewer addMessage:[NSString stringWithFormat:@"%d", points]];
             }
         }
     }
@@ -493,7 +488,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     if (timeRemaining <= 0) {
         switch (mode) {
             case kGameSceneTimeAttack:
-                [self end]; // Game over.
+                [self end:nil]; // Game over.
                 break;
             case kGameSceneSurvival:
             default:
@@ -539,7 +534,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 //    [tf end];
    
     // Throw up modal layer.
-    PauseLayer *pauseLayer = [[PauseLayer alloc] initWithColor:ccc4(0,0,0,0)];
+    PauseLayer *pauseLayer = [[[PauseLayer alloc] initWithColor:ccc4(0,0,0,0)] autorelease];
     CGPoint oldPos = pauseLayer.position;
     pauseLayer.position = ccp(0, -1 * winSize.height);
     //[pauseLayer setBackgroundNode:tf];
@@ -552,13 +547,20 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     [self resumeSchedulerAndActions];
 }
 
--(void)end {
+-(void)end:(Particle *)particle {
     CGSize winSize = [[CCDirector sharedDirector] winSize];
 
     PLAYSOUNDEFFECT(GAME_OVER, 1.0);
     
     [self unscheduleAllSelectors];
 
+    if (nil != particle) {
+        // Calculate angle
+        float angle = -1 * CC_RADIANS_TO_DEGREES(cpvtoangle(cpBodyGetPos(particle.body)));
+        angle += centerNode.rotation;
+        [detector gameOverAtAngle:angle];
+    }
+    
 //    // Grab screen shot
 //    CCRenderTexture *tf = [CCRenderTexture renderTextureWithWidth:winSize.width height:winSize.height];
 //    tf.position = ccp(winSize.width * 0.5, winSize.height * 0.5);
@@ -569,7 +571,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 //    [tf end];
     
     // Throw up modal layer.
-    GameOverLayer *gameOverLayer = [[GameOverLayer alloc] initWithColor:ccc4(0,0,0,0)];
+    GameOverLayer *gameOverLayer = [[[GameOverLayer alloc] initWithColor:ccc4(0,0,0,0)] autorelease];;
     CGPoint oldPos = gameOverLayer.position;
     gameOverLayer.position = ccp(0, -1 * winSize.height);
     [gameOverLayer setScore:score];
@@ -587,7 +589,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     
     // Static variables.
     puzzleCenter = ccp(winSize.width - winSize.height * 0.45, winSize.height * 0.45f);
-    CGPoint scorePosition = ccp(winSize.width * 0.05f, winSize.height * 0.95f);
+    CGPoint scorePosition = ccp(10, winSize.height * 0.95f);
     CGPoint levelPosition = ccp(winSize.width * 0.5f, winSize.height * 0.95f);
     CGPoint nextLabelPosition = ccp(winSize.width * 0.80f, winSize.height * 0.95f);
     nextParticlePos = ccp(winSize.width * 0.85f, winSize.height * 0.95f);
@@ -629,15 +631,6 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 
     // Pause Button
     CCSprite *pauseSprite = [CCSprite spriteWithSpriteFrameName:@"pause.png"];
-//    CCSprite *pauseSpriteSelected = [CCSprite spriteWithSpriteFrameName:@"pause.png"];
-//    CCMenuItemSprite *pauseButton = [CCMenuItemSprite itemWithNormalSprite:pauseSprite 
-//                                                            selectedSprite:pauseSpriteSelected
-//                                                                    target:self
-//                                                                  selector:@selector(pause)];
-//    CCMenu *menu = [CCMenu menuWithItems:pauseButton, nil];
-//    [menu setPosition:ccp(winSize.width * 0.95f, winSize.height * 0.95f)];
-//    [self addChild:menu z:kZUIElements];
-
     [pauseSprite setPosition:ccp(winSize.width * 0.95f, winSize.height * 0.95f)];
     [uiBatchNode addChild:pauseSprite z:kZUIElements];
     
@@ -654,14 +647,14 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
             break;
         case kGameSceneSurvival:
         default:
-            levelLabel = [CCLabelBMFont labelWithString:@"Level: 1" fntFile:@"score.fnt"];
+            levelLabel = [CCLabelBMFont labelWithString:@"Level 1" fntFile:@"score.fnt"];
             break;
     }
     [levelLabel setPosition:levelPosition];
     [self addChild:levelLabel z:kZUIElements];
     
-    // Add Next:
-    CCLabelBMFont *nextLabel = [CCLabelBMFont labelWithString:@"Next:" fntFile:@"score.fnt"];
+    // Add Next
+    CCLabelBMFont *nextLabel = [CCLabelBMFont labelWithString:@"Next" fntFile:@"score.fnt"];
     nextLabel.position = nextLabelPosition;
     [nextLabel setAnchorPoint:ccp(1.0, 0.5)];
     [self addChild:nextLabel z:kZUIElements];
@@ -671,6 +664,11 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     map.position = ccp(winSize.width * 0.19, winSize.height * 0.62);
     //clock.scale = 0.75f;
     [uiBatchNode addChild:map z:kZBackground];
+    
+    // Add the log viewer.
+    logViewer = [LogViewer node];
+    logViewer.position = ccp(10, 5);
+    [self addChild:logViewer z:kZBackground];
     
     // Add the detector.
     detector = [Detector node];

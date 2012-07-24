@@ -15,7 +15,7 @@
     self = [super initWithSpriteFrameName:@"detector.png"];
     if (self) {
         int radius = self.contentSize.height / 2;
-        blinkRadius = radius * 0.87;
+        blinkRadius = radius * 0.88;
         graphRadius = radius * 0.52;
 
         center = ccp(self.contentSize.width / 2,
@@ -24,11 +24,26 @@
     return self;
 }
 
--(void)blinkAtAngle:(CGFloat)angle {
-    CCSprite *light = [CCSprite spriteWithSpriteFrameName:@"blink.png"];
-    light.anchorPoint = ccp(0.0, 0.5);
-    light.color = ccYELLOW;
+// This takes radians.
+-(void)gameOverAtAngle:(CGFloat)angle {
+    // Work in radians.
+    angle = CC_DEGREES_TO_RADIANS(angle);
 
+    CCSprite *blink = [CCSprite spriteWithSpriteFrameName:@"blink.png"];
+    blink.color = ccRED;
+    blink.anchorPoint = ccp(0.5, 0.5);
+    //blink.scaleX = 0.5 + (float)rand()/((float)RAND_MAX/0.5);
+    blink.position = ccp(center.x + blinkRadius * cosf(angle),
+                         center.y - blinkRadius * sinf(angle));
+    blink.rotation = CC_RADIANS_TO_DEGREES(angle);
+    [self addChild:blink z:100];
+    id flash = [CCBlink actionWithDuration:1.0 blinks:2];
+    id loop = [CCRepeatForever actionWithAction:flash];
+    [blink runAction:loop];
+
+}
+
+-(void)blinkAtAngle:(CGFloat)angle {
     // Work in radians.
     angle = CC_DEGREES_TO_RADIANS(angle);
     
@@ -69,20 +84,6 @@
         [graph runAction:seq];
         graphAngle += M_PI / 24;
     }
-    
-    // Limit angle to graphic subdivisions?
-//    CGFloat miss = fmodf(angle, 15.0f);
-//    angle -= miss;
-//    angle += 7.5;
-
-    
-    // Obfuscation!  What is it good for?
-//    angle += rand() % 2 ? M_PI / 12.0 : -1 * M_PI / 12.0;
-
-    
-
-    
-    
 }
 
 @end

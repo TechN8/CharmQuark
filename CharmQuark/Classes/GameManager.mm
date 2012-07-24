@@ -196,7 +196,7 @@ static GameManager* _sharedGameManager = nil;
         ([listOfSoundEffectFiles count] < 1)) {
         NSLog(@"Before");
         [self setListOfSoundEffectFiles:
-         [[NSMutableDictionary alloc] init]];
+         [[[NSMutableDictionary alloc] init] autorelease]];
         NSLog(@"after");
         for (NSString *sceneSoundDictionary in plistDictionary) {
             [listOfSoundEffectFiles 
@@ -210,7 +210,7 @@ static GameManager* _sharedGameManager = nil;
     // 5. Load the list of sound effects state, mark them as unloaded
     if ((soundEffectsState == nil) || 
         ([soundEffectsState count] < 1)) {
-        [self setSoundEffectsState:[[NSMutableDictionary alloc] init]];
+        [self setSoundEffectsState:[[[NSMutableDictionary alloc] init] autorelease]];
         for (NSString *SoundEffectKey in listOfSoundEffectFiles) {
             [soundEffectsState setObject:[NSNumber numberWithBool:SFX_NOTLOADED] forKey:SoundEffectKey];
         }

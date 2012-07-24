@@ -59,6 +59,7 @@
         default:
             break;
     }
+    whitePacket.color = colorPacket.color;
 }
 
 -(void)onEnter {
@@ -84,7 +85,7 @@
         whitePacket = [CCSprite spriteWithSpriteFrameName:@"white-small.png"];
         colorPacket = [CCSprite spriteWithSpriteFrameName:@"white-small.png"];
         
-        radius = self.contentSize.height / 2.0 - whitePacket.contentSize.height / 4.0;
+        radius = self.contentSize.height / 2.0 - whitePacket.contentSize.height * 0.4;
         center = ccp(self.contentSize.width - self.contentSize.height / 2,
                      self.contentSize.height / 2);
         

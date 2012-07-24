@@ -135,29 +135,29 @@
 }
 
 - (CCParticleSystemQuad *)explode {
-    CCParticleSystemQuad *emitter = [[CCParticleSystemQuad alloc] initWithTotalParticles:20];
+    CCParticleSystemQuad *emitter = [[[CCParticleSystemQuad alloc] initWithTotalParticles:20] autorelease];
     //emitter.displayFrame = [self displayFrame];
     [emitter setTexture:self.texture withRect:self.textureRect];
     //[emitter setTexture:self.texture];
     emitter.duration = 0.1f;
     emitter.emitterMode = kCCParticleModeGravity;
-    emitter.gravity = ccp(0,0);
+    emitter.gravity = ccp(-200,0);
     // Gravity Mode: speed of particles
-    emitter.speed = 800;
+    emitter.speed = 700;
     emitter.speedVar = 200;
     // Gravity Mode: radial
     emitter.radialAccel = 0;
     emitter.radialAccelVar = 0;
     // Gravity Mode: tagential
     emitter.tangentialAccel = 0;
-    emitter.tangentialAccelVar = 0;
+    emitter.tangentialAccelVar = 800;
     //Angle is OpenGL like and goes CCW.
     //emitter.angle = (float)rand()/((float)RAND_MAX/360);
     emitter.rotation = (float)rand()/((float)RAND_MAX/360);
     emitter.angle = 0;
     emitter.angleVar = 10;
     emitter.emissionRate = 10.0f;
-    emitter.life = 0.5f;
+    emitter.life = 0.5;
     emitter.lifeVar = 0.2f;
     emitter.positionType = kCCPositionTypeRelative;
     emitter.position = self.position;
@@ -170,10 +170,10 @@
     emitter.emissionRate = emitter.totalParticles/emitter.duration;
     
     emitter.startColor = ccc4FFromccc3B(self.color);
-    //emitter.startColor = ccc4f(1.0f, 1.0f, 1.0f, 1.0f);
-    emitter.startColorVar = ccc4f(0.1f, 0.1f, 0.1f, 0.0f);
-    emitter.endColor = ccc4f(0.5f, 0.5f, 0.5f, 0.0f);
-    emitter.endColorVar = ccc4f(0.1f, 0.1f, 0.1f, 0.0f);
+    //emitter.startColor = ccc4f(0.5, 0.5, 0.5, 1.0);
+    emitter.startColorVar = ccc4f(1.0, 1.0, 1.0, 0.0f);
+    emitter.endColor = ccc4f(0.5f, 0.5f, 0.5f, 1.0f);
+    emitter.endColorVar = ccc4f(0.0f, 0.0f, 0.0f, 0.0f);
     
     emitter.autoRemoveOnFinish=YES;
     //    CCNode *parent = self.parent;

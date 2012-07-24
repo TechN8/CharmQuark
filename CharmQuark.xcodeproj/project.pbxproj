@@ -201,6 +201,8 @@
 		D8CE5BA015B713EA00E76ADA /* scene1Atlas-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = D8CE5B9C15B713EA00E76ADA /* scene1Atlas-ipad.png */; };
 		D8CE5BA115B713EA00E76ADA /* scene1Atlas-ipadhd.plist in Resources */ = {isa = PBXBuildFile; fileRef = D8CE5B9D15B713EA00E76ADA /* scene1Atlas-ipadhd.plist */; };
 		D8CE5BA215B713EA00E76ADA /* scene1Atlas-ipadhd.png in Resources */ = {isa = PBXBuildFile; fileRef = D8CE5B9E15B713EA00E76ADA /* scene1Atlas-ipadhd.png */; };
+		D8D2F9EF15BDDDC300C3FBF1 /* DanPugsleyLHC2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D8D2F9EE15BDDDC300C3FBF1 /* DanPugsleyLHC2.mp3 */; };
+		D8E418E315BDA04D00A4E5E5 /* LogViewer.m in Sources */ = {isa = PBXBuildFile; fileRef = D8E418E215BDA04D00A4E5E5 /* LogViewer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -586,6 +588,9 @@
 		D8CE5B9C15B713EA00E76ADA /* scene1Atlas-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scene1Atlas-ipad.png"; sourceTree = "<group>"; };
 		D8CE5B9D15B713EA00E76ADA /* scene1Atlas-ipadhd.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "scene1Atlas-ipadhd.plist"; sourceTree = "<group>"; };
 		D8CE5B9E15B713EA00E76ADA /* scene1Atlas-ipadhd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scene1Atlas-ipadhd.png"; sourceTree = "<group>"; };
+		D8D2F9EE15BDDDC300C3FBF1 /* DanPugsleyLHC2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = DanPugsleyLHC2.mp3; sourceTree = "<group>"; };
+		D8E418E115BDA04D00A4E5E5 /* LogViewer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogViewer.h; sourceTree = "<group>"; };
+		D8E418E215BDA04D00A4E5E5 /* LogViewer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogViewer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -639,6 +644,7 @@
 		D8318D7715B49DFB0032D92E /* Music */ = {
 			isa = PBXGroup;
 			children = (
+				D8D2F9EE15BDDDC300C3FBF1 /* DanPugsleyLHC2.mp3 */,
 				D8318D7815B49DFB0032D92E /* DrillBitV2.mp3 */,
 			);
 			path = Music;
@@ -1230,6 +1236,8 @@
 				D8318D6315B4545E0032D92E /* LHCMap.m */,
 				D8151DD315B89BE2007D8AE2 /* Detector.h */,
 				D8151DD415B89BE2007D8AE2 /* Detector.m */,
+				D8E418E115BDA04D00A4E5E5 /* LogViewer.h */,
+				D8E418E215BDA04D00A4E5E5 /* LogViewer.m */,
 			);
 			name = GameObjects;
 			sourceTree = "<group>";
@@ -1421,6 +1429,7 @@
 				D8151DE015B9B46F007D8AE2 /* window-ipad.png in Resources */,
 				D8151DE115B9B46F007D8AE2 /* window-ipadhd.png in Resources */,
 				D8151DE215B9B46F007D8AE2 /* window.png in Resources */,
+				D8D2F9EF15BDDDC300C3FBF1 /* DanPugsleyLHC2.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1596,6 +1605,7 @@
 				D8318D6415B4545E0032D92E /* LHCMap.m in Sources */,
 				D8151DD515B89BE2007D8AE2 /* Detector.m in Sources */,
 				D8151DEC15B9C978007D8AE2 /* Scale9Sprite.m in Sources */,
+				D8E418E315BDA04D00A4E5E5 /* LogViewer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

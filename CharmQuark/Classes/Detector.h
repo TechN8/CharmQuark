@@ -17,4 +17,6 @@
 
 -(void)blinkAtAngle:(CGFloat)angle;
 
+-(void)gameOverAtAngle:(CGFloat)angle;
+
 @end
