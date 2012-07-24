@@ -1,9 +1,24 @@
 iOS device screen dimensions
 ----------------------------
-iPhone-3GS	480x320     (3/2)   42.19dpi
-iPhone4+	960x640     (3/2)   84.38dpi
-iPad-2      1024x768	(4/3)   90dpi
-iPad3       2048×1536	(4/3)   180dpi
+iPhone-3GS	480x320     (3/2)   42.19dpi    163ppi
+iPhone4+	960x640     (3/2)   84.38dpi    326ppi
+iPad-2      1024x768	(4/3)   90dpi       132ppi
+    - Thumb 52
+iPad3       2048×1536	(4/3)   180dpi      264ppi
+    - Thumb 104
+
+Simulation Scaling
+------------------
+kSimDimensions  ccp(1024,768)
+kPuzzleCenter   ccp(680, 384)
+kiPhoneScale    0.46875f
+kiPhoneSkew     ccp(0,0);
+kiPadScale      1.125
+kiPadSkew       ccp(128,128)
+
+simToView(x,y)
+    x = x * scale + skew
+    y = y * scale + skew
 
 Credits
 -------

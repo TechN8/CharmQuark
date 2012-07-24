@@ -3,13 +3,14 @@ X Consistent simulation dimensions between iPhone and iPad
     Scale to 480x320 = * 0.46875 for iPhone draws. (May need to adjust.)
     Scale factor should be iPhone puzzleCenter.x / iPad puzzleCenter.x.
 
-. Configure ad-hoc build.
-
 . Add in-flight particle as rogue body with shape in simulation.
     - Will need to convert between GameplayLayer and Sim coordinates on each step.
     - Add body to space after first collision.
     
 . Proper scaling for Thumb guides.  Need to compare iPhone and iPad DPI.
+    - Original iPad distance = 678.4
+    X Create second list of items for iPhone and iPad
+    - Remove iPad / iPadhd suffix from iPad items in case second item exists in SVG.
     
 . Run scoreParticles on gameover condition before gameOver.
 
