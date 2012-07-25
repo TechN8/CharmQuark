@@ -1,6 +1,10 @@
-. Make explosion trail look more like a trail.
-    or
 . Actually draw some tracks...
+    For each blink call {
+        Create CCRenderTexture and add as child of detector.
+        Draw lines in ccrender texture by moving and visiting small particle image.
+        Calculate intersection points of beziers with detectors by tracking radius as particles are drawn.
+    }
+        
 
 . Logo
 
