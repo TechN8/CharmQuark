@@ -31,7 +31,7 @@ static CGPoint skewVector;
 -(Particle *) readyNextParticle;
 -(void)resetGame;
 -(void) resume;
--(void) scoreParticles;
+-(BOOL) scoreParticles;
 -(void) step: (ccTime) dt;
 
 @end
@@ -74,8 +74,9 @@ static void syncSpriteToBody(cpBody *body, GameplayLayer* self) {
 		[particle setPosition: cpvmult(body->p, scaleFactor)];
         //        [particle setPosition: worldToView(body->p)];
         
-        if ([particle isLive] && 
-            (cpvlength(cpBodyGetPos(body)) >= kFailRadius - kParticleRadius)) {
+        if ([particle isLive] 
+            && (cpvlength(cpBodyGetPos(body)) >= kFailRadius - kParticleRadius)
+            && ![self scoreParticles]) {
             [self end:particle];
         }
 	}
@@ -235,9 +236,9 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     Particle *particle = nil;
     ParticleColors color = rand() % colors; //9;
     particle = [Particle particleWithColor:color]; 
-    if( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ) {
-        particle.scale = scaleFactor; //TODO: Remove this.
-    }
+//    if( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ) {
+//        particle.scale = scaleFactor; //TODO: Remove this.
+//    }
     
     //particle = [Particle particleWithColor:kParticleGreen]; 
     
@@ -383,7 +384,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     [label runAction:seq];
 }
 
--(void) scoreParticles {
+-(BOOL) scoreParticles {
     NSInteger multiplier = 0;
     NSInteger points = 0;
     
@@ -456,6 +457,11 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
         
         postStepRemoveParticle(space, particle.body, self);  // Don't need to schedule, called from update.
     }
+    
+    if (points) {
+        return YES;
+    }
+    return NO;
 }
 
 -(void) alignParticleToCenter:(Particle *)particle {
@@ -668,7 +674,8 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     
     // Add the map.
     map = [LHCMap node];
-    map.position = ccp(winSize.width * 0.19, winSize.height * 0.62);
+    map.anchorPoint = ccp(0.02, 0.5);
+    map.position = ccp(0, winSize.height * 0.62);
     //clock.scale = 0.75f;
     [uiBatchNode addChild:map z:kZBackground];
     
@@ -679,9 +686,9 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     
     // Add the detector.
     detector = [Detector node];
-    if( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ) {
-        detector.scale = scaleFactor; // TODO: Remove this when you have a better graphic.
-    }
+//    if( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ) {
+//        detector.scale = scaleFactor; // TODO: Remove this when you have a better graphic.
+//    }
     detector.position = puzzleCenter;
     [uiBatchNode addChild:detector z:kZBackground];
     

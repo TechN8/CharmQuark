@@ -1,26 +1,15 @@
-X Consistent simulation dimensions between iPhone and iPad
-    Use 1024 x 768 sim dimensions.
-    Scale to 480x320 = * 0.46875 for iPhone draws. (May need to adjust.)
-    Scale factor should be iPhone puzzleCenter.x / iPad puzzleCenter.x.
-    
-. Proper scaling for Thumb guides.  Need to compare iPhone and iPad DPI.
-    - Original iPad distance = 678.4
-    X Create second list of items for iPhone and iPad
-    X Remove iPad / iPadhd suffix from iPad items in case second item exists in SVG.
-    
-. Run scoreParticles on gameover condition before gameOver.
+. Make explosion trail look more like a trail.
+    or
+. Actually draw some tracks...
 
 . Logo
 
 . Splash screens & update icon?
 
-. Make explosion trail look more like a trail.
-    or
-. Actually draw some tracks...
-
 . Do iPad version of detector with another ring...
-    - Will need to change iPad scale factor for this to make pieces move at correct speed.
-
+    -Do this in 2 parts inner and outer.  Draw inners at 0,90,180,270; Outers at 45, 135, 225, 315.
+    -Intersection with outers should be drawn as yellow dot with green lines.
+    
 . Credits screen.
     [Show blinking detector in background];
     [Do this on home screen too?]
@@ -49,8 +38,7 @@ X Consistent simulation dimensions between iPhone and iPad
         - 3 icons for game modes.
         - 
 
-. Game Center Support for high score.
-    
+. Game Center Support for high score.    
     
 . Help Overlay
     Should explain how to rotate and drop. 
@@ -67,6 +55,11 @@ X Consistent simulation dimensions between iPhone and iPad
     Google translate menus.  Game is pretty self explanitory.
     Will need to generate BMFonts with reduced subset of characters for Japanese / Chinese.
     
+X Consistent simulation dimensions between iPhone and iPad
+    Use 1024 x 768 sim dimensions.
+    Scale to 480x320 = * 0.46875 for iPhone draws. (May need to adjust.)
+    Scale factor should be iPhone puzzleCenter.x / iPad puzzleCenter.x.
+
 Future Enhancements
 -------------------
 . Game Center Achievements
