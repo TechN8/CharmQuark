@@ -112,8 +112,6 @@ enum {
     NSMutableArray *scoredParticles;
     NSMutableSet *visitedParticles;
     NSMutableArray *inFlightParticles;
-
-    CGFloat aimAngle;
 }
 
 @property cpSpace *space;

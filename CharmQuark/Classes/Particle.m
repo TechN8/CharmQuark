@@ -21,6 +21,7 @@
 @synthesize body;
 @synthesize matchingParticles;
 @synthesize timeSinceLastCollision;
+@synthesize isInFlight;
 
 - (BOOL) isLive {
     return touchingCount > 1;
@@ -28,6 +29,7 @@
 
 - (void) touchParticle:(Particle*)particle {
     touchingCount++;
+    isInFlight = NO;
     
     if (particleColor == particle.particleColor) {
         // Put particles in eachothers node arrays.

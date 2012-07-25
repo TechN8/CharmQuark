@@ -14,9 +14,9 @@
 // Device support
 #define kSimDimensions  ccp(1024,768)
 #define kPuzzleCenter   ccp(720, 384)
-#define kLaunchPoint    ccp(0, 384)
+#define kLaunchPoint    ccp(-720, 0)
 #define kiPhoneScale    0.46875f
-#define kiPhoneSkew     ccp(0,-20);
+#define kiPhoneSkew     ccp(0,-32);
 //#define kiPadScale      1.0
 //#define kiPadSkew       ccp(0,0);
 #define kiPadScale      0.875

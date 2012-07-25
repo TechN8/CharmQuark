@@ -12,7 +12,6 @@
 @implementation LogViewer
 
 -(void)scrollMessages {
-    CGFloat distance = lineHeight * messages.count;
     CGPoint top = ccp(0, lineHeight * messages.count);
     
     // Scroll messages.
