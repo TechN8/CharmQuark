@@ -59,7 +59,7 @@ static void postStepRemoveParticle(cpSpace *space, cpBody *body, GameplayLayer *
     cpBodyFree(body);
     
     if (particle) {
-        [particle removeFromParentAndCleanup:YES];
+//        [particle removeFromParentAndCleanup:YES];
     }
 }
 
@@ -450,13 +450,16 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
         Particle *particle = [scoredParticles objectAtIndex:0];
         [scoredParticles removeObject:particle];
         
-//        CCParticleSystemQuad *explosion = [particle explode];  // Play the explosion animation.
-//        [detector animateAtAngle:explosion.rotation];
-//        explosion.position = [centerNode convertToWorldSpace:particle.position];
-//        [self addChild:explosion];
+        CCParticleSystemQuad *explosion = [particle explode];  // Play the explosion animation.
+        explosion.position = [centerNode convertToWorldSpace:particle.position];
+        [self addChild:explosion z:kZParticles];
+        [detector animateAtAngle:explosion.rotation];
         
-        [detector animateAtAngle:(float)rand()/((float)RAND_MAX/360)];
-        
+//        CGPoint particlePos = [centerNode convertToWorldSpace:particle.position];
+//        particlePos = cpvsub(particlePos, centerNode.position);
+//        CGFloat angle = CC_RADIANS_TO_DEGREES(cpvtoangle(particlePos));
+//        [detector animateAtAngle:angle];
+
         postStepRemoveParticle(space, particle.body, self);  // Don't need to schedule, called from update.
     }
     

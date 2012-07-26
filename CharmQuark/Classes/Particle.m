@@ -8,6 +8,7 @@
 
 #import "Particle.h"
 #import "cocos2d.h"
+#import "RemoveFromParentAction.h"
 
 @interface Particle() 
 - (void) addMatchingParticlesToSet:(NSMutableSet*)particleSet 
@@ -137,51 +138,63 @@
 }
 
 - (CCParticleSystemQuad *)explode {
-    CCParticleSystemQuad *emitter = [[[CCParticleSystemQuad alloc] initWithTotalParticles:20] autorelease];
-    //emitter.displayFrame = [self displayFrame];
-    [emitter setTexture:self.texture withRect:self.textureRect];
-    //[emitter setTexture:self.texture];
+    
+    //id tint = [CCTintTo actionWithDuration:0.1 red:255 green:255 blue:255];
+    self.color = ccWHITE;
+    self.scale = 1.5;
+    id scale = [CCScaleTo actionWithDuration:0.2 scale:0.1];
+    id remove = [RemoveFromParentAction action];
+    id seq = [CCSequence actions:scale, remove, nil];
+    [self runAction:scale];
+    [self runAction:seq];
+    
+    CCParticleSystemQuad *emitter = [CCParticleSystemQuad node];
+    emitter.totalParticles = 40;
+    CCSprite *spr = [CCSprite spriteWithSpriteFrameName:@"track.png"];
+    [emitter setTexture:spr.texture withRect:spr.textureRect];
     emitter.duration = 0.1f;
     emitter.emitterMode = kCCParticleModeGravity;
-    emitter.gravity = ccp(-200,0);
+    emitter.gravity = ccp(0,0);
     // Gravity Mode: speed of particles
-    emitter.speed = 700;
+    emitter.speed = 800;
     emitter.speedVar = 200;
     // Gravity Mode: radial
     emitter.radialAccel = 0;
     emitter.radialAccelVar = 0;
     // Gravity Mode: tagential
     emitter.tangentialAccel = 0;
-    emitter.tangentialAccelVar = 800;
+    emitter.tangentialAccelVar = 1000;
     //Angle is OpenGL like and goes CCW.
     //emitter.angle = (float)rand()/((float)RAND_MAX/360);
     emitter.rotation = (float)rand()/((float)RAND_MAX/360);
     emitter.angle = 0;
-    emitter.angleVar = 10;
-    emitter.emissionRate = 10.0f;
-    emitter.life = 0.5;
-    emitter.lifeVar = 0.2f;
+    emitter.angleVar = 20;
+    //emitter.emissionRate = 10.0f;
+    emitter.emissionRate = emitter.totalParticles / emitter.duration;
+    emitter.life = 0.5f;
+    emitter.lifeVar = .1f;
     emitter.positionType = kCCPositionTypeRelative;
     emitter.position = self.position;
     emitter.posVar = CGPointZero;
     // size, in pixels
-    emitter.startSize = self.contentSize.height * 0.5;
-    emitter.startSizeVar = self.contentSize.height * 0.1;
-    emitter.endSize = kCCParticleStartSizeEqualToEndSize;
+    emitter.startSize = 16;
+    emitter.startSizeVar = 4;
+    emitter.endSize = 6;
     emitter.blendAdditive = NO;
     emitter.emissionRate = emitter.totalParticles/emitter.duration;
     
-    emitter.startColor = ccc4FFromccc3B(self.color);
-    //emitter.startColor = ccc4f(0.5, 0.5, 0.5, 1.0);
-    emitter.startColorVar = ccc4f(1.0, 1.0, 1.0, 0.0f);
-    emitter.endColor = ccc4f(0.5f, 0.5f, 0.5f, 1.0f);
-    emitter.endColorVar = ccc4f(0.0f, 0.0f, 0.0f, 0.0f);
+    //emitter.startColor = ccc4FFromccc3B(self.color);
+    emitter.startColor = ccc4f(1.0, 1.0, 1.0, 1.0);
+    emitter.startColorVar = ccc4f(0.0f, 0.0f, 0.0f, 0.0f);
+    emitter.endColor = ccc4f(0.0f, 0.0f, 0.0f, 0.0f);  //ccc4f(1.0, 1.0, 1.0, 1.0);
+    emitter.endColorVar = ccc4f(0.0f, 0.0f, 0.0f, 1.0f);
     
     emitter.autoRemoveOnFinish=YES;
     //    CCNode *parent = self.parent;
     //    if ([parent isKindOfClass:[CCSpriteBatchNode class]]) {
     //        parent = [parent parent];
     //    }
+    emitter.position = self.position;
     return emitter;
 }
 

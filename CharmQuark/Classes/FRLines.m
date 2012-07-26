@@ -336,6 +336,7 @@ void ccpCurveDraw(ccpCurve *curve)
 		}
         
         glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        glBlendFunc(GL_SRC_ALPHA, GL_BLEND_DST_ALPHA);
         
         // Need to use ccDrawColor here rather than glColor4u
         ccDrawColor4F(curve->color.r, curve->color.g, curve->color.b, curve->opacity);

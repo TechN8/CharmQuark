@@ -33,14 +33,14 @@
         graphRadius = radius * 0.52;
         trackRadius = radius * 1.5;
 
-        tracks = [[NSMutableArray arrayWithCapacity:20] retain];
-        
-        trackTexture = [CCRenderTexture renderTextureWithWidth:1024 height:1024];
-        trackTexture.position = center;
-        [self addChild:trackTexture];
-        trackSprite = [[CCSprite spriteWithSpriteFrameName:@"track.png"] retain];
-        trackSprite.opacity = 0;
-        [trackTexture addChild:trackSprite];
+//        tracks = [[NSMutableArray arrayWithCapacity:20] retain];
+//        
+//        trackTexture = [CCRenderTexture renderTextureWithWidth:1024 height:1024];
+//        trackTexture.position = center;
+//        [self addChild:trackTexture];
+//        trackSprite = [[CCSprite spriteWithSpriteFrameName:@"track.png"] retain];
+//        trackSprite.opacity = 0;
+//        [trackTexture addChild:trackSprite];
     }
     return self;
 }
@@ -52,9 +52,9 @@
 
 -(void)dealloc {
     [super dealloc];
-    [trackSprite cleanup];
-    [trackSprite release];
-    [tracks release];
+//    [trackSprite cleanup];
+//    [trackSprite release];
+//    [tracks release];
 }
 
 // This takes radians.
@@ -89,7 +89,7 @@
                                          scaleX:0.1 scaleY:0.1];
     id remove = [RemoveFromParentAction action];
     id seq = [CCSequence actions:scaleOut, remove, nil];
-//    [blink runAction:seq];
+    [blink runAction:seq];
 }
 
 -(void)graphAtAngle:(CGFloat)angle {
@@ -105,7 +105,7 @@
     id remove = [RemoveFromParentAction action];
     id seq = [CCSequence actions:scaleOut, remove, nil];
     [batchNode addChild:graph];
-//    [graph runAction:seq];
+    [graph runAction:seq];
 }
 
 -(void)trackAtAngle:(CGFloat)angle {
@@ -132,16 +132,10 @@
     [curve setOpacity:128];
     [curve invalidate];
     [self.parent addChild:curve z:kZUIElements];
-//    id fadeout = [CCFadeOut actionWithDuration:(float)rand()/RAND_MAX];
-//    id remove = [RemoveFromParentAction action];
-//    id seq = [CCSequence actions:fadeout, remove, nil];
-//    [curve runAction:seq];
-    
-    id fadeout = [CCFadeOut actionWithDuration:1.0];
-    id fadein = [CCFadeIn actionWithDuration:1.0];
-    id seq = [CCSequence actions:fadeout, fadein, nil];
-    id forever = [CCRepeatForever actionWithAction:seq];
-    [curve runAction:forever];
+    id fadeout = [CCFadeOut actionWithDuration:(float)rand()/RAND_MAX];
+    id remove = [RemoveFromParentAction action];
+    id seq = [CCSequence actions:fadeout, remove, nil];
+    [curve runAction:seq];
 }
 
 -(void)draw {
@@ -210,6 +204,57 @@
     [trackTexture end];
 }
 
+-(void)explosionAtAngle:(CGFloat)angle {
+    CCParticleSystemQuad *emitter = [CCParticleSystemQuad node];
+    emitter.totalParticles = 30;
+    CCSprite *spr = [CCSprite spriteWithSpriteFrameName:@"track.png"];
+    [emitter setTexture:spr.texture withRect:spr.textureRect];
+    emitter.duration = 0.07f;
+    emitter.emitterMode = kCCParticleModeGravity;
+    emitter.gravity = ccp(0,0);
+    // Gravity Mode: speed of particles
+    emitter.speed = 1000;
+    emitter.speedVar = 400;
+    // Gravity Mode: radial
+    emitter.radialAccel = 0;
+    emitter.radialAccelVar = 0;
+    // Gravity Mode: tagential
+    emitter.tangentialAccel = 0;
+    emitter.tangentialAccelVar = 1000;
+    //Angle is OpenGL like and goes CCW.
+    //emitter.angle = (float)rand()/((float)RAND_MAX/360);
+    emitter.rotation = CC_RADIANS_TO_DEGREES(angle); // (float)rand()/((float)RAND_MAX/360);
+    emitter.angle = 0;
+    emitter.angleVar = 20;
+    //emitter.emissionRate = 10.0f;
+    emitter.emissionRate = emitter.totalParticles / emitter.duration;
+    emitter.life = 0.5f;
+    emitter.lifeVar = 0.5f;
+    emitter.positionType = kCCPositionTypeRelative;
+    emitter.position = self.position;
+    emitter.posVar = CGPointZero;
+    // size, in pixels
+    emitter.startSize = 11;
+    emitter.startSizeVar = 10;
+    emitter.endSize = 8;
+    emitter.blendAdditive = NO;
+    emitter.emissionRate = emitter.totalParticles/emitter.duration;
+    
+    //emitter.startColor = ccc4FFromccc3B(self.color);
+    emitter.startColor = ccc4f(1.0, 1.0, 1.0, 1.0);
+    emitter.startColorVar = ccc4f(0.0f, 0.0f, 0.0f, 0.0f);
+    emitter.endColor = ccc4f(1.0, 1.0, 1.0, 1.0);// ccc4f(0.0f, 0.0f, 0.0f, 0.0f);
+    emitter.endColorVar = ccc4f(0.0f, 0.0f, 0.0f, 1.0f);
+    
+    emitter.autoRemoveOnFinish=YES;
+    //    CCNode *parent = self.parent;
+    //    if ([parent isKindOfClass:[CCSpriteBatchNode class]]) {
+    //        parent = [parent parent];
+    //    }
+    emitter.position = self.position;
+    [self.parent addChild:emitter z:kZParticles];
+}
+
 -(void)animateAtAngle:(CGFloat)angle {
     // Work in radians.
     angle = CC_DEGREES_TO_RADIANS(angle);
@@ -218,7 +263,7 @@
     float blinkAngle = angle - M_PI / 12;
     for (int i = 0; i < 3; i++) {
         [self blinkAtAngle:blinkAngle];
-        [self trackAtAngle:blinkAngle];
+//        [self trackAtAngle:blinkAngle];
         blinkAngle += M_PI / 12;
     }
     
@@ -226,10 +271,12 @@
     float graphAngle = angle - M_PI / 12;
     for (int i = 0; i < 5; i++) {
         [self graphAtAngle:graphAngle];
-        [self trackAtAngle:graphAngle];
+//        [self trackAtAngle:graphAngle];
         graphAngle += M_PI / 24;
     }
 
+//    [self explosionAtAngle: angle];
+    
     // Draw the tracks
 //    [self scheduleOnce:@selector(drawTracks) delay:0];
 }
