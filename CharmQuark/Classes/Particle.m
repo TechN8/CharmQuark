@@ -148,22 +148,29 @@
     [self runAction:scale];
     [self runAction:seq];
     
+    CGSize s = [[CCDirector sharedDirector] winSize];
+    CGFloat speed = s.width * 2;
+    
     CCParticleSystemQuad *emitter = [CCParticleSystemQuad node];
     emitter.totalParticles = 40;
-    CCSprite *spr = [CCSprite spriteWithSpriteFrameName:@"track.png"];
-    [emitter setTexture:spr.texture withRect:spr.textureRect];
+    //CCSprite *spr = [CCSprite spriteWithSpriteFrameName:@"track.png"];
+    CCSpriteFrame *spf = [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:@"white-small.png"];
+    [emitter setTexture:spf.texture withRect:spf.rect];
+    //[emitter setTexture:spr.texture withRect:spr.textureRect];
+    //[emitter setTexture:self.texture withRect:self.textureRect];
     emitter.duration = 0.1f;
     emitter.emitterMode = kCCParticleModeGravity;
     emitter.gravity = ccp(0,0);
     // Gravity Mode: speed of particles
-    emitter.speed = 800;
-    emitter.speedVar = 200;
+    
+    emitter.speed = speed;
+    emitter.speedVar = speed / 4;
     // Gravity Mode: radial
     emitter.radialAccel = 0;
     emitter.radialAccelVar = 0;
     // Gravity Mode: tagential
     emitter.tangentialAccel = 0;
-    emitter.tangentialAccelVar = 1000;
+    emitter.tangentialAccelVar = 1500;
     //Angle is OpenGL like and goes CCW.
     //emitter.angle = (float)rand()/((float)RAND_MAX/360);
     emitter.rotation = (float)rand()/((float)RAND_MAX/360);
@@ -171,16 +178,18 @@
     emitter.angleVar = 20;
     //emitter.emissionRate = 10.0f;
     emitter.emissionRate = emitter.totalParticles / emitter.duration;
-    emitter.life = 0.5f;
+    emitter.life = 0.2f;
     emitter.lifeVar = .1f;
     emitter.positionType = kCCPositionTypeRelative;
     emitter.position = self.position;
     emitter.posVar = CGPointZero;
     // size, in pixels
-    emitter.startSize = 16;
+    emitter.startSize = self.contentSize.height / 2;
+    //emitter.startSize = 16;
     emitter.startSizeVar = 4;
-    emitter.endSize = 6;
-    emitter.blendAdditive = NO;
+    //emitter.endSize = 6;
+    emitter.endSize = self.contentSize.height / 6;
+    emitter.blendAdditive = YES;
     emitter.emissionRate = emitter.totalParticles/emitter.duration;
     
     //emitter.startColor = ccc4FFromccc3B(self.color);

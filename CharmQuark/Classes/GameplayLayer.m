@@ -695,7 +695,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 //        detector.scale = scaleFactor; // TODO: Remove this when you have a better graphic.
 //    }
     detector.position = puzzleCenter;
-    [self addChild:detector z:kZBackground];
+    [uiBatchNode addChild:detector z:kZBackground];
     
     // Add the thumb guides.
     thumbGuide = [CCSprite spriteWithSpriteFrameName:@"thumbguide.png"];

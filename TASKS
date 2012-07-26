@@ -1,24 +1,12 @@
-. Actually draw some tracks...
-    For each track call {
-        Create CCRenderTexture and add as child of detector.
-        Draw lines in ccrender texture by moving and visiting small particle image.
-        Calculate intersection points of beziers with detectors by tracking radius as particles are drawn.
-    }
-    New Plan
-    For each track {
-        Add coordinates and duration to array.
-    }
-    in visit for Detector {
-        GLDraw the tracks at the appropriate brightness.
-        Remove when time expires.
-        Do as batch.
-    }
-
 . Itunes artwork.        
 
 . Logo
 
 . Splash screens & update icon?
+
+. Final fonts.
+    Based on Menlo.
+    Should be white?
 
 . Do iPad version of detector with another ring...
     -Do this in 2 parts inner and outer.  Draw inners at 0,90,180,270; Outers at 45, 135, 225, 315.
@@ -78,4 +66,9 @@ Future Enhancements
 -------------------
 . Game Center Achievements
 . Twitter / Facebook
+. Actually draw some tracks...
+    - May be able to use CCDrawNode when it gets faster.
+    - Or FRCurve if it gets added to cocos2d.
+    - Or Bezier curve, but it's a pain to fade them.
+    - Or some pre-rendered animation...
     
