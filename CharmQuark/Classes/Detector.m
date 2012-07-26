@@ -39,7 +39,8 @@
 }
 
 -(void)onEnter {
-    batchNode = (CCSpriteBatchNode*)[self.parent getChildByTag:kTagUIBatchNode];
+//    batchNode = (CCSpriteBatchNode*)[self.parent getChildByTag:kTagUIBatchNode];
+    batchNode = (CCSpriteBatchNode*)self.parent;
     center = self.position;
 }
 
