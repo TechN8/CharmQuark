@@ -26,15 +26,15 @@
 
 @end
 
-@interface Track : NSObject {
-    CGFloat angle;
-    CGFloat distance;
-    ccTime ttl;
-}
-
-@property CGFloat angle;
-@property CGFloat distance;
-@property ccTime ttl;
-
-+(id)trackWithAngle:(CGFloat)angle distance:(CGFloat)distance ttl:(ccTime)ttl;
-@end
+//@interface Track : NSObject {
+//    CGFloat angle;
+//    CGFloat distance;
+//    ccTime ttl;
+//}
+//
+//@property CGFloat angle;
+//@property CGFloat distance;
+//@property ccTime ttl;
+//
+//+(id)trackWithAngle:(CGFloat)angle distance:(CGFloat)distance ttl:(ccTime)ttl;
+//@end
