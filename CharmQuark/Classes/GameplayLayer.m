@@ -642,7 +642,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     // Configure the two batch nodes for rendering.
     CCSpriteBatchNode *particleBatchNode = [CCSpriteBatchNode batchNodeWithFile:@"scene1Atlas.png" capacity:100];
     CCSpriteBatchNode *uiBatchNode = [CCSpriteBatchNode batchNodeWithFile:@"scene1Atlas.png" capacity:10];
-    [self addChild:uiBatchNode z:kZBackground tag:kTagUIBatchNode];
+    [self addChild:uiBatchNode z:kZUIElements tag:kTagUIBatchNode];
     
     // Pause Button
     CCSprite *pauseSprite = [CCSprite spriteWithSpriteFrameName:@"pause.png"];
@@ -697,7 +697,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     // Add the thumb guides.
     thumbGuide = [CCSprite spriteWithSpriteFrameName:@"thumbguide.png"];
     thumbGuide.opacity = 0;
-    [uiBatchNode addChild:thumbGuide z:-9999];
+    [uiBatchNode addChild:thumbGuide z:kZUIElements];
     
     fireButton = [CCSprite spriteWithSpriteFrameName:@"firebutton.png"];
     fireButton.opacity = 0;
@@ -707,8 +707,8 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     centerNode = [CCNode node];
     centerNode.position = puzzleCenter;
     centerNode.rotation = 0;
-    [centerNode addChild:particleBatchNode z:kZBackground tag:kTagPacketBatchNode];
-    [self addChild:centerNode];
+    [centerNode addChild:particleBatchNode z:kZParticles tag:kTagPacketBatchNode];
+    [self addChild:centerNode z:kZParticles];
     
 }
 

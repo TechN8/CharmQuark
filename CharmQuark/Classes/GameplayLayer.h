@@ -65,7 +65,8 @@ enum {
 
 enum {
     kZBackground = 0,
-    kZUIElements = 100,
+    kZUIElements = 50,
+    kZParticles = 100,
     kZPopups = 1000
 };
 

@@ -9,6 +9,7 @@
 #import "Detector.h"
 #import "RemoveFromParentAction.h"
 #import "FRCurve.h"
+#import "GameplayLayer.h"
 
 @interface Detector()
     -(void)blinkAtAngle:(CGFloat)angle;
@@ -25,17 +26,13 @@
 -(id)init {
     self = [super initWithSpriteFrameName:@"detector.png"];
     if (self) {
-        batchNode = [CCSpriteBatchNode batchNodeWithFile:@"scene1Atlas.png" capacity:100];
-        [self addChild:batchNode z:0];
+//        [self addChild:batchNode z:0];
         
         int radius = self.contentSize.height / 2;
         blinkRadius = radius * 0.88;
         graphRadius = radius * 0.52;
         trackRadius = radius * 1.5;
 
-        center = ccp(self.contentSize.width / 2,
-                     self.contentSize.height / 2);
-        
         tracks = [[NSMutableArray arrayWithCapacity:20] retain];
         
         trackTexture = [CCRenderTexture renderTextureWithWidth:1024 height:1024];
@@ -46,6 +43,11 @@
         [trackTexture addChild:trackSprite];
     }
     return self;
+}
+
+-(void)onEnter {
+    batchNode = (CCSpriteBatchNode*)[self.parent getChildByTag:kTagUIBatchNode];
+    center = self.position;
 }
 
 -(void)dealloc {
@@ -110,7 +112,8 @@
     float a1, a2;
     float r1, r2;
     
-    CGPoint p1 = center, p2, p3;
+    CGPoint p1 = center;
+    CGPoint p2, p3;
     r1 = 100 + (float)rand()/(float)RAND_MAX * 50;
     r2 = 100 + (float)rand()/(float)RAND_MAX * 100;
     a1 = (-1 * M_PI_4) + ((float)rand()/(float)RAND_MAX * M_PI_2);
@@ -120,7 +123,7 @@
     p3 = ccp(p1.x + r2 * cosf(angle+a2),     // Control2
              p1.y - r2 * sinf(angle+a2));
     FRCurve *curve = [[FRCurve curveFromType:kFRCurveBezier order:kFRCurveQuadratic segments:64]retain];
-    [curve setWidth:2.0f];
+    [curve setWidth:1.0f];
     [curve setShowControlPoints:NO];
     [curve setPoint:p1 atIndex:0];
     [curve setPoint:p2 atIndex:1];
@@ -128,7 +131,7 @@
     [curve setColor:ccc3(0, 255, 255)];
     [curve setOpacity:128];
     [curve invalidate];
-    [self addChild:curve];
+    [self.parent addChild:curve z:kZUIElements];
 //    id fadeout = [CCFadeOut actionWithDuration:(float)rand()/RAND_MAX];
 //    id remove = [RemoveFromParentAction action];
 //    id seq = [CCSequence actions:fadeout, remove, nil];
