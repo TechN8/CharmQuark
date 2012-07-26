@@ -1,10 +1,20 @@
 . Actually draw some tracks...
-    For each blink call {
+    For each track call {
         Create CCRenderTexture and add as child of detector.
         Draw lines in ccrender texture by moving and visiting small particle image.
         Calculate intersection points of beziers with detectors by tracking radius as particles are drawn.
     }
-        
+    New Plan
+    For each track {
+        Add coordinates and duration to array.
+    }
+    in visit for Detector {
+        GLDraw the tracks at the appropriate brightness.
+        Remove when time expires.
+        Do as batch.
+    }
+
+. Itunes artwork.        
 
 . Logo
 

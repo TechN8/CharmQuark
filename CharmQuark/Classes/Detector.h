@@ -13,10 +13,28 @@
     CGPoint center;
     CGFloat blinkRadius;
     CGFloat graphRadius;
-}
+    CGFloat trackRadius;
+    NSMutableArray *tracks;
+    CCSprite *trackSprite;
+    CCSpriteBatchNode *batchNode;
+    CCRenderTexture *trackTexture;
+};
 
--(void)blinkAtAngle:(CGFloat)angle;
+-(void)animateAtAngle:(CGFloat)angle;
 
 -(void)gameOverAtAngle:(CGFloat)angle;
 
+@end
+
+@interface Track : NSObject {
+    CGFloat angle;
+    CGFloat distance;
+    ccTime ttl;
+}
+
+@property CGFloat angle;
+@property CGFloat distance;
+@property ccTime ttl;
+
++(id)trackWithAngle:(CGFloat)angle distance:(CGFloat)distance ttl:(ccTime)ttl;
 @end

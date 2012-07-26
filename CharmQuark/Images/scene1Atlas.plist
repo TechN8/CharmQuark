@@ -95,6 +95,19 @@
                 <key>sourceSize</key>
                 <string>{158,96}</string>
             </dict>
+            <key>track.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{73,501},{4,4}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{4,4}}</string>
+                <key>sourceSize</key>
+                <string>{4,4}</string>
+            </dict>
             <key>white-small.png</key>
             <dict>
                 <key>frame</key>
@@ -131,7 +144,7 @@
             <key>size</key>
             <string>{512,512}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:31ce62f153f570379d060c90f504d2f2$</string>
+            <string>$TexturePacker:SmartUpdate:e800159631d3fef41380de3c859ef8bc$</string>
             <key>textureFileName</key>
             <string>scene1Atlas.png</string>
         </dict>

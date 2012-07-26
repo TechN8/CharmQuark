@@ -450,10 +450,12 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
         Particle *particle = [scoredParticles objectAtIndex:0];
         [scoredParticles removeObject:particle];
         
-        CCParticleSystemQuad *explosion = [particle explode];  // Play the explosion animation.
-        [detector blinkAtAngle:explosion.rotation];
-        explosion.position = [centerNode convertToWorldSpace:particle.position];
-        [self addChild:explosion];
+//        CCParticleSystemQuad *explosion = [particle explode];  // Play the explosion animation.
+//        [detector animateAtAngle:explosion.rotation];
+//        explosion.position = [centerNode convertToWorldSpace:particle.position];
+//        [self addChild:explosion];
+        
+        [detector animateAtAngle:(float)rand()/((float)RAND_MAX/360)];
         
         postStepRemoveParticle(space, particle.body, self);  // Don't need to schedule, called from update.
     }
@@ -638,8 +640,8 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
                                self);   
     
     // Configure the two batch nodes for rendering.
-    CCSpriteBatchNode *packetBatchNode = [CCSpriteBatchNode batchNodeWithFile:@"scene1Atlas.png" capacity:100];
-    CCSpriteBatchNode *uiBatchNode = [CCSpriteBatchNode batchNodeWithFile:@"scene1Atlas.png" capacity:100];
+    CCSpriteBatchNode *particleBatchNode = [CCSpriteBatchNode batchNodeWithFile:@"scene1Atlas.png" capacity:100];
+    CCSpriteBatchNode *uiBatchNode = [CCSpriteBatchNode batchNodeWithFile:@"scene1Atlas.png" capacity:10];
     [self addChild:uiBatchNode z:kZBackground tag:kTagUIBatchNode];
     
     // Pause Button
@@ -690,12 +692,12 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 //        detector.scale = scaleFactor; // TODO: Remove this when you have a better graphic.
 //    }
     detector.position = puzzleCenter;
-    [uiBatchNode addChild:detector z:kZBackground];
+    [self addChild:detector z:kZBackground];
     
     // Add the thumb guides.
     thumbGuide = [CCSprite spriteWithSpriteFrameName:@"thumbguide.png"];
     thumbGuide.opacity = 0;
-    [uiBatchNode addChild:thumbGuide z:kZUIElements];
+    [uiBatchNode addChild:thumbGuide z:-9999];
     
     fireButton = [CCSprite spriteWithSpriteFrameName:@"firebutton.png"];
     fireButton.opacity = 0;
@@ -705,7 +707,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     centerNode = [CCNode node];
     centerNode.position = puzzleCenter;
     centerNode.rotation = 0;
-    [centerNode addChild:packetBatchNode z:kZBackground tag:kTagPacketBatchNode];
+    [centerNode addChild:particleBatchNode z:kZBackground tag:kTagPacketBatchNode];
     [self addChild:centerNode];
     
 }

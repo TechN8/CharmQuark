@@ -46,7 +46,7 @@
             <key>graph.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,1012},{6,19}}</string>
+                <string>{{12,1012},{6,19}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -95,6 +95,19 @@
                 <key>sourceSize</key>
                 <string>{317,191}</string>
             </dict>
+            <key>track.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,1012},{8,8}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{8,8}}</string>
+                <key>sourceSize</key>
+                <string>{8,8}</string>
+            </dict>
             <key>white-small.png</key>
             <dict>
                 <key>frame</key>
@@ -131,7 +144,7 @@
             <key>size</key>
             <string>{1024,1024}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:328d26d92f4d60c8f370b0b460dc6d2d$</string>
+            <string>$TexturePacker:SmartUpdate:ad1c8795f521e7cf5904c70031cb438d$</string>
             <key>textureFileName</key>
             <string>scene1Atlas-hd.png</string>
         </dict>

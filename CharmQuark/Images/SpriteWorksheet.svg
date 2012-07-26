@@ -36,6 +36,18 @@
          offset="0"
          id="stop5972" />
     </linearGradient>
+    <filter
+       inkscape:collect="always"
+       id="filter7144"
+       x="-0.37132075"
+       width="1.7426415"
+       y="-0.37132075"
+       height="1.7426415">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="5.080692"
+         id="feGaussianBlur7146" />
+    </filter>
   </defs>
   <sodipodi:namedview
      id="base"
@@ -44,16 +56,16 @@
      borderopacity="1.0"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.03125"
-     inkscape:cx="512"
-     inkscape:cy="384"
+     inkscape:zoom="79.200001"
+     inkscape:cx="226.27985"
+     inkscape:cy="129.16967"
      inkscape:document-units="px"
-     inkscape:current-layer="g6105"
+     inkscape:current-layer="layer4"
      showgrid="true"
      inkscape:window-width="1681"
      inkscape:window-height="980"
-     inkscape:window-x="45"
-     inkscape:window-y="5"
+     inkscape:window-x="174"
+     inkscape:window-y="9"
      inkscape:window-maximized="0"
      units="px"
      inkscape:snap-bbox="true"
@@ -523,6 +535,21 @@
          style="fill:#ffffff;fill-opacity:1;stroke:none"
          sodipodi:type="arc" />
     </g>
+    <path
+       inkscape:label="#path6066"
+       inkscape:transform-center-y="-33.103448"
+       inkscape:export-ydpi="180"
+       inkscape:export-xdpi="180"
+       inkscape:export-filename="/Users/nathan/Documents/Xcode Projects/CharmQuark/CharmQuark/Images/Clock/iPad-hd/white-small.png"
+       sodipodi:type="arc"
+       style="fill:#ffffff;fill-opacity:1;stroke:none;display:inline;enable-background:new;filter:url(#filter7144)"
+       id="track"
+       sodipodi:cx="566.20135"
+       sodipodi:cy="305.61102"
+       sodipodi:rx="16.41931"
+       sodipodi:ry="16.41931"
+       d="m 582.62066,305.61102 a 16.41931,16.41931 0 1 1 -32.83861,0 16.41931,16.41931 0 1 1 32.83861,0 z"
+       transform="matrix(0,0.15225975,0.15225975,0,179.74759,552.62065)" />
   </g>
   <g
      inkscape:groupmode="layer"
