@@ -31,8 +31,8 @@
 
 // Game clock settings.
 #define kTimeLimit              120.0f
-#define kDropTimeInit           4.0f //4.0f
-#define kDropTimeMin            1.4f
+#define kDropTimeInit           3.0f //4.0f
+#define kDropTimeMin            1.0f
 #define kDropTimeStep           0.2f
 
 // Collision sound volume control
