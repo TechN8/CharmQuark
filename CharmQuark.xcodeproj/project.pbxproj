@@ -203,9 +203,10 @@
 		D8D2FD2E15C1706800C3FBF1 /* TransformUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D2FCD715C1706800C3FBF1 /* TransformUtils.m */; };
 		D8D2FD2F15C1706800C3FBF1 /* ZipUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D2FCDB15C1706800C3FBF1 /* ZipUtils.m */; };
 		D8E418E315BDA04D00A4E5E5 /* LogViewer.m in Sources */ = {isa = PBXBuildFile; fileRef = D8E418E215BDA04D00A4E5E5 /* LogViewer.m */; };
-		D8F547C815C19B74007F1AE1 /* FRCurve.m in Sources */ = {isa = PBXBuildFile; fileRef = D8F547C715C19B74007F1AE1 /* FRCurve.m */; };
-		D8F547CC15C19B8C007F1AE1 /* FRLines.m in Sources */ = {isa = PBXBuildFile; fileRef = D8F547CB15C19B8C007F1AE1 /* FRLines.m */; };
-		D8F547D115C19BBC007F1AE1 /* CCTextureCache+More.m in Sources */ = {isa = PBXBuildFile; fileRef = D8F547CE15C19BBC007F1AE1 /* CCTextureCache+More.m */; };
+		D8F547F215C1E59B007F1AE1 /* score-ipad.fnt in Resources */ = {isa = PBXBuildFile; fileRef = D8F547EC15C1E59B007F1AE1 /* score-ipad.fnt */; };
+		D8F547F315C1E59B007F1AE1 /* score-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = D8F547ED15C1E59B007F1AE1 /* score-ipad.png */; };
+		D8F547F515C1E59B007F1AE1 /* score-ipadhd.fnt in Resources */ = {isa = PBXBuildFile; fileRef = D8F547EF15C1E59B007F1AE1 /* score-ipadhd.fnt */; };
+		D8F547F615C1E59B007F1AE1 /* score-ipadhd.png in Resources */ = {isa = PBXBuildFile; fileRef = D8F547F015C1E59B007F1AE1 /* score-ipadhd.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -594,14 +595,12 @@
 		D8D2FCDB15C1706800C3FBF1 /* ZipUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZipUtils.m; sourceTree = "<group>"; };
 		D8E418E115BDA04D00A4E5E5 /* LogViewer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogViewer.h; sourceTree = "<group>"; };
 		D8E418E215BDA04D00A4E5E5 /* LogViewer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogViewer.m; sourceTree = "<group>"; };
-		D8F547C615C19B74007F1AE1 /* FRCurve.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FRCurve.h; sourceTree = "<group>"; };
-		D8F547C715C19B74007F1AE1 /* FRCurve.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FRCurve.m; sourceTree = "<group>"; };
-		D8F547CA15C19B8C007F1AE1 /* FRLines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FRLines.h; sourceTree = "<group>"; };
-		D8F547CB15C19B8C007F1AE1 /* FRLines.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FRLines.m; sourceTree = "<group>"; };
-		D8F547CD15C19BBC007F1AE1 /* CCTextureCache+More.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CCTextureCache+More.h"; sourceTree = "<group>"; };
-		D8F547CE15C19BBC007F1AE1 /* CCTextureCache+More.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CCTextureCache+More.m"; sourceTree = "<group>"; };
-		D8F547CF15C19BBC007F1AE1 /* CCTextureSynthesis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCTextureSynthesis.h; sourceTree = "<group>"; };
-		D8F547D015C19BBC007F1AE1 /* CCTypes+More.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CCTypes+More.h"; sourceTree = "<group>"; };
+		D8F547EB15C1E59B007F1AE1 /* score-ipad.GlyphProject */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = "score-ipad.GlyphProject"; sourceTree = "<group>"; };
+		D8F547EC15C1E59B007F1AE1 /* score-ipad.fnt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "score-ipad.fnt"; sourceTree = "<group>"; };
+		D8F547ED15C1E59B007F1AE1 /* score-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "score-ipad.png"; sourceTree = "<group>"; };
+		D8F547EE15C1E59B007F1AE1 /* score-ipadhd.GlyphProject */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = "score-ipadhd.GlyphProject"; sourceTree = "<group>"; };
+		D8F547EF15C1E59B007F1AE1 /* score-ipadhd.fnt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "score-ipadhd.fnt"; sourceTree = "<group>"; };
+		D8F547F015C1E59B007F1AE1 /* score-ipadhd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "score-ipadhd.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1085,12 +1084,18 @@
 		D871772315B344D90014E75E /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
-				D871773815B350650014E75E /* score-hd.fnt */,
-				D871773915B350650014E75E /* score-hd.png */,
 				D871773015B350230014E75E /* score.GlyphProject */,
-				D871773115B350230014E75E /* score-hd.GlyphProject */,
 				D871773215B350230014E75E /* score.fnt */,
 				D871773315B350230014E75E /* score.png */,
+				D871773115B350230014E75E /* score-hd.GlyphProject */,
+				D871773815B350650014E75E /* score-hd.fnt */,
+				D871773915B350650014E75E /* score-hd.png */,
+				D8F547EB15C1E59B007F1AE1 /* score-ipad.GlyphProject */,
+				D8F547EC15C1E59B007F1AE1 /* score-ipad.fnt */,
+				D8F547ED15C1E59B007F1AE1 /* score-ipad.png */,
+				D8F547EE15C1E59B007F1AE1 /* score-ipadhd.GlyphProject */,
+				D8F547EF15C1E59B007F1AE1 /* score-ipadhd.fnt */,
+				D8F547F015C1E59B007F1AE1 /* score-ipadhd.png */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -1107,14 +1112,6 @@
 		D8CE5B8F15B5FB0A00E76ADA /* Nodes */ = {
 			isa = PBXGroup;
 			children = (
-				D8F547CD15C19BBC007F1AE1 /* CCTextureCache+More.h */,
-				D8F547CE15C19BBC007F1AE1 /* CCTextureCache+More.m */,
-				D8F547CF15C19BBC007F1AE1 /* CCTextureSynthesis.h */,
-				D8F547D015C19BBC007F1AE1 /* CCTypes+More.h */,
-				D8F547C615C19B74007F1AE1 /* FRCurve.h */,
-				D8F547C715C19B74007F1AE1 /* FRCurve.m */,
-				D8F547CA15C19B8C007F1AE1 /* FRLines.h */,
-				D8F547CB15C19B8C007F1AE1 /* FRLines.m */,
 				D8151DEA15B9C978007D8AE2 /* Scale9Sprite.h */,
 				D8151DEB15B9C978007D8AE2 /* Scale9Sprite.m */,
 				D80B620215AF055A006F2472 /* ModalMenuLayer.h */,
@@ -1450,6 +1447,10 @@
 				D8151DE115B9B46F007D8AE2 /* window-ipadhd.png in Resources */,
 				D8151DE215B9B46F007D8AE2 /* window.png in Resources */,
 				D8D2F9EF15BDDDC300C3FBF1 /* DanPugsleyLHC2.mp3 in Resources */,
+				D8F547F215C1E59B007F1AE1 /* score-ipad.fnt in Resources */,
+				D8F547F315C1E59B007F1AE1 /* score-ipad.png in Resources */,
+				D8F547F515C1E59B007F1AE1 /* score-ipadhd.fnt in Resources */,
+				D8F547F615C1E59B007F1AE1 /* score-ipadhd.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1626,9 +1627,6 @@
 				D8D2FD2D15C1706800C3FBF1 /* TGAlib.m in Sources */,
 				D8D2FD2E15C1706800C3FBF1 /* TransformUtils.m in Sources */,
 				D8D2FD2F15C1706800C3FBF1 /* ZipUtils.m in Sources */,
-				D8F547C815C19B74007F1AE1 /* FRCurve.m in Sources */,
-				D8F547CC15C19B8C007F1AE1 /* FRLines.m in Sources */,
-				D8F547D115C19BBC007F1AE1 /* CCTextureCache+More.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1640,6 +1638,7 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 0.5;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1653,6 +1652,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
 		};
@@ -1661,6 +1661,7 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 0.5;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					NDEBUG,
@@ -1672,6 +1673,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
 		};
