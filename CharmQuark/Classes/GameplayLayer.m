@@ -350,7 +350,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
         matchesToNextLevel += kMatchesPerLevel;
         switch (mode) {
             case kGameSceneTimeAttack:
-                timeRemaining += 10; // Add 30 seconds
+                timeRemaining += 30; // Add 30 seconds
                 [logViewer addMessage:[NSString stringWithFormat:@"+30 Seconds!", level]];
                 break;
             case kGameSceneSurvival:
