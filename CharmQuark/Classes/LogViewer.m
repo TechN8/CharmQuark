@@ -34,6 +34,7 @@
 -(void)addMessage:(NSString *)message {
     // Add new message
     CCLabelBMFont *newMessage = [CCLabelBMFont labelWithString:message fntFile:@"score.fnt"];
+    newMessage.color = ccc3(200, 255, 200);
     newMessage.anchorPoint = ccp(0, 1);
     newMessage.position = ccp(0, [[messages lastObject] position].y - lineHeight);
     [self addChild:newMessage z:0];
@@ -58,6 +59,7 @@
     if (self) {
         messages = [[[NSMutableArray alloc] init] retain];
         CCLabelBMFont *newMessage = [CCLabelBMFont labelWithString:@"> tail EventLog" fntFile:@"score.fnt"];
+        newMessage.color = ccc3(200, 255, 200);
         [messages addObject:newMessage];
         lineHeight = newMessage.contentSize.height;
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
