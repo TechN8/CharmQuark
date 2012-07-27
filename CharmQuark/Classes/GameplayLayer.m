@@ -564,7 +564,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     // Throw up modal layer.
     PauseLayer *pauseLayer = [[[PauseLayer alloc] initWithColor:ccc4(0,0,0,0)] autorelease];
     CGPoint oldPos = pauseLayer.position;
-    pauseLayer.position = ccp(0, -1 * winSize.height);
+    pauseLayer.position = ccp(0, 2 * winSize.height);
     [self addChild:pauseLayer z:kZPopups];
     [pauseLayer runAction:[CCMoveTo actionWithDuration:0.5f position:oldPos]];
 }
@@ -656,6 +656,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     scoreLabel = [CCLabelBMFont labelWithString:@"0" fntFile:@"score.fnt"];
     [scoreLabel setAnchorPoint:ccp(0.0f, 0.5f)];
     [scoreLabel setPosition:scorePosition];
+    [scoreLabel setColor:ccc3(255, 240, 128)];
     [self addChild:scoreLabel z:kZUIElements];
     
     // Add level label / clock
@@ -876,7 +877,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 
 - (id)init
 {
-    self = [super initWithColor:ccc4(20, 20, 20, 255)];
+    self = [super initWithColor:ccc4(0, 0, 0, 255)];
     if (self) {
         particles = [[[NSMutableSet alloc] initWithCapacity:100] retain];
         visitedParticles = [[[NSMutableSet alloc] initWithCapacity:100] retain];

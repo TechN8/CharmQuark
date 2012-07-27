@@ -17,7 +17,9 @@
 }
 
 - (void) resumeParent {
-    CCSequence *seq = [CCSequence actions:[CCFadeTo actionWithDuration:1.0f opacity:0], 
+    CGSize winSize = [[CCDirector sharedDirector] winSize];
+    CGPoint offScreen = ccp(0, 2 * winSize.height);
+    CCSequence *seq = [CCSequence actions:[CCMoveTo actionWithDuration:0.5f position:offScreen], 
                        [RemoveFromParentAction action],
                        [CCCallFunc actionWithTarget:self.parent selector:@selector(resumeSchedulerAndActions)], 
                        nil];
