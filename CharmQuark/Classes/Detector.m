@@ -8,13 +8,11 @@
 
 #import "Detector.h"
 #import "RemoveFromParentAction.h"
-#import "FRCurve.h"
 #import "GameplayLayer.h"
 
 @interface Detector()
     -(void)blinkAtAngle:(CGFloat)angle;
     -(void)graphAtAngle:(CGFloat)angle;
-    -(void)trackAtAngle:(CGFloat)angle;
 @end
 
 @implementation Detector
@@ -103,7 +101,8 @@
     [super draw];
 
     /*
-    
+    // Note: If drawing is done here, it won't be called if self.parent is a CCSpriteBatchNode.
+     
     for (Track *track in tracks) {
         CGFloat angle = track.angle;
         
