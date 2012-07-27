@@ -15,9 +15,11 @@
 		<string>Icon.png</string>
 		<string>Icon@2x.png</string>
 		<string>Icon-72.png</string>
+		<string>Icon_iPadHD.png</string>
 		<string>Icon-Small-50.png</string>
 		<string>Icon-Small.png</string>
 		<string>Icon-Small@2x.png</string>
+		<string>Icon-Small-100.png</string>
 	</array>
 	<key>CFBundleIdentifier</key>
 	<string>9XJ4876EZH.com.aethertheory.charmquark</string>

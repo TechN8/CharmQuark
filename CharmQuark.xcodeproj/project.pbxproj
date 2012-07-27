@@ -207,6 +207,8 @@
 		D8F547F315C1E59B007F1AE1 /* score-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = D8F547ED15C1E59B007F1AE1 /* score-ipad.png */; };
 		D8F547F515C1E59B007F1AE1 /* score-ipadhd.fnt in Resources */ = {isa = PBXBuildFile; fileRef = D8F547EF15C1E59B007F1AE1 /* score-ipadhd.fnt */; };
 		D8F547F615C1E59B007F1AE1 /* score-ipadhd.png in Resources */ = {isa = PBXBuildFile; fileRef = D8F547F015C1E59B007F1AE1 /* score-ipadhd.png */; };
+		D8F547FD15C2D9F5007F1AE1 /* Icon_iPadHD.png in Resources */ = {isa = PBXBuildFile; fileRef = D8F547FC15C2D9F5007F1AE1 /* Icon_iPadHD.png */; };
+		D8F5480015C2DB21007F1AE1 /* Icon-Small-100.png in Resources */ = {isa = PBXBuildFile; fileRef = D8F547FF15C2DB21007F1AE1 /* Icon-Small-100.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -601,6 +603,8 @@
 		D8F547EE15C1E59B007F1AE1 /* score-ipadhd.GlyphProject */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = "score-ipadhd.GlyphProject"; sourceTree = "<group>"; };
 		D8F547EF15C1E59B007F1AE1 /* score-ipadhd.fnt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "score-ipadhd.fnt"; sourceTree = "<group>"; };
 		D8F547F015C1E59B007F1AE1 /* score-ipadhd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "score-ipadhd.png"; sourceTree = "<group>"; };
+		D8F547FC15C2D9F5007F1AE1 /* Icon_iPadHD.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon_iPadHD.png; path = Resources/Icon_iPadHD.png; sourceTree = "<group>"; };
+		D8F547FF15C2DB21007F1AE1 /* Icon-Small-100.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small-100.png"; path = "Resources/Icon-Small-100.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -718,12 +722,14 @@
 				D847E07D15AC87FF0044FC48 /* fps_images.png */,
 				D847E07F15AC87FF0044FC48 /* fps_images-hd.png */,
 				D847E08115AC87FF0044FC48 /* fps_images-ipadhd.png */,
+				D8F547FC15C2D9F5007F1AE1 /* Icon_iPadHD.png */,
+				D8F547FF15C2DB21007F1AE1 /* Icon-Small-100.png */,
+				D847E08D15AC87FF0044FC48 /* Icon@2x.png */,
 				D847E08315AC87FF0044FC48 /* Icon-72.png */,
+				D847E08915AC87FF0044FC48 /* Icon-Small@2x.png */,
 				D847E08515AC87FF0044FC48 /* Icon-Small-50.png */,
 				D847E08715AC87FF0044FC48 /* Icon-Small.png */,
-				D847E08915AC87FF0044FC48 /* Icon-Small@2x.png */,
 				D847E08B15AC87FF0044FC48 /* Icon.png */,
-				D847E08D15AC87FF0044FC48 /* Icon@2x.png */,
 				D847E08F15AC87FF0044FC48 /* Info.plist */,
 				D847E09015AC87FF0044FC48 /* iTunesArtwork */,
 			);
@@ -1451,6 +1457,8 @@
 				D8F547F315C1E59B007F1AE1 /* score-ipad.png in Resources */,
 				D8F547F515C1E59B007F1AE1 /* score-ipadhd.fnt in Resources */,
 				D8F547F615C1E59B007F1AE1 /* score-ipadhd.png in Resources */,
+				D8F547FD15C2D9F5007F1AE1 /* Icon_iPadHD.png in Resources */,
+				D8F5480015C2DB21007F1AE1 /* Icon-Small-100.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
