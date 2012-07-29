@@ -180,7 +180,10 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
         case kGameSceneTimeAttack:
             dropFrequency = kTimeLimit;
             timeRemaining = dropFrequency;
-            [levelLabel setString:[NSString stringWithFormat:@"%d:%f.2", timeRemaining / 60, fmodf(timeRemaining, 60)]];
+            [levelLabel setString:[NSString stringWithFormat:@"%01d:%02d.%02d", 
+                                   (int)timeRemaining / 60,
+                                   (int)(fmodf(timeRemaining, 60)),
+                                   (int)(fmodf(timeRemaining, 1.0) * 100)]];
             break;
         case kGameSceneSurvival:
         default:
@@ -516,16 +519,11 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
         timeRemaining -= kSimulationRate;
         [map setTime:(dropFrequency - timeRemaining) / dropFrequency];
         
-        if (mode == kGameSceneTimeAttack) {
-            int minutes = (int)timeRemaining / 60;
-            float seconds = timeRemaining > 0 ? fmodf(timeRemaining, 60.0) : 0.0;
-            [levelLabel setString:[NSString stringWithFormat:@"%1d:%2.2f", minutes, seconds]];
-        }
-        
         // Check for gameover or drop conditions.
         if (timeRemaining <= 0) {
             switch (mode) {
                 case kGameSceneTimeAttack:
+                    timeRemaining = 0;
                     [self end:nil]; // Game over.
                     break;
                 case kGameSceneSurvival:
@@ -535,6 +533,14 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
                     timeRemaining = dropFrequency;
                     break;
             }
+        }
+
+        // Update time attack countdown.
+        if (mode == kGameSceneTimeAttack) {
+            [levelLabel setString:[NSString stringWithFormat:@"%01d:%02d.%02d", 
+                                   (int)timeRemaining / 60,
+                                   (int)(fmodf(timeRemaining, 60)),
+                                   (int)(fmodf(timeRemaining, 1.0) * 100)]];
         }
         
         // Update touch inertia.
