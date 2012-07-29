@@ -23,7 +23,6 @@
 		D8318D7B15B49DFB0032D92E /* 22k_viking_hammer_hitV1.wav in Resources */ = {isa = PBXBuildFile; fileRef = D8318D7415B49DFB0032D92E /* 22k_viking_hammer_hitV1.wav */; };
 		D8318D7C15B49DFB0032D92E /* 22k_viking_hammer_hitV2.wav in Resources */ = {isa = PBXBuildFile; fileRef = D8318D7515B49DFB0032D92E /* 22k_viking_hammer_hitV2.wav */; };
 		D8318D7D15B49DFB0032D92E /* 22k_viking_hitV1.wav in Resources */ = {isa = PBXBuildFile; fileRef = D8318D7615B49DFB0032D92E /* 22k_viking_hitV1.wav */; };
-		D8318D7E15B49DFB0032D92E /* DrillBitV2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D8318D7815B49DFB0032D92E /* DrillBitV2.mp3 */; };
 		D847E06615AC87FF0044FC48 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D847E06515AC87FF0044FC48 /* QuartzCore.framework */; };
 		D847E06815AC87FF0044FC48 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D847E06715AC87FF0044FC48 /* OpenGLES.framework */; };
 		D847E06A15AC87FF0044FC48 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D847E06915AC87FF0044FC48 /* OpenAL.framework */; };
@@ -235,7 +234,6 @@
 		D8318D7415B49DFB0032D92E /* 22k_viking_hammer_hitV1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = 22k_viking_hammer_hitV1.wav; sourceTree = "<group>"; };
 		D8318D7515B49DFB0032D92E /* 22k_viking_hammer_hitV2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = 22k_viking_hammer_hitV2.wav; sourceTree = "<group>"; };
 		D8318D7615B49DFB0032D92E /* 22k_viking_hitV1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = 22k_viking_hitV1.wav; sourceTree = "<group>"; };
-		D8318D7815B49DFB0032D92E /* DrillBitV2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = DrillBitV2.mp3; sourceTree = "<group>"; };
 		D847E06115AC87FF0044FC48 /* CharmQuark.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CharmQuark.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D847E06515AC87FF0044FC48 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		D847E06715AC87FF0044FC48 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -659,7 +657,6 @@
 			isa = PBXGroup;
 			children = (
 				D8D2F9EE15BDDDC300C3FBF1 /* DanPugsleyLHC2.mp3 */,
-				D8318D7815B49DFB0032D92E /* DrillBitV2.mp3 */,
 			);
 			path = Music;
 			sourceTree = "<group>";
@@ -1443,7 +1440,6 @@
 				D8318D7B15B49DFB0032D92E /* 22k_viking_hammer_hitV1.wav in Resources */,
 				D8318D7C15B49DFB0032D92E /* 22k_viking_hammer_hitV2.wav in Resources */,
 				D8318D7D15B49DFB0032D92E /* 22k_viking_hitV1.wav in Resources */,
-				D8318D7E15B49DFB0032D92E /* DrillBitV2.mp3 in Resources */,
 				D8CE5B9F15B713EA00E76ADA /* scene1Atlas-ipad.plist in Resources */,
 				D8CE5BA015B713EA00E76ADA /* scene1Atlas-ipad.png in Resources */,
 				D8CE5BA115B713EA00E76ADA /* scene1Atlas-ipadhd.plist in Resources */,

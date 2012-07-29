@@ -1,17 +1,14 @@
-. Itunes artwork.        
-
 . Logo
 
-. Splash screens & update icon?
+. Splash screens.
+
+. Pause / resume.
 
 . Final fonts.
     Based on Menlo.
     Should be white?
+    Use on Dialogs as well as score.
 
-. Do iPad version of detector with another ring...
-    -Do this in 2 parts inner and outer.  Draw inners at 0,90,180,270; Outers at 45, 135, 225, 315.
-    -Intersection with outers should be drawn as yellow dot with green lines.
-    
 . Credits screen.
     [Show blinking detector in background];
     [Do this on home screen too?]
@@ -41,6 +38,10 @@
         - 
 
 . Game Center Support for high score.    
+    
+. Do iPad version of detector with another ring...
+    -Do this in 2 parts inner and outer.  Draw inners at 0,90,180,270; Outers at 45, 135, 225, 315.
+    -Intersection with outers should be drawn as yellow dot with green lines.
     
 . Help Overlay
     Should explain how to rotate and drop. 

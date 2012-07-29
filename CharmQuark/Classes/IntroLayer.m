@@ -55,7 +55,7 @@
 	[self addChild: background];
 	
 	// In one second transition to the new scene
-	[self scheduleOnce:@selector(makeTransition:) delay:1];
+//	[self scheduleOnce:@selector(makeTransition:) delay:1];
 }
 
 -(void) makeTransition:(ccTime)dt
@@ -63,8 +63,13 @@
     [[GameManager sharedGameManager] runSceneWithID:kMainMenuScene];
 }
 
+-(void)ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    [self scheduleOnce:@selector(makeTransition:) delay:1];
+}
+
 -(id)init {
     self = [super init];
+    self.isTouchEnabled = YES;
     CGSize size = [[CCDirector sharedDirector] winSize];
     CCLOG(@"Size = (%f, %f)", size.width, size.height);
     return self;
