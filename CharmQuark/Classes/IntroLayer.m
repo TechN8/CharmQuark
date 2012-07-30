@@ -40,14 +40,23 @@
 
 	// ask director for the window size
 	CGSize size = [[CCDirector sharedDirector] winSize];
+	CGSize pizelSize = [[CCDirector sharedDirector] winSizeInPixels];
 
 	CCSprite *background;
 	
 	if( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone ) {
-		background = [CCSprite spriteWithFile:@"Default.png"];
-		background.rotation = -90;
+        if (size.width < pizelSize.width) {
+            background = [CCSprite spriteWithFile:@"Default@2x.png"];
+        } else {
+            background = [CCSprite spriteWithFile:@"Default.png"];
+        }
+        background.rotation = -90;
 	} else {
-		background = [CCSprite spriteWithFile:@"Default-Landscape~ipad.png"];
+        if (size.width < pizelSize.width) {
+            background = [CCSprite spriteWithFile:@"Default-Landscape@2x.png"];
+        } else {
+            background = [CCSprite spriteWithFile:@"Default-Landscape.png"];
+        }
 	}
 	background.position = ccp(size.width/2, size.height/2);
 
@@ -55,7 +64,7 @@
 	[self addChild: background];
 	
 	// In one second transition to the new scene
-//	[self scheduleOnce:@selector(makeTransition:) delay:1];
+	[self scheduleOnce:@selector(makeTransition:) delay:2];
 }
 
 -(void) makeTransition:(ccTime)dt
@@ -63,13 +72,13 @@
     [[GameManager sharedGameManager] runSceneWithID:kMainMenuScene];
 }
 
--(void)ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    [self scheduleOnce:@selector(makeTransition:) delay:1];
-}
+//-(void)ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+//    [self scheduleOnce:@selector(makeTransition:) delay:1];
+//}
 
 -(id)init {
     self = [super init];
-    self.isTouchEnabled = YES;
+//    self.isTouchEnabled = YES;
     CGSize size = [[CCDirector sharedDirector] winSize];
     CCLOG(@"Size = (%f, %f)", size.width, size.height);
     return self;
