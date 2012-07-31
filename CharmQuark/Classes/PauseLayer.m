@@ -26,6 +26,16 @@
     [self runAction:seq];
 }
 
+- (void) toggleMusic {
+    GameManager *sharedGameManager = [GameManager sharedGameManager];
+    [sharedGameManager setIsMusicON:![sharedGameManager isMusicON]];
+    if ([[GameManager sharedGameManager] isMusicON]) {
+        [musicToggle setString:@"Turn Music Off"];
+    } else {
+        [musicToggle setString:@"Turn Music On"];
+    }
+}
+
 - (void) toggleSound {
     GameManager *sharedGameManager = [GameManager sharedGameManager];
     [sharedGameManager setIsSoundEffectsON:![sharedGameManager isSoundEffectsON]];
@@ -56,6 +66,17 @@
     CCMenuItemFont *quitItem = [CCMenuItemFont itemWithString:@"Quit" target:self selector:@selector(quitGame)];
     [quitItem setFontName:@"American Typewriter"];
     [quitItem setColor:ccWHITE];
+
+    // Music off
+    NSString *musicString = nil;
+    if ([[GameManager sharedGameManager] isMusicON]) {
+        musicString = @"Turn Music Off";
+    } else {
+        musicString = @"Turn Music On";
+    }
+    musicToggle = [CCMenuItemFont itemWithString:musicString target:self selector:@selector(toggleMusic)];
+    [musicToggle setFontName:@"American Typewriter"];
+    [musicToggle setColor:ccWHITE];
     
     // Sound off
     NSString *soundString = nil;
@@ -66,10 +87,10 @@
     }
     soundToggle = [CCMenuItemFont itemWithString:soundString target:self selector:@selector(toggleSound)];
     [soundToggle setFontName:@"American Typewriter"];
-    [quitItem setColor:ccWHITE];
+    [soundToggle setColor:ccWHITE];
 
     
-    CCMenu *menu = [CCMenu menuWithItems:resumeItem, quitItem, soundToggle, nil];
+    CCMenu *menu = [CCMenu menuWithItems:resumeItem, quitItem, musicToggle, soundToggle, nil];
     [menu alignItemsVerticallyWithPadding:10];
     menu.position = ccp(winSize.width * 0.5, winSize.height * 0.5f);
     [self addChild:menu z:100];

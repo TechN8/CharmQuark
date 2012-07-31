@@ -1,7 +1,12 @@
 . Pause / resume.
+    Try to re-create crash.  Make sure all memory / suspend code is handled correctly.
 
 . Final fonts.
     Use on Dialogs as well as score.
+    Left align.
+    Show blinking cursor? 
+    Pause =     [1]+    Stopped     simulation
+    Over =      [1]+    Done        simulation    
 
 . Credits screen.
     [Show blinking detector in background];
@@ -14,8 +19,12 @@
     . Music on/off (Should behave as off if ipod is playing)
 
 . Final Sound effects.
-    Grab some samples from http://lhcsound.hep.ucl.ac.uk. 
+    Make sure collision sound doesn't play at level start.
+    Use afconvert tool to convert.
+    afconvert -f caff -d LEI16@22050 --mix -c 1  
+    Grab some samples from lhcsound.hep.ucl.ac.uk. 
         These are all CC and generated from LHC data!
+    Can also find sounds at www.freesound.org.
         
 . Main menu scene
     X Accellerator

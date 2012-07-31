@@ -43,6 +43,8 @@
 -(ALuint)playSoundEffect:(NSString*)soundEffectKey gain:(Float32)gain;
 -(void)stopSoundEffect:(ALuint)soundEffectID;
 -(void)playBackgroundTrack:(NSString*)trackFileName;
+-(void)playBackgroundTrackForScene:(SceneTypes)sceneID;
+-(void)stopBackgroundTrack;
 // Chapter 9
 -(CGSize)getDimensionsOfCurrentScene;
 -(NSInteger)getHighScoreForSceneWithID:(SceneTypes)sceneID;

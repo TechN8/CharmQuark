@@ -57,6 +57,11 @@ static GameManager* _sharedGameManager = nil;
 -(void)setIsMusicON:(BOOL)value {
     isMusicON = value;
     [[NSUserDefaults standardUserDefaults] setBool:value forKey:kMusicOnKey];
+    if (NO == value) {
+        [self stopBackgroundTrack];
+    } else {
+        [self playBackgroundTrackForScene:curLevel];
+    }
 }
 
 -(CGSize)getDimensionsOfCurrentScene {
@@ -81,12 +86,33 @@ static GameManager* _sharedGameManager = nil;
     return levelSize;
 }
 
+-(void)playBackgroundTrackForScene:(SceneTypes)sceneID {
+    switch (sceneID) {
+        case kMainMenuScene: 
+        case kOptionsScene:
+        case kCreditsScene:
+        case kIntroScene:
+        case kGameOverScene:
+            [self stopBackgroundTrack];
+            break;
+        case kGameSceneSurvival:
+        case kGameSceneTimeAttack:
+        case kGameSceneMomMode:
+            // Start the music.
+            [[GameManager sharedGameManager] playBackgroundTrack:@"DanPugsleyLHC2.mp3"];
+            break;
+        default:
+            CCLOG(@"Unknown Scene ID, stopping BGM");
+            [self stopBackgroundTrack];
+            break;
 
+    }
+}
 
 -(void)playBackgroundTrack:(NSString*)trackFileName {
     // Wait to make sure soundEngine is initialized
-    if ((managerSoundState != kAudioManagerReady) && 
-        (managerSoundState != kAudioManagerFailed)) {
+    if ((managerSoundState != kAudioManagerReady) 
+        && (managerSoundState != kAudioManagerFailed)) {
         
         int waitCycles = 0;
         while (waitCycles < AUDIO_MAX_WAITTIME) {
@@ -99,12 +125,18 @@ static GameManager* _sharedGameManager = nil;
         }
     }
     
-    if (managerSoundState == kAudioManagerReady) {
+    if (isMusicON && managerSoundState == kAudioManagerReady) {
         if ([soundEngine isBackgroundMusicPlaying]) {
             [soundEngine stopBackgroundMusic];
         }
         [soundEngine preloadBackgroundMusic:trackFileName];
         [soundEngine playBackgroundMusic:trackFileName loop:YES];
+    }
+}
+
+-(void)stopBackgroundTrack {
+    if (managerSoundState == kAudioManagerReady) {
+        [soundEngine stopBackgroundMusic];
     }
 }
 
@@ -326,6 +358,7 @@ static GameManager* _sharedGameManager = nil;
         [audioManager setResignBehavior:kAMRBStopPlay autoHandle:YES];
         soundEngine = [SimpleAudioEngine sharedEngine];
         managerSoundState = kAudioManagerReady;
+        [soundEngine setBackgroundMusicVolume:0.75];
         CCLOG(@"CocosDenshion is Ready");
     }
 }
@@ -433,6 +466,12 @@ static GameManager* _sharedGameManager = nil;
                                                          scene:sceneToRun 
                                                      withColor:ccBLACK]];
     }
+    
+    // Start appropriate music for scene.
+    if (isMusicON) {
+        [self playBackgroundTrackForScene:sceneID];
+    }
+    
     [self performSelectorInBackground:@selector(unloadAudioForSceneWithID:) withObject:[NSNumber numberWithInt:oldScene]];
     
 }

@@ -59,17 +59,18 @@
     if (self) {
         messages = [[[NSMutableArray alloc] init] retain];
         CCLabelBMFont *newMessage = [CCLabelBMFont labelWithString:@"> tail EventLog" fntFile:@"score.fnt"];
-        newMessage.color = ccc3(200, 255, 200);
-        [messages addObject:newMessage];
+//        newMessage.color = ccc3(200, 255, 200);
+//        [messages addObject:newMessage];
         lineHeight = newMessage.contentSize.height;
+        [newMessage cleanup];
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
             maxEntries = kMaxLogEntriesiPad;
         } else {
             maxEntries = kMaxLogEntriesiPhone;
         }
-        newMessage.anchorPoint = ccp(0, 1);
-        newMessage.position = ccp(0,lineHeight);
-        [self addChild:newMessage z:0];
+//        newMessage.anchorPoint = ccp(0, 1);
+//        newMessage.position = ccp(0,lineHeight);
+//        [self addChild:newMessage z:0];
     }
     return self;
 }

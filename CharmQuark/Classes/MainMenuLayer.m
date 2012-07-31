@@ -106,6 +106,7 @@
     //id sequenceAction = [CCSequence actions:moveEffect,playChorus,nil];
     [mainMenu runAction:moveEffect];
     
+    [[GameManager sharedGameManager] stopBackgroundTrack];
 }
 
 -(void)onEnter {

@@ -139,7 +139,17 @@ static void collisionPostSolve(cpArbiter *arb, cpSpace *space, GameplayLayer *se
             ALfloat volume 
             = fmax(fminf((impulse - kMinSoundImpulse)/(kMaxSoundImpulse - kMinSoundImpulse), 1.0f), 0.0f);
             //CCLOG(@"Impulse = %f. Volume = %f", impulse, volume);
-            PLAYSOUNDEFFECT(PARTICLE_COLLIDE, volume);
+            switch(rand() % 3) {
+                case 0:
+                    PLAYSOUNDEFFECT(PARTICLE_COLLIDE_1, volume);
+                    break;
+                case 1:
+                    PLAYSOUNDEFFECT(PARTICLE_COLLIDE_2, volume);
+                    break;
+                default:
+                    PLAYSOUNDEFFECT(PARTICLE_COLLIDE_3, volume);
+                    break;
+            }
         }
     }
 }
@@ -201,6 +211,9 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     
     // Remove all objects from the space.
     cpSpaceEachBody(space, (cpSpaceBodyIteratorFunc)scheduleForRemoval, self);
+    for (Particle *particle in particles) {
+        [particle removeFromParentAndCleanup:YES];
+    }
     [particles removeAllObjects];
     
     // Remove in-flight perticles too.
@@ -217,16 +230,23 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     nextParticle = [self randomParticle];
     
     // Add the initial set of particles.
-    for (NSInteger i = 0; i < 7; i++) {
+    Particle *particle = [self readyNextParticle];
+    [self addParticle:particle atPosition:puzzleCenter];
+    CGFloat angle = 0.0;
+    for (NSInteger i = 0; i < 6; i++) {
         Particle *particle = [self readyNextParticle];
-        [self addParticle:particle atPosition:ccp(puzzleCenter.x+(rand()%32), puzzleCenter.y+(rand()%32))];
+        CGPoint pos = ccp(puzzleCenter.x + (kParticleRadius * 2 * scaleFactor) * cos(angle),
+                          puzzleCenter.y - (kParticleRadius * 2 * scaleFactor) * sin(angle));
+        
+        [self addParticle:particle atPosition:pos];
+        angle += M_PI / 3;
     }
     
     // Fast forward the space
-    for (int i = 0; i < 340; i++) {
-        cpSpaceStep(space, kSimulationRate);
-        cpSpaceEachBody(space, (cpSpaceBodyIteratorFunc)syncSpriteToBody, self);
-    }
+//    for (int i = 0; i < 340; i++) {
+//        cpSpaceStep(space, kSimulationRate);
+//        cpSpaceEachBody(space, (cpSpaceBodyIteratorFunc)syncSpriteToBody, self);
+//    }
     
     // Schedule scoring timer.
     [self schedule:@selector(scoreParticles) interval:kSweepRate];
@@ -281,7 +301,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 }
 
 -(void) launch {
-    PLAYSOUNDEFFECT(PARTICLE_LAUNCH, 1.0);
+//    PLAYSOUNDEFFECT(PARTICLE_LAUNCH, 1.0);
 
     // Calculate launch position and vector.
     cpVect rot = cpvforangle(CC_DEGREES_TO_RADIANS(centerNode.rotation));
@@ -447,6 +467,10 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     }
     
     [self updateLevel]; // Update level.
+
+    if (points) {
+        PLAYSOUNDEFFECT(PARTICLE_EXPLODE, 1.0);
+    }
     
     // Delete scored particles.  If this is done in the iterator, will throw exceptions.
     while (scoredParticles.count > 0) {
@@ -734,7 +758,8 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 		location = [[CCDirector sharedDirector] convertToGL: location];
         if (location.x > winSize.width * 0.9 
             && location.y > winSize.height * 0.9) {
-            [self pause];
+//            [self pause];
+            [self resetGame];
         } else if (location.x < winSize.width * 0.33) {
             // Touches on the left drop pieces on end.
             if (nil == launchTouch) {

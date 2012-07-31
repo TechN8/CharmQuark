@@ -11,6 +11,7 @@
 #import "ModalMenuLayer.h"
 
 @interface PauseLayer : ModalMenuLayer {
+    CCMenuItemFont *musicToggle;
     CCMenuItemFont *soundToggle;
 }
 
