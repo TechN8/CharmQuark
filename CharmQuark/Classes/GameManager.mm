@@ -358,7 +358,7 @@ static GameManager* _sharedGameManager = nil;
         [audioManager setResignBehavior:kAMRBStopPlay autoHandle:YES];
         soundEngine = [SimpleAudioEngine sharedEngine];
         managerSoundState = kAudioManagerReady;
-        [soundEngine setBackgroundMusicVolume:0.75];
+        [soundEngine setBackgroundMusicVolume:0.50];
         CCLOG(@"CocosDenshion is Ready");
     }
 }
