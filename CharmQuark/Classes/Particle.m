@@ -46,8 +46,10 @@
     }
 }
 
-- (void) addMatchingParticlesToSet:(NSMutableSet*)particleSet minMatch:(NSInteger) minMatch {
-    [self addMatchingParticlesToSet:particleSet requireLive:YES];
+- (void) addMatchingParticlesToSet:(NSMutableSet*)particleSet 
+                          minMatch:(NSInteger) minMatch 
+                       requireLive:(BOOL)requireLive {
+    [self addMatchingParticlesToSet:particleSet requireLive:requireLive];
     if (particleSet.count >= minMatch) {
         // Do again and add stragglers.
         [particleSet removeAllObjects];

@@ -91,8 +91,7 @@
     soundToggle = [CCMenuItemFont itemWithLabel:soundLabel target:self selector:@selector(toggleSound)];
     
     CCMenu *menu = [CCMenu menuWithItems:resumeItem, quitItem, musicToggle, soundToggle, nil];
-    //[menu alignItemsVerticallyWithPadding:10];
-    [menu alignItemsVertically];
+    [menu alignItemsVerticallyWithPadding:0.03 * winSize.height];
     menu.position = ccp(winSize.width * 0.5, winSize.height * 0.42f);
     [self addChild:menu z:100];
 }
