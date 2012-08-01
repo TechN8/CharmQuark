@@ -1,6 +1,3 @@
-. Pause / resume.
-    Try to re-create crash.  Make sure all memory / suspend code is handled correctly.
-
 . Final fonts.
     Use on Dialogs as well as score.
     Left align.
@@ -12,12 +9,12 @@
     [Show blinking detector in background];
     [Do this on home screen too?]
 
-. Music
-    . Play a nice mp3 on the menus and game.
-        - GameScene - Track from LHC
-        - Menu - Something else?
-    . Music on/off (Should behave as off if ipod is playing)
+. Break music into sections for looping.
+    . Probably need to write some new methods in GameManager to read music sections from Plist.
 
+. Better explosion sound.
+    . Try different chord(s) with different voice(s).
+    
 . Final Sound effects.
     Make sure collision sound doesn't play at level start.
     Use afconvert tool to convert.

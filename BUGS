@@ -1,2 +1,4 @@
 Martin reports:
     Can have 4 matched but not remove.  Only happens if < 7 pieces in play.
+    
+Can sometimes crash on resume after being backgrounded.  Try to figure out why.
