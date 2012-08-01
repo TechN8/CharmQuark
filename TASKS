@@ -1,3 +1,7 @@
+. Credits screen.
+    [Show blinking detector in background];
+    [Do this on home screen too?]
+
 . Final fonts.
     Use on Dialogs as well as score.
     Left align.
@@ -5,28 +9,20 @@
     Pause =     [1]+    Stopped     simulation
     Over =      [1]+    Done        simulation    
 
-. Credits screen.
-    [Show blinking detector in background];
-    [Do this on home screen too?]
-
 . Break music into sections for looping.
+    . If we can't use Dan's music, will need to hit up garage band...
     . Probably need to write some new methods in GameManager to read music sections from Plist.
 
 . Better explosion sound.
     . Try different chord(s) with different voice(s).
     
 . Final Sound effects.
-    Make sure collision sound doesn't play at level start.
     Use afconvert tool to convert.
-    afconvert -f caff -d LEI16@22050 --mix -c 1  
-    Grab some samples from lhcsound.hep.ucl.ac.uk. 
-        These are all CC and generated from LHC data!
-    Can also find sounds at www.freesound.org.
+        afconvert -f caff -d LEI16@22050 --mix -c 1  
+    Check out some more sounds at www.freesound.org.
+    . Click sound for menus and controls would be nice.
         
 . Main menu scene
-    X Accellerator
-    X Time Attack
-    X Meditation
     X Options (Sound Volumes).
     . High scores
         - Separate scene / layer, or show next to mode selectors...
@@ -57,11 +53,6 @@
 . Localization
     Google translate menus.  Game is pretty self explanitory.
     Will need to generate BMFonts with reduced subset of characters for Japanese / Chinese.
-    
-X Consistent simulation dimensions between iPhone and iPad
-    Use 1024 x 768 sim dimensions.
-    Scale to 480x320 = * 0.46875 for iPhone draws. (May need to adjust.)
-    Scale factor should be iPhone puzzleCenter.x / iPad puzzleCenter.x.
 
 Future Enhancements
 -------------------

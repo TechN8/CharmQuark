@@ -101,9 +101,6 @@
     [CCMoveTo actionWithDuration:1.2f 
                         position:ccp(winSize.width * 0.5, winSize.height * 0.5)];
     id moveEffect = [CCEaseIn actionWithAction:moveAction rate:1.0f];
-    //id playChorus = [CCCallFunc actionWithTarget:
-    //                 self selector:@selector(playChorus)];
-    //id sequenceAction = [CCSequence actions:moveEffect,playChorus,nil];
     [mainMenu runAction:moveEffect];
     
     [[GameManager sharedGameManager] stopBackgroundTrack];

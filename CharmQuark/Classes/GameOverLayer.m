@@ -40,15 +40,16 @@
 -(void)initUI {
     CGSize winSize = [[CCDirector sharedDirector] winSize];
     
-    CCLabelTTF *title = [CCLabelTTF labelWithString:@"Game Over" fontName:@"American Typewriter" fontSize:40.0f];
+    CCLabelBMFont *title = [CCLabelBMFont labelWithString:@"Game Over" fntFile:@"score.fnt"];
+    title.scale = 1.5;
     title.color = ccRED;
     title.position = ccp(winSize.width * 0.5, winSize.height * 0.7);
     [self addChild:title z:100];
     
     // Score / High Score
-    CCLabelTTF *scoreLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"Score %d", score] 
-                                           fontName:@"American Typewriter" 
-                                           fontSize:20.0f];
+    CCLabelBMFont *scoreLabel = [CCLabelBMFont labelWithString:[NSString stringWithFormat:@"Score %d", score]
+                                                       fntFile:@"score.fnt"];
+    scoreLabel.scale = 0.7;
     scoreLabel.position = ccp(winSize.width * 0.5, winSize.height * 0.6);
     scoreLabel.color = ccGREEN;
     [self addChild:scoreLabel z:100];
@@ -59,31 +60,31 @@
     } else {
         highScoreString = [NSString stringWithFormat:@"High Score %d", highScore];
     }
-    CCLabelTTF *highScoreLabel = [CCLabelTTF labelWithString:highScoreString                                 
-                                                    fontName:@"American Typewriter" 
-                                                    fontSize:20.0f];
+    CCLabelBMFont *highScoreLabel = [CCLabelBMFont labelWithString:highScoreString
+                                                       fntFile:@"score.fnt"];
     highScoreLabel.position = ccp(winSize.width * 0.5, winSize.height * 0.55);
+    highScoreLabel.scale = 0.7;
     highScoreLabel.color = ccGREEN;
     [self addChild:highScoreLabel z:100];
     
-    //TODO: Replace with CCMenuItemAtlasFont
     //New Game
-    CCMenuItemFont *newGameItem = [CCMenuItemFont itemWithString:@"New Game" 
+    CCLabelBMFont *newGameLabel = [CCLabelBMFont labelWithString:@"New Game"
+                                                         fntFile:@"score.fnt"];
+    CCMenuItemFont *newGameItem = [CCMenuItemFont itemWithLabel:newGameLabel
                                                           target:self 
                                                         selector:@selector(newGame)];
-    [newGameItem setFontName:@"American Typewriter"];
-    [newGameItem setColor:ccWHITE];
 
     //Quit
-    CCMenuItemFont *quitItem = [CCMenuItemFont itemWithString:@"Quit"
-                                                       target:self 
-                                                     selector:@selector(quitGame)];
-    [quitItem setFontName:@"American Typewriter"];
-    [quitItem setColor:ccWHITE];
+    CCLabelBMFont *quitLabel = [CCLabelBMFont labelWithString:@"Quit"
+                                                      fntFile:@"score.fnt"];
+    CCMenuItemFont *quitItem = [CCMenuItemFont itemWithLabel:quitLabel
+                                                      target:self 
+                                                    selector:@selector(quitGame)];
     
     CCMenu *menu = [CCMenu menuWithItems:newGameItem, quitItem, nil];
-    [menu alignItemsVerticallyWithPadding:10];
-    menu.position = ccp(winSize.width * 0.5, winSize.height * 0.38f);
+    //[menu alignItemsVerticallyWithPadding:10];
+    [menu alignItemsVertically];
+    menu.position = ccp(winSize.width * 0.5, winSize.height * 0.35f);
     [self addChild:menu z:100];
     [menu runAction:[CCFadeIn actionWithDuration:1.0]];
 }

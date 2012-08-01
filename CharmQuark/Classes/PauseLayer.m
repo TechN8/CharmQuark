@@ -50,22 +50,23 @@
 
 -(void)initUI {
     CGSize winSize = [[CCDirector sharedDirector] winSize];
-//    CCLabelTTF *title = [CCLabelTTF labelWithString:@"Game Paused" fontName:@"American Typewriter" fontSize:30.0f];
-//    title.color = ccWHITE;
-//    title.position = ccp(winSize.width * 0.5, winSize.height * 0.82);
-//    [self addChild:title z:100];
+    CCLabelBMFont *title = [CCLabelBMFont labelWithString:@"Paused" fntFile:@"score.fnt"];
+    title.color = ccGREEN;
+    title.position = ccp(winSize.width * 0.5, winSize.height * 0.7);
+    title.scale = 1.5;
+    [self addChild:title z:100];
     
-    //TODO: Replace with CCMenuItemLabel using CCLabelBMFont
-
     //Resume
-    CCMenuItemFont *resumeItem = [CCMenuItemFont itemWithString:@"Resume" target:self selector:@selector(resumeParent)];
-    [resumeItem setFontName:@"American Typewriter"];
-    [resumeItem setColor:ccWHITE];
-
+    CCLabelBMFont *resumeLabel = [CCLabelBMFont labelWithString:@"Resume" fntFile:@"score.fnt"];
+    CCMenuItemFont *resumeItem = [CCMenuItemFont itemWithLabel:resumeLabel 
+                                                        target:self 
+                                                      selector:@selector(resumeParent)];
+    
     //Quit
-    CCMenuItemFont *quitItem = [CCMenuItemFont itemWithString:@"Quit" target:self selector:@selector(quitGame)];
-    [quitItem setFontName:@"American Typewriter"];
-    [quitItem setColor:ccWHITE];
+    CCLabelBMFont *quitLabel = [CCLabelBMFont labelWithString:@"Quit" fntFile:@"score.fnt"];
+    CCMenuItemFont *quitItem = [CCMenuItemFont itemWithLabel:quitLabel
+                                                      target:self 
+                                                    selector:@selector(quitGame)];
 
     // Music off
     NSString *musicString = nil;
@@ -74,9 +75,10 @@
     } else {
         musicString = @"Turn Music On";
     }
-    musicToggle = [CCMenuItemFont itemWithString:musicString target:self selector:@selector(toggleMusic)];
-    [musicToggle setFontName:@"American Typewriter"];
-    [musicToggle setColor:ccWHITE];
+    CCLabelBMFont *musicLabel = [CCLabelBMFont labelWithString:musicString fntFile:@"score.fnt"];
+    musicToggle = [CCMenuItemFont itemWithLabel:musicLabel
+                                         target:self 
+                                       selector:@selector(toggleMusic)];
     
     // Sound off
     NSString *soundString = nil;
@@ -85,14 +87,13 @@
     } else {
         soundString = @"Turn Sound On";
     }
-    soundToggle = [CCMenuItemFont itemWithString:soundString target:self selector:@selector(toggleSound)];
-    [soundToggle setFontName:@"American Typewriter"];
-    [soundToggle setColor:ccWHITE];
-
+    CCLabelBMFont *soundLabel = [CCLabelBMFont labelWithString:soundString fntFile:@"score.fnt"];
+    soundToggle = [CCMenuItemFont itemWithLabel:soundLabel target:self selector:@selector(toggleSound)];
     
     CCMenu *menu = [CCMenu menuWithItems:resumeItem, quitItem, musicToggle, soundToggle, nil];
-    [menu alignItemsVerticallyWithPadding:10];
-    menu.position = ccp(winSize.width * 0.5, winSize.height * 0.5f);
+    //[menu alignItemsVerticallyWithPadding:10];
+    [menu alignItemsVertically];
+    menu.position = ccp(winSize.width * 0.5, winSize.height * 0.42f);
     [self addChild:menu z:100];
 }
 

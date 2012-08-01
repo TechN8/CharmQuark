@@ -242,12 +242,6 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
         angle += M_PI / 3;
     }
     
-    // Fast forward the space
-//    for (int i = 0; i < 340; i++) {
-//        cpSpaceStep(space, kSimulationRate);
-//        cpSpaceEachBody(space, (cpSpaceBodyIteratorFunc)syncSpriteToBody, self);
-//    }
-    
     // Schedule scoring timer.
     [self schedule:@selector(scoreParticles) interval:kSweepRate];
     
@@ -259,11 +253,6 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     Particle *particle = nil;
     ParticleColors color = rand() % colors; //9;
     particle = [Particle particleWithColor:color]; 
-//    if( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ) {
-//        particle.scale = scaleFactor; //TODO: Remove this.
-//    }
-    
-    //particle = [Particle particleWithColor:kParticleGreen]; 
     
     // May want to add the below to the Particle class.
 	// Create physics body.
@@ -722,11 +711,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     
     // Add the detector.
     detector = [Detector node];
-//    if( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ) {
-//        detector.scale = scaleFactor; // TODO: Remove this when you have a better graphic.
-//    }
     detector.position = puzzleCenter;
-//    [self addChild:detector z:kZBackground];
     [uiBatchNode addChild:detector z:kZBackground];
     
     // Add the thumb guides.
