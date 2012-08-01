@@ -64,7 +64,7 @@
 	[self addChild: background];
 	
 	// In one second transition to the new scene
-	[self scheduleOnce:@selector(makeTransition:) delay:2];
+	[self scheduleOnce:@selector(makeTransition:) delay:1];
 }
 
 -(void) makeTransition:(ccTime)dt
