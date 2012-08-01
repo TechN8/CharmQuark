@@ -20,11 +20,6 @@ simToView(x,y)
     x = x * scale + skew
     y = y * scale + skew
 
-Credits
--------
-Cocos2D author(s)
-Chipmunk author(s)
-
 Rules
 -----
 Start with a number of pieces such that fewer than n of any one color are touching.
