@@ -82,8 +82,7 @@
                                                     selector:@selector(quitGame)];
     
     CCMenu *menu = [CCMenu menuWithItems:newGameItem, quitItem, nil];
-    //[menu alignItemsVerticallyWithPadding:10];
-    [menu alignItemsVertically];
+    [menu alignItemsVerticallyWithPadding:0.03 * winSize.height];
     menu.position = ccp(winSize.width * 0.5, winSize.height * 0.35f);
     [self addChild:menu z:100];
     [menu runAction:[CCFadeIn actionWithDuration:1.0]];

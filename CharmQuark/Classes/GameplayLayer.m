@@ -18,6 +18,7 @@ static CGPoint launchPoint;
 static cpFloat launchV;
 static CGFloat scaleFactor;
 static CGPoint skewVector;
+static BOOL emergency = NO;
 
 @interface GameplayLayer()
 
@@ -63,6 +64,14 @@ static void postStepRemoveParticle(cpSpace *space, cpBody *body, GameplayLayer *
     }
 }
 
+static void postStepCheckGameOver(cpSpace *space, cpBody *body, GameplayLayer *self) {
+    emergency = YES;
+    if (![self scoreParticles]) {
+        Particle *particle = body->data;
+        [self end:particle];
+    }
+}
+
 static void scheduleForRemoval(cpBody *body, GameplayLayer *self) {
     cpSpaceAddPostStepCallback(self.space, (cpPostStepFunc)postStepRemoveParticle, body, self);
 }
@@ -75,9 +84,11 @@ static void syncSpriteToBody(cpBody *body, GameplayLayer* self) {
         //        [particle setPosition: worldToView(body->p)];
         
         if ([particle isLive] 
-            && (cpvlength(cpBodyGetPos(body)) >= kFailRadius - kParticleRadius)
-            && ![self scoreParticles]) {
-            [self end:particle];
+            && cpvlength(cpBodyGetPos(body)) >= kFailRadius - kParticleRadius) {
+            cpSpaceAddPostStepCallback(self.space, 
+                                       (cpPostStepFunc)postStepCheckGameOver,
+                                       body,
+                                       self);
         }
 	}
 }
@@ -396,7 +407,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     [label runAction:seq];
 }
 
--(BOOL) scoreParticles {
+-(BOOL) scoreParticles{
     NSInteger multiplier = 0;
     NSInteger points = 0;
     
@@ -410,7 +421,9 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
             
             // Add self and all matching to scoredParticles && visitedParticles.
             [countedParticles removeAllObjects];
-            [particle addMatchingParticlesToSet:countedParticles minMatch:kMinMatchSize];
+            [particle addMatchingParticlesToSet:countedParticles 
+                                       minMatch:kMinMatchSize
+                                    requireLive:!emergency];
             [visitedParticles unionSet:countedParticles];
             
             // If scoredParticles > kMinMatchSize then move them to final array?
@@ -478,6 +491,8 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 
         postStepRemoveParticle(space, particle.body, self);  // Don't need to schedule, called from update.
     }
+    
+    emergency = NO;
     
     if (points) {
         return YES;
