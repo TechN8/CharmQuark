@@ -758,8 +758,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 		location = [[CCDirector sharedDirector] convertToGL: location];
         if (location.x > winSize.width * 0.9 
             && location.y > winSize.height * 0.9) {
-//            [self pause];
-            [self resetGame];
+            [self pause];
         } else if (location.x < winSize.width * 0.33) {
             // Touches on the left drop pieces on end.
             if (nil == launchTouch) {
