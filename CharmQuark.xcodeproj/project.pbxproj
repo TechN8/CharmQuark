@@ -109,6 +109,8 @@
 		D848C39815C8719900B6088A /* AM.caf in Resources */ = {isa = PBXBuildFile; fileRef = D848C39415C8719900B6088A /* AM.caf */; };
 		D848C39915C8719900B6088A /* C3.caf in Resources */ = {isa = PBXBuildFile; fileRef = D848C39515C8719900B6088A /* C3.caf */; };
 		D848C39A15C8719900B6088A /* E3.caf in Resources */ = {isa = PBXBuildFile; fileRef = D848C39615C8719900B6088A /* E3.caf */; };
+		D848C39D15C9A49000B6088A /* cocos2d-landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = D848C39C15C9A49000B6088A /* cocos2d-landscape.png */; };
+		D848C39F15C9AB5700B6088A /* aethertheory-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = D848C39E15C9AB5700B6088A /* aethertheory-logo.png */; };
 		D871773615B350230014E75E /* score.fnt in Resources */ = {isa = PBXBuildFile; fileRef = D871773215B350230014E75E /* score.fnt */; };
 		D871773715B350230014E75E /* score.png in Resources */ = {isa = PBXBuildFile; fileRef = D871773315B350230014E75E /* score.png */; };
 		D871773A15B350650014E75E /* score-hd.fnt in Resources */ = {isa = PBXBuildFile; fileRef = D871773815B350650014E75E /* score-hd.fnt */; };
@@ -384,7 +386,6 @@
 		D847E52415ACA1070044FC48 /* IntroLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IntroLayer.h; sourceTree = "<group>"; };
 		D847E52515ACA1070044FC48 /* IntroLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IntroLayer.m; sourceTree = "<group>"; };
 		D847E54015ACEC750044FC48 /* NOTES */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = NOTES; sourceTree = "<group>"; };
-		D847E54115ACEC750044FC48 /* Scratchpad.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Scratchpad.svg; sourceTree = "<group>"; };
 		D848C37715C6EA9E00B6088A /* Default-Landscape.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Landscape.png"; path = "Resources/Default-Landscape.png"; sourceTree = "<group>"; };
 		D848C37815C6EA9E00B6088A /* Default-Landscape@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Landscape@2x.png"; path = "Resources/Default-Landscape@2x.png"; sourceTree = "<group>"; };
 		D848C37915C6EA9E00B6088A /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "Resources/Default@2x.png"; sourceTree = "<group>"; };
@@ -393,6 +394,9 @@
 		D848C39415C8719900B6088A /* AM.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AM.caf; sourceTree = "<group>"; };
 		D848C39515C8719900B6088A /* C3.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = C3.caf; sourceTree = "<group>"; };
 		D848C39615C8719900B6088A /* E3.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = E3.caf; sourceTree = "<group>"; };
+		D848C39B15C99BD700B6088A /* credits.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = credits.txt; sourceTree = "<group>"; };
+		D848C39C15C9A49000B6088A /* cocos2d-landscape.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cocos2d-landscape.png"; sourceTree = "<group>"; };
+		D848C39E15C9AB5700B6088A /* aethertheory-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "aethertheory-logo.png"; sourceTree = "<group>"; };
 		D871773015B350230014E75E /* score.GlyphProject */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = score.GlyphProject; sourceTree = "<group>"; };
 		D871773115B350230014E75E /* score-hd.GlyphProject */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = "score-hd.GlyphProject"; sourceTree = "<group>"; };
 		D871773215B350230014E75E /* score.fnt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = score.fnt; sourceTree = "<group>"; };
@@ -670,6 +674,7 @@
 				D847E54015ACEC750044FC48 /* NOTES */,
 				D80B624715B1BC51006F2472 /* TASKS */,
 				D848C37D15C6FC8700B6088A /* BUGS */,
+				D848C39B15C99BD700B6088A /* credits.txt */,
 				D847E07715AC87FF0044FC48 /* CharmQuark */,
 				D847E06415AC87FF0044FC48 /* Frameworks */,
 				D847E06215AC87FF0044FC48 /* Products */,
@@ -975,7 +980,6 @@
 		D847E28F15AC93770044FC48 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				D847E54115ACEC750044FC48 /* Scratchpad.svg */,
 				D847E2A615AC93770044FC48 /* packTextures.sh */,
 				D847E2BF15AC93770044FC48 /* scene1Atlas.plist */,
 				D847E2C015AC93770044FC48 /* scene1Atlas.png */,
@@ -989,6 +993,8 @@
 				D8151DDB15B9B46E007D8AE2 /* window-hd.png */,
 				D8151DDC15B9B46E007D8AE2 /* window-ipad.png */,
 				D8151DDD15B9B46E007D8AE2 /* window-ipadhd.png */,
+				D848C39E15C9AB5700B6088A /* aethertheory-logo.png */,
+				D848C39C15C9A49000B6088A /* cocos2d-landscape.png */,
 				D871772315B344D90014E75E /* Fonts */,
 			);
 			path = Images;
@@ -1461,6 +1467,8 @@
 				D848C39815C8719900B6088A /* AM.caf in Resources */,
 				D848C39915C8719900B6088A /* C3.caf in Resources */,
 				D848C39A15C8719900B6088A /* E3.caf in Resources */,
+				D848C39D15C9A49000B6088A /* cocos2d-landscape.png in Resources */,
+				D848C39F15C9AB5700B6088A /* aethertheory-logo.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
