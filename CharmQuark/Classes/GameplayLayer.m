@@ -629,7 +629,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     // Throw up modal layer.
     GameOverLayer *gameOverLayer = [[[GameOverLayer alloc] initWithColor:ccc4(0,0,0,0)] autorelease];;
     CGPoint oldPos = gameOverLayer.position;
-    gameOverLayer.position = ccp(0, -1 * winSize.height);
+    gameOverLayer.position = ccp(0, 2 * winSize.height);
     [gameOverLayer setScore:score];
     [self addChild:gameOverLayer z:kZPopups];
     [gameOverLayer runAction:[CCMoveTo actionWithDuration:0.5f position:oldPos]];
