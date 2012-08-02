@@ -41,7 +41,7 @@ typedef enum {
 }
 
 @property (retain) CCMotionStreak *streak;
-@property ParticleColors particleColor;
+@property (nonatomic) ParticleColors particleColor;
 @property cpBody *body;
 @property (retain) NSMutableSet *matchingParticles;
 @property ccTime timeSinceLastCollision;

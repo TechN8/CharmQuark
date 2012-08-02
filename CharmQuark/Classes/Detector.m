@@ -37,8 +37,7 @@
 }
 
 -(void)onEnter {
-//    batchNode = (CCSpriteBatchNode*)[self.parent getChildByTag:kTagUIBatchNode];
-    batchNode = (CCSpriteBatchNode*)self.parent;
+//    batchNode = (CCSpriteBatchNode*)self.parent;
     center = self.position;
 }
 
@@ -58,7 +57,7 @@
     blink.position = ccp(center.x + blinkRadius * cosf(angle),
                          center.y - blinkRadius * sinf(angle));
     blink.rotation = CC_RADIANS_TO_DEGREES(angle);
-    [batchNode addChild:blink z:100];
+    [self.parent addChild:blink z:self.zOrder + 1];
     id flash = [CCBlink actionWithDuration:1.0 blinks:2];
     id loop = [CCRepeatForever actionWithAction:flash];
     [blink runAction:loop];
@@ -73,7 +72,7 @@
     blink.position = ccp(center.x + blinkRadius * cosf(angle),
                          center.y - blinkRadius * sinf(angle));
     blink.rotation = CC_RADIANS_TO_DEGREES(angle);
-    [batchNode addChild:blink z:100];
+    [self.parent addChild:blink z:self.zOrder + 1];
     id scaleOut = [CCScaleTo actionWithDuration:0.7 + (float)rand()/((float)RAND_MAX) 
                                          scaleX:0.1 scaleY:0.1];
     id remove = [RemoveFromParentAction action];
@@ -93,7 +92,7 @@
                                          scaleX:0.0 scaleY:0.7];
     id remove = [RemoveFromParentAction action];
     id seq = [CCSequence actions:scaleOut, remove, nil];
-    [batchNode addChild:graph];
+    [self.parent addChild:graph z:self.zOrder + 1];
     [graph runAction:seq];
 }
 

@@ -74,57 +74,38 @@
     return [[[self alloc] initWithParticleColor:color] autorelease];
 }
 
+- (void) setParticleColor:(ParticleColors)newColor {
+    particleColor = newColor;
+    switch (particleColor) {
+        case kParticleRed:
+            self.color = kCC3ParticleRed;
+            break;
+        case kParticleGreen:
+            self.color = kCC3ParticleGreen;
+            break;
+        case kParticleBlue:
+            self.color = kCC3ParticleBlue;
+            break;
+        case kParticleAntiRed:
+            self.color = kCC3ParticleAntiRed;
+            break;
+        case kParticleAntiGreen:
+            self.color = kCC3ParticleAntiGreen;
+            break;
+        case kParticleAntiBlue:
+            self.color = kCC3ParticleAntiBlue;
+            break;
+        case kParticleWhite:
+        default:
+            break;
+    }
+}
+
 - (id) initWithParticleColor:(ParticleColors)color 
 {
-    //    switch (color) {
-    //        case kParticleRed:
-    //            self = [super initWithSpriteFrameName:@"red.png"];
-    //            break;
-    //        case kParticleGreen:
-    //            self = [super initWithSpriteFrameName:@"green.png"];
-    //            break;
-    //        case kParticleBlue:
-    //            self = [super initWithSpriteFrameName:@"blue.png"];
-    //            break;
-    //        case kParticleAntiRed:
-    //            self = [super initWithSpriteFrameName:@"antired.png"];
-    //            break;
-    //        case kParticleAntiGreen:
-    //            self = [super initWithSpriteFrameName:@"antigreen.png"];
-    //            break;
-    //        case kParticleAntiBlue:
-    //            self = [super initWithSpriteFrameName:@"antiblue.png"];
-    //            break;
-    //        case kParticleWhite:
-    //        default:
     self = [super initWithSpriteFrameName:@"white.png"];
-    //            break;
-    //    }
     if (self) {
         self.particleColor = color;
-        switch (color) {
-            case kParticleRed:
-                self.color = kCC3ParticleRed;
-                break;
-            case kParticleGreen:
-                self.color = kCC3ParticleGreen;
-                break;
-            case kParticleBlue:
-                self.color = kCC3ParticleBlue;
-                break;
-            case kParticleAntiRed:
-                self.color = kCC3ParticleAntiRed;
-                break;
-            case kParticleAntiGreen:
-                self.color = kCC3ParticleAntiGreen;
-                break;
-            case kParticleAntiBlue:
-                self.color = kCC3ParticleAntiBlue;
-                break;
-            case kParticleWhite:
-            default:
-                break;
-        }
         self.streak = nil;
         self.matchingParticles = [NSMutableSet setWithCapacity:6];
         self.body = NULL;

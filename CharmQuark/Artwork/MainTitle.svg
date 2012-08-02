@@ -15,7 +15,7 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.48.2 r9819"
-   sodipodi:docname="New document 1">
+   sodipodi:docname="MainTitle.svg">
   <defs
      id="defs4">
     <linearGradient
@@ -52,6 +52,64 @@
        r="301.086"
        gradientTransform="matrix(1.0152236,-1.1642827e-8,0,0.32436264,-7.7944951,418.04859)"
        gradientUnits="userSpaceOnUse" />
+    <filter
+       inkscape:collect="always"
+       id="filter3778"
+       x="-0.067503075"
+       width="1.1350062"
+       y="-0.53980328"
+       height="2.0796066">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="24.117188"
+         id="feGaussianBlur3780" />
+    </filter>
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3781"
+       id="radialGradient3788"
+       cx="526.21368"
+       cy="844.67596"
+       fx="526.21368"
+       fy="844.67596"
+       r="430.73047"
+       gradientTransform="matrix(1.0000018,0,0,0.12911388,-9.4098439e-4,377.81325)"
+       gradientUnits="userSpaceOnUse" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3781"
+       id="radialGradient3796"
+       cx="526.21368"
+       cy="844.67596"
+       fx="526.21368"
+       fy="844.67596"
+       r="430.73047"
+       gradientTransform="matrix(1.0000018,3.9855218e-7,-5.1458526e-8,0.12911388,-8.9751857e-4,377.81304)"
+       gradientUnits="userSpaceOnUse" />
+    <filter
+       inkscape:collect="always"
+       id="filter3806"
+       x="-0.13500615"
+       width="1.2700123"
+       y="-1.0796066"
+       height="3.1592131">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="48.234375"
+         id="feGaussianBlur3808" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       id="filter3814"
+       x="-0.067503075"
+       width="1.1350062"
+       y="-0.53980328"
+       height="2.0796066">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="24.117188"
+         id="feGaussianBlur3816" />
+    </filter>
   </defs>
   <sodipodi:namedview
      id="base"
@@ -61,8 +119,8 @@
      inkscape:pageopacity="1"
      inkscape:pageshadow="2"
      inkscape:zoom="1.1041667"
-     inkscape:cx="499.77358"
-     inkscape:cy="384"
+     inkscape:cx="477.6673"
+     inkscape:cy="456.45283"
      inkscape:document-units="px"
      inkscape:current-layer="layer3"
      showgrid="false"
@@ -79,7 +137,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -87,20 +145,36 @@
      inkscape:groupmode="layer"
      id="layer3"
      inkscape:label="Glow"
-     style="display:inline">
-    <text
-       transform="translate(0,-284.36218)"
-       sodipodi:linespacing="125%"
+     style="display:inline"
+     sodipodi:insensitive="true">
+    <g
        id="title-glow"
-       y="713.14618"
-       x="206.59399"
-       style="font-size:144px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;filter:url(#filter3777);font-family:PortagoITC TT;-inkscape-font-specification:PortagoITC TT Bold"
-       xml:space="preserve"
-       inkscape:label="#text2991"><tspan
-         y="713.14618"
-         x="206.59399"
-         id="tspan2993"
-         sodipodi:role="line">Charm Quark</tspan></text>
+       inkscape:label="#g3828">
+      <text
+         inkscape:label="#text2985"
+         sodipodi:linespacing="125%"
+         id="text2985"
+         y="194.21796"
+         x="79.472656"
+         style="font-size:144px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;display:inline;filter:url(#filter3806);font-family:Bauhaus 93;-inkscape-font-specification:Bauhaus 93 Bold"
+         xml:space="preserve"><tspan
+           y="194.21796"
+           x="79.472656"
+           id="tspan3772"
+           sodipodi:role="line">Charm Quark</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:144px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;display:inline;filter:url(#filter3814);font-family:Bauhaus 93;-inkscape-font-specification:Bauhaus 93 Bold"
+         x="79.472656"
+         y="194.21796"
+         id="text3810"
+         sodipodi:linespacing="125%"
+         inkscape:label="#text2985"><tspan
+           sodipodi:role="line"
+           id="tspan3812"
+           x="79.472656"
+           y="194.21796">Charm Quark</tspan></text>
+    </g>
   </g>
   <g
      inkscape:label="Text"
@@ -111,16 +185,16 @@
      sodipodi:insensitive="true">
     <text
        xml:space="preserve"
-       style="font-size:144px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#bcbcbc;fill-opacity:1;stroke:none;font-family:PortagoITC TT;-inkscape-font-specification:PortagoITC TT Bold"
-       x="206.59399"
-       y="713.14618"
+       style="font-size:144px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:#a3a3a3;stroke-width:4;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;font-family:Bauhaus 93;-inkscape-font-specification:Bauhaus 93 Bold"
+       x="79.472656"
+       y="478.58014"
        id="title-text"
        sodipodi:linespacing="125%"
        inkscape:label="#text2985"><tspan
          sodipodi:role="line"
          id="tspan2987"
-         x="206.59399"
-         y="713.14618">Charm Quark</tspan></text>
+         x="79.472656"
+         y="478.58014">Charm Quark</tspan></text>
   </g>
   <g
      inkscape:groupmode="layer"
@@ -130,17 +204,17 @@
      sodipodi:insensitive="true">
     <text
        transform="translate(0,-284.36218)"
-       xml:space="preserve"
-       style="font-size:144px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:url(#radialGradient3791);fill-opacity:1;stroke:none;font-family:PortagoITC TT;-inkscape-font-specification:PortagoITC TT Bold"
-       x="206.59399"
-       y="713.14618"
-       id="title-flash"
+       inkscape:label="#text2985"
        sodipodi:linespacing="125%"
-       inkscape:label="#text2997"><tspan
+       id="title-flash"
+       y="478.58014"
+       x="79.472656"
+       style="font-size:144px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:url(#radialGradient3796);fill-opacity:1;stroke:url(#radialGradient3788);stroke-width:4;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;display:inline;font-family:Bauhaus 93;-inkscape-font-specification:Bauhaus 93 Bold"
+       xml:space="preserve"><tspan
+         y="478.58014"
+         x="79.472656"
+         id="tspan3766"
          sodipodi:role="line"
-         id="tspan2999"
-         x="206.59399"
-         y="713.14618"
-         style="fill:url(#radialGradient3791);fill-opacity:1">Charm Quark</tspan></text>
+         style="fill:url(#radialGradient3796);fill-opacity:1;stroke:url(#radialGradient3788)">Charm Quark</tspan></text>
   </g>
 </svg>

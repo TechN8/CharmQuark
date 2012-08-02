@@ -16,7 +16,7 @@
     CGFloat trackRadius;
     NSMutableArray *tracks;
     CCSprite *trackSprite;
-    CCSpriteBatchNode *batchNode;
+//    CCSpriteBatchNode *batchNode;
     CCRenderTexture *trackTexture;
 };
 
