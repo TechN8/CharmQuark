@@ -1,6 +1,6 @@
 #!/bin/bash -x
 
-INPUT_FILE=SpriteWorksheet.svg
+INPUT_FILE=../Artwork/SpriteWorksheet.svg
 
 #INKSCAPE=/Applications/Inkscape.app/Contents/Resources/script
 INKSCAPE=/Applications/Inkscape.app/Contents/Resources/bin/inkscape

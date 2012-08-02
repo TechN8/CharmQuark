@@ -11,6 +11,7 @@
 
 @interface MainMenuLayer : CCLayer {
     CCMenu *mainMenu;
+    CCSprite *titleFlash;
 }
 
 @end

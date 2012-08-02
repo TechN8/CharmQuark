@@ -45,6 +45,12 @@
     CCLOG(@"Show credits screen.");
 }
 
+-(void)flashTitle {
+    titleFlash.opacity = 255;
+    id fadeOut = [CCFadeOut actionWithDuration:0.7];
+    [titleFlash runAction:fadeOut];
+}
+
 -(void)displayMainMenu {
     CGSize winSize = [CCDirector sharedDirector].winSize; 
     //self.isTouchEnabled = YES;
@@ -54,6 +60,23 @@
     [backGround setContentSize:winSize];
     [backGround setPosition:ccp(winSize.width / 2, winSize.height / 2)];
     [self addChild:backGround];
+
+    CGPoint titlePos = ccp(winSize.width * 0.5, winSize.height * 0.80);
+    CCSprite *titleGlow = [CCSprite spriteWithFile:@"title-glow.png"];
+    titleGlow.color = ccc3(0, 128, 128);
+    titleGlow.position = titlePos;
+    [self addChild:titleGlow z:0];
+    
+    CCSprite *titleText = [CCSprite spriteWithFile:@"title-text.png"];
+    titleText.position = titlePos;
+    [self addChild:titleText z:10];
+    
+    titleFlash = [CCSprite spriteWithFile:@"title-flash.png"];
+    titleFlash.position = titlePos;
+    titleFlash.color = ccc3(0, 255, 255);
+    [self addChild:titleFlash z:20];
+    
+    [self schedule:@selector(flashTitle) interval:2.0];
     
 //    CCLabelTTF *title = [CCLabelTTF labelWithString:@"Charm Quark" fontName:@"Courier" fontSize:40.0f];
 //    title.color = ccWHITE;
