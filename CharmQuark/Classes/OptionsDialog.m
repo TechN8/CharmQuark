@@ -23,6 +23,7 @@
 }
 
 - (void) toggleMusic {
+    // TODO: Use CCMenuItemToggle for this.
     GameManager *sharedGameManager = [GameManager sharedGameManager];
     [sharedGameManager setIsMusicON:![sharedGameManager isMusicON]];
     if ([[GameManager sharedGameManager] isMusicON]) {

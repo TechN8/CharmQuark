@@ -11,6 +11,8 @@
 
 #define kMainMenuTagValue 10
 
+#define kScoreColor     ccc3(255, 240, 128)
+
 // Device support
 #define kSimDimensions  ccp(1024,768)
 #define kPuzzleCenter   ccp(720, 384)
@@ -21,6 +23,8 @@
 //#define kiPadSkew       ccp(0,0);
 #define kiPadScale      0.875
 #define kiPadSkew       ccp(0, 48)
+
+
 
 typedef enum {
     kNoSceneUninitialized=0,

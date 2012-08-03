@@ -12,6 +12,7 @@
 #import "GameOverLayer.h"
 #import "Scale9Sprite.h"
 #import "OptionsDialog.h"
+#import "HighScoreDialog.h"
 
 @interface MainMenuLayer()
 -(void)displayMainMenu;
@@ -55,6 +56,17 @@
 
 -(void)showScores {
     CCLOG(@"Show high scores.");
+    CGSize winSize = [[CCDirector sharedDirector] winSize];
+    
+    // Throw up modal layer.
+    HighScoreDialog *scores = [HighScoreDialog node];
+    CGPoint oldPos = scores.position;
+    scores.position = ccp(0, 2 * winSize.height);
+    [self addChild:scores z:kZPopups];
+    [scores runAction:[CCMoveTo actionWithDuration:0.5f position:oldPos]];
+    
+    // Disable the menu.
+    menu.enabled = NO;
 }
 
 -(void)showCredits {
@@ -127,7 +139,7 @@
     [self addChild:titleBatch z:kZTitle];
     
     // Flashing & glowing title.
-    CGPoint titlePos = ccp(winSize.width * 0.5, winSize.height * 0.85);
+    CGPoint titlePos = ccp(winSize.width * 0.5, winSize.height * 0.80);
     CCSprite *titleGlow = [CCSprite spriteWithSpriteFrameName:@"title-glow.png"];
     titleGlow.color = ccc3(0, 128, 128);
     titleGlow.position = titlePos;
@@ -171,12 +183,15 @@
     
     //Menu
     menu = [CCMenu node];
+    menu.position = ccp(winSize.width * 0.5,
+                        winSize.height * 0.4);
     
-    CCLabelBMFont *label = [CCLabelBMFont labelWithString:@"Accellerator" 
+    CCLabelBMFont *label = [CCLabelBMFont labelWithString:@"Accelerator" 
                                                   fntFile:@"score.fnt"];
     CCMenuItemFont *item = [CCMenuItemFont itemWithLabel:label
                                                   target:self 
                                                 selector:@selector(playSurvival)];
+    item.position = ccp(-0.25 * winSize.width, 0);
     [menu addChild:item];
 
     label = [CCLabelBMFont labelWithString:@"Time Attack" 
@@ -184,6 +199,7 @@
     item = [CCMenuItemFont itemWithLabel:label
                                   target:self 
                                 selector:@selector(playTimeAttack)];
+    item.position = ccp(-0.25 * winSize.width, -0.1 * winSize.height);
     [menu addChild:item];
     
     label = [CCLabelBMFont labelWithString:@"Meditation" 
@@ -191,6 +207,7 @@
     item = [CCMenuItemFont itemWithLabel:label
                                   target:self 
                                 selector:@selector(playMomMode)];
+    item.position = ccp(-0.25 * winSize.width, -0.2 * winSize.height);
     [menu addChild:item];
     
     label = [CCLabelBMFont labelWithString:@"Options" 
@@ -198,6 +215,7 @@
     item = [CCMenuItemFont itemWithLabel:label
                                   target:self 
                                 selector:@selector(showOptions)];
+    item.position = ccp(0.25 * winSize.width, 0);
     [menu addChild:item];
     
     label = [CCLabelBMFont labelWithString:@"High Scores" 
@@ -205,6 +223,7 @@
     item = [CCMenuItemFont itemWithLabel:label
                                   target:self 
                                 selector:@selector(showScores)];
+    item.position = ccp(0.25 * winSize.width, -0.1 * winSize.height);
     [menu addChild:item];
     
     label = [CCLabelBMFont labelWithString:@"Credits" 
@@ -212,21 +231,17 @@
     item = [CCMenuItemFont itemWithLabel:label
                                   target:self 
                                 selector:@selector(showCredits)];
+    item.position = ccp(0.25 * winSize.width, -0.2 * winSize.height);
     [menu addChild:item];
 
-    menu.position = ccp(winSize.width * 0.5,
-                        winSize.height * 0.3);
     
-    [menu alignItemsInRows:[NSNumber numberWithUnsignedInt:3],
-     [NSNumber numberWithUnsignedInt:3],
-     nil];
+//    [menu alignItemsInRows:[NSNumber numberWithUnsignedInt:3],
+//     [NSNumber numberWithUnsignedInt:3],
+//     nil];
 //    [menu alignItemsVerticallyWithPadding:0.03 * winSize.height];
 //    [menu alignItemsHorizontallyWithPadding:50];
 
-    for (CCMenuItem *item in [menu children]) {
-        item.position = ccp(item.position.x * 1.2,
-                            item.position.y * 1.2);
-    }
+    // TODO Override menu positioning...
     
     [self addChild:menu z:kZMenu];
 

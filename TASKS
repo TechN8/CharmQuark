@@ -1,9 +1,13 @@
-. Credits screen.
-    [Show blinking detector in background];
-    [Do this on home screen too?]
+. Credits dialog
+    . Roll credits like log class.
 
+. Custom MenuItem : CCMenuItemFont
+    - Don't grow and shrink when selected, just change colors.
+    - Click
+
+. Game Center Support for high score.    
+    
 . Final fonts.
-    Use on Dialogs as well as score.
     Left align.
     Show blinking cursor? 
     Pause =     [1]+    Stopped     simulation
@@ -23,18 +27,9 @@
     . Click sound for menus and controls would be nice.
         
 . Main menu scene
-    X Options (Sound Volumes).
-    . High scores
-        - Separate scene / layer, or show next to mode selectors...
     . Website link (direct to FaceBook?)
     . Social media links.
-    . Background graphics 
-        - Make this screen look like a computer desktop.
-        - 3 icons for game modes.
-        - 
 
-. Game Center Support for high score.    
-    
 . Do iPad version of detector with another ring...
     -Do this in 2 parts inner and outer.  Draw inners at 0,90,180,270; Outers at 45, 135, 225, 315.
     -Intersection with outers should be drawn as yellow dot with green lines.

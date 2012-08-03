@@ -51,7 +51,7 @@
                                                        fntFile:@"score.fnt"];
     scoreLabel.scale = 0.7;
     scoreLabel.position = ccp(winSize.width * 0.5, winSize.height * 0.6);
-    scoreLabel.color = ccGREEN;
+    scoreLabel.color = kScoreColor;
     [self addChild:scoreLabel z:100];
     
     NSString *highScoreString = nil;

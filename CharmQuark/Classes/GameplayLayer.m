@@ -690,7 +690,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     scoreLabel = [CCLabelBMFont labelWithString:@"0" fntFile:@"score.fnt"];
     [scoreLabel setAnchorPoint:ccp(0.0f, 0.5f)];
     [scoreLabel setPosition:scorePosition];
-    [scoreLabel setColor:ccc3(255, 240, 128)];
+    [scoreLabel setColor:kScoreColor];
     [self addChild:scoreLabel z:kZUIElements];
     
     // Add level label / clock
