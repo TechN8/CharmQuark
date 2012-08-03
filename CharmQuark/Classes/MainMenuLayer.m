@@ -11,6 +11,7 @@
 #import "GameManager.h"
 #import "GameOverLayer.h"
 #import "Scale9Sprite.h"
+#import "OptionsDialog.h"
 
 @interface MainMenuLayer()
 -(void)displayMainMenu;
@@ -18,8 +19,23 @@
 
 @implementation MainMenuLayer
 
+-(void)dismissDialog {
+    menu.enabled = YES;
+}
+
 -(void)showOptions {
     CCLOG(@"Show the Options screen");
+    CGSize winSize = [[CCDirector sharedDirector] winSize];
+    
+    // Throw up modal layer.
+    OptionsDialog *options = [OptionsDialog node];
+    CGPoint oldPos = options.position;
+    options.position = ccp(0, 2 * winSize.height);
+    [self addChild:options z:kZPopups];
+    [options runAction:[CCMoveTo actionWithDuration:0.5f position:oldPos]];
+
+    // Disable the menu.
+    menu.enabled = NO;
 }
 
 -(void)playSurvival {
@@ -58,13 +74,13 @@
         newParticle.position = leftParticleStart;
         leftParticle = newParticle;
         leftParticle.scale = kLeftStartScale;
-        [self addChild:leftParticle z:kZLeftParticle];
+        [batchNode addChild:leftParticle z:kZLeftParticle];
     } else {
         newParticle.position = rightParticleStart;
         rightParticle = newParticle;
         rightParticle.scale = kRightStartScale;
         [self flashTitle];
-        [self addChild:rightParticle z:kZRightParticle];
+        [batchNode addChild:rightParticle z:kZRightParticle];
 //        PLAYSOUNDEFFECT(PARTICLE_EXPLODE, 1.0);
     }
     
@@ -103,88 +119,116 @@
 //    [backGround setPosition:ccp(winSize.width / 2, winSize.height / 2)];
 //    [self addChild:backGround];
 
+    // Batch node for the performances...
+    batchNode = [CCSpriteBatchNode batchNodeWithFile:@"scene1Atlas.png" capacity:50];
+    [self addChild:batchNode z:kZDetector];
+
+    CCSpriteBatchNode *titleBatch = [CCSpriteBatchNode batchNodeWithFile:@"titleAtlas.png" capacity:3];
+    [self addChild:titleBatch z:kZTitle];
+    
     // Flashing & glowing title.
     CGPoint titlePos = ccp(winSize.width * 0.5, winSize.height * 0.85);
-    CCSprite *titleGlow = [CCSprite spriteWithFile:@"title-glow.png"];
+    CCSprite *titleGlow = [CCSprite spriteWithSpriteFrameName:@"title-glow.png"];
     titleGlow.color = ccc3(0, 128, 128);
     titleGlow.position = titlePos;
-    [self addChild:titleGlow z:kZGlow];
+    [titleBatch addChild:titleGlow z:kZGlow];
     id fadeDown = [CCFadeTo actionWithDuration:1.5 opacity:200];
     id fadeUp = [CCFadeTo actionWithDuration:1.5 opacity:255];
     id seq = [CCSequence actions:fadeDown, fadeUp, nil];
     id loop = [CCRepeatForever actionWithAction:seq];
     [titleGlow runAction:loop];
     
-    CCSprite *titleText = [CCSprite spriteWithFile:@"title-text.png"];
+    CCSprite *titleText = [CCSprite spriteWithSpriteFrameName:@"title-text.png"];
     titleText.position = titlePos;
-    titleText.opacity = 200;
-    [self addChild:titleText z:kZTitle];
+    [titleBatch addChild:titleText z:kZTitle];
     
-    titleFlash = [CCSprite spriteWithFile:@"title-flash.png"];
+    titleFlash = [CCSprite spriteWithSpriteFrameName:@"title-flash.png"];
     titleFlash.position = titlePos;
     titleFlash.color = ccc3(128, 255, 128);
     titleFlash.opacity = 0;
-    [self addChild:titleFlash z:kZFlash];
+    [titleBatch addChild:titleFlash z:kZFlash];
     
     //Detector and Particles
     detector = [Detector node];
     detector.position = ccp(winSize.width / 2, winSize.height / 2);
-    [self addChild:detector z:kZDetector];
+    [batchNode addChild:detector z:kZDetector];
 
-    leftParticleStart = ccp(winSize.width * -0.1, winSize.height * 0);
+    leftParticleStart = ccp(winSize.width / 2 - winSize.height * 0.6,
+                            winSize.height * -0.1);
     leftParticle = [Particle particleWithColor:kParticleBlue];
     leftParticle.scale = kLeftStartScale;
     leftParticle.position = leftParticleStart;
-    [self addChild:leftParticle z:kZLeftParticle];
+    [batchNode addChild:leftParticle z:kZLeftParticle];
     
-    rightParticleStart = ccp(winSize.width * 1.1, winSize.height * 1);
+    rightParticleStart = ccp(winSize.width / 2 + winSize.height * 0.6,
+                             winSize.height * 1.1);
     rightParticle = [Particle particleWithColor:kParticleAntiBlue];
     rightParticle.scale = kRightStartScale;
     rightParticle.position = rightParticleStart;
-    [self addChild:rightParticle z:kZRightParticle];
+    [batchNode addChild:rightParticle z:kZRightParticle];
     
     [self schedule:@selector(animateBackground) interval:3.0];
     
-    //TODO: Replace with CCMenuItemAtlasFont
-    //Play
-    CCLabelBMFont *survivalLabel = [CCLabelBMFont labelWithString:@"Accellerator" 
-                                                          fntFile:@"score.fnt"];
-    CCMenuItemFont *survivalItem = [CCMenuItemFont itemWithLabel:survivalLabel
-                                                          target:self 
-                                                        selector:@selector(playSurvival)];
+    //Menu
+    menu = [CCMenu node];
+    
+    CCLabelBMFont *label = [CCLabelBMFont labelWithString:@"Accellerator" 
+                                                  fntFile:@"score.fnt"];
+    CCMenuItemFont *item = [CCMenuItemFont itemWithLabel:label
+                                                  target:self 
+                                                selector:@selector(playSurvival)];
+    [menu addChild:item];
 
-    CCLabelBMFont *timeAttackLabel = [CCLabelBMFont labelWithString:@"Time Attack" 
-                                                            fntFile:@"score.fnt"];
-    CCMenuItemFont *timeAttackItem = [CCMenuItemFont itemWithLabel:timeAttackLabel
-                                                            target:self 
-                                                          selector:@selector(playTimeAttack)];
+    label = [CCLabelBMFont labelWithString:@"Time Attack" 
+                                   fntFile:@"score.fnt"];
+    item = [CCMenuItemFont itemWithLabel:label
+                                  target:self 
+                                selector:@selector(playTimeAttack)];
+    [menu addChild:item];
     
-    CCLabelBMFont *momModeLabel = [CCLabelBMFont labelWithString:@"Meditation" 
-                                                         fntFile:@"score.fnt"];
-    CCMenuItemFont *momModeItem = [CCMenuItemFont itemWithLabel:momModeLabel
-                                                         target:self 
-                                                       selector:@selector(playMomMode)];
+    label = [CCLabelBMFont labelWithString:@"Meditation" 
+                                   fntFile:@"score.fnt"];
+    item = [CCMenuItemFont itemWithLabel:label
+                                  target:self 
+                                selector:@selector(playMomMode)];
+    [menu addChild:item];
+    
+    label = [CCLabelBMFont labelWithString:@"Options" 
+                                   fntFile:@"score.fnt"];
+    item = [CCMenuItemFont itemWithLabel:label
+                                  target:self 
+                                selector:@selector(showOptions)];
+    [menu addChild:item];
+    
+    label = [CCLabelBMFont labelWithString:@"High Scores" 
+                                   fntFile:@"score.fnt"];
+    item = [CCMenuItemFont itemWithLabel:label
+                                  target:self 
+                                selector:@selector(showScores)];
+    [menu addChild:item];
+    
+    label = [CCLabelBMFont labelWithString:@"Credits" 
+                                   fntFile:@"score.fnt"];
+    item = [CCMenuItemFont itemWithLabel:label
+                                  target:self 
+                                selector:@selector(showCredits)];
+    [menu addChild:item];
 
-//    //Options
-//    CCMenuItemFont *optionsItem = [CCMenuItemFont itemWithString:@"Options" target:self selector:@selector(showOptions)];
-//    [optionsItem setFontName:@"Courier"];
-//    [optionsItem setColor:ccWHITE];
-//    
-//    //High Scores
-//    CCMenuItemFont *scoresItem = [CCMenuItemFont itemWithString:@"High Scores" target:self selector:@selector(showScores)];
-//    [scoresItem setFontName:@"Courier"];
-//    [scoresItem setColor:ccWHITE];
-//    
-//    //Credits
-//    CCMenuItemFont *creditsItem = [CCMenuItemFont itemWithString:@"Credits" target:self selector:@selector(showCredits)];
-//    [creditsItem setFontName:@"Courier"];
-//    [creditsItem setColor:ccWHITE];
+    menu.position = ccp(winSize.width * 0.5,
+                        winSize.height * 0.3);
     
-    mainMenu = [CCMenu menuWithItems:survivalItem, timeAttackItem, momModeItem, nil];
-    mainMenu.position = ccp(winSize.width / 2, winSize.height * 0.4);
-    [mainMenu alignItemsVerticallyWithPadding:0.03 * winSize.height];
+    [menu alignItemsInRows:[NSNumber numberWithUnsignedInt:3],
+     [NSNumber numberWithUnsignedInt:3],
+     nil];
+//    [menu alignItemsVerticallyWithPadding:0.03 * winSize.height];
+//    [menu alignItemsHorizontallyWithPadding:50];
+
+    for (CCMenuItem *item in [menu children]) {
+        item.position = ccp(item.position.x * 1.2,
+                            item.position.y * 1.2);
+    }
     
-    [self addChild:mainMenu z:kZMenu];
+    [self addChild:menu z:kZMenu];
 
 //    // Animate in menu.
 //    [mainMenu setPosition:ccp(winSize.width * 0.5, - 1 * winSize.height)];

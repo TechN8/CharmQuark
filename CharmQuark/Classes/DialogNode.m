@@ -6,10 +6,10 @@
 //  Copyright 2012 Aether Theory, LLC. All rights reserved.
 //
 
-#import "ModalMenuLayer.h"
+#import "DialogNode.h"
 #import "Scale9Sprite.h"
 
-@implementation ModalMenuLayer
+@implementation DialogNode
 
 -(void)initUI {
     NSAssert(NO, @"Must override initMenus for ModalMenuLayer.");
@@ -39,7 +39,6 @@
 // Set the opacity of all of our children that support it
 -(void) setOpacity: (GLubyte) opacity
 {
-    [super setOpacity:opacity];
     for( CCNode *node in [self children] )
     {
         if( [node conformsToProtocol:@protocol( CCRGBAProtocol)] )
@@ -56,9 +55,10 @@
 
 -(void)onEnter {
     [super onEnter];
+    [(CCLayerColor*)self.parent setIsTouchEnabled:NO];
     
     CGSize winSize = [[CCDirector sharedDirector] winSize];
-
+    
     Scale9Sprite *backGround = [[[Scale9Sprite alloc] initWithFile:@"window.png" 
                                                             ratioX:0.49 ratioY:0.49] autorelease];;
     [backGround setContentSize:CGSizeMake(winSize.width * .75, winSize.height * .75)];
@@ -68,12 +68,17 @@
     [self initUI];
 }
 
+-(void)onExit {
+    [super onExit];
+    [(CCLayerColor*)self.parent setIsTouchEnabled:YES];
+}
+
 #pragma mark - NSObject
 
--(id)initWithColor:(ccColor4B)color {
-    self = [super initWithColor:color];
+-(id)init {
+    self = [super init];
     if (self) {
-        self.isTouchEnabled = YES;
+//        self.isTouchEnabled = YES;
     }
     return self;
 }

@@ -10,7 +10,7 @@
 #import "cocos2d.h"
 #import "DialogNode.h"
 
-@interface PauseLayer : DialogNode {
+@interface OptionsDialog : DialogNode {
     CCMenuItemFont *musicToggle;
     CCMenuItemFont *soundToggle;
 }

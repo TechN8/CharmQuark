@@ -596,7 +596,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     [self pauseSchedulerAndActions];
     
     // Throw up modal layer.
-    PauseLayer *pauseLayer = [[[PauseLayer alloc] initWithColor:ccc4(0,0,0,0)] autorelease];
+    PauseLayer *pauseLayer = [PauseLayer node];
     CGPoint oldPos = pauseLayer.position;
     pauseLayer.position = ccp(0, 2 * winSize.height);
     [self addChild:pauseLayer z:kZPopups];
@@ -627,7 +627,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     }
     
     // Throw up modal layer.
-    GameOverLayer *gameOverLayer = [[[GameOverLayer alloc] initWithColor:ccc4(0,0,0,0)] autorelease];;
+    GameOverLayer *gameOverLayer = [GameOverLayer node];
     CGPoint oldPos = gameOverLayer.position;
     gameOverLayer.position = ccp(0, 2 * winSize.height);
     [gameOverLayer setScore:score];
@@ -677,8 +677,8 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
                                self);   
     
     // Configure the two batch nodes for rendering.
-    CCSpriteBatchNode *particleBatchNode = [CCSpriteBatchNode batchNodeWithFile:@"scene1Atlas.png" capacity:100];
-    CCSpriteBatchNode *uiBatchNode = [CCSpriteBatchNode batchNodeWithFile:@"scene1Atlas.png" capacity:10];
+    CCSpriteBatchNode *particleBatchNode = [CCSpriteBatchNode batchNodeWithFile:@"scene1Atlas.png" capacity:50];
+    CCSpriteBatchNode *uiBatchNode = [CCSpriteBatchNode batchNodeWithFile:@"scene1Atlas.png" capacity:50];
     [self addChild:uiBatchNode z:kZUIElements tag:kTagUIBatchNode];
     
     // Pause Button

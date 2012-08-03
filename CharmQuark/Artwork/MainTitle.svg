@@ -73,7 +73,7 @@
        fx="526.21368"
        fy="844.67596"
        r="430.73047"
-       gradientTransform="matrix(1.0000018,0,0,0.12911388,-9.4098439e-4,377.81325)"
+       gradientTransform="matrix(0.80656399,0,0,0.24267682,101.78869,281.88937)"
        gradientUnits="userSpaceOnUse" />
     <radialGradient
        inkscape:collect="always"
@@ -84,7 +84,7 @@
        fx="526.21368"
        fy="844.67596"
        r="430.73047"
-       gradientTransform="matrix(1.0000018,3.9855218e-7,-5.1458526e-8,0.12911388,-8.9751857e-4,377.81304)"
+       gradientTransform="matrix(0.80656399,0,0,0.24267682,101.78869,281.88937)"
        gradientUnits="userSpaceOnUse" />
     <filter
        inkscape:collect="always"
@@ -110,6 +110,18 @@
          stdDeviation="24.117188"
          id="feGaussianBlur3816" />
     </filter>
+    <filter
+       inkscape:collect="always"
+       id="filter3834"
+       x="-0.033873416"
+       width="1.0677468"
+       y="-0.26235302"
+       height="1.524706">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="12.158594"
+         id="feGaussianBlur3836" />
+    </filter>
   </defs>
   <sodipodi:namedview
      id="base"
@@ -119,10 +131,10 @@
      inkscape:pageopacity="1"
      inkscape:pageshadow="2"
      inkscape:zoom="1.1041667"
-     inkscape:cx="477.6673"
+     inkscape:cx="513.89372"
      inkscape:cy="456.45283"
      inkscape:document-units="px"
-     inkscape:current-layer="layer3"
+     inkscape:current-layer="layer2"
      showgrid="false"
      inkscape:window-width="1916"
      inkscape:window-height="1036"
@@ -200,8 +212,7 @@
      inkscape:groupmode="layer"
      id="layer2"
      inkscape:label="Flash"
-     style="display:inline"
-     sodipodi:insensitive="true">
+     style="display:inline">
     <text
        transform="translate(0,-284.36218)"
        inkscape:label="#text2985"
@@ -209,7 +220,7 @@
        id="title-flash"
        y="478.58014"
        x="79.472656"
-       style="font-size:144px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:url(#radialGradient3796);fill-opacity:1;stroke:url(#radialGradient3788);stroke-width:4;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;display:inline;font-family:Bauhaus 93;-inkscape-font-specification:Bauhaus 93 Bold"
+       style="font-size:144px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:url(#radialGradient3796);fill-opacity:1;stroke:url(#radialGradient3788);stroke-width:4;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;display:inline;font-family:Bauhaus 93;-inkscape-font-specification:Bauhaus 93 Bold;filter:url(#filter3834)"
        xml:space="preserve"><tspan
          y="478.58014"
          x="79.472656"

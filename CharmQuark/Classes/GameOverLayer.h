@@ -8,10 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
-#import "ModalMenuLayer.h"
+#import "DialogNode.h"
 #import "Constants.h"
 
-@interface GameOverLayer : ModalMenuLayer {
+@interface GameOverLayer : DialogNode {
     NSInteger score;
     NSInteger highScore;
     BOOL newHighScore;

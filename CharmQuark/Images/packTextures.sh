@@ -13,3 +13,15 @@
 
 /usr/local/bin/TexturePacker --no-trim --algorithm MaxRects --maxrects-heuristics best --format cocos2d \
 	--data scene1Atlas-ipadhd.plist --sheet scene1Atlas-ipadhd.png Sprites/iPad-hd/*.png
+
+/usr/local/bin/TexturePacker --no-trim --algorithm MaxRects --maxrects-heuristics best --format cocos2d \
+	--data titleAtlas.plist --sheet titleAtlas.png Titles/iPhone/*.png
+
+/usr/local/bin/TexturePacker --no-trim --algorithm MaxRects --maxrects-heuristics best --format cocos2d \
+	--data titleAtlas-hd.plist --sheet titleAtlas-hd.png Titles/iPhone-hd/*.png
+
+/usr/local/bin/TexturePacker --no-trim --algorithm MaxRects --maxrects-heuristics best --format cocos2d \
+	--data titleAtlas-ipad.plist --sheet titleAtlas-ipad.png Titles/iPad/*.png
+
+/usr/local/bin/TexturePacker --no-trim --algorithm MaxRects --maxrects-heuristics best --format cocos2d \
+	--data titleAtlas-ipadhd.plist --sheet titleAtlas-ipadhd.png Titles/iPad-hd/*.png

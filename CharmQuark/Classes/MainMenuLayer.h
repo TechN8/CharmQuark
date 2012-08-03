@@ -11,8 +11,8 @@
 #import "Particle.h"
 #import "Detector.h"
 
-#define kLeftStartScale     1.9
-#define kRightStartScale    0.1
+#define kLeftStartScale     2
+#define kRightStartScale    0
 
 enum {
     kZRightParticle = 0,
@@ -22,16 +22,18 @@ enum {
     kZFlash,
     kZMenu = 100,
     kZLeftParticle,
+    kZPopups,
 };
 
 @interface MainMenuLayer : CCLayer {
-    CCMenu *mainMenu;
+    CCMenu *menu;
     CCSprite *titleFlash;
     Particle *leftParticle;
     Particle *rightParticle;
     Detector *detector;
     CGPoint leftParticleStart;
     CGPoint rightParticleStart;
+    CCSpriteBatchNode *batchNode;
 }
 
 @end

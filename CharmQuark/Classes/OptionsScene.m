@@ -13,7 +13,7 @@
 {
     self = [super init];
     if (self) {
-        optionsLayer = [OptionsLayer node];
+        optionsLayer = [OptionsDialog node];
         [self addChild:optionsLayer];
     }
     return self;

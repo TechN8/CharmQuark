@@ -140,13 +140,13 @@
             <key>format</key>
             <integer>2</integer>
             <key>realTextureFileName</key>
-            <string>scene1Atlas-ipadhd.png</string>
+            <string>titleAtlas-ipadhd.png</string>
             <key>size</key>
             <string>{2048,2048}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:9c52c2c998d8460ebe8a70a7c035dfb0$</string>
+            <string>$TexturePacker:SmartUpdate:10ee26cf323901e8bf694258efdf34b4$</string>
             <key>textureFileName</key>
-            <string>scene1Atlas-ipadhd.png</string>
+            <string>titleAtlas-ipadhd.png</string>
         </dict>
     </dict>
 </plist>

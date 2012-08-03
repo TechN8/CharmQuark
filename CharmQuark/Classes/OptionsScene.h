@@ -8,10 +8,10 @@
 
 #import "CCScene.h"
 #import "cocos2d.h"
-#import "OptionsLayer.h"
+#import "OptionsDialog.h"
 
 @interface OptionsScene : CCScene {
-    OptionsLayer *optionsLayer;
+    OptionsDialog *optionsLayer;
 }
 
 @end
