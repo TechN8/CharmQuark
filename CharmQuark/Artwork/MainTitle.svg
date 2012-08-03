@@ -134,7 +134,7 @@
      inkscape:cx="513.89372"
      inkscape:cy="456.45283"
      inkscape:document-units="px"
-     inkscape:current-layer="layer2"
+     inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:window-width="1916"
      inkscape:window-height="1036"
@@ -193,8 +193,7 @@
      inkscape:groupmode="layer"
      id="layer1"
      transform="translate(0,-284.36218)"
-     style="display:inline"
-     sodipodi:insensitive="true">
+     style="display:inline">
     <text
        xml:space="preserve"
        style="font-size:144px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:#a3a3a3;stroke-width:4;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;font-family:Bauhaus 93;-inkscape-font-specification:Bauhaus 93 Bold"
@@ -212,7 +211,8 @@
      inkscape:groupmode="layer"
      id="layer2"
      inkscape:label="Flash"
-     style="display:inline">
+     style="display:inline"
+     sodipodi:insensitive="true">
     <text
        transform="translate(0,-284.36218)"
        inkscape:label="#text2985"
@@ -220,7 +220,7 @@
        id="title-flash"
        y="478.58014"
        x="79.472656"
-       style="font-size:144px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:url(#radialGradient3796);fill-opacity:1;stroke:url(#radialGradient3788);stroke-width:4;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;display:inline;font-family:Bauhaus 93;-inkscape-font-specification:Bauhaus 93 Bold;filter:url(#filter3834)"
+       style="font-size:144px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:url(#radialGradient3796);fill-opacity:1;stroke:url(#radialGradient3788);stroke-width:4;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;display:inline;filter:url(#filter3834);font-family:Bauhaus 93;-inkscape-font-specification:Bauhaus 93 Bold"
        xml:space="preserve"><tspan
          y="478.58014"
          x="79.472656"

@@ -10,6 +10,8 @@
 #import "cocos2d.h"
 #import "DialogNode.h"
 
+#define kCreditsScrollTime 30.0
+
 @interface CreditsDialog : DialogNode {
 }
 

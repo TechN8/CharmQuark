@@ -82,7 +82,6 @@
 
 -(void)dealloc {
     [super dealloc];
-    [self unregisterWithTouchDispatcher];
 }
 
 @end

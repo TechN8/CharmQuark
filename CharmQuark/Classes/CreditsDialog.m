@@ -23,6 +23,26 @@
     [self runAction:seq];
 }
 
+-(void)colorizeLabel:(CCLabelBMFont *)label {
+    NSString *text = label.string;
+    BOOL bold = YES;
+    unichar last = 0;
+    unichar lastlast = 0;
+    for (int i = 0; i < text.length; i++) {
+        unichar c = [text characterAtIndex:i];
+        if ('\n' == c) {
+            bold = last == c && lastlast == c ? YES : NO;
+        } else if (bold) {
+            CCSprite *sprite = (CCSprite *)[label getChildByTag:i];
+            sprite.color = kScoreColor;
+        }
+        lastlast = last;
+        last = c;
+    }
+    
+}
+
+
 #pragma mark - ModalMenuLayer
 
 -(void)initUI {
@@ -40,23 +60,59 @@
     CGFloat scrollHeight = 0;
     CCNode *scroller = [CCNode node];
     
-    NSString *credits = @"These are the credits.\nThese are the credits.\nThese are the credits.\nThese are the credits.\nThese are the credits.\nThese are the credits.\nThese are the credits.\nThese are the credits.\nThese are the credits.\nThese are the credits.\nThese are the credits.\nThese are the credits.\nThese are the credits.\nThese are the credits.\nThese are the credits.\nThese are the credits.\nThese are the credits.\nThese are the credits.\nThese are the credits.\nThese are the credits.\nThese are the credits.\nThese are the credits.\nThese are the credits.\nThese are the credits.\nThese are the credits.\nThese are the credits.\nThese are the credits.\nThese are the credits.\nThese are the credits.\nThese are the credits.\nThese are the credits.\nThese are the credits.\nThese are the credits.\nThese are the credits.\nThese are the credits.\nThese are the credits.\nThese are the credits.\nThese are the credits.\nThese are the credits.\nThese are the credits.\nThese are the credits.\n";
+    // This is the label with the credits in.
+    NSString *fileName = [[CCFileUtils sharedFileUtils] fullPathFromRelativePath:@"CREDITS"];
+    NSString *credits = [NSString stringWithContentsOfFile:fileName
+                                                  encoding:NSUTF8StringEncoding 
+                                                     error:nil];
     CCLabelBMFont *label = [CCLabelBMFont labelWithString:credits
                                                   fntFile:@"score.fnt"];
-    [scroller addChild:label];
+//    [label setWidth:windowSprite.contentSize.width - 10];
+    [label setAnchorPoint:ccp(0.5, 1.0)];
+    [label setAlignment:kCCTextAlignmentCenter];
+    [self colorizeLabel:label];
     scrollHeight += label.contentSize.height;
+    [scroller addChild:label];
 
+    // This is the Cocos2D logo
+    CCSprite *cocosLogo = [CCSprite spriteWithFile:@"cocos2d-landscape.png"];
+    cocosLogo.anchorPoint = ccp(0.5, 1.0);
+    cocosLogo.position = ccp(0, -1 * scrollHeight);
+    scrollHeight += cocosLogo.contentSize.height;
+    [scroller addChild:cocosLogo];
+  
+    CCLabelBMFont *copyright = [CCLabelBMFont labelWithString:@"\nGame and Software © 2012"
+                                                      fntFile:@"score.fnt"];
+    copyright.anchorPoint = ccp(0.5, 1.0);
+    copyright.position = ccp(0, -1 * scrollHeight);
+    copyright.color = kScoreColor;
+    scrollHeight += copyright.contentSize.height;
+    [scroller addChild:copyright];
+    
+    // Add scroller to clipping node.
     [clip addChild:scroller];
     
     // Roll the credits.
     CGPoint startPos = ccp(clip.contentSize.width / 2,
-                           -0.5 * scrollHeight);
+                           0);
     CGPoint endPos = ccp(clip.contentSize.width / 2,
-                         clip.contentSize.height + scrollHeight / 2);
-    id moveTo = [CCMoveTo actionWithDuration:60.0 position:endPos];
-    id close = [CCCallFunc actionWithTarget:self selector:@selector(resumeParent)];
+                         clip.contentSize.height + scrollHeight);
+    id moveTo = [CCMoveTo actionWithDuration:kCreditsScrollTime position:endPos];
+//    id close = [CCCallFunc actionWithTarget:self selector:@selector(resumeParent)];
     scroller.position = startPos;
-    [scroller runAction:[CCSequence actions:moveTo, close, nil]];
+    [scroller runAction:[CCSequence actions:moveTo, nil]];
+
+    // This is our logo.
+    CCSprite *aetherTheoryLogo = [CCSprite spriteWithFile:@"aethertheory-logo.png"];
+    aetherTheoryLogo.anchorPoint = ccp(0.5, 0.5);
+    aetherTheoryLogo.position = ccp(clip.contentSize.width / 2,
+                                    -1 * scrollHeight - aetherTheoryLogo.contentSize.height / 2);
+    [clip addChild:aetherTheoryLogo];
+    
+    moveTo = [CCMoveTo actionWithDuration:kCreditsScrollTime 
+                                 position:ccp(clip.contentSize.width / 2,
+                                              clip.contentSize.height / 2)];
+    [aetherTheoryLogo runAction:moveTo];
 }
 
 -(void)ccTouchEnded:(UITouch *)touch withEvent:(UIEvent *)event {
