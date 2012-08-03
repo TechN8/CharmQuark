@@ -7,7 +7,6 @@
 //
 
 #import "DialogNode.h"
-#import "Scale9Sprite.h"
 
 @implementation DialogNode
 
@@ -28,10 +27,14 @@
     return YES;
 }
 
-#pragma mark - CCLayer
+#pragma mark - Touch handling
 
 - (void) registerWithTouchDispatcher {
     [[[CCDirector sharedDirector] touchDispatcher] addTargetedDelegate:self priority:kCCMenuHandlerPriority swallowsTouches:YES];
+}
+
+- (void) unregisterWithTouchDispatcher {
+    [[[CCDirector sharedDirector] touchDispatcher] removeDelegate:self];   
 }
 
 #pragma mark - CCNode
@@ -55,32 +58,31 @@
 
 -(void)onEnter {
     [super onEnter];
-    [(CCLayerColor*)self.parent setIsTouchEnabled:NO];
     
     CGSize winSize = [[CCDirector sharedDirector] winSize];
+    self.contentSize = winSize;
     
-    Scale9Sprite *backGround = [[[Scale9Sprite alloc] initWithFile:@"window.png" 
-                                                            ratioX:0.49 ratioY:0.49] autorelease];;
-    [backGround setContentSize:CGSizeMake(winSize.width * .75, winSize.height * .75)];
-    [backGround setPosition:ccp(winSize.width / 2, winSize.height / 2)];
-    [self addChild:backGround];
+    windowSprite = [[[Scale9Sprite alloc] initWithFile:@"window.png" 
+                                                ratioX:0.49 ratioY:0.49] autorelease];;
+    [windowSprite setContentSize:CGSizeMake(winSize.width * .75, winSize.height * .75)];
+    [windowSprite setPosition:ccp(winSize.width / 2, winSize.height / 2)];
+    [self addChild:windowSprite];
+    
+    [self registerWithTouchDispatcher];
 
     [self initUI];
 }
 
 -(void)onExit {
+    [self unregisterWithTouchDispatcher];
     [super onExit];
-    [(CCLayerColor*)self.parent setIsTouchEnabled:YES];
 }
 
 #pragma mark - NSObject
 
--(id)init {
-    self = [super init];
-    if (self) {
-//        self.isTouchEnabled = YES;
-    }
-    return self;
+-(void)dealloc {
+    [super dealloc];
+    [self unregisterWithTouchDispatcher];
 }
 
 @end

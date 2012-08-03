@@ -10,7 +10,7 @@
 
 @implementation Scale9Sprite
 
-@synthesize opacity, color;
+@synthesize opacity, color, top;
 
 enum positions {
 pCentre = 0,

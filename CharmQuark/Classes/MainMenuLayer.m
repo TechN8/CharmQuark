@@ -10,7 +10,7 @@
 #import "Constants.h"
 #import "GameManager.h"
 #import "GameOverLayer.h"
-#import "Scale9Sprite.h"
+#import "CreditsDialog.h"
 #import "OptionsDialog.h"
 #import "HighScoreDialog.h"
 
@@ -19,10 +19,6 @@
 @end
 
 @implementation MainMenuLayer
-
--(void)dismissDialog {
-    menu.enabled = YES;
-}
 
 -(void)showOptions {
     CCLOG(@"Show the Options screen");
@@ -34,9 +30,6 @@
     options.position = ccp(0, 2 * winSize.height);
     [self addChild:options z:kZPopups];
     [options runAction:[CCMoveTo actionWithDuration:0.5f position:oldPos]];
-
-    // Disable the menu.
-    menu.enabled = NO;
 }
 
 -(void)playSurvival {
@@ -64,13 +57,18 @@
     scores.position = ccp(0, 2 * winSize.height);
     [self addChild:scores z:kZPopups];
     [scores runAction:[CCMoveTo actionWithDuration:0.5f position:oldPos]];
-    
-    // Disable the menu.
-    menu.enabled = NO;
 }
 
 -(void)showCredits {
     CCLOG(@"Show credits screen.");
+    CGSize winSize = [[CCDirector sharedDirector] winSize];
+    
+    // Throw up modal layer.
+    CreditsDialog *credits = [CreditsDialog node];
+    CGPoint oldPos = credits.position;
+    credits.position = ccp(0, 2 * winSize.height);
+    [self addChild:credits z:kZPopups];
+    [credits runAction:[CCMoveTo actionWithDuration:0.5f position:oldPos]];
 }
 
 -(void)flashTitle {

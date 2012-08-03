@@ -60,11 +60,25 @@
 	}
 	background.position = ccp(size.width/2, size.height/2);
 
-	// add the label as a child to this Layer
+	// add the background as a child to this Layer
 	[self addChild: background];
-	
+    
+    // show the copyright statement.
+    NSString *copyright = @"Game and Software © 2012 Aether Theory LLC";
+//    CCLabelBMFont *label = [CCLabelBMFont labelWithString:copyright
+//                                                           fntFile:@"score.fnt"];
+    CCLabelTTF *label = [CCLabelTTF labelWithString:copyright
+                                           fontName:@"American Typewriter"
+                                           fontSize:12.0];
+    label.anchorPoint = ccp(0.5, 0.0);
+    label.position = ccp(size.width / 2,
+                             10);
+    label.opacity = 0;
+    [label runAction:[CCFadeIn actionWithDuration:0.5]];
+    [self addChild:label];
+
 	// In one second transition to the new scene
-	[self scheduleOnce:@selector(makeTransition:) delay:1];
+	[self scheduleOnce:@selector(makeTransition:) delay:2.0];
 }
 
 -(void) makeTransition:(ccTime)dt

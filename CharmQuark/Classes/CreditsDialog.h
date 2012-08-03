@@ -1,5 +1,5 @@
 //
-//  OptionsDialog.h
+//  CreditsDialog.h
 //  CharmQuark
 //
 //  Created by Nathan Babb on 7/11/12.
@@ -10,9 +10,7 @@
 #import "cocos2d.h"
 #import "DialogNode.h"
 
-@interface OptionsDialog : DialogNode {
-    CCMenuItemFont *musicToggle;
-    CCMenuItemFont *soundToggle;
+@interface CreditsDialog : DialogNode {
 }
 
 @end

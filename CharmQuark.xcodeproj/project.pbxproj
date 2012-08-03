@@ -119,6 +119,9 @@
 		D848C3FB15CB607E00B6088A /* titleAtlas.plist in Resources */ = {isa = PBXBuildFile; fileRef = D848C3F315CB607D00B6088A /* titleAtlas.plist */; };
 		D848C3FC15CB607E00B6088A /* titleAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = D848C3F415CB607D00B6088A /* titleAtlas.png */; };
 		D848C3FF15CB670F00B6088A /* HighScoreDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = D848C3FE15CB670F00B6088A /* HighScoreDialog.m */; };
+		D848C43615CC202800B6088A /* CreditsDialog.m in Resources */ = {isa = PBXBuildFile; fileRef = D848C43515CC202800B6088A /* CreditsDialog.m */; };
+		D848C43815CC255900B6088A /* CreditsDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = D848C43515CC202800B6088A /* CreditsDialog.m */; };
+		D848C43B15CC2AC600B6088A /* ClipNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D848C43A15CC2AC600B6088A /* ClipNode.m */; };
 		D871773615B350230014E75E /* score.fnt in Resources */ = {isa = PBXBuildFile; fileRef = D871773215B350230014E75E /* score.fnt */; };
 		D871773715B350230014E75E /* score.png in Resources */ = {isa = PBXBuildFile; fileRef = D871773315B350230014E75E /* score.png */; };
 		D871773A15B350650014E75E /* score-hd.fnt in Resources */ = {isa = PBXBuildFile; fileRef = D871773815B350650014E75E /* score-hd.fnt */; };
@@ -376,12 +379,12 @@
 		D847E27515AC93610044FC48 /* GameplayLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = GameplayLayer.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		D847E27615AC93610044FC48 /* GameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameScene.h; sourceTree = "<group>"; };
 		D847E27715AC93610044FC48 /* GameScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameScene.m; sourceTree = "<group>"; };
-		D847E27815AC93610044FC48 /* MainMenuLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenuLayer.h; sourceTree = "<group>"; };
+		D847E27815AC93610044FC48 /* MainMenuLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = MainMenuLayer.h; sourceTree = "<group>"; };
 		D847E27915AC93610044FC48 /* MainMenuLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = MainMenuLayer.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		D847E27A15AC93610044FC48 /* MainMenuScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenuScene.h; sourceTree = "<group>"; };
-		D847E27B15AC93610044FC48 /* MainMenuScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainMenuScene.m; sourceTree = "<group>"; };
-		D847E27C15AC93610044FC48 /* OptionsDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionsDialog.h; sourceTree = "<group>"; };
-		D847E27D15AC93610044FC48 /* OptionsDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OptionsDialog.m; sourceTree = "<group>"; };
+		D847E27A15AC93610044FC48 /* MainMenuScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = MainMenuScene.h; sourceTree = "<group>"; };
+		D847E27B15AC93610044FC48 /* MainMenuScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = MainMenuScene.m; sourceTree = "<group>"; };
+		D847E27C15AC93610044FC48 /* OptionsDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = OptionsDialog.h; sourceTree = "<group>"; };
+		D847E27D15AC93610044FC48 /* OptionsDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = OptionsDialog.m; sourceTree = "<group>"; };
 		D847E28015AC93610044FC48 /* Particle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Particle.h; sourceTree = "<group>"; };
 		D847E28115AC93610044FC48 /* Particle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Particle.m; sourceTree = "<group>"; };
 		D847E2A615AC93770044FC48 /* packTextures.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; lineEnding = 0; path = packTextures.sh; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.sh; };
@@ -411,8 +414,12 @@
 		D848C3F215CB607C00B6088A /* titleAtlas-ipadhd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "titleAtlas-ipadhd.png"; sourceTree = "<group>"; };
 		D848C3F315CB607D00B6088A /* titleAtlas.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = titleAtlas.plist; sourceTree = "<group>"; };
 		D848C3F415CB607D00B6088A /* titleAtlas.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = titleAtlas.png; sourceTree = "<group>"; };
-		D848C3FD15CB670F00B6088A /* HighScoreDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HighScoreDialog.h; sourceTree = "<group>"; };
+		D848C3FD15CB670F00B6088A /* HighScoreDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = HighScoreDialog.h; sourceTree = "<group>"; };
 		D848C3FE15CB670F00B6088A /* HighScoreDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = HighScoreDialog.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		D848C43515CC202800B6088A /* CreditsDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CreditsDialog.m; sourceTree = "<group>"; };
+		D848C43715CC207100B6088A /* CreditsDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CreditsDialog.h; sourceTree = "<group>"; };
+		D848C43915CC2AC600B6088A /* ClipNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClipNode.h; sourceTree = "<group>"; };
+		D848C43A15CC2AC600B6088A /* ClipNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClipNode.m; sourceTree = "<group>"; };
 		D871773015B350230014E75E /* score.GlyphProject */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = score.GlyphProject; sourceTree = "<group>"; };
 		D871773115B350230014E75E /* score-hd.GlyphProject */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = "score-hd.GlyphProject"; sourceTree = "<group>"; };
 		D871773215B350230014E75E /* score.fnt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = score.fnt; sourceTree = "<group>"; };
@@ -1081,6 +1088,8 @@
 			children = (
 				D847E27815AC93610044FC48 /* MainMenuLayer.h */,
 				D847E27915AC93610044FC48 /* MainMenuLayer.m */,
+				D848C43715CC207100B6088A /* CreditsDialog.h */,
+				D848C43515CC202800B6088A /* CreditsDialog.m */,
 				D848C3FD15CB670F00B6088A /* HighScoreDialog.h */,
 				D848C3FE15CB670F00B6088A /* HighScoreDialog.m */,
 				D847E27C15AC93610044FC48 /* OptionsDialog.h */,
@@ -1145,6 +1154,8 @@
 				D8151DEB15B9C978007D8AE2 /* Scale9Sprite.m */,
 				D80B620215AF055A006F2472 /* DialogNode.h */,
 				D80B620315AF055A006F2472 /* DialogNode.m */,
+				D848C43915CC2AC600B6088A /* ClipNode.h */,
+				D848C43A15CC2AC600B6088A /* ClipNode.m */,
 			);
 			name = Nodes;
 			sourceTree = "<group>";
@@ -1485,6 +1496,7 @@
 				D848C3FA15CB607E00B6088A /* titleAtlas-ipadhd.png in Resources */,
 				D848C3FB15CB607E00B6088A /* titleAtlas.plist in Resources */,
 				D848C3FC15CB607E00B6088A /* titleAtlas.png in Resources */,
+				D848C43615CC202800B6088A /* CreditsDialog.m in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1661,6 +1673,8 @@
 				D8D2FD2E15C1706800C3FBF1 /* TransformUtils.m in Sources */,
 				D8D2FD2F15C1706800C3FBF1 /* ZipUtils.m in Sources */,
 				D848C3FF15CB670F00B6088A /* HighScoreDialog.m in Sources */,
+				D848C43815CC255900B6088A /* CreditsDialog.m in Sources */,
+				D848C43B15CC2AC600B6088A /* ClipNode.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

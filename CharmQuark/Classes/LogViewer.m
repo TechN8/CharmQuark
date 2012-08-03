@@ -42,6 +42,8 @@
     [self scheduleOnce:@selector(scrollMessages) delay:0.25];
 }
 
+#pragma mark - CCNode
+
 -(void)onExit {
     [self unscheduleAllSelectors];
     [super onExit];
@@ -49,6 +51,7 @@
 
 -(void)onEnter {
     [super onEnter];
+    
 //    [self schedule:@selector(scrollMessages) interval:0.25];
 }
 

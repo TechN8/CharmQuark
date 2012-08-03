@@ -1,5 +1,5 @@
 //
-//  OptionsLayer.m
+//  HighScoreDialog.m
 //  CharmQuark
 //
 //  Created by Nathan Babb on 6/18/12.
@@ -17,7 +17,6 @@
     CGSize winSize = [[CCDirector sharedDirector] winSize];
     CGPoint offScreen = ccp(0, 2 * winSize.height);
     CCSequence *seq = [CCSequence actions:[CCMoveTo actionWithDuration:0.5f position:offScreen], 
-                       [CCCallFunc actionWithTarget:self.parent selector:@selector(dismissDialog)], 
                        [RemoveFromParentAction action],
                        nil];
     [self runAction:seq];
