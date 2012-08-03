@@ -19,7 +19,7 @@
 - (void) resumeParent {
     CGSize winSize = [[CCDirector sharedDirector] winSize];
     CGPoint offScreen = ccp(0, 2 * winSize.height);
-    CCSequence *seq = [CCSequence actions:[CCMoveTo actionWithDuration:0.5f position:offScreen], 
+    CCSequence *seq = [CCSequence actions:[CCMoveTo actionWithDuration:kPopupSpeed position:offScreen], 
                        [RemoveFromParentAction action],
                        [CCCallFunc actionWithTarget:self.parent selector:@selector(resumeSchedulerAndActions)], 
                        nil];
@@ -90,7 +90,7 @@
     CCLabelBMFont *soundLabel = [CCLabelBMFont labelWithString:soundString fntFile:@"score.fnt"];
     soundToggle = [CCMenuItemFont itemWithLabel:soundLabel target:self selector:@selector(toggleSound)];
     
-    CCMenu *menu = [CCMenu menuWithItems:resumeItem, quitItem, musicToggle, soundToggle, nil];
+    CCMenu *menu = [CCMenu menuWithItems:resumeItem, musicToggle, soundToggle, quitItem, nil];
     [menu alignItemsVerticallyWithPadding:0.03 * winSize.height];
     menu.position = ccp(winSize.width * 0.5, winSize.height * 0.42f);
     [self addChild:menu z:100];

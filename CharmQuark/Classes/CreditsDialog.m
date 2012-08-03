@@ -17,7 +17,7 @@
 - (void) resumeParent {
     CGSize winSize = [[CCDirector sharedDirector] winSize];
     CGPoint offScreen = ccp(0, 2 * winSize.height);
-    CCSequence *seq = [CCSequence actions:[CCMoveTo actionWithDuration:0.5f position:offScreen], 
+    CCSequence *seq = [CCSequence actions:[CCMoveTo actionWithDuration:kPopupSpeed position:offScreen], 
                        [RemoveFromParentAction action],
                        nil];
     [self runAction:seq];
@@ -114,6 +114,8 @@
                                               clip.contentSize.height / 2)];
     [aetherTheoryLogo runAction:moveTo];
 }
+
+#pragma mark - CCTargetedTouchDelegate
 
 -(void)ccTouchEnded:(UITouch *)touch withEvent:(UIEvent *)event {
     [self resumeParent];

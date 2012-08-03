@@ -16,7 +16,7 @@
 - (void) resumeParent {
     CGSize winSize = [[CCDirector sharedDirector] winSize];
     CGPoint offScreen = ccp(0, 2 * winSize.height);
-    CCSequence *seq = [CCSequence actions:[CCMoveTo actionWithDuration:0.5f position:offScreen], 
+    CCSequence *seq = [CCSequence actions:[CCMoveTo actionWithDuration:kPopupSpeed position:offScreen], 
                        [RemoveFromParentAction action],
                        nil];
     [self runAction:seq];
@@ -83,22 +83,27 @@
     item.isEnabled = NO;
     [menu addChild:item];
     
-    //Done
-    CCLabelBMFont *resumeLabel = [CCLabelBMFont labelWithString:@"Done" fntFile:@"score.fnt"];
-    CCMenuItemFont *resumeItem = [CCMenuItemFont itemWithLabel:resumeLabel 
-                                                          target:self 
-                                                        selector:@selector(resumeParent)];
-    [menu addChild:resumeItem];
+//    //Done
+//    CCLabelBMFont *resumeLabel = [CCLabelBMFont labelWithString:@"Done" fntFile:@"score.fnt"];
+//    CCMenuItemFont *resumeItem = [CCMenuItemFont itemWithLabel:resumeLabel 
+//                                                          target:self 
+//                                                        selector:@selector(resumeParent)];
+//    [menu addChild:resumeItem];
     
 //    [menu alignItemsVerticallyWithPadding:0.03 * winSize.height];
     [menu alignItemsInColumns:[NSNumber numberWithUnsignedInt:2],
      [NSNumber numberWithUnsignedInt:2],
      [NSNumber numberWithUnsignedInt:2],
-     [NSNumber numberWithUnsignedInt:1],
      nil];
 
     menu.position = ccp(winSize.width * 0.5, winSize.height * 0.42f);
     [self addChild:menu z:100];
+}
+
+#pragma mark - CCTargetedTouchDelegate
+
+-(void)ccTouchEnded:(UITouch *)touch withEvent:(UIEvent *)event {
+    [self resumeParent];
 }
 
 @end
