@@ -600,7 +600,8 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     CGPoint oldPos = pauseLayer.position;
     pauseLayer.position = ccp(0, 2 * winSize.height);
     [self addChild:pauseLayer z:kZPopups];
-    [pauseLayer runAction:[CCMoveTo actionWithDuration:0.5f position:oldPos]];
+    [pauseLayer runAction:[CCMoveTo actionWithDuration:kPopupSpeed
+                                              position:oldPos]];
 }
 
 -(void) resume {
@@ -632,7 +633,8 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     gameOverLayer.position = ccp(0, 2 * winSize.height);
     [gameOverLayer setScore:score];
     [self addChild:gameOverLayer z:kZPopups];
-    [gameOverLayer runAction:[CCMoveTo actionWithDuration:0.5f position:oldPos]];
+    [gameOverLayer runAction:[CCMoveTo actionWithDuration:kPopupSpeed
+                                                 position:oldPos]];
 }
 
 

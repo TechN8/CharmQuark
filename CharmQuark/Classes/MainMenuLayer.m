@@ -29,7 +29,8 @@
     CGPoint oldPos = options.position;
     options.position = ccp(0, 2 * winSize.height);
     [self addChild:options z:kZPopups];
-    [options runAction:[CCMoveTo actionWithDuration:0.5f position:oldPos]];
+    [options runAction:[CCMoveTo actionWithDuration:kPopupSpeed
+                                           position:oldPos]];
 }
 
 -(void)playSurvival {
@@ -56,7 +57,8 @@
     CGPoint oldPos = scores.position;
     scores.position = ccp(0, 2 * winSize.height);
     [self addChild:scores z:kZPopups];
-    [scores runAction:[CCMoveTo actionWithDuration:0.5f position:oldPos]];
+    [scores runAction:[CCMoveTo actionWithDuration:kPopupSpeed
+                                          position:oldPos]];
 }
 
 -(void)showCredits {
@@ -68,7 +70,8 @@
     CGPoint oldPos = credits.position;
     credits.position = ccp(0, 2 * winSize.height);
     [self addChild:credits z:kZPopups];
-    [credits runAction:[CCMoveTo actionWithDuration:0.5f position:oldPos]];
+    [credits runAction:[CCMoveTo actionWithDuration:kPopupSpeed
+                                           position:oldPos]];
 }
 
 -(void)flashTitle {

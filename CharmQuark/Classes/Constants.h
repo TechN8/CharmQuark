@@ -12,6 +12,7 @@
 #define kMainMenuTagValue 10
 
 #define kScoreColor     ccc3(255, 240, 128)
+#define kPopupSpeed     0.3
 
 // Device support
 #define kSimDimensions  ccp(1024,768)
