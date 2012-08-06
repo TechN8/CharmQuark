@@ -61,7 +61,7 @@
     CCNode *scroller = [CCNode node];
     
     // This is the label with the credits in.
-    NSString *fileName = [[CCFileUtils sharedFileUtils] fullPathFromRelativePath:@"CREDITS"];
+    NSString *fileName = [[CCFileUtils sharedFileUtils] fullPathFromRelativePath:@"cretits.txt"];
     NSString *credits = [NSString stringWithContentsOfFile:fileName
                                                   encoding:NSUTF8StringEncoding 
                                                      error:nil];

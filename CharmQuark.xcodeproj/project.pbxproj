@@ -122,7 +122,6 @@
 		D848C43615CC202800B6088A /* CreditsDialog.m in Resources */ = {isa = PBXBuildFile; fileRef = D848C43515CC202800B6088A /* CreditsDialog.m */; };
 		D848C43815CC255900B6088A /* CreditsDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = D848C43515CC202800B6088A /* CreditsDialog.m */; };
 		D848C43B15CC2AC600B6088A /* ClipNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D848C43A15CC2AC600B6088A /* ClipNode.m */; };
-		D848C47115CC4F7900B6088A /* CREDITS in Resources */ = {isa = PBXBuildFile; fileRef = D848C39B15C99BD700B6088A /* CREDITS */; };
 		D848C47715CC61B500B6088A /* cocos2d-landscape-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = D848C47315CC61AE00B6088A /* cocos2d-landscape-hd.png */; };
 		D848C47815CC61B500B6088A /* cocos2d-landscape-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = D848C47415CC61AF00B6088A /* cocos2d-landscape-ipad.png */; };
 		D848C47915CC61B500B6088A /* cocos2d-landscape-ipadhd.png in Resources */ = {isa = PBXBuildFile; fileRef = D848C47515CC61B100B6088A /* cocos2d-landscape-ipadhd.png */; };
@@ -134,6 +133,7 @@
 		D871773A15B350650014E75E /* score-hd.fnt in Resources */ = {isa = PBXBuildFile; fileRef = D871773815B350650014E75E /* score-hd.fnt */; };
 		D871773B15B350650014E75E /* score-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = D871773915B350650014E75E /* score-hd.png */; };
 		D871773F15B3544F0014E75E /* RemoveFromParentAction.m in Sources */ = {isa = PBXBuildFile; fileRef = D871773E15B3544F0014E75E /* RemoveFromParentAction.m */; };
+		D8A0684015D02CD8002B63B4 /* credits.txt in Resources */ = {isa = PBXBuildFile; fileRef = D8A0683F15D02CD8002B63B4 /* credits.txt */; };
 		D8CE5B9F15B713EA00E76ADA /* scene1Atlas-ipad.plist in Resources */ = {isa = PBXBuildFile; fileRef = D8CE5B9B15B713EA00E76ADA /* scene1Atlas-ipad.plist */; };
 		D8CE5BA015B713EA00E76ADA /* scene1Atlas-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = D8CE5B9C15B713EA00E76ADA /* scene1Atlas-ipad.png */; };
 		D8CE5BA115B713EA00E76ADA /* scene1Atlas-ipadhd.plist in Resources */ = {isa = PBXBuildFile; fileRef = D8CE5B9D15B713EA00E76ADA /* scene1Atlas-ipadhd.plist */; };
@@ -410,7 +410,6 @@
 		D848C39415C8719900B6088A /* AM.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AM.caf; sourceTree = "<group>"; };
 		D848C39515C8719900B6088A /* C3.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = C3.caf; sourceTree = "<group>"; };
 		D848C39615C8719900B6088A /* E3.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = E3.caf; sourceTree = "<group>"; };
-		D848C39B15C99BD700B6088A /* CREDITS */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CREDITS; sourceTree = "<group>"; };
 		D848C39C15C9A49000B6088A /* cocos2d-landscape.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cocos2d-landscape.png"; sourceTree = "<group>"; };
 		D848C39E15C9AB5700B6088A /* aethertheory-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "aethertheory-logo.png"; sourceTree = "<group>"; };
 		D848C3ED15CB607900B6088A /* titleAtlas-hd.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "titleAtlas-hd.plist"; sourceTree = "<group>"; };
@@ -441,6 +440,8 @@
 		D871773915B350650014E75E /* score-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "score-hd.png"; sourceTree = "<group>"; };
 		D871773D15B3544F0014E75E /* RemoveFromParentAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemoveFromParentAction.h; sourceTree = "<group>"; };
 		D871773E15B3544F0014E75E /* RemoveFromParentAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemoveFromParentAction.m; sourceTree = "<group>"; };
+		D8A0683C15D02C8C002B63B4 /* AppDescription.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AppDescription.txt; sourceTree = "<group>"; };
+		D8A0683F15D02CD8002B63B4 /* credits.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = credits.txt; path = Resources/credits.txt; sourceTree = "<group>"; };
 		D8CE5B9B15B713EA00E76ADA /* scene1Atlas-ipad.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "scene1Atlas-ipad.plist"; sourceTree = "<group>"; };
 		D8CE5B9C15B713EA00E76ADA /* scene1Atlas-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scene1Atlas-ipad.png"; sourceTree = "<group>"; };
 		D8CE5B9D15B713EA00E76ADA /* scene1Atlas-ipadhd.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "scene1Atlas-ipadhd.plist"; sourceTree = "<group>"; };
@@ -707,10 +708,10 @@
 		D847E05615AC87FF0044FC48 = {
 			isa = PBXGroup;
 			children = (
+				D8A0683C15D02C8C002B63B4 /* AppDescription.txt */,
 				D847E54015ACEC750044FC48 /* NOTES */,
 				D80B624715B1BC51006F2472 /* TASKS */,
 				D848C37D15C6FC8700B6088A /* BUGS */,
-				D848C39B15C99BD700B6088A /* CREDITS */,
 				D847E07715AC87FF0044FC48 /* CharmQuark */,
 				D847E06415AC87FF0044FC48 /* Frameworks */,
 				D847E06215AC87FF0044FC48 /* Products */,
@@ -758,6 +759,7 @@
 		D847E07815AC87FF0044FC48 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D8A0683F15D02CD8002B63B4 /* credits.txt */,
 				D847E07915AC87FF0044FC48 /* Default.png */,
 				D848C37915C6EA9E00B6088A /* Default@2x.png */,
 				D848C37715C6EA9E00B6088A /* Default-Landscape.png */,
@@ -1516,13 +1518,13 @@
 				D848C3FB15CB607E00B6088A /* titleAtlas.plist in Resources */,
 				D848C3FC15CB607E00B6088A /* titleAtlas.png in Resources */,
 				D848C43615CC202800B6088A /* CreditsDialog.m in Resources */,
-				D848C47115CC4F7900B6088A /* CREDITS in Resources */,
 				D848C47715CC61B500B6088A /* cocos2d-landscape-hd.png in Resources */,
 				D848C47815CC61B500B6088A /* cocos2d-landscape-ipad.png in Resources */,
 				D848C47915CC61B500B6088A /* cocos2d-landscape-ipadhd.png in Resources */,
 				D848C47E15CC632B00B6088A /* aethertheory-logo-ipad.png in Resources */,
 				D848C47F15CC632B00B6088A /* aethertheory-logo-ipadhd.png in Resources */,
 				D848C48015CC632B00B6088A /* aethertheory-logo-hd.png in Resources */,
+				D8A0684015D02CD8002B63B4 /* credits.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
