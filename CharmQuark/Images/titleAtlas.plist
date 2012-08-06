@@ -7,11 +7,11 @@
             <key>title-flash.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{163,2},{431,79}}</string>
+                <string>{{2,125},{431,79}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{431,79}}</string>
                 <key>sourceSize</key>
@@ -20,24 +20,24 @@
             <key>title-glow.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{510,159}}</string>
+                <string>{{2,2},{473,121}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{510,159}}</string>
+                <string>{{0,0},{473,121}}</string>
                 <key>sourceSize</key>
-                <string>{510,159}</string>
+                <string>{473,121}</string>
             </dict>
             <key>title-text.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{163,435},{404,52}}</string>
+                <string>{{2,206},{404,52}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{404,52}}</string>
                 <key>sourceSize</key>
@@ -51,9 +51,9 @@
             <key>realTextureFileName</key>
             <string>titleAtlas.png</string>
             <key>size</key>
-            <string>{256,1024}</string>
+            <string>{512,512}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:430a796f654efdd93f3c5968023e4bda$</string>
+            <string>$TexturePacker:SmartUpdate:1b30389f2eb80c593d04eedf1af83b3e$</string>
             <key>textureFileName</key>
             <string>titleAtlas.png</string>
         </dict>

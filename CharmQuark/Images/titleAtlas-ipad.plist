@@ -7,11 +7,11 @@
             <key>title-flash.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,1093},{920,170}}</string>
+                <string>{{2,262},{920,170}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{920,170}}</string>
                 <key>sourceSize</key>
@@ -20,24 +20,24 @@
             <key>title-glow.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{1089,339}}</string>
+                <string>{{2,2},{1008,258}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{1089,339}}</string>
+                <string>{{0,0},{1008,258}}</string>
                 <key>sourceSize</key>
-                <string>{1089,339}</string>
+                <string>{1008,258}</string>
             </dict>
             <key>title-text.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{343,2},{861,111}}</string>
+                <string>{{2,434},{861,111}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{861,111}}</string>
                 <key>sourceSize</key>
@@ -51,9 +51,9 @@
             <key>realTextureFileName</key>
             <string>titleAtlas-ipad.png</string>
             <key>size</key>
-            <string>{512,2048}</string>
+            <string>{1024,1024}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:a0945cf217e7cd25eaf01b17fab93fa0$</string>
+            <string>$TexturePacker:SmartUpdate:fc07587f096c4c3ea86c33560ecce530$</string>
             <key>textureFileName</key>
             <string>titleAtlas-ipad.png</string>
         </dict>
