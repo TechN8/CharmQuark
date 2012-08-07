@@ -35,7 +35,7 @@
     CGFloat speed = s.width * 2;
 
     CCParticleSystemQuad *emitter = [CCParticleSystemQuad node];
-    emitter.totalParticles = 20;
+    emitter.totalParticles = 10;
     //CCSprite *spr = [CCSprite spriteWithSpriteFrameName:@"track.png"];
     CCSpriteFrame *spf = [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:@"white-small.png"];
     [emitter setTexture:spf.texture withRect:spf.rect];
