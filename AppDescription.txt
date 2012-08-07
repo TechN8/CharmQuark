@@ -1,10 +1,10 @@
-Charm Quark is a new puzzle game inspired by the Large Hadron Collider.
+Charm Quark is a fast paced puzzle game inspired by the Large Hadron Collider.
 
 - GAMEPLAY
 
 ·Match like colored particles by swiping the right side.
 
-·Fire new piece by tapping the left side.
+·Fire new particles by tapping the left side.
 
 ·Get bonus points for combos and extra matches.
 
@@ -12,8 +12,8 @@ Charm Quark is a new puzzle game inspired by the Large Hadron Collider.
 
 - FEATURES
 ·3 Game Modes:
-    Time Attack - How many points can you score before time runs out.
-    Acellerator - Pieces will drop automatically, how fast can you match?
+    Time Attack - How many points can you score before time runs out?
+    Acellerator - Pieces will drop automatically.  Can you keep up?
     Meditation - Practice mode.  Learn the basics.
 
 ·Dynamic background music.
