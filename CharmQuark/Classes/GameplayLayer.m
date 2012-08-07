@@ -377,19 +377,15 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
                 [logViewer addMessage:[NSString stringWithFormat:@"+%d Seconds!", (int)kTimeAttackAdd]];
                 break;
             case kGameSceneSurvival:
-            default:
                 level++;
                 dropFrequency -= kDropTimeStep;
                 if (dropFrequency <= kDropTimeMin) {
                     dropFrequency = kDropTimeMin;
                 }
                 [levelLabel setString:[NSString stringWithFormat:@"Level %d", level]];
-                id scaleUp = [CCScaleTo actionWithDuration:0.2f scaleX:1.2 scaleY:1.0];
-                id scaleDown = [CCScaleTo actionWithDuration:0.2f scale:1.0];
-                id seq = [CCSequence actions: scaleUp, scaleDown, nil];
-                [levelLabel runAction:seq];
-                
                 [logViewer addMessage:[NSString stringWithFormat:@"Level %d!", level]];
+                break;
+            default:
                 break;
         }
     }
@@ -699,14 +695,17 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     switch (mode) {
         case kGameSceneTimeAttack:
             levelLabel= [CCLabelBMFont labelWithString:@"2:00.00" fntFile:@"score.fnt"];
+            [levelLabel setPosition:levelPosition];
+            [self addChild:levelLabel z:kZUIElements];
             break;
         case kGameSceneSurvival:
-        default:
             levelLabel = [CCLabelBMFont labelWithString:@"Level 1" fntFile:@"score.fnt"];
+            [levelLabel setPosition:levelPosition];
+            [self addChild:levelLabel z:kZUIElements];
+            break;
+        default:
             break;
     }
-    [levelLabel setPosition:levelPosition];
-    [self addChild:levelLabel z:kZUIElements];
     
     // Add Next
     CCLabelBMFont *nextLabel = [CCLabelBMFont labelWithString:@"Next" fntFile:@"score.fnt"];
