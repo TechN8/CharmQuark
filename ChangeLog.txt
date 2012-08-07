@@ -6,7 +6,7 @@ Beta 7
 
 Time Attack and Acellerator swapped on main menu screen.
 Border of particle sprite is now light instead of dark.
-Explosions are larger.
+Explosions are larger with fewer particles.
 Outer detector now blinks.
 Adjusted detector blink and graph angle to prevent overlap.
 Adjusted detector graph scaling to remove transparency.
@@ -16,3 +16,6 @@ Maximum time between pieces in Acellerator mode adjusted down to 2.9 seconds
 Minimum time between pieces in Acellerator mode adjusted down to 0.9 seconds.
 Fixed bug where sound effects would stop after selecing New Game from the Game 
     Over screen.
+New App Icon
+Level indicator removed from Meditation mode.
+Level indecator no-longer animates when changing levels.
