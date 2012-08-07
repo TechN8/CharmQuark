@@ -46,15 +46,15 @@
             <key>graph.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{12,1012},{6,19}}</string>
+                <string>{{113,994},{136,19}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{6,19}}</string>
+                <string>{{0,0},{136,19}}</string>
                 <key>sourceSize</key>
-                <string>{6,19}</string>
+                <string>{136,19}</string>
             </dict>
             <key>lhcmap.png</key>
             <dict>
@@ -111,7 +111,7 @@
             <key>white-small.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{113,994},{14,14}}</string>
+                <string>{{149,950},{14,14}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -144,7 +144,7 @@
             <key>size</key>
             <string>{1024,1024}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:2127403b2309e090267ffdfc8fd30588$</string>
+            <string>$TexturePacker:SmartUpdate:0606a40784ce3c4b901711b35f044ee0$</string>
             <key>textureFileName</key>
             <string>scene1Atlas-hd.png</string>
         </dict>

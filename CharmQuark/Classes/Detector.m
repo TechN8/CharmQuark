@@ -68,15 +68,21 @@
     CCSprite *blink = [CCSprite spriteWithSpriteFrameName:@"blink.png"];
     blink.color = ccYELLOW;
     blink.anchorPoint = ccp(0.5, 0.5);
-    blink.scaleX = 0.5 + (float)rand()/((float)RAND_MAX/0.5);
+    blink.scaleX = 0.3 + (float)rand()/((float)RAND_MAX/0.7);
     blink.position = ccp(center.x + blinkRadius * cosf(angle),
                          center.y - blinkRadius * sinf(angle));
     blink.rotation = CC_RADIANS_TO_DEGREES(angle);
     [self.parent addChild:blink z:self.zOrder + 1];
-    id scaleOut = [CCScaleTo actionWithDuration:0.7 + (float)rand()/((float)RAND_MAX) 
-                                         scaleX:0.1 scaleY:0.1];
+//    id scaleOut = [CCScaleTo actionWithDuration:0.7 + (float)rand()/((float)RAND_MAX) 
+//                                         scaleX:0.1 scaleY:0.1];
+    id scaleOut = [CCScaleTo actionWithDuration:0.5 + (float)rand()/((float)RAND_MAX/0.5) 
+                                         scaleX:0
+                                         scaleY:0.1];
+    id flash = [CCBlink actionWithDuration:0.5 + (float)rand()/((float)RAND_MAX/0.5) 
+                                    blinks:rand() % 4];
+//    [blink runAction:scaleOut];
     id remove = [RemoveFromParentAction action];
-    id seq = [CCSequence actions:scaleOut, remove, nil];
+    id seq = [CCSequence actions:flash, remove, nil];
     [blink runAction:seq];
 }
 
@@ -84,12 +90,15 @@
     CCSprite *graph = [CCSprite spriteWithSpriteFrameName:@"graph.png"];
     graph.color = ccGREEN;
     graph.anchorPoint = ccp(0,0.5);
-    graph.scaleX = (float)rand()/((float)RAND_MAX/40);
+    graph.scaleX = 0.5 + (float)rand()/((float)RAND_MAX/1.0);
     graph.position = ccp(center.x + graphRadius * cosf(angle),
                          center.y - graphRadius * sinf(angle));
     graph.rotation = CC_RADIANS_TO_DEGREES(angle);
-    id scaleOut = [CCScaleTo actionWithDuration:0.7 + (float)rand()/((float)RAND_MAX) 
-                                         scaleX:0.0 scaleY:0.7];
+//    id scaleOut = [CCScaleTo actionWithDuration:0.7 + (float)rand()/((float)RAND_MAX) 
+//                                         scaleX:0.0 scaleY:0.7];
+    id scaleOut = [CCScaleTo actionWithDuration:0.5 + (float)rand()/((float)RAND_MAX/0.5) 
+                                         scaleX:0
+                                         scaleY:1];
     id remove = [RemoveFromParentAction action];
     id seq = [CCSequence actions:scaleOut, remove, nil];
     [self.parent addChild:graph z:self.zOrder + 1];
@@ -144,14 +153,14 @@
     angle = CC_DEGREES_TO_RADIANS(angle);
     
     // Draw three blinks.
-    float blinkAngle = angle - M_PI / 12;
+    float blinkAngle = angle - M_PI / 24 - (fmodf(angle, M_PI / 12));
     for (int i = 0; i < 3; i++) {
         [self blinkAtAngle:blinkAngle];
         blinkAngle += M_PI / 12;
     }
     
     // Draw 5 graphs.
-    float graphAngle = angle - M_PI / 12;
+    float graphAngle = angle - M_PI / 24 - (fmodf(angle, M_PI / 12));
     for (int i = 0; i < 5; i++) {
         [self graphAtAngle:graphAngle];
         graphAngle += M_PI / 24;

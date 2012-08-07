@@ -33,7 +33,7 @@
             <key>firebutton.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{200,887},{118,118}}</string>
+                <string>{{220,887},{118,118}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -46,15 +46,15 @@
             <key>graph.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{17,1017},{5,18}}</string>
+                <string>{{2,887},{127,18}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <true/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{5,18}}</string>
+                <string>{{0,0},{127,18}}</string>
                 <key>sourceSize</key>
-                <string>{5,18}</string>
+                <string>{127,18}</string>
             </dict>
             <key>lhcmap.png</key>
             <dict>
@@ -85,7 +85,7 @@
             <key>thumbguide.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,887},{196,118}}</string>
+                <string>{{22,887},{196,118}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -98,7 +98,7 @@
             <key>track.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{17,1007},{8,8}}</string>
+                <string>{{37,1007},{8,8}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -111,7 +111,7 @@
             <key>white-small.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,1007},{13,13}}</string>
+                <string>{{22,1007},{13,13}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -144,7 +144,7 @@
             <key>size</key>
             <string>{1024,1024}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:af26a25f189a5e51e1c0cbf29ee6366f$</string>
+            <string>$TexturePacker:SmartUpdate:6d1bd9cbf5e487732b708fa1b44e6456$</string>
             <key>textureFileName</key>
             <string>scene1Atlas-ipad.png</string>
         </dict>

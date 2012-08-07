@@ -34,6 +34,7 @@ enum {
     CGPoint leftParticleStart;
     CGPoint rightParticleStart;
     CCSpriteBatchNode *batchNode;
+    CCParticleBatchNode *particleBatch;
 }
 
 @end

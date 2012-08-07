@@ -99,8 +99,8 @@
     
     CCParticleSystemQuad *explosion = [particle explode];
     explosion.position = detector.position;
-    [self addChild:explosion z:kZDetector];
-    [detector animateAtAngle:explosion.rotation];
+    [particleBatch addChild:explosion z:kZDetector];
+    [detector animateAtAngle:-1 * explosion.angle];
 }
 
 -(void)animateBackground {
@@ -123,19 +123,13 @@
 
 -(void)displayMainMenu {
     CGSize winSize = [CCDirector sharedDirector].winSize; 
-    //self.isTouchEnabled = YES;
-    
-    // Background window.  May want to remove later.
-//    Scale9Sprite *backGround = [[[Scale9Sprite alloc] initWithFile:@"window.png" 
-//                                                            ratioX:0.49 ratioY:0.49] autorelease];;
-//    [backGround setContentSize:winSize];
-//    [backGround setPosition:ccp(winSize.width / 2, winSize.height / 2)];
-//    [self addChild:backGround];
 
-    // Batch node for the performances...
+    // Batch nodes for the performances...
     batchNode = [CCSpriteBatchNode batchNodeWithFile:@"scene1Atlas.png" capacity:50];
     [self addChild:batchNode z:kZDetector];
-
+    particleBatch = [CCParticleBatchNode batchNodeWithFile:@"scene1Atlas.png" capacity:2];
+    [self addChild:particleBatch z:kZLeftParticle];
+    
     CCSpriteBatchNode *titleBatch = [CCSpriteBatchNode batchNodeWithFile:@"titleAtlas.png" capacity:3];
     [self addChild:titleBatch z:kZTitle];
     
@@ -186,20 +180,23 @@
     menu = [CCMenu node];
     menu.position = ccp(winSize.width * 0.5,
                         winSize.height * 0.4);
-    
-    CCLabelBMFont *label = [CCLabelBMFont labelWithString:@"Accelerator" 
-                                                  fntFile:@"score.fnt"];
-    CCMenuItemFont *item = [CCMenuItemFont itemWithLabel:label
-                                                  target:self 
-                                                selector:@selector(playSurvival)];
-    item.position = ccp(-0.25 * winSize.width, 0);
-    [menu addChild:item];
 
+    CCLabelBMFont *label;
+    CCMenuItemFont *item;
+    
     label = [CCLabelBMFont labelWithString:@"Time Attack" 
                                    fntFile:@"score.fnt"];
     item = [CCMenuItemFont itemWithLabel:label
                                   target:self 
                                 selector:@selector(playTimeAttack)];
+    item.position = ccp(-0.25 * winSize.width, 0);
+    [menu addChild:item];
+
+    label = [CCLabelBMFont labelWithString:@"Accelerator" 
+                                   fntFile:@"score.fnt"];
+    item = [CCMenuItemFont itemWithLabel:label
+                                  target:self 
+                                selector:@selector(playSurvival)];
     item.position = ccp(-0.25 * winSize.width, -0.1 * winSize.height);
     [menu addChild:item];
     

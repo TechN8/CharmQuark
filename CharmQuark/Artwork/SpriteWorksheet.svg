@@ -56,11 +56,11 @@
      borderopacity="1.0"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:zoom="10.000509"
-     inkscape:cx="504.30049"
-     inkscape:cy="79.171723"
+     inkscape:zoom="1.03125"
+     inkscape:cx="898.90909"
+     inkscape:cy="384"
      inkscape:document-units="px"
-     inkscape:current-layer="white"
+     inkscape:current-layer="layer9"
      showgrid="true"
      inkscape:window-width="1681"
      inkscape:window-height="980"
@@ -1161,8 +1161,7 @@
      inkscape:groupmode="layer"
      id="layer9"
      inkscape:label="Detector"
-     style="display:inline"
-     sodipodi:insensitive="true">
+     style="display:inline">
     <g
        id="detector"
        inkscape:label="#g6956">
@@ -1400,9 +1399,9 @@
     <rect
        style="fill:#ffffff;fill-opacity:1;stroke:none"
        id="graph"
-       width="5.9999661"
+       width="144.60606"
        height="20"
-       x="880"
+       x="876.63635"
        y="375.3125"
        rx="0"
        ry="16.997358"

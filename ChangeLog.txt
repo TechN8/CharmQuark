@@ -1,0 +1,17 @@
+Next release
+
+
+
+Beta 7
+
+Time Attack and Acellerator swapped on main menu screen.
+Border of particle sprite is now light instead of dark.
+Explosions are larger.
+Adjusted detector graph scaling to remove transparency.
+Adjusted detector blink and graph angle to prevent overlap.
+Drawing of explosion particle systems has been batched to a single OpenGL call.
+Time Attack now adds 25 seconds per level instead of 30.
+Maximum time between pieces in Acellerator mode adjusted down to 2.9 seconds
+Minimum time between pieces in Acellerator mode adjusted down to 0.9 seconds.
+Fixed bug where sound effects would stop after selecing New Game from the Game 
+    Over screen.

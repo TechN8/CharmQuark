@@ -373,8 +373,8 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
         matchesToNextLevel += kMatchesPerLevel;
         switch (mode) {
             case kGameSceneTimeAttack:
-                timeRemaining += 30; // Add 30 seconds
-                [logViewer addMessage:[NSString stringWithFormat:@"+30 Seconds!", level]];
+                timeRemaining += kTimeAttackAdd;
+                [logViewer addMessage:[NSString stringWithFormat:@"+%d Seconds!", (int)kTimeAttackAdd]];
                 break;
             case kGameSceneSurvival:
             default:
@@ -407,7 +407,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     [label runAction:seq];
 }
 
--(BOOL) scoreParticles{
+-(BOOL) scoreParticles {
     NSInteger multiplier = 0;
     NSInteger points = 0;
     
@@ -481,18 +481,16 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
         
         CCParticleSystemQuad *explosion = [particle explode];  // Play the explosion animation.
         explosion.position = [centerNode convertToWorldSpace:particle.position];
-        [self addChild:explosion z:kZParticles];
-        [detector animateAtAngle:explosion.rotation];
-        
-//        CGPoint particlePos = [centerNode convertToWorldSpace:particle.position];
-//        particlePos = cpvsub(particlePos, centerNode.position);
-//        CGFloat angle = CC_RADIANS_TO_DEGREES(cpvtoangle(particlePos));
-//        [detector animateAtAngle:angle];
+        [[self getChildByTag:kTagParticleBatchNode] addChild:explosion];
+//        [self addChild:explosion z:kZParticles];
+        [detector animateAtAngle:-1 * explosion.angle];
+//        [particle removeFromParentAndCleanup:YES];
+//        [detector animateAtAngle:(float)rand()/(float)RAND_MAX * 360.0];
 
         postStepRemoveParticle(space, particle.body, self);  // Don't need to schedule, called from update.
     }
     
-    emergency = NO;
+    emergency = YES;
     
     if (points) {
         return YES;
@@ -679,9 +677,11 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
                                self);   
     
     // Configure the two batch nodes for rendering.
-    CCSpriteBatchNode *particleBatchNode = [CCSpriteBatchNode batchNodeWithFile:@"scene1Atlas.png" capacity:50];
+    CCSpriteBatchNode *packetBatchNode = [CCSpriteBatchNode batchNodeWithFile:@"scene1Atlas.png" capacity:50];
     CCSpriteBatchNode *uiBatchNode = [CCSpriteBatchNode batchNodeWithFile:@"scene1Atlas.png" capacity:50];
+    CCParticleBatchNode *particleBatch = [CCParticleBatchNode batchNodeWithFile:@"scene1Atlas.png" capacity:10];
     [self addChild:uiBatchNode z:kZUIElements tag:kTagUIBatchNode];
+    [self addChild:particleBatch z:kZParticles tag:kTagParticleBatchNode];
     
     // Pause Button
     CCSprite *pauseSprite = [CCSprite spriteWithSpriteFrameName:@"pause.png"];
@@ -744,7 +744,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     centerNode = [CCNode node];
     centerNode.position = puzzleCenter;
     centerNode.rotation = 0;
-    [centerNode addChild:particleBatchNode z:kZParticles tag:kTagPacketBatchNode];
+    [centerNode addChild:packetBatchNode z:kZParticles tag:kTagPacketBatchNode];
     [self addChild:centerNode z:kZParticles];
     
 }

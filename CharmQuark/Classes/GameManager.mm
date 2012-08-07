@@ -457,7 +457,10 @@ static GameManager* _sharedGameManager = nil;
         //        }
     }
     
-    [self performSelectorInBackground:@selector(loadAudioForSceneWithID:) withObject:[NSNumber numberWithInt:sceneID]];
+    if (currentScene != oldScene) {
+        [self performSelectorInBackground:@selector(loadAudioForSceneWithID:) withObject:[NSNumber numberWithInt:sceneID]];
+        [self performSelectorInBackground:@selector(unloadAudioForSceneWithID:) withObject:[NSNumber numberWithInt:oldScene]];
+    }
     
     if ([[CCDirector sharedDirector] runningScene] == nil) {
         [[CCDirector sharedDirector] runWithScene:sceneToRun];
@@ -472,9 +475,6 @@ static GameManager* _sharedGameManager = nil;
     if (isMusicON) {
         [self playBackgroundTrackForScene:sceneID];
     }
-    
-    [self performSelectorInBackground:@selector(unloadAudioForSceneWithID:) withObject:[NSNumber numberWithInt:oldScene]];
-    
 }
 
 -(void)openSiteWithLinkType:(LinkTypes)linkTypeToOpen {

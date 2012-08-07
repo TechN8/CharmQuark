@@ -22,7 +22,7 @@
 #define kFailRadius             235.0f
 #define kColorsInit             6
 #define kColorsMax              6 //9
-#define kSweepRate              0.25
+#define kSweepRate              0.166667f
 
 // Particle speed.
 #define kLaunchV                1200.0f
@@ -31,9 +31,10 @@
 
 // Game clock settings.
 #define kTimeLimit              120.0f
-#define kDropTimeInit           3.0f //4.0f
-#define kDropTimeMin            1.0f
-#define kDropTimeStep           0.2f
+#define kDropTimeInit           2.9f
+#define kDropTimeMin            0.9f // 2.9 - 0.9 = 20 levels.
+#define kDropTimeStep           0.1f
+#define kTimeAttackAdd          25.0
 
 // Collision sound volume control
 #define kMinSoundImpulse        1200.0f
@@ -60,7 +61,8 @@
 
 enum {
 	kTagPacketBatchNode = 1,
-    kTagUIBatchNode
+    kTagUIBatchNode,
+    kTagParticleBatchNode,
 };
 
 enum {
