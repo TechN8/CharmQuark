@@ -19,3 +19,4 @@ Fixed bug where sound effects would stop after selecing New Game from the Game
 New App Icon
 Level indicator removed from Meditation mode.
 Level indecator no-longer animates when changing levels.
+App display name changed from CharmQuark to Charm Quark. 
