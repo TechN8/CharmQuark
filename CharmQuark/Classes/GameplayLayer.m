@@ -486,7 +486,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
         postStepRemoveParticle(space, particle.body, self);  // Don't need to schedule, called from update.
     }
     
-    emergency = YES;
+    emergency = NO;
     
     if (points) {
         return YES;
