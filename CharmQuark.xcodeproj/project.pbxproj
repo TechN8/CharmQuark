@@ -135,6 +135,8 @@
 		D871773F15B3544F0014E75E /* RemoveFromParentAction.m in Sources */ = {isa = PBXBuildFile; fileRef = D871773E15B3544F0014E75E /* RemoveFromParentAction.m */; };
 		D8A0684015D02CD8002B63B4 /* credits.txt in Resources */ = {isa = PBXBuildFile; fileRef = D8A0683F15D02CD8002B63B4 /* credits.txt */; };
 		D8A0684615D0877C002B63B4 /* ChangeLog.txt in Resources */ = {isa = PBXBuildFile; fileRef = D8A0684515D0877B002B63B4 /* ChangeLog.txt */; };
+		D8A0685115D2CBB7002B63B4 /* GCHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A0685015D2CBB7002B63B4 /* GCHelper.m */; };
+		D8A0685515D2CC06002B63B4 /* GCDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A0685415D2CC05002B63B4 /* GCDatabase.m */; };
 		D8CE5B9F15B713EA00E76ADA /* scene1Atlas-ipad.plist in Resources */ = {isa = PBXBuildFile; fileRef = D8CE5B9B15B713EA00E76ADA /* scene1Atlas-ipad.plist */; };
 		D8CE5BA015B713EA00E76ADA /* scene1Atlas-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = D8CE5B9C15B713EA00E76ADA /* scene1Atlas-ipad.png */; };
 		D8CE5BA115B713EA00E76ADA /* scene1Atlas-ipadhd.plist in Resources */ = {isa = PBXBuildFile; fileRef = D8CE5B9D15B713EA00E76ADA /* scene1Atlas-ipadhd.plist */; };
@@ -443,6 +445,10 @@
 		D8A0683C15D02C8C002B63B4 /* AppDescription.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AppDescription.txt; sourceTree = "<group>"; };
 		D8A0683F15D02CD8002B63B4 /* credits.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = credits.txt; path = Resources/credits.txt; sourceTree = "<group>"; };
 		D8A0684515D0877B002B63B4 /* ChangeLog.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ChangeLog.txt; sourceTree = "<group>"; };
+		D8A0684F15D2CBB7002B63B4 /* GCHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCHelper.h; sourceTree = "<group>"; };
+		D8A0685015D2CBB7002B63B4 /* GCHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCHelper.m; sourceTree = "<group>"; };
+		D8A0685315D2CC04002B63B4 /* GCDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDatabase.h; sourceTree = "<group>"; };
+		D8A0685415D2CC05002B63B4 /* GCDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDatabase.m; sourceTree = "<group>"; };
 		D8CE5B9B15B713EA00E76ADA /* scene1Atlas-ipad.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "scene1Atlas-ipad.plist"; sourceTree = "<group>"; };
 		D8CE5B9C15B713EA00E76ADA /* scene1Atlas-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scene1Atlas-ipad.png"; sourceTree = "<group>"; };
 		D8CE5B9D15B713EA00E76ADA /* scene1Atlas-ipadhd.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "scene1Atlas-ipadhd.plist"; sourceTree = "<group>"; };
@@ -1060,6 +1066,10 @@
 				D847E26D15AC93610044FC48 /* AppDelegate.m */,
 				D847E27015AC93610044FC48 /* GameManager.h */,
 				D847E27115AC93610044FC48 /* GameManager.mm */,
+				D8A0684F15D2CBB7002B63B4 /* GCHelper.h */,
+				D8A0685015D2CBB7002B63B4 /* GCHelper.m */,
+				D8A0685315D2CC04002B63B4 /* GCDatabase.h */,
+				D8A0685415D2CC05002B63B4 /* GCDatabase.m */,
 			);
 			name = Singletons;
 			sourceTree = "<group>";
@@ -1705,6 +1715,8 @@
 				D848C3FF15CB670F00B6088A /* HighScoreDialog.m in Sources */,
 				D848C43815CC255900B6088A /* CreditsDialog.m in Sources */,
 				D848C43B15CC2AC600B6088A /* ClipNode.m in Sources */,
+				D8A0685115D2CBB7002B63B4 /* GCHelper.m in Sources */,
+				D8A0685515D2CC06002B63B4 /* GCDatabase.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
