@@ -11,6 +11,7 @@
 #import "AppDelegate.h"
 #import "IntroLayer.h"
 #import "GameManager.h"
+#import "GCHelper.h"
 
 @implementation AppController
 
@@ -97,6 +98,9 @@
 	
 	// make main window visible
 	[window_ makeKeyAndVisible];
+    
+    // Log into gamecenter.
+    [[GCHelper sharedInstance] authenticateLocalUser];
 
 	return YES;
 }

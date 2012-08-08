@@ -5,12 +5,13 @@
 //  Copyright Aether Theory, LLC 2012. All rights reserved.
 //
 
+#import "cocos2d.h"
+#import "chipmunk.h"
 #import "GameManager.h"
 #import "MainMenuScene.h"
 #import "IntroLayer.h"
 #import "GameScene.h"
-#import "cocos2d.h"
-#import "chipmunk.h"
+#import "GCHelper.h"
 
 NSString *kSoundEffectsOnKey	= @"isSoundEffectsOn";
 NSString *kMusicOnKey			= @"isMusicOn";
@@ -512,6 +513,9 @@ static GameManager* _sharedGameManager = nil;
             highScore = [scoreNum intValue];
         }
     }
+    
+    // TODO: Get from gamecenter if authenticated.
+    
     return highScore;
 }
 
@@ -525,6 +529,19 @@ static GameManager* _sharedGameManager = nil;
     [newHighScoreDict setValue:[NSNumber numberWithInt:score] 
                      forKey:[self formatSceneTypeToString:sceneID]];
     [ud setValue:newHighScoreDict forKey:kHighScoreKey];
+
+    // Send to gamecenter.
+    GCHelper *gch = [GCHelper sharedInstance];
+    switch (sceneID) {
+        case kGameSceneTimeAttack:
+            [gch reportScore:kLeaderboardTimeAttack score:score];
+            break;
+        case kGameSceneSurvival:
+            [gch reportScore:kLeaderboardAccelerator score:score];
+            break;
+        default:
+            break;
+    }
 }
 
 @end

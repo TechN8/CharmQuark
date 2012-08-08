@@ -1,11 +1,3 @@
-. iTunes Connect App Setup
-    - 1024x1024 icon
-    - Screenshots
-    - App description.
-
-. Game Center Leaderboards.
-    - Have to finish icons and app setup first.
-    
 . New BGM
     - Break into 4 measure sections.
     - Three versions, mellow, normal, intense.
@@ -34,6 +26,19 @@
     - Messages should appear over the puzzle.
     - Messages should be partly transparent.
 
+. Tuning
+    - Add ball indicator.
+    
+. Help System / Screen
+    - Show on game scene first time.
+    - Reset from options screen.
+    - Should explain how to rotate and drop.
+        Add arrow sprite, have user tap through help items on first play.
+    
+
+. iTunes Connect App Setup
+    - Screenshots
+
 . Test 5 piece minimum.
 
 . Custom MenuItem : CCMenuItemFont
@@ -53,11 +58,6 @@ Future Enhancements
 . Enhanced HD graphics, possible on the detector / particles.
     -Do this in 2 parts inner and outer.  Draw inners at 0,90,180,270; Outers at 45, 135, 225, 315.
     -Intersection with outers should be drawn as yellow dot with green lines.
-
-. Help Overlay
-    Should explain how to rotate and drop. 
-    Show on game scene first time.
-    Reset from options screen.
 
 . Localization
     Google translate menus.  Game is pretty self explanitory.

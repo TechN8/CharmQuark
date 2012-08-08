@@ -3,7 +3,7 @@ Next release
 Beta 8
 
 Renamed Meditation to Practice.
-
+Added Game Center high score support.
 
 Beta 7
 
