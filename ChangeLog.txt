@@ -1,13 +1,16 @@
 Next release
 
+Beta 8
+
+Renamed Meditation to Practice.
 
 
 Beta 7
 
-Time Attack and Acellerator swapped on main menu screen.
+Time Attack and Accelerator swapped on main menu screen.
 Border of particle sprite is now light instead of dark.
 Explosions are larger with fewer particles.
-Outer detector now blinks.
+Outer detector now blinks instead of scaling.
 Adjusted detector blink and graph angle to prevent overlap.
 Adjusted detector graph scaling to remove transparency.
 Drawing of explosion particle systems is now a single OpenGL call.

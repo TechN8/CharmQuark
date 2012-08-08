@@ -200,7 +200,7 @@
     item.position = ccp(-0.25 * winSize.width, -0.1 * winSize.height);
     [menu addChild:item];
     
-    label = [CCLabelBMFont labelWithString:@"Meditation" 
+    label = [CCLabelBMFont labelWithString:@"Practice" 
                                    fntFile:@"score.fnt"];
     item = [CCMenuItemFont itemWithLabel:label
                                   target:self 
