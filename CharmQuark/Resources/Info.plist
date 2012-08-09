@@ -22,7 +22,7 @@
 		<string>Icon-Small-100.png</string>
 	</array>
 	<key>CFBundleIdentifier</key>
-	<string>9XJ4876EZH.com.aethertheory.charmquark</string>
+	<string>com.aethertheory.charmquark</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
