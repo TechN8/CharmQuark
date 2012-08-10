@@ -447,7 +447,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
                     [logViewer addMessage:bonusText];
                 }
                 
-                comboCount = 1 / kSweepRate;
+                comboCount = 2 / kSweepRate;  // Two seconds.
                 comboLevel++;
                 
                 [self addPoints:points]; // Update score.
@@ -474,6 +474,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     while (scoredParticles.count > 0) {
         Particle *particle = [scoredParticles objectAtIndex:0];
         [scoredParticles removeObject:particle];
+        [particles removeObject:particle];
         
         CCParticleSystemQuad *explosion = [particle explode];  // Play the explosion animation.
         explosion.position = [centerNode convertToWorldSpace:particle.position];
@@ -587,6 +588,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 -(void) pause {
     CGSize winSize = [[CCDirector sharedDirector] winSize];
     
+    [[GameManager sharedGameManager] pauseBGM];
     [self pauseSchedulerAndActions];
     
     // Throw up modal layer.
@@ -600,6 +602,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 
 -(void) resume {
     [self resumeSchedulerAndActions];
+    [[GameManager sharedGameManager] resumeBGM];
 }
 
 -(void)end:(Particle *)particle {
@@ -745,7 +748,32 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     centerNode.rotation = 0;
     [centerNode addChild:packetBatchNode z:kZParticles tag:kTagPacketBatchNode];
     [self addChild:centerNode z:kZParticles];
-    
+}
+
+-(void)bgmManager {
+    NSInteger count = particles.count;
+    static NSInteger intensity = 0;
+    static NSInteger lastIntensity = 0;
+    lastIntensity = intensity;
+    if (count > 18) {
+        intensity = lastIntensity % 2 ? 8 : 7;
+    } else if (count > 13) {
+        intensity = lastIntensity % 2 ? 6 : 5;
+    } else if (count > 8) {
+        intensity = lastIntensity % 2 ? 4 : 3;
+    } else {
+        intensity = lastIntensity % 2 ? 2 : 1;
+    }
+    [[GameManager sharedGameManager] playBGMIntensity:intensity];
+}
+
+-(void)startMusic {
+    [self schedule:@selector(bgmManager) 
+          interval:8.0 
+            repeat:kCCRepeatForever 
+             delay:8.0];
+    [[GameManager sharedGameManager] playBGMIntro];
+    //[self bgmManager];
 }
 
 #pragma mark -
@@ -870,6 +898,9 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     [super onEnter];
     mode = [GameManager sharedGameManager].curLevel;
     [self initUI];
+    
+    // Play the BGM
+    [self startMusic];
     
     // This will set up the initial particle system.
     [self resetGame];

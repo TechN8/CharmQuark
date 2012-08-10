@@ -21,7 +21,7 @@
     CGPoint offScreen = ccp(0, 2 * winSize.height);
     CCSequence *seq = [CCSequence actions:[CCMoveTo actionWithDuration:kPopupSpeed position:offScreen], 
                        [RemoveFromParentAction action],
-                       [CCCallFunc actionWithTarget:self.parent selector:@selector(resumeSchedulerAndActions)], 
+                       [CCCallFunc actionWithTarget:self.parent selector:@selector(resume)], 
                        nil];
     [self runAction:seq];
 }

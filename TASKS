@@ -17,6 +17,7 @@
 . Final Sound effects.
     Use afconvert tool to convert.
         afconvert -f caff -d LEI16@22050 --mix -c 1  
+        afconvert -f m4a
     Check out some more sounds at www.freesound.org.
     . Click sound for menus and controls would be nice.
 
@@ -27,6 +28,7 @@
     - Messages should be partly transparent.
 
 . Tuning
+    - Pre-load sound and sprites on intro screen.
     - Add ball indicator.
     
 . Help System / Screen

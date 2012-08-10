@@ -13,6 +13,8 @@
     BOOL isSoundEffectsON;
     BOOL hasPlayerDied;
     SceneTypes currentScene;
+    SceneTypes curLevel;
+    SceneTypes lastLevel;
     
     // Added for audio
     BOOL hasAudioBeenInitialized;
@@ -21,9 +23,9 @@
     NSMutableDictionary *listOfSoundEffectFiles;
     NSMutableDictionary *soundEffectsState;
     
-    SceneTypes curLevel;
-    SceneTypes lastLevel;
-    
+    // BGM
+    NSDictionary *listOfBGMFiles;
+    CDLongAudioSource *lastBGMSource;
 }
 @property (nonatomic,readwrite) BOOL isMusicON;
 @property (nonatomic,readwrite) BOOL isSoundEffectsON;
@@ -32,6 +34,7 @@
 //@property (readonly) SimpleAudioEngine *soundEngine;
 @property (nonatomic, retain) NSMutableDictionary *listOfSoundEffectFiles;
 @property (nonatomic, retain) NSMutableDictionary *soundEffectsState;
+@property (nonatomic, retain) NSDictionary *listOfBGMFiles;
 @property (assign) SceneTypes curLevel;
 @property (assign) SceneTypes lastLevel;
 
@@ -43,10 +46,15 @@
 -(ALuint)playSoundEffect:(NSString*)soundEffectKey gain:(Float32)gain;
 -(void)stopSoundEffect:(ALuint)soundEffectID;
 -(void)playBackgroundTrack:(NSString*)trackFileName;
--(void)playBackgroundTrackForScene:(SceneTypes)sceneID;
+-(void)playBackgroundTrackForCurrentScene;
 -(void)stopBackgroundTrack;
 // Chapter 9
 -(CGSize)getDimensionsOfCurrentScene;
 -(NSInteger)getHighScoreForSceneWithID:(SceneTypes)sceneID;
 -(void)setHighScore:(NSInteger)score forSceneWithID:(SceneTypes)sceneID;
+-(void)playBGMIntro;
+-(void)playBGMIntensity:(NSInteger)intensity;
+-(void)pauseBGM;
+-(void)resumeBGM;
+-(void)stopBGM;
 @end

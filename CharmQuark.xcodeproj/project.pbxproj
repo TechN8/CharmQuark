@@ -18,6 +18,16 @@
 		D8151DEC15B9C978007D8AE2 /* Scale9Sprite.m in Sources */ = {isa = PBXBuildFile; fileRef = D8151DEB15B9C978007D8AE2 /* Scale9Sprite.m */; };
 		D8318D6415B4545E0032D92E /* LHCMap.m in Sources */ = {isa = PBXBuildFile; fileRef = D8318D6315B4545E0032D92E /* LHCMap.m */; };
 		D8318D7915B49DFB0032D92E /* SoundEffects.plist in Resources */ = {isa = PBXBuildFile; fileRef = D8318D7015B49DF90032D92E /* SoundEffects.plist */; };
+		D834AC7115D57DF800987B68 /* Intensity1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = D834AC6815D57DF800987B68 /* Intensity1.m4a */; };
+		D834AC7215D57DF800987B68 /* Intensity2.m4a in Resources */ = {isa = PBXBuildFile; fileRef = D834AC6915D57DF800987B68 /* Intensity2.m4a */; };
+		D834AC7315D57DF800987B68 /* Intensity3.m4a in Resources */ = {isa = PBXBuildFile; fileRef = D834AC6A15D57DF800987B68 /* Intensity3.m4a */; };
+		D834AC7415D57DF800987B68 /* Intensity4.m4a in Resources */ = {isa = PBXBuildFile; fileRef = D834AC6B15D57DF800987B68 /* Intensity4.m4a */; };
+		D834AC7515D57DF800987B68 /* Intensity5.m4a in Resources */ = {isa = PBXBuildFile; fileRef = D834AC6C15D57DF800987B68 /* Intensity5.m4a */; };
+		D834AC7615D57DF800987B68 /* Intensity6.m4a in Resources */ = {isa = PBXBuildFile; fileRef = D834AC6D15D57DF800987B68 /* Intensity6.m4a */; };
+		D834AC7715D57DF800987B68 /* Intensity7.m4a in Resources */ = {isa = PBXBuildFile; fileRef = D834AC6E15D57DF800987B68 /* Intensity7.m4a */; };
+		D834AC7815D57DF800987B68 /* Intensity8.m4a in Resources */ = {isa = PBXBuildFile; fileRef = D834AC6F15D57DF800987B68 /* Intensity8.m4a */; };
+		D834AC7915D57DF800987B68 /* Intro.m4a in Resources */ = {isa = PBXBuildFile; fileRef = D834AC7015D57DF800987B68 /* Intro.m4a */; };
+		D834AC7B15D582A900987B68 /* BGM.plist in Resources */ = {isa = PBXBuildFile; fileRef = D834AC7A15D582A900987B68 /* BGM.plist */; };
 		D847E06615AC87FF0044FC48 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D847E06515AC87FF0044FC48 /* QuartzCore.framework */; };
 		D847E06815AC87FF0044FC48 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D847E06715AC87FF0044FC48 /* OpenGLES.framework */; };
 		D847E06A15AC87FF0044FC48 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D847E06915AC87FF0044FC48 /* OpenAL.framework */; };
@@ -141,7 +151,6 @@
 		D8CE5BA015B713EA00E76ADA /* scene1Atlas-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = D8CE5B9C15B713EA00E76ADA /* scene1Atlas-ipad.png */; };
 		D8CE5BA115B713EA00E76ADA /* scene1Atlas-ipadhd.plist in Resources */ = {isa = PBXBuildFile; fileRef = D8CE5B9D15B713EA00E76ADA /* scene1Atlas-ipadhd.plist */; };
 		D8CE5BA215B713EA00E76ADA /* scene1Atlas-ipadhd.png in Resources */ = {isa = PBXBuildFile; fileRef = D8CE5B9E15B713EA00E76ADA /* scene1Atlas-ipadhd.png */; };
-		D8D2F9EF15BDDDC300C3FBF1 /* DanPugsleyLHC2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D8D2F9EE15BDDDC300C3FBF1 /* DanPugsleyLHC2.mp3 */; };
 		D8D2FCDC15C1706800C3FBF1 /* CCAction.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D2FC1715C1706800C3FBF1 /* CCAction.m */; };
 		D8D2FCDD15C1706800C3FBF1 /* CCActionCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D2FC1915C1706800C3FBF1 /* CCActionCamera.m */; };
 		D8D2FCDE15C1706800C3FBF1 /* CCActionCatmullRom.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D2FC1B15C1706800C3FBF1 /* CCActionCatmullRom.m */; };
@@ -253,6 +262,16 @@
 		D8318D6215B4545E0032D92E /* LHCMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHCMap.h; sourceTree = "<group>"; };
 		D8318D6315B4545E0032D92E /* LHCMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHCMap.m; sourceTree = "<group>"; };
 		D8318D7015B49DF90032D92E /* SoundEffects.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SoundEffects.plist; sourceTree = "<group>"; };
+		D834AC6815D57DF800987B68 /* Intensity1.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = Intensity1.m4a; sourceTree = "<group>"; };
+		D834AC6915D57DF800987B68 /* Intensity2.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = Intensity2.m4a; sourceTree = "<group>"; };
+		D834AC6A15D57DF800987B68 /* Intensity3.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = Intensity3.m4a; sourceTree = "<group>"; };
+		D834AC6B15D57DF800987B68 /* Intensity4.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = Intensity4.m4a; sourceTree = "<group>"; };
+		D834AC6C15D57DF800987B68 /* Intensity5.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = Intensity5.m4a; sourceTree = "<group>"; };
+		D834AC6D15D57DF800987B68 /* Intensity6.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = Intensity6.m4a; sourceTree = "<group>"; };
+		D834AC6E15D57DF800987B68 /* Intensity7.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = Intensity7.m4a; sourceTree = "<group>"; };
+		D834AC6F15D57DF800987B68 /* Intensity8.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = Intensity8.m4a; sourceTree = "<group>"; };
+		D834AC7015D57DF800987B68 /* Intro.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = Intro.m4a; sourceTree = "<group>"; };
+		D834AC7A15D582A900987B68 /* BGM.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BGM.plist; sourceTree = "<group>"; };
 		D847E06115AC87FF0044FC48 /* CharmQuark.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CharmQuark.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D847E06515AC87FF0044FC48 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		D847E06715AC87FF0044FC48 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -680,6 +699,7 @@
 			isa = PBXGroup;
 			children = (
 				D8318D7015B49DF90032D92E /* SoundEffects.plist */,
+				D834AC7A15D582A900987B68 /* BGM.plist */,
 			);
 			path = Plists;
 			sourceTree = "<group>";
@@ -707,6 +727,15 @@
 		D8318D7715B49DFB0032D92E /* Music */ = {
 			isa = PBXGroup;
 			children = (
+				D834AC7015D57DF800987B68 /* Intro.m4a */,
+				D834AC6815D57DF800987B68 /* Intensity1.m4a */,
+				D834AC6915D57DF800987B68 /* Intensity2.m4a */,
+				D834AC6A15D57DF800987B68 /* Intensity3.m4a */,
+				D834AC6B15D57DF800987B68 /* Intensity4.m4a */,
+				D834AC6C15D57DF800987B68 /* Intensity5.m4a */,
+				D834AC6D15D57DF800987B68 /* Intensity6.m4a */,
+				D834AC6E15D57DF800987B68 /* Intensity7.m4a */,
+				D834AC6F15D57DF800987B68 /* Intensity8.m4a */,
 				D8D2F9EE15BDDDC300C3FBF1 /* DanPugsleyLHC2.mp3 */,
 			);
 			path = Music;
@@ -1504,7 +1533,6 @@
 				D8151DE015B9B46F007D8AE2 /* window-ipad.png in Resources */,
 				D8151DE115B9B46F007D8AE2 /* window-ipadhd.png in Resources */,
 				D8151DE215B9B46F007D8AE2 /* window.png in Resources */,
-				D8D2F9EF15BDDDC300C3FBF1 /* DanPugsleyLHC2.mp3 in Resources */,
 				D8F547F215C1E59B007F1AE1 /* score-ipad.fnt in Resources */,
 				D8F547F315C1E59B007F1AE1 /* score-ipad.png in Resources */,
 				D8F547F515C1E59B007F1AE1 /* score-ipadhd.fnt in Resources */,
@@ -1537,6 +1565,16 @@
 				D848C48015CC632B00B6088A /* aethertheory-logo-hd.png in Resources */,
 				D8A0684015D02CD8002B63B4 /* credits.txt in Resources */,
 				D8A0684615D0877C002B63B4 /* ChangeLog.txt in Resources */,
+				D834AC7115D57DF800987B68 /* Intensity1.m4a in Resources */,
+				D834AC7215D57DF800987B68 /* Intensity2.m4a in Resources */,
+				D834AC7315D57DF800987B68 /* Intensity3.m4a in Resources */,
+				D834AC7415D57DF800987B68 /* Intensity4.m4a in Resources */,
+				D834AC7515D57DF800987B68 /* Intensity5.m4a in Resources */,
+				D834AC7615D57DF800987B68 /* Intensity6.m4a in Resources */,
+				D834AC7715D57DF800987B68 /* Intensity7.m4a in Resources */,
+				D834AC7815D57DF800987B68 /* Intensity8.m4a in Resources */,
+				D834AC7915D57DF800987B68 /* Intro.m4a in Resources */,
+				D834AC7B15D582A900987B68 /* BGM.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

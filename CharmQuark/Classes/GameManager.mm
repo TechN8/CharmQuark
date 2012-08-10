@@ -13,21 +13,17 @@
 #import "GameScene.h"
 #import "GCHelper.h"
 
-NSString *kSoundEffectsOnKey	= @"isSoundEffectsOn";
-NSString *kMusicOnKey			= @"isMusicOn";
-NSString *kHighScoreKey         = @"highScores";
+static NSString *kSoundEffectsOnKey	= @"isSoundEffectsOn";
+static NSString *kMusicOnKey		= @"isMusicOn";
+static NSString *kHighScoreKey      = @"highScores";
 
 @implementation GameManager
-static GameManager* _sharedGameManager = nil;
-@synthesize isMusicON;
-@synthesize isSoundEffectsON;
-@synthesize hasPlayerDied;
-@synthesize managerSoundState;
-@synthesize listOfSoundEffectFiles;
-@synthesize soundEffectsState;
+
 @synthesize curLevel;
+@synthesize hasPlayerDied;
 @synthesize lastLevel;
 
+static GameManager* _sharedGameManager = nil;
 +(GameManager*)sharedGameManager {
     @synchronized([GameManager class])
     {
@@ -50,20 +46,65 @@ static GameManager* _sharedGameManager = nil;
     return nil;  
 }
 
--(void)setIsSoundEffectsON:(BOOL)value {
-    isSoundEffectsON = value;
-    [[NSUserDefaults standardUserDefaults] setBool:value forKey:kSoundEffectsOnKey];
+-(id)init { 
+    self = [super init];
+    if (self != nil) {
+        // Game Manager initialized
+        CCLOG(@"Game Manager Singleton, init");
+        
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        if (nil == [defaults objectForKey:kMusicOnKey]) {
+            isMusicON = YES;
+        } else {
+            isMusicON = [defaults boolForKey:kMusicOnKey];
+        }
+        
+        if (nil == [defaults objectForKey:kSoundEffectsOnKey]) {
+            isSoundEffectsON = YES;
+        } else {
+            isSoundEffectsON = [defaults boolForKey:kSoundEffectsOnKey];
+        }
+        hasPlayerDied = NO;
+        currentScene = kNoSceneUninitialized;
+        hasAudioBeenInitialized = NO;
+        soundEngine = nil;
+        managerSoundState = kAudioManagerUninitialized;
+        
+        // Load sprite sheet.
+        [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"scene1Atlas.plist"];
+        [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"titleAtlas.plist"];
+    }
+    return self;
 }
 
--(void)setIsMusicON:(BOOL)value {
-    isMusicON = value;
-    [[NSUserDefaults standardUserDefaults] setBool:value forKey:kMusicOnKey];
-    if (NO == value) {
-        [self stopBackgroundTrack];
+-(void)openSiteWithLinkType:(LinkTypes)linkTypeToOpen {
+    NSURL *urlToOpen = nil;
+    if (linkTypeToOpen == kLinkTypeMainSite) {
+        CCLOG(@"Opening Book Site");
+        urlToOpen = 
+        [NSURL URLWithString:
+         @"http://www.aethertheory.com"];
+    } else if (linkTypeToOpen == kLinkTypeSupportSite) {
+        CCLOG(@"Opening Developer Site for Rod");
+        urlToOpen = [NSURL URLWithString:@"http://www.aethertheory.com/support"];
+    } else if (linkTypeToOpen == kLinkTypeFacebook) {
+        CCLOG(@"Opening Developer Site for Ray");
+        urlToOpen = 
+        [NSURL URLWithString:@"http://www.facebook.com/AetherTheory"];
     } else {
-        [self playBackgroundTrackForScene:curLevel];
+        CCLOG(@"Defaulting to Cocos2DBook.com Blog Site");
+        urlToOpen = 
+        [NSURL URLWithString:@"http://www.cocos2dbook.com"];
     }
+    
+    if (![[UIApplication sharedApplication] openURL:urlToOpen]) {
+        CCLOG(@"%@%@",@"Failed to open url:",[urlToOpen description]);
+        [self runSceneWithID:kMainMenuScene];
+    }    
 }
+
+#pragma mark - Scene Management
+
 
 -(CGSize)getDimensionsOfCurrentScene {
     CGSize screenSize = [[CCDirector sharedDirector] winSize];
@@ -85,82 +126,6 @@ static GameManager* _sharedGameManager = nil;
             break;
     }
     return levelSize;
-}
-
--(void)playBackgroundTrackForScene:(SceneTypes)sceneID {
-    switch (sceneID) {
-        case kMainMenuScene: 
-        case kOptionsScene:
-        case kCreditsScene:
-        case kIntroScene:
-        case kGameOverScene:
-            [self stopBackgroundTrack];
-            break;
-        case kGameSceneSurvival:
-        case kGameSceneTimeAttack:
-        case kGameSceneMomMode:
-            // Start the music.
-            [[GameManager sharedGameManager] playBackgroundTrack:@"DanPugsleyLHC2.mp3"];
-            break;
-        default:
-            CCLOG(@"Unknown Scene ID, stopping BGM");
-            [self stopBackgroundTrack];
-            break;
-
-    }
-}
-
--(void)playBackgroundTrack:(NSString*)trackFileName {
-    // Wait to make sure soundEngine is initialized
-    if ((managerSoundState != kAudioManagerReady) 
-        && (managerSoundState != kAudioManagerFailed)) {
-        
-        int waitCycles = 0;
-        while (waitCycles < AUDIO_MAX_WAITTIME) {
-            [NSThread sleepForTimeInterval:0.1f];
-            if ((managerSoundState == kAudioManagerReady) || 
-                (managerSoundState == kAudioManagerFailed)) {
-                break;
-            }
-            waitCycles = waitCycles + 1;
-        }
-    }
-    
-    if (isMusicON && managerSoundState == kAudioManagerReady) {
-        if ([soundEngine isBackgroundMusicPlaying]) {
-            [soundEngine stopBackgroundMusic];
-        }
-        [soundEngine preloadBackgroundMusic:trackFileName];
-        [soundEngine playBackgroundMusic:trackFileName loop:YES];
-    }
-}
-
--(void)stopBackgroundTrack {
-    if (managerSoundState == kAudioManagerReady) {
-        [soundEngine stopBackgroundMusic];
-    }
-}
-
--(void)stopSoundEffect:(ALuint)soundEffectID {
-    if (managerSoundState == kAudioManagerReady) {
-        [soundEngine stopEffect:soundEffectID];
-    }
-}
-
--(ALuint)playSoundEffect:(NSString*)soundEffectKey gain:(Float32)gain {
-    ALuint soundID = 0;
-    if (isSoundEffectsON && managerSoundState == kAudioManagerReady) {
-        NSNumber *isSFXLoaded = [soundEffectsState objectForKey:soundEffectKey];
-        if ([isSFXLoaded boolValue] == SFX_LOADED) {
-            soundID = [soundEngine playEffect:[listOfSoundEffectFiles objectForKey:soundEffectKey] 
-                                        pitch:1.0 pan:0.0 gain:gain];
-        } else {
-            CCLOG(@"GameMgr: SoundEffect %@ is not loaded, cannot play.",soundEffectKey);
-        }
-    } else {
-        CCLOG(@"GameMgr: Sound Manager is not ready or sound disabled, cannot play %@", soundEffectKey);
-    }
-    return soundID;
 }
 
 - (NSString*)formatSceneTypeToString:(SceneTypes)sceneID {
@@ -199,11 +164,293 @@ static GameManager* _sharedGameManager = nil;
     return result;
 }
 
+-(void)runSceneWithID:(SceneTypes)sceneID {
+    
+    lastLevel = curLevel;
+    curLevel = sceneID;
+    
+    SceneTypes oldScene = currentScene;
+    currentScene = sceneID;
+    
+    id sceneToRun = nil;
+    switch (sceneID) {
+        case kMainMenuScene: 
+            sceneToRun = [MainMenuScene node];
+            break;
+        case kIntroScene:
+            sceneToRun = [IntroLayer scene];
+            break;
+        case kGameSceneSurvival: 
+        case kGameSceneTimeAttack:
+        case kGameSceneMomMode:
+            // Same scene used for both modes.
+            sceneToRun = [GameScene node];
+            break;
+        case kOptionsScene:
+        case kCreditsScene:
+            
+        default:
+            CCLOG(@"Unknown ID, cannot switch scenes");
+            return;
+            break;
+    }
+    
+    if (sceneToRun == nil) {
+        // Revert back, since no new scene was found
+        currentScene = oldScene;
+        return;
+    }
+    
+    // Menu Scenes have a value of < 100
+    if (sceneID < 100) {
+        //        if (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad) { 
+        //            CGSize screenSize = [CCDirector sharedDirector].winSizeInPixels; 
+        //                [sceneToRun setScaleX:0.46875f];
+        //                [sceneToRun setScaleY:0.41666f];
+        //                CCLOG(@"GameMgr:Scaling for iPhone");
+        //        }
+    }
+    
+    [self loadBGMListForSceneWithID:sceneID]; // Don't do async.  Need BGM.
+    
+    if (currentScene != oldScene) {
+        [self performSelectorInBackground:@selector(loadAudioForSceneWithID:) withObject:[NSNumber numberWithInt:sceneID]];
+    }
+    
+    if ([[CCDirector sharedDirector] runningScene] == nil) {
+        [[CCDirector sharedDirector] runWithScene:sceneToRun];
+    } else {
+        [[CCDirector sharedDirector] 
+         replaceScene:[CCTransitionFade transitionWithDuration:1.0 
+                                                         scene:sceneToRun 
+                                                     withColor:ccBLACK]];
+    }
+    
+    // Start appropriate music for scene.
+//    if (isMusicON) {
+//        [self playBackgroundTrackForCurrentScene];
+//    }
+}
+-(NSInteger)getHighScoreForSceneWithID:(SceneTypes)sceneID {
+    NSInteger highScore = 0;
+    NSDictionary *highScoreDict = [[NSUserDefaults standardUserDefaults] dictionaryForKey:kHighScoreKey];
+    if (nil != highScoreDict) {
+        NSNumber *scoreNum = [highScoreDict valueForKey:[self formatSceneTypeToString:sceneID]];
+        if (nil != scoreNum) {
+            highScore = [scoreNum intValue];
+        }
+    }
+    
+    // TODO: Get from gamecenter if authenticated.
+    
+    return highScore;
+}
+
+-(void)setHighScore:(NSInteger)score forSceneWithID:(SceneTypes)sceneID {
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    NSMutableDictionary *newHighScoreDict = [[[NSMutableDictionary alloc] init] autorelease];
+    NSDictionary *oldHighScoreDict = [ud dictionaryForKey:kHighScoreKey];
+    if (nil != oldHighScoreDict) {
+        [newHighScoreDict addEntriesFromDictionary:oldHighScoreDict];
+    }
+    [newHighScoreDict setValue:[NSNumber numberWithInt:score] 
+                        forKey:[self formatSceneTypeToString:sceneID]];
+    [ud setValue:newHighScoreDict forKey:kHighScoreKey];
+    
+    // Send to gamecenter.
+    GCHelper *gch = [GCHelper sharedInstance];
+    switch (sceneID) {
+        case kGameSceneTimeAttack:
+            [gch reportScore:kLeaderboardTimeAttack score:score];
+            break;
+        case kGameSceneSurvival:
+            [gch reportScore:kLeaderboardAccelerator score:score];
+            break;
+        default:
+            break;
+    }
+}
+
+#pragma mark - Sound Effects
+
+@synthesize isSoundEffectsON;
+
+-(void)setIsSoundEffectsON:(BOOL)value {
+    isSoundEffectsON = value;
+    [[NSUserDefaults standardUserDefaults] setBool:value forKey:kSoundEffectsOnKey];
+}
+
+-(void)stopSoundEffect:(ALuint)soundEffectID {
+    if (managerSoundState == kAudioManagerReady) {
+        [soundEngine stopEffect:soundEffectID];
+    }
+}
+
+-(ALuint)playSoundEffect:(NSString*)soundEffectKey gain:(Float32)gain {
+    ALuint soundID = 0;
+    if (isSoundEffectsON && managerSoundState == kAudioManagerReady) {
+        NSNumber *isSFXLoaded = [soundEffectsState objectForKey:soundEffectKey];
+        if ([isSFXLoaded boolValue] == SFX_LOADED) {
+            soundID = [soundEngine playEffect:[listOfSoundEffectFiles objectForKey:soundEffectKey] 
+                                        pitch:1.0 pan:0.0 gain:gain];
+        } else {
+            CCLOG(@"GameMgr: SoundEffect %@ is not loaded, cannot play.",soundEffectKey);
+        }
+    } else {
+        CCLOG(@"GameMgr: Sound Manager is not ready or sound disabled, cannot play %@", soundEffectKey);
+    }
+    return soundID;
+}
+
+#pragma mark - Music
+
+@synthesize listOfBGMFiles;
+@synthesize isMusicON;
+
+-(void)setIsMusicON:(BOOL)value {
+    isMusicON = value;
+    [[NSUserDefaults standardUserDefaults] setBool:value forKey:kMusicOnKey];
+    [self stopBGM];
+    //    if (NO == value) {
+    //        [self stopBackgroundTrack];
+    //    } else {
+    //        [self playBackgroundTrackForCurrentScene];
+    //    }
+}
+
+
+-(NSDictionary *)loadBGMListForSceneWithID:(SceneTypes)sceneID {
+    // Get the Path to the plist file
+    NSString *plistPath = [[NSBundle mainBundle] 
+                           pathForResource:@"BGM" ofType:@"plist"];
+    
+    // Read the dictionary we need.
+    NSDictionary *plistDictionary = 
+    [NSDictionary dictionaryWithContentsOfFile:plistPath];
+    
+    // If the plistDictionary was null, the file was not found.
+    if (plistDictionary == nil) {
+        CCLOG(@"Error reading BGM.plist");
+        return nil; // No Plist Dictionary or file found
+    }
+    
+    // Return just the mini BGM list for this scene
+    NSString *sceneIDName = [self formatSceneTypeToString:sceneID];
+    NSDictionary *bgmList = [plistDictionary objectForKey:sceneIDName];
+
+    self.listOfBGMFiles = bgmList;
+   
+    return bgmList;
+}
+-(void)playBGM:(NSString*)loopKey {
+    if (isMusicON && managerSoundState == kAudioManagerReady) {
+        NSString *bgmFile = [listOfBGMFiles objectForKey:loopKey];
+        if (nil != bgmFile) {
+            CDAudioManager *sharedManager = [CDAudioManager sharedManager];
+            CDLongAudioSource *left = [sharedManager audioSourceForChannel:kASC_Left];
+            CDLongAudioSource *right = [sharedManager audioSourceForChannel:kASC_Right];
+            if (lastBGMSource == left) {
+                lastBGMSource = right;
+            } else {
+                lastBGMSource = left;
+            }
+            [lastBGMSource load:bgmFile];
+            [lastBGMSource play];
+        } else {
+            CCLOG(@"GameMgr: BGM Loop %@ is not loaded, cannot play.", loopKey);
+        }
+    }
+}
+
+-(void)playBGMIntro {
+    [self playBGM:@"BGM_INTRO"];
+}
+
+-(void)playBGMIntensity:(NSInteger)intensity {
+    NSString *bgmId = [NSString stringWithFormat:@"BGM_%d", intensity];
+    [self playBGM:bgmId];
+}
+
+-(void)resumeBGM {
+    [lastBGMSource resume];
+}
+
+-(void)pauseBGM {
+    [lastBGMSource pause];
+}
+
+-(void)stopBGM {
+//    [self stopSoundEffect:lastBGM];
+    [[CDAudioManager sharedManager] stopBackgroundMusic];
+}
+
+-(void)playBackgroundTrackForCurrentScene {
+    switch (currentScene) {
+        case kMainMenuScene: 
+        case kOptionsScene:
+        case kCreditsScene:
+        case kIntroScene:
+        case kGameOverScene:
+            [self stopBackgroundTrack];
+            break;
+        case kGameSceneSurvival:
+        case kGameSceneTimeAttack:
+        case kGameSceneMomMode:
+            // Start the music.
+            [[GameManager sharedGameManager] playBackgroundTrack:@"DanPugsleyLHC2.mp3"];
+            break;
+        default:
+            CCLOG(@"Unknown Scene ID, stopping BGM");
+            [self stopBackgroundTrack];
+            break;
+            
+    }
+}
+
+-(void)playBackgroundTrack:(NSString*)trackFileName {
+    // Wait to make sure soundEngine is initialized
+    if ((managerSoundState != kAudioManagerReady) 
+        && (managerSoundState != kAudioManagerFailed)) {
+        
+        int waitCycles = 0;
+        while (waitCycles < AUDIO_MAX_WAITTIME) {
+            [NSThread sleepForTimeInterval:0.1f];
+            if ((managerSoundState == kAudioManagerReady) || 
+                (managerSoundState == kAudioManagerFailed)) {
+                break;
+            }
+            waitCycles = waitCycles + 1;
+        }
+    }
+    
+    if (isMusicON && managerSoundState == kAudioManagerReady) {
+        if ([soundEngine isBackgroundMusicPlaying]) {
+            [soundEngine stopBackgroundMusic];
+        }
+        [soundEngine preloadBackgroundMusic:trackFileName];
+        [soundEngine playBackgroundMusic:trackFileName loop:YES];
+    }
+}
+
+-(void)stopBackgroundTrack {
+    if (managerSoundState == kAudioManagerReady) {
+        [soundEngine stopBackgroundMusic];
+    }
+}
+
+#pragma mark - Audio Manager
+
+@synthesize listOfSoundEffectFiles;
+@synthesize managerSoundState;
+@synthesize soundEffectsState;
+
 -(NSDictionary *)getSoundEffectsListForSceneWithID:(SceneTypes)sceneID {
     NSString *fullFileName = @"SoundEffects.plist";
     NSString *plistPath;
     
     // 1: Get the Path to the plist file
+    
+    // TODO: Test this, I don't think the PLIST will ever be in NSDocumentDirectory...
     NSString *rootPath = 
     [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
                                          NSUserDomainMask, YES) 
@@ -285,6 +532,7 @@ static GameManager* _sharedGameManager = nil;
         CCLOG(@"Error reading SoundEffects.plist");
         return;
     }
+    
     // Get all of the entries and PreLoad // 3
     for( NSString *keyString in soundEffectsToLoad )
     {
@@ -297,6 +545,8 @@ static GameManager* _sharedGameManager = nil;
         
     }
     [pool release];
+    
+    [self unloadAudioForSceneWithID:[NSNumber numberWithInt:lastLevel]];
 }
 
 -(void)unloadAudioForSceneWithID:(NSNumber*)sceneIDNumber {
@@ -327,9 +577,6 @@ static GameManager* _sharedGameManager = nil;
     [pool release];
 }
 
-
-
-
 -(void)initAudioAsync {
     // Initializes the audio engine asynchronously
     managerSoundState = kAudioManagerInitializing; 
@@ -357,9 +604,11 @@ static GameManager* _sharedGameManager = nil;
         managerSoundState = kAudioManagerFailed; 
     } else {
         [audioManager setResignBehavior:kAMRBStopPlay autoHandle:YES];
+        [[audioManager audioSourceForChannel:kASC_Left] setVolume:0.50];
+        [[audioManager audioSourceForChannel:kASC_Right] setVolume:0.50];
         soundEngine = [SimpleAudioEngine sharedEngine];
         managerSoundState = kAudioManagerReady;
-        [soundEngine setBackgroundMusicVolume:0.50];
+        //[soundEngine setBackgroundMusicVolume:0.50];
         CCLOG(@"CocosDenshion is Ready");
     }
 }
@@ -377,170 +626,6 @@ static GameManager* _sharedGameManager = nil;
                                                object:nil];
         [queue addOperation:asyncSetupOperation];
         [asyncSetupOperation autorelease];
-    }
-}
-
--(id)init { 
-    self = [super init];
-    if (self != nil) {
-        // Game Manager initialized
-        CCLOG(@"Game Manager Singleton, init");
-        
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        if (nil == [defaults objectForKey:kMusicOnKey]) {
-            isMusicON = YES;
-        } else {
-            isMusicON = [defaults boolForKey:kMusicOnKey];
-        }
-        
-        if (nil == [defaults objectForKey:kSoundEffectsOnKey]) {
-            isSoundEffectsON = YES;
-        } else {
-            isSoundEffectsON = [defaults boolForKey:kSoundEffectsOnKey];
-        }
-        hasPlayerDied = NO;
-        currentScene = kNoSceneUninitialized;
-        hasAudioBeenInitialized = NO;
-        soundEngine = nil;
-        managerSoundState = kAudioManagerUninitialized;
-        
-        // Load sprite sheet.
-        [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"scene1Atlas.plist"];
-        [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"titleAtlas.plist"];
-    }
-    return self;
-}
-
--(void)runSceneWithID:(SceneTypes)sceneID {
-    
-    lastLevel = curLevel;
-    curLevel = sceneID;
-    
-    SceneTypes oldScene = currentScene;
-    currentScene = sceneID;
-    
-    id sceneToRun = nil;
-    switch (sceneID) {
-        case kMainMenuScene: 
-            sceneToRun = [MainMenuScene node];
-            break;
-        case kIntroScene:
-            sceneToRun = [IntroLayer scene];
-            break;
-        case kGameSceneSurvival: 
-        case kGameSceneTimeAttack:
-        case kGameSceneMomMode:
-            // Same scene used for both modes.
-            sceneToRun = [GameScene node];
-            break;
-        case kOptionsScene:
-        case kCreditsScene:
-            
-        default:
-            CCLOG(@"Unknown ID, cannot switch scenes");
-            return;
-            break;
-    }
-    
-    if (sceneToRun == nil) {
-        // Revert back, since no new scene was found
-        currentScene = oldScene;
-        return;
-    }
-    
-    // Menu Scenes have a value of < 100
-    if (sceneID < 100) {
-        //        if (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad) { 
-        //            CGSize screenSize = [CCDirector sharedDirector].winSizeInPixels; 
-        //                [sceneToRun setScaleX:0.46875f];
-        //                [sceneToRun setScaleY:0.41666f];
-        //                CCLOG(@"GameMgr:Scaling for iPhone");
-        //        }
-    }
-    
-    if (currentScene != oldScene) {
-        [self performSelectorInBackground:@selector(loadAudioForSceneWithID:) withObject:[NSNumber numberWithInt:sceneID]];
-        [self performSelectorInBackground:@selector(unloadAudioForSceneWithID:) withObject:[NSNumber numberWithInt:oldScene]];
-    }
-    
-    if ([[CCDirector sharedDirector] runningScene] == nil) {
-        [[CCDirector sharedDirector] runWithScene:sceneToRun];
-    } else {
-        [[CCDirector sharedDirector] 
-         replaceScene:[CCTransitionFade transitionWithDuration:1.0 
-                                                         scene:sceneToRun 
-                                                     withColor:ccBLACK]];
-    }
-    
-    // Start appropriate music for scene.
-    if (isMusicON) {
-        [self playBackgroundTrackForScene:sceneID];
-    }
-}
-
--(void)openSiteWithLinkType:(LinkTypes)linkTypeToOpen {
-    NSURL *urlToOpen = nil;
-    if (linkTypeToOpen == kLinkTypeMainSite) {
-        CCLOG(@"Opening Book Site");
-        urlToOpen = 
-        [NSURL URLWithString:
-         @"http://www.aethertheory.com"];
-    } else if (linkTypeToOpen == kLinkTypeSupportSite) {
-        CCLOG(@"Opening Developer Site for Rod");
-        urlToOpen = [NSURL URLWithString:@"http://www.aethertheory.com/support"];
-    } else if (linkTypeToOpen == kLinkTypeFacebook) {
-        CCLOG(@"Opening Developer Site for Ray");
-        urlToOpen = 
-        [NSURL URLWithString:@"http://www.facebook.com/AetherTheory"];
-    } else {
-        CCLOG(@"Defaulting to Cocos2DBook.com Blog Site");
-        urlToOpen = 
-        [NSURL URLWithString:@"http://www.cocos2dbook.com"];
-    }
-    
-    if (![[UIApplication sharedApplication] openURL:urlToOpen]) {
-        CCLOG(@"%@%@",@"Failed to open url:",[urlToOpen description]);
-        [self runSceneWithID:kMainMenuScene];
-    }    
-}
-
--(NSInteger)getHighScoreForSceneWithID:(SceneTypes)sceneID {
-    NSInteger highScore = 0;
-    NSDictionary *highScoreDict = [[NSUserDefaults standardUserDefaults] dictionaryForKey:kHighScoreKey];
-    if (nil != highScoreDict) {
-        NSNumber *scoreNum = [highScoreDict valueForKey:[self formatSceneTypeToString:sceneID]];
-        if (nil != scoreNum) {
-            highScore = [scoreNum intValue];
-        }
-    }
-    
-    // TODO: Get from gamecenter if authenticated.
-    
-    return highScore;
-}
-
--(void)setHighScore:(NSInteger)score forSceneWithID:(SceneTypes)sceneID {
-    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-    NSMutableDictionary *newHighScoreDict = [[[NSMutableDictionary alloc] init] autorelease];
-    NSDictionary *oldHighScoreDict = [ud dictionaryForKey:kHighScoreKey];
-    if (nil != oldHighScoreDict) {
-        [newHighScoreDict addEntriesFromDictionary:oldHighScoreDict];
-    }
-    [newHighScoreDict setValue:[NSNumber numberWithInt:score] 
-                     forKey:[self formatSceneTypeToString:sceneID]];
-    [ud setValue:newHighScoreDict forKey:kHighScoreKey];
-
-    // Send to gamecenter.
-    GCHelper *gch = [GCHelper sharedInstance];
-    switch (sceneID) {
-        case kGameSceneTimeAttack:
-            [gch reportScore:kLeaderboardTimeAttack score:score];
-            break;
-        case kGameSceneSurvival:
-            [gch reportScore:kLeaderboardAccelerator score:score];
-            break;
-        default:
-            break;
     }
 }
 
