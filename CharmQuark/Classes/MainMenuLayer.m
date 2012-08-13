@@ -160,14 +160,14 @@
     detector.position = ccp(winSize.width / 2, winSize.height / 2);
     [batchNode addChild:detector z:kZDetector];
 
-    leftParticleStart = ccp(winSize.width / 2 - winSize.height * 0.6,
+    leftParticleStart = ccp(winSize.width / 2 - winSize.height * 0.4,
                             winSize.height * -0.1);
     leftParticle = [Particle particleWithColor:kParticleBlue];
     leftParticle.scale = kLeftStartScale;
     leftParticle.position = leftParticleStart;
     [batchNode addChild:leftParticle z:kZLeftParticle];
     
-    rightParticleStart = ccp(winSize.width / 2 + winSize.height * 0.6,
+    rightParticleStart = ccp(winSize.width / 2 + winSize.height * 0.4,
                              winSize.height * 1.1);
     rightParticle = [Particle particleWithColor:kParticleAntiBlue];
     rightParticle.scale = kRightStartScale;
