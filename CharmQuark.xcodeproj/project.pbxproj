@@ -1056,9 +1056,9 @@
 			children = (
 				D847E51715AC97560044FC48 /* Constants */,
 				D847E51615AC97500044FC48 /* Singletons */,
+				D847E51C15AC97CF0044FC48 /* Scenes */,
 				D8CE5B8F15B5FB0A00E76ADA /* Nodes */,
 				D871773C15B3543F0014E75E /* Actions */,
-				D847E51C15AC97CF0044FC48 /* Scenes */,
 				D847E51815AC976F0044FC48 /* GameObjects */,
 			);
 			path = Classes;

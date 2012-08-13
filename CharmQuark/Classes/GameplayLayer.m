@@ -28,12 +28,13 @@ static BOOL emergency = NO;
 -(void) end:(Particle*)particle;
 -(void) launch;
 -(void) pause;
--(Particle*)randomParticle;
+-(Particle*) randomParticle;
 -(Particle *) readyNextParticle;
 -(void)resetGame;
 -(void) resume;
 -(BOOL) scoreParticles;
 -(void) step: (ccTime) dt;
+-(void) playRandomNoteAtVolume:(ALfloat)volume;
 
 @end
 
@@ -150,59 +151,7 @@ static void collisionPostSolve(cpArbiter *arb, cpSpace *space, GameplayLayer *se
             ALfloat volume 
             = fmax(fminf((impulse - kMinSoundImpulse)/(kMaxSoundImpulse - kMinSoundImpulse), 1.0f), 0.0f);
             //CCLOG(@"Impulse = %f. Volume = %f", impulse, volume);
-            switch(rand() % 15) {
-                case 0:
-                    PLAYSOUNDEFFECT(PARTICLE_COLLIDE_1, volume);
-                    break;
-                case 1:
-                    PLAYSOUNDEFFECT(PARTICLE_COLLIDE_2, volume);
-                    break;
-                case 2:
-                    PLAYSOUNDEFFECT(PARTICLE_COLLIDE_3, volume);
-                    break;
-                case 3:
-                    PLAYSOUNDEFFECT(PARTICLE_COLLIDE_4, volume);
-                    break;
-                case 4:
-                    PLAYSOUNDEFFECT(PARTICLE_COLLIDE_5, volume);
-                    break;
-                case 5:
-                    PLAYSOUNDEFFECT(PARTICLE_COLLIDE_6, volume);
-                    break;
-                case 6:
-                    PLAYSOUNDEFFECT(PARTICLE_COLLIDE_7, volume);
-                    break;
-                case 7:
-                    PLAYSOUNDEFFECT(PARTICLE_COLLIDE_8, volume);
-                    break;
-                case 8:
-                    PLAYSOUNDEFFECT(PARTICLE_COLLIDE_9, volume);
-                    break;
-                case 9:
-                    PLAYSOUNDEFFECT(PARTICLE_COLLIDE_10, volume);
-                    break;
-                case 10:
-                    PLAYSOUNDEFFECT(PARTICLE_COLLIDE_11, volume);
-                    break;
-                case 11:
-                    PLAYSOUNDEFFECT(PARTICLE_COLLIDE_12, volume);
-                    break;
-                case 12:
-                    PLAYSOUNDEFFECT(PARTICLE_COLLIDE_13, volume);
-                    break;
-                case 13:
-                    PLAYSOUNDEFFECT(PARTICLE_COLLIDE_14, volume);
-                    break;
-                case 14:
-                    PLAYSOUNDEFFECT(PARTICLE_COLLIDE_15, volume);
-                    break;
-                case 15:
-                    PLAYSOUNDEFFECT(PARTICLE_COLLIDE_16, volume);
-                    break;
-                default:
-                    PLAYSOUNDEFFECT(PARTICLE_COLLIDE_2, volume);
-                    break;
-            }
+            [self playRandomNoteAtVolume:volume];
         }
     }
 }
@@ -225,6 +174,62 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 
 @synthesize space;
 @synthesize score;
+
+-(void)playRandomNoteAtVolume:(ALfloat)volume {
+    switch(rand() % 15) {
+        case 0:
+            PLAYSOUNDEFFECT(PARTICLE_COLLIDE_1, volume);
+            break;
+        case 1:
+            PLAYSOUNDEFFECT(PARTICLE_COLLIDE_2, volume);
+            break;
+        case 2:
+            PLAYSOUNDEFFECT(PARTICLE_COLLIDE_3, volume);
+            break;
+        case 3:
+            PLAYSOUNDEFFECT(PARTICLE_COLLIDE_4, volume);
+            break;
+        case 4:
+            PLAYSOUNDEFFECT(PARTICLE_COLLIDE_5, volume);
+            break;
+        case 5:
+            PLAYSOUNDEFFECT(PARTICLE_COLLIDE_6, volume);
+            break;
+        case 6:
+            PLAYSOUNDEFFECT(PARTICLE_COLLIDE_7, volume);
+            break;
+        case 7:
+            PLAYSOUNDEFFECT(PARTICLE_COLLIDE_8, volume);
+            break;
+        case 8:
+            PLAYSOUNDEFFECT(PARTICLE_COLLIDE_9, volume);
+            break;
+        case 9:
+            PLAYSOUNDEFFECT(PARTICLE_COLLIDE_10, volume);
+            break;
+        case 10:
+            PLAYSOUNDEFFECT(PARTICLE_COLLIDE_11, volume);
+            break;
+        case 11:
+            PLAYSOUNDEFFECT(PARTICLE_COLLIDE_12, volume);
+            break;
+        case 12:
+            PLAYSOUNDEFFECT(PARTICLE_COLLIDE_13, volume);
+            break;
+        case 13:
+            PLAYSOUNDEFFECT(PARTICLE_COLLIDE_14, volume);
+            break;
+        case 14:
+            PLAYSOUNDEFFECT(PARTICLE_COLLIDE_15, volume);
+            break;
+        case 15:
+            PLAYSOUNDEFFECT(PARTICLE_COLLIDE_16, volume);
+            break;
+        default:
+            PLAYSOUNDEFFECT(PARTICLE_COLLIDE_2, volume);
+            break;
+    }
+}
 
 -(void)resetGame {
     // Each level should be the same?
@@ -514,7 +519,10 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     [self updateLevel]; // Update level.
 
     if (points) {
-        PLAYSOUNDEFFECT(PARTICLE_EXPLODE, 1.0);
+//        PLAYSOUNDEFFECT(PARTICLE_EXPLODE, 1.0);
+        [self playRandomNoteAtVolume:1.0];
+        [self playRandomNoteAtVolume:1.0];
+        [self playRandomNoteAtVolume:1.0];
     }
     
     // Delete scored particles.  If this is done in the iterator, will throw exceptions.

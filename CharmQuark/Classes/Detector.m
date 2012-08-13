@@ -52,6 +52,7 @@
 
     CCSprite *blink = [CCSprite spriteWithSpriteFrameName:@"blink.png"];
     blink.color = ccRED;
+    blink.opacity = 200;
     blink.anchorPoint = ccp(0.5, 0.5);
     //blink.scaleX = 0.5 + (float)rand()/((float)RAND_MAX/0.5);
     blink.position = ccp(center.x + blinkRadius * cosf(angle),
@@ -67,17 +68,16 @@
 -(void)blinkAtAngle:(CGFloat)angle {
     CCSprite *blink = [CCSprite spriteWithSpriteFrameName:@"blink.png"];
     blink.color = ccYELLOW;
+    blink.opacity = 200;
     blink.anchorPoint = ccp(0.5, 0.5);
-    blink.scaleX = 0.3 + (float)rand()/((float)RAND_MAX/0.7);
+    blink.scale = 0.3 + (float)rand()/((float)RAND_MAX/0.7);
     blink.position = ccp(center.x + blinkRadius * cosf(angle),
                          center.y - blinkRadius * sinf(angle));
     blink.rotation = CC_RADIANS_TO_DEGREES(angle);
     [self.parent addChild:blink z:self.zOrder + 1];
-//    id scaleOut = [CCScaleTo actionWithDuration:0.7 + (float)rand()/((float)RAND_MAX) 
-//                                         scaleX:0.1 scaleY:0.1];
-    id scaleOut = [CCScaleTo actionWithDuration:0.5 + (float)rand()/((float)RAND_MAX/0.5) 
-                                         scaleX:0
-                                         scaleY:0.1];
+//    id scaleOut = [CCScaleTo actionWithDuration:0.5 + (float)rand()/((float)RAND_MAX/0.5) 
+//                                         scaleX:0
+//                                         scaleY:0.1];
     id flash = [CCBlink actionWithDuration:0.5 + (float)rand()/((float)RAND_MAX/0.5) 
                                     blinks:rand() % 4];
 //    [blink runAction:scaleOut];
@@ -89,6 +89,7 @@
 -(void)graphAtAngle:(CGFloat)angle {
     CCSprite *graph = [CCSprite spriteWithSpriteFrameName:@"graph.png"];
     graph.color = ccGREEN;
+    graph.opacity = 200;
     graph.anchorPoint = ccp(0,0.5);
     graph.scaleX = 0.5 + (float)rand()/((float)RAND_MAX/1.0);
     graph.position = ccp(center.x + graphRadius * cosf(angle),

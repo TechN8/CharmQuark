@@ -38,7 +38,7 @@
 
 // Collision sound volume control
 #define kMinSoundImpulse        1200.0f
-#define kMaxSoundImpulse        10000.0f
+#define kMaxSoundImpulse        4800.0f
 
 // Rotation inertia
 #define kRotationFalloff        5.0f
