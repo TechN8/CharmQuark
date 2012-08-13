@@ -88,8 +88,8 @@
 
 -(void)graphAtAngle:(CGFloat)angle {
     CCSprite *graph = [CCSprite spriteWithSpriteFrameName:@"graph.png"];
-    graph.color = ccGREEN;
-    graph.opacity = 200;
+    //graph.color = ccGREEN;
+    //graph.opacity = 200;
     graph.anchorPoint = ccp(0,0.5);
     graph.scaleX = 0.5 + (float)rand()/((float)RAND_MAX/1.0);
     graph.position = ccp(center.x + graphRadius * cosf(angle),
