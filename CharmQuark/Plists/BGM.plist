@@ -23,5 +23,47 @@
 		<key>BGM_8</key>
 		<string>Intensity8.m4a</string>
 	</dict>
+	<key>kGameSceneTimeAttack</key>
+	<dict>
+		<key>BGM_INTRO</key>
+		<string>Intro.m4a</string>
+		<key>BGM_1</key>
+		<string>Intensity1.m4a</string>
+		<key>BGM_2</key>
+		<string>Intensity2.m4a</string>
+		<key>BGM_3</key>
+		<string>Intensity3.m4a</string>
+		<key>BGM_4</key>
+		<string>Intensity4.m4a</string>
+		<key>BGM_5</key>
+		<string>Intensity5.m4a</string>
+		<key>BGM_6</key>
+		<string>Intensity6.m4a</string>
+		<key>BGM_7</key>
+		<string>Intensity7.m4a</string>
+		<key>BGM_8</key>
+		<string>Intensity8.m4a</string>
+	</dict>
+	<key>kGameSceneMomMode</key>
+	<dict>
+		<key>BGM_INTRO</key>
+		<string>Intro.m4a</string>
+		<key>BGM_1</key>
+		<string>Intensity1.m4a</string>
+		<key>BGM_2</key>
+		<string>Intensity2.m4a</string>
+		<key>BGM_3</key>
+		<string>Intensity3.m4a</string>
+		<key>BGM_4</key>
+		<string>Intensity4.m4a</string>
+		<key>BGM_5</key>
+		<string>Intensity5.m4a</string>
+		<key>BGM_6</key>
+		<string>Intensity6.m4a</string>
+		<key>BGM_7</key>
+		<string>Intensity7.m4a</string>
+		<key>BGM_8</key>
+		<string>Intensity8.m4a</string>
+	</dict>
 </dict>
 </plist>

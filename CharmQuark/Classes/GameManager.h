@@ -22,39 +22,48 @@
     SimpleAudioEngine *soundEngine;
     NSMutableDictionary *listOfSoundEffectFiles;
     NSMutableDictionary *soundEffectsState;
+    ALuint sfxChannels[30];
+    NSInteger sfxNext;
     
     // BGM
-    NSDictionary *listOfBGMFiles;
-    CDLongAudioSource *lastBGMSource;
+    NSMutableDictionary *bgmSources;
+    CDSoundSource *lastBGMSource;
+    NSInteger bgmIntensity;
+    NSInteger bgmIntensityLast;
 }
+
 @property (nonatomic,readwrite) BOOL isMusicON;
 @property (nonatomic,readwrite) BOOL isSoundEffectsON;
 @property (readwrite) BOOL hasPlayerDied;
 @property (readwrite) GameManagerSoundState managerSoundState;
-//@property (readonly) SimpleAudioEngine *soundEngine;
+@property (readonly) SimpleAudioEngine *soundEngine;
 @property (nonatomic, retain) NSMutableDictionary *listOfSoundEffectFiles;
 @property (nonatomic, retain) NSMutableDictionary *soundEffectsState;
-@property (nonatomic, retain) NSDictionary *listOfBGMFiles;
+@property (nonatomic, retain) NSMutableDictionary *bgmSources;
 @property (assign) SceneTypes curLevel;
 @property (assign) SceneTypes lastLevel;
+@property (assign) NSInteger bgmIntensity;
 
-+(GameManager*)sharedGameManager;                                  // 1
--(void)runSceneWithID:(SceneTypes)sceneID;                         // 2
--(void)openSiteWithLinkType:(LinkTypes)linkTypeToOpen ;            // 3
-// Chapter 8
++(GameManager*)sharedGameManager;
+-(void)runSceneWithID:(SceneTypes)sceneID;
+-(void)openSiteWithLinkType:(LinkTypes)linkTypeToOpen;
+-(CGSize)getDimensionsOfCurrentScene;
+
+// Scores
+-(NSInteger)getHighScoreForSceneWithID:(SceneTypes)sceneID;
+-(void)setHighScore:(NSInteger)score forSceneWithID:(SceneTypes)sceneID;
+
+// Audio
 -(void)setupAudioEngine;
 -(ALuint)playSoundEffect:(NSString*)soundEffectKey gain:(Float32)gain;
 -(void)stopSoundEffect:(ALuint)soundEffectID;
 -(void)playBackgroundTrack:(NSString*)trackFileName;
 -(void)playBackgroundTrackForCurrentScene;
 -(void)stopBackgroundTrack;
-// Chapter 9
--(CGSize)getDimensionsOfCurrentScene;
--(NSInteger)getHighScoreForSceneWithID:(SceneTypes)sceneID;
--(void)setHighScore:(NSInteger)score forSceneWithID:(SceneTypes)sceneID;
--(void)playBGMIntro;
--(void)playBGMIntensity:(NSInteger)intensity;
--(void)pauseBGM;
--(void)resumeBGM;
+
+// BGM
+-(void)startBGM;
 -(void)stopBGM;
+-(void)restartBGM;
+
 @end

@@ -70,7 +70,9 @@ static GameManager* _sharedGameManager = nil;
         soundEngine = nil;
         managerSoundState = kAudioManagerUninitialized;
         
-        // Load sprite sheet.
+        self.bgmSources = [NSMutableDictionary dictionaryWithCapacity:10];
+        
+        // Load sprite sheets.
         [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"scene1Atlas.plist"];
         [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"titleAtlas.plist"];
     }
@@ -211,7 +213,7 @@ static GameManager* _sharedGameManager = nil;
         //        }
     }
     
-    [self loadBGMListForSceneWithID:sceneID]; // Don't do async.  Need BGM.
+//    [self loadBGMListForSceneWithID:sceneID]; // Don't do async.  Need BGM.
     
     if (currentScene != oldScene) {
         [self performSelectorInBackground:@selector(loadAudioForSceneWithID:) withObject:[NSNumber numberWithInt:sceneID]];
@@ -227,9 +229,9 @@ static GameManager* _sharedGameManager = nil;
     }
     
     // Start appropriate music for scene.
-//    if (isMusicON) {
-//        [self playBackgroundTrackForCurrentScene];
-//    }
+    if (isMusicON) {
+        [self playBackgroundTrackForCurrentScene];
+    }
 }
 -(NSInteger)getHighScoreForSceneWithID:(SceneTypes)sceneID {
     NSInteger highScore = 0;
@@ -304,84 +306,73 @@ static GameManager* _sharedGameManager = nil;
 
 #pragma mark - Music
 
-@synthesize listOfBGMFiles;
+@synthesize bgmSources;
 @synthesize isMusicON;
+@synthesize bgmIntensity;
 
 -(void)setIsMusicON:(BOOL)value {
     isMusicON = value;
     [[NSUserDefaults standardUserDefaults] setBool:value forKey:kMusicOnKey];
-    [self stopBGM];
-    //    if (NO == value) {
-    //        [self stopBackgroundTrack];
-    //    } else {
-    //        [self playBackgroundTrackForCurrentScene];
-    //    }
-}
-
-
--(NSDictionary *)loadBGMListForSceneWithID:(SceneTypes)sceneID {
-    // Get the Path to the plist file
-    NSString *plistPath = [[NSBundle mainBundle] 
-                           pathForResource:@"BGM" ofType:@"plist"];
-    
-    // Read the dictionary we need.
-    NSDictionary *plistDictionary = 
-    [NSDictionary dictionaryWithContentsOfFile:plistPath];
-    
-    // If the plistDictionary was null, the file was not found.
-    if (plistDictionary == nil) {
-        CCLOG(@"Error reading BGM.plist");
-        return nil; // No Plist Dictionary or file found
+    if (NO == value) {
+        [self stopBackgroundTrack];
+//        [self stopBGM];
+    } else {
+        [self playBackgroundTrackForCurrentScene];
+//        [self startBGM];
     }
-    
-    // Return just the mini BGM list for this scene
-    NSString *sceneIDName = [self formatSceneTypeToString:sceneID];
-    NSDictionary *bgmList = [plistDictionary objectForKey:sceneIDName];
-
-    self.listOfBGMFiles = bgmList;
-   
-    return bgmList;
 }
+
+-(void)bgmManager {
+    if (bgmIntensity == bgmIntensityLast) {
+        bgmIntensity = bgmIntensity % 2 ? bgmIntensity + 1 : bgmIntensity - 1;
+    }
+    NSString *bgmId = [NSString stringWithFormat:@"BGM_%d", bgmIntensity];
+    [self playBGM:bgmId];
+    bgmIntensityLast = bgmIntensity;
+}
+
 -(void)playBGM:(NSString*)loopKey {
     if (isMusicON && managerSoundState == kAudioManagerReady) {
-        NSString *bgmFile = [listOfBGMFiles objectForKey:loopKey];
-        if (nil != bgmFile) {
-            CDAudioManager *sharedManager = [CDAudioManager sharedManager];
-            CDLongAudioSource *left = [sharedManager audioSourceForChannel:kASC_Left];
-            CDLongAudioSource *right = [sharedManager audioSourceForChannel:kASC_Right];
-            if (lastBGMSource == left) {
-                lastBGMSource = right;
-            } else {
-                lastBGMSource = left;
-            }
-            [lastBGMSource load:bgmFile];
-            [lastBGMSource play];
-        } else {
-            CCLOG(@"GameMgr: BGM Loop %@ is not loaded, cannot play.", loopKey);
+        CDSoundSource *nextBGM = [bgmSources objectForKey:loopKey];
+        if (nil == nextBGM) {
+            nextBGM = [soundEngine soundSourceForFile:
+                      [listOfSoundEffectFiles objectForKey:loopKey]];
+            [bgmSources setObject:nextBGM forKey:loopKey];
+            [nextBGM setGain:0.5];
         }
+        [nextBGM rewind];
+        [nextBGM play];
+        lastBGMSource = nextBGM;
     }
 }
 
--(void)playBGMIntro {
-    [self playBGM:@"BGM_INTRO"];
-}
-
--(void)playBGMIntensity:(NSInteger)intensity {
-    NSString *bgmId = [NSString stringWithFormat:@"BGM_%d", intensity];
-    [self playBGM:bgmId];
-}
-
--(void)resumeBGM {
-    [lastBGMSource resume];
-}
-
--(void)pauseBGM {
-    [lastBGMSource pause];
+-(void)startBGM {
+    [self scheduleBGM];
+    [self bgmManager];
 }
 
 -(void)stopBGM {
-//    [self stopSoundEffect:lastBGM];
-    [[CDAudioManager sharedManager] stopBackgroundMusic];
+    [[[CCDirector sharedDirector] scheduler] 
+     unscheduleSelector:@selector(bgmManager) forTarget:self];
+    [lastBGMSource stop];
+}
+
+-(void) restartBGM {
+    [self scheduleBGM];
+    if (isMusicON && managerSoundState == kAudioManagerReady) {
+    [lastBGMSource rewind];
+    [lastBGMSource play];
+    }
+}
+
+-(void)scheduleBGM {
+    CCScheduler *scheduler = [[CCDirector sharedDirector] scheduler];
+    [scheduler scheduleSelector:@selector(bgmManager) 
+                      forTarget:self 
+                       interval:8.0
+                         paused:NO
+                         repeat:kCCRepeatForever
+                          delay:8.0];
 }
 
 -(void)playBackgroundTrackForCurrentScene {
@@ -391,13 +382,12 @@ static GameManager* _sharedGameManager = nil;
         case kCreditsScene:
         case kIntroScene:
         case kGameOverScene:
-            [self stopBackgroundTrack];
             break;
         case kGameSceneSurvival:
         case kGameSceneTimeAttack:
         case kGameSceneMomMode:
             // Start the music.
-            [[GameManager sharedGameManager] playBackgroundTrack:@"DanPugsleyLHC2.mp3"];
+            [[GameManager sharedGameManager] playBackgroundTrack:@"LongLoop.m4a"];
             break;
         default:
             CCLOG(@"Unknown Scene ID, stopping BGM");
@@ -443,6 +433,7 @@ static GameManager* _sharedGameManager = nil;
 @synthesize listOfSoundEffectFiles;
 @synthesize managerSoundState;
 @synthesize soundEffectsState;
+@synthesize soundEngine;
 
 -(NSDictionary *)getSoundEffectsListForSceneWithID:(SceneTypes)sceneID {
     NSString *fullFileName = @"SoundEffects.plist";
@@ -568,6 +559,7 @@ static GameManager* _sharedGameManager = nil;
         for( NSString *keyString in soundEffectsToUnload )
         {
             [soundEffectsState setObject:[NSNumber numberWithBool:SFX_NOTLOADED] forKey:keyString];
+            [bgmSources removeObjectForKey:keyString];
             [soundEngine unloadEffect:keyString];
             CCLOG(@"\nUnloading Audio Key:%@ File:%@", 
                   keyString,[soundEffectsToUnload objectForKey:keyString]);
@@ -604,11 +596,9 @@ static GameManager* _sharedGameManager = nil;
         managerSoundState = kAudioManagerFailed; 
     } else {
         [audioManager setResignBehavior:kAMRBStopPlay autoHandle:YES];
-        [[audioManager audioSourceForChannel:kASC_Left] setVolume:0.50];
-        [[audioManager audioSourceForChannel:kASC_Right] setVolume:0.50];
         soundEngine = [SimpleAudioEngine sharedEngine];
         managerSoundState = kAudioManagerReady;
-        //[soundEngine setBackgroundMusicVolume:0.50];
+        [soundEngine setBackgroundMusicVolume:0.50];
         CCLOG(@"CocosDenshion is Ready");
     }
 }

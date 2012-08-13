@@ -150,15 +150,57 @@ static void collisionPostSolve(cpArbiter *arb, cpSpace *space, GameplayLayer *se
             ALfloat volume 
             = fmax(fminf((impulse - kMinSoundImpulse)/(kMaxSoundImpulse - kMinSoundImpulse), 1.0f), 0.0f);
             //CCLOG(@"Impulse = %f. Volume = %f", impulse, volume);
-            switch(rand() % 3) {
+            switch(rand() % 15) {
                 case 0:
                     PLAYSOUNDEFFECT(PARTICLE_COLLIDE_1, volume);
                     break;
                 case 1:
                     PLAYSOUNDEFFECT(PARTICLE_COLLIDE_2, volume);
                     break;
-                default:
+                case 2:
                     PLAYSOUNDEFFECT(PARTICLE_COLLIDE_3, volume);
+                    break;
+                case 3:
+                    PLAYSOUNDEFFECT(PARTICLE_COLLIDE_4, volume);
+                    break;
+                case 4:
+                    PLAYSOUNDEFFECT(PARTICLE_COLLIDE_5, volume);
+                    break;
+                case 5:
+                    PLAYSOUNDEFFECT(PARTICLE_COLLIDE_6, volume);
+                    break;
+                case 6:
+                    PLAYSOUNDEFFECT(PARTICLE_COLLIDE_7, volume);
+                    break;
+                case 7:
+                    PLAYSOUNDEFFECT(PARTICLE_COLLIDE_8, volume);
+                    break;
+                case 8:
+                    PLAYSOUNDEFFECT(PARTICLE_COLLIDE_9, volume);
+                    break;
+                case 9:
+                    PLAYSOUNDEFFECT(PARTICLE_COLLIDE_10, volume);
+                    break;
+                case 10:
+                    PLAYSOUNDEFFECT(PARTICLE_COLLIDE_11, volume);
+                    break;
+                case 11:
+                    PLAYSOUNDEFFECT(PARTICLE_COLLIDE_12, volume);
+                    break;
+                case 12:
+                    PLAYSOUNDEFFECT(PARTICLE_COLLIDE_13, volume);
+                    break;
+                case 13:
+                    PLAYSOUNDEFFECT(PARTICLE_COLLIDE_14, volume);
+                    break;
+                case 14:
+                    PLAYSOUNDEFFECT(PARTICLE_COLLIDE_15, volume);
+                    break;
+                case 15:
+                    PLAYSOUNDEFFECT(PARTICLE_COLLIDE_16, volume);
+                    break;
+                default:
+                    PLAYSOUNDEFFECT(PARTICLE_COLLIDE_2, volume);
                     break;
             }
         }
@@ -258,6 +300,11 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     
     // Start animation / simulation timer.
     [self schedule: @selector(step:)];
+    
+//    // Play the BGM
+//    [[GameManager sharedGameManager] setBgmIntensity:1];
+//    [[GameManager sharedGameManager] startBGM];
+//    [self schedule:@selector(bgmManager) interval:8.0 repeat:kCCRepeatForever delay:7.0];
 }
 
 -(Particle*)randomParticle {
@@ -588,7 +635,6 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 -(void) pause {
     CGSize winSize = [[CCDirector sharedDirector] winSize];
     
-    [[GameManager sharedGameManager] pauseBGM];
     [self pauseSchedulerAndActions];
     
     // Throw up modal layer.
@@ -602,13 +648,14 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 
 -(void) resume {
     [self resumeSchedulerAndActions];
-    [[GameManager sharedGameManager] resumeBGM];
 }
 
 -(void)end:(Particle *)particle {
     CGSize winSize = [[CCDirector sharedDirector] winSize];
     
-    PLAYSOUNDEFFECT(GAME_OVER, 1.0);
+//    [[GameManager sharedGameManager] stopBGM];
+    [[GameManager sharedGameManager] stopBackgroundTrack];
+    PLAYSOUNDEFFECT(GAME_OVER, 0.5);
     
     // Cancel touches.
     rotationTouch = nil;
@@ -751,29 +798,19 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 }
 
 -(void)bgmManager {
-    NSInteger count = particles.count;
-    static NSInteger intensity = 0;
-    static NSInteger lastIntensity = 0;
-    lastIntensity = intensity;
-    if (count > 18) {
-        intensity = lastIntensity % 2 ? 8 : 7;
-    } else if (count > 13) {
-        intensity = lastIntensity % 2 ? 6 : 5;
-    } else if (count > 8) {
-        intensity = lastIntensity % 2 ? 4 : 3;
-    } else {
-        intensity = lastIntensity % 2 ? 2 : 1;
-    }
-    [[GameManager sharedGameManager] playBGMIntensity:intensity];
-}
+    NSInteger intensity = [GameManager sharedGameManager].bgmIntensity;
 
--(void)startMusic {
-    [self schedule:@selector(bgmManager) 
-          interval:8.0 
-            repeat:kCCRepeatForever 
-             delay:8.0];
-    [[GameManager sharedGameManager] playBGMIntro];
-    //[self bgmManager];
+    NSInteger count = particles.count;
+    if (count > 26 || (mode == kGameSceneTimeAttack && timeRemaining < 16.0)) {
+        intensity = intensity % 2 ? 8 : 7;
+    } else if (count > 20) {
+        intensity = intensity % 2 ? 6 : 5;
+    } else if (count > 12) {
+        intensity = intensity % 2 ? 4 : 3;
+    } else {
+        intensity = intensity % 2 ? 2 : 1;
+    }
+    [GameManager sharedGameManager].bgmIntensity = intensity;
 }
 
 #pragma mark -
@@ -898,9 +935,6 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     [super onEnter];
     mode = [GameManager sharedGameManager].curLevel;
     [self initUI];
-    
-    // Play the BGM
-    [self startMusic];
     
     // This will set up the initial particle system.
     [self resetGame];
