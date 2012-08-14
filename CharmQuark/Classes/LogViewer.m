@@ -24,9 +24,10 @@
     // Remove overflow
     while (messages.count > maxEntries) {
         CCLabelBMFont *oldMessage = [messages objectAtIndex:0];
-        id fadeout = [CCFadeOut actionWithDuration:0.5];
-        id remove = [RemoveFromParentAction action];
-        [oldMessage runAction:[CCSequence actions:fadeout, remove, nil]];
+//        id fadeout = [CCFadeOut actionWithDuration:0.5];
+//        id remove = [RemoveFromParentAction action];
+//        [oldMessage runAction:[CCSequence actions:fadeout, remove, nil]];
+        [oldMessage removeFromParentAndCleanup:YES];
         [messages removeObject:oldMessage];
     }
 }
@@ -35,11 +36,15 @@
     // Add new message
     CCLabelBMFont *newMessage = [CCLabelBMFont labelWithString:message fntFile:@"score.fnt"];
     newMessage.color = ccc3(200, 255, 200);
-    newMessage.anchorPoint = ccp(0, 1);
+    newMessage.anchorPoint = ccp(0.5, 0.0);
     newMessage.position = ccp(0, [[messages lastObject] position].y - lineHeight);
+    
+    CCFadeOut *fadeOut = [CCFadeOut actionWithDuration:2.0];
+    [newMessage runAction:[CCEaseExponentialIn actionWithAction:fadeOut]];
+    
     [self addChild:newMessage z:0];
     [messages addObject:newMessage];
-    [self scheduleOnce:@selector(scrollMessages) delay:0.25];
+    [self scheduleOnce:@selector(scrollMessages) delay:0.1];
 }
 
 #pragma mark - CCNode

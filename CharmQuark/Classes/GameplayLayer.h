@@ -14,11 +14,10 @@
 #import "Detector.h"
 #import "LogViewer.h"
 
-// Gameplay Constants
+// Scoring
 #define kMinMatchSize           4
 #define kPointsPerMatch         800
 #define kMatchesPerLevel        5
-#define kRotationRate           1.0f
 #define kFailRadius             235.0f
 #define kColorsInit             6
 #define kColorsMax              6 //9
@@ -29,12 +28,14 @@
 #define kGravity                1200.0f
 #define kLaunchVMax             1800.0f
 
-// Game clock settings.
-#define kTimeLimit              120.0f
+// Accelerator
 #define kDropTimeInit           2.9f
 #define kDropTimeMin            0.9f // 2.9 - 0.9 = 20 levels.
 #define kDropTimeStep           0.1f
-#define kTimeAttackAdd          25.0
+
+// Time Attack
+#define kTimeLimit              60.0f
+#define kTimeAttackAdd          20.0
 
 // Collision sound volume control
 #define kMinSoundImpulse        1200.0f
@@ -69,6 +70,7 @@ enum {
     kZBackground = 0,
     kZUIElements = 50,
     kZParticles = 100,
+    kZLog = 150,
     kZPopups = 1000
 };
 

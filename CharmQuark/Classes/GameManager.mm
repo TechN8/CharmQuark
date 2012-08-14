@@ -113,10 +113,7 @@ static GameManager* _sharedGameManager = nil;
     CGSize levelSize;
     switch (currentScene) {
         case kMainMenuScene: 
-        case kOptionsScene:
-        case kCreditsScene:
         case kIntroScene:
-        case kGameOverScene:
         case kGameSceneSurvival:
         case kGameSceneTimeAttack:
         case kGameSceneMomMode:
@@ -139,17 +136,8 @@ static GameManager* _sharedGameManager = nil;
         case kMainMenuScene:
             result = @"kMainMenuScene";
             break;
-        case kOptionsScene:
-            result = @"kOptionsScene";
-            break;
-        case kCreditsScene:
-            result = @"kCreditsScene";
-            break;
         case kIntroScene:
             result = @"kIntroScene";
-            break;
-        case kGameOverScene:
-            result = @"kGameOverScene";
             break;
         case kGameSceneSurvival:
             result = @"kGameSceneSurvival";
@@ -188,9 +176,6 @@ static GameManager* _sharedGameManager = nil;
             // Same scene used for both modes.
             sceneToRun = [GameScene node];
             break;
-        case kOptionsScene:
-        case kCreditsScene:
-            
         default:
             CCLOG(@"Unknown ID, cannot switch scenes");
             return;
@@ -378,17 +363,19 @@ static GameManager* _sharedGameManager = nil;
 -(void)playBackgroundTrackForCurrentScene {
     switch (currentScene) {
         case kMainMenuScene: 
-        case kOptionsScene:
-        case kCreditsScene:
-        case kIntroScene:
-        case kGameOverScene:
+            [soundEngine setBackgroundMusicVolume:0.2];
+            [self playBackgroundTrack:@"SmoothPiano.m4a"];
             break;
         case kGameSceneSurvival:
         case kGameSceneTimeAttack:
         case kGameSceneMomMode:
             // Start the music.
-            [[GameManager sharedGameManager] playBackgroundTrack:@"LongLoop.m4a"];
+            [soundEngine setBackgroundMusicVolume:0.6];
+            [self playBackgroundTrack:@"SmoothPiano.m4a"];
             break;
+        case kIntroScene:
+            [self stopBackgroundTrack];
+            break;            
         default:
             CCLOG(@"Unknown Scene ID, stopping BGM");
             [self stopBackgroundTrack];
@@ -598,7 +585,6 @@ static GameManager* _sharedGameManager = nil;
         [audioManager setResignBehavior:kAMRBStopPlay autoHandle:YES];
         soundEngine = [SimpleAudioEngine sharedEngine];
         managerSoundState = kAudioManagerReady;
-        [soundEngine setBackgroundMusicVolume:0.60];
         CCLOG(@"CocosDenshion is Ready");
     }
 }

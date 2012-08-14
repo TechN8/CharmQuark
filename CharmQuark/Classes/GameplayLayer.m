@@ -330,6 +330,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 
 -(Particle *)readyNextParticle {
     Particle *particle = nextParticle;
+    particle.scale = 1.0;
     // Set up next particle
     nextParticle = [self randomParticle];
     nextParticle.position = nextParticlePos;
@@ -700,8 +701,10 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     puzzleCenter = worldToView(kPuzzleCenter);
     CGPoint scorePosition = ccp(10, winSize.height * 0.95f);
     CGPoint levelPosition = ccp(winSize.width * 0.5f, winSize.height * 0.95f);
-    CGPoint nextLabelPosition = ccp(winSize.width * 0.80f, winSize.height * 0.95f);
-    nextParticlePos = ccp(winSize.width * 0.85f, winSize.height * 0.95f);
+//    CGPoint nextLabelPosition = ccp(winSize.width * 0.80f, winSize.height * 0.95f);
+//    CGPoint nextLabelPosition = ccp(10, winSize.height * 0.85f);
+//    nextParticlePos = ccp(winSize.width * 0.85f, winSize.height * 0.95f);
+//    nextParticlePos = ccp(winSize.width * 0.10f, winSize.height * 0.85f);
     
     launchPoint = worldToView(kLaunchPoint);
     
@@ -753,12 +756,14 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     switch (mode) {
         case kGameSceneTimeAttack:
             levelLabel= [CCLabelBMFont labelWithString:@"2:00.00" fntFile:@"score.fnt"];
-            [levelLabel setPosition:levelPosition];
+            levelLabel.position = levelPosition;
+            levelLabel.color = kUIColor;
             [self addChild:levelLabel z:kZUIElements];
             break;
         case kGameSceneSurvival:
             levelLabel = [CCLabelBMFont labelWithString:@"Level 1" fntFile:@"score.fnt"];
-            [levelLabel setPosition:levelPosition];
+            levelLabel.position = levelPosition;
+            levelLabel.color = kUIColor;
             [self addChild:levelLabel z:kZUIElements];
             break;
         default:
@@ -766,22 +771,30 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     }
     
     // Add Next
-    CCLabelBMFont *nextLabel = [CCLabelBMFont labelWithString:@"Next" fntFile:@"score.fnt"];
+    CGPoint nextLabelPosition = ccp(scorePosition.x,
+                            scorePosition.y - scoreLabel.contentSize.height - 10 * scaleFactor);
+    CCLabelBMFont *nextLabel = [CCLabelBMFont labelWithString:@"Next:" fntFile:@"score.fnt"];
+    nextLabel.color = kUIColor;
     nextLabel.position = nextLabelPosition;
-    [nextLabel setAnchorPoint:ccp(1.0, 0.5)];
+    [nextLabel setAnchorPoint:ccp(0.0, 0.5)];
     [self addChild:nextLabel z:kZUIElements];
+
+    nextParticlePos = ccp(nextLabelPosition.x + nextLabel.contentSize.width + kParticleRadius * scaleFactor,
+                          nextLabelPosition.y);
     
     // Add the map.
     map = [LHCMap node];
     map.anchorPoint = ccp(0.02, 0.5);
-    map.position = ccp(0, winSize.height * 0.62);
-    //clock.scale = 0.75f;
+    //map.position = ccp(0, winSize.height * 0.62);
+    map.position = ccp(0, puzzleCenter.y);
     [uiBatchNode addChild:map z:kZBackground];
     
     // Add the log viewer.
     logViewer = [LogViewer node];
-    logViewer.position = ccp(10, 5);
-    [self addChild:logViewer z:kZBackground];
+    //logViewer.position = ccp(10, 5);
+    //logViewer.position = ccp(winSize.width / 2, winSize.height / 2);
+    logViewer.position = puzzleCenter;
+    [self addChild:logViewer z:kZLog];
     
     // Add the detector.
     detector = [Detector node];

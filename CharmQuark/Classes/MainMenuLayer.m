@@ -251,7 +251,7 @@
 //    id moveEffect = [CCEaseIn actionWithAction:moveAction rate:1.0f];
 //    [mainMenu runAction:moveEffect];
     
-    [[GameManager sharedGameManager] stopBackgroundTrack];
+//    [[GameManager sharedGameManager] stopBackgroundTrack];
 }
 
 -(void)onEnter {

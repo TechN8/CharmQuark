@@ -12,6 +12,7 @@
 #define kMainMenuTagValue 10
 
 #define kScoreColor     ccc3(255, 240, 128)
+#define kUIColor        ccc3(90, 130, 140)
 #define kPopupSpeed     0.3
 
 // Device support
@@ -30,9 +31,6 @@
 typedef enum {
     kNoSceneUninitialized=0,
     kMainMenuScene=1,
-    kOptionsScene=2,
-    kCreditsScene=3,
-    kGameOverScene=4,
     kIntroScene=100,
     kGameSceneSurvival=101,
     kGameSceneTimeAttack=102,

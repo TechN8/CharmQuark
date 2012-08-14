@@ -1,27 +1,19 @@
 . Game Center Pop Up if logged in and viewing highscore.
 
-. New BGM
-    - Break into 4 measure sections.
-    - Three versions, mellow, normal, intense.
-    - Slow chords in mellow
-    - Add lead for normal
-    - Add percussion / fast beat for intense.
-    - Set speed based on particles.count.
-    - Add to Plist
-    - Play from game manager
-    - Use mellow for menu / credits.
+. Add launch cooldown ~= 0.25 seconds.
 
-. Collision & explosion sounds
-    . Add more voices for collision, 5 notes x 2 octaves should be good.
-    . Play with thresholds for collision volumes, I think these are a bit off from scaling changes.
+. BGM
+    Work on theme a bit more.
+    Do version for menu screen.
+
+. Sound changes
     . Have separate voice / melody for scoring / bonus / combo.
+    . Click sound for menus and controls would be nice.
 
 . Final Sound effects.
     Use afconvert tool to convert.
         afconvert -f caff -d LEI16@22050 --mix -c 1  
         afconvert -f m4a
-    Check out some more sounds at www.freesound.org.
-    . Click sound for menus and controls would be nice.
 
 . Re-center map, move log to display over puzzle.
     - Log messages should pop up and then fade out.
