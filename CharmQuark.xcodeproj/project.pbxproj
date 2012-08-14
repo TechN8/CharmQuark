@@ -250,14 +250,14 @@
 
 /* Begin PBXFileReference section */
 		D80B61FB15AE24F5006F2472 /* GameOverLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameOverLayer.h; sourceTree = "<group>"; };
-		D80B61FC15AE24F5006F2472 /* GameOverLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameOverLayer.m; sourceTree = "<group>"; };
+		D80B61FC15AE24F5006F2472 /* GameOverLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = GameOverLayer.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		D80B61FF15AE2500006F2472 /* PauseLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PauseLayer.h; sourceTree = "<group>"; };
 		D80B620015AE2500006F2472 /* PauseLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PauseLayer.m; sourceTree = "<group>"; };
 		D80B620215AF055A006F2472 /* DialogNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DialogNode.h; sourceTree = "<group>"; };
 		D80B620315AF055A006F2472 /* DialogNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DialogNode.m; sourceTree = "<group>"; };
 		D80B624715B1BC51006F2472 /* TASKS */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TASKS; sourceTree = "<group>"; };
-		D8151DD315B89BE2007D8AE2 /* Detector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Detector.h; sourceTree = "<group>"; };
-		D8151DD415B89BE2007D8AE2 /* Detector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Detector.m; sourceTree = "<group>"; };
+		D8151DD315B89BE2007D8AE2 /* Detector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Detector.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		D8151DD415B89BE2007D8AE2 /* Detector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = Detector.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		D8151DDB15B9B46E007D8AE2 /* window-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "window-hd.png"; sourceTree = "<group>"; };
 		D8151DDC15B9B46E007D8AE2 /* window-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "window-ipad.png"; sourceTree = "<group>"; };
 		D8151DDD15B9B46E007D8AE2 /* window-ipadhd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "window-ipadhd.png"; sourceTree = "<group>"; };
@@ -412,7 +412,7 @@
 		D847E24C15AC88020044FC48 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		D847E26C15AC93610044FC48 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		D847E26D15AC93610044FC48 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		D847E26E15AC93610044FC48 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		D847E26E15AC93610044FC48 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Constants.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		D847E26F15AC93610044FC48 /* GameConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameConfig.h; sourceTree = "<group>"; };
 		D847E27015AC93610044FC48 /* GameManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameManager.h; sourceTree = "<group>"; };
 		D847E27115AC93610044FC48 /* GameManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = GameManager.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -453,7 +453,7 @@
 		D848C3F415CB607D00B6088A /* titleAtlas.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = titleAtlas.png; sourceTree = "<group>"; };
 		D848C3FD15CB670F00B6088A /* HighScoreDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = HighScoreDialog.h; sourceTree = "<group>"; };
 		D848C3FE15CB670F00B6088A /* HighScoreDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = HighScoreDialog.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		D848C43515CC202800B6088A /* CreditsDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CreditsDialog.m; sourceTree = "<group>"; };
+		D848C43515CC202800B6088A /* CreditsDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CreditsDialog.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		D848C43715CC207100B6088A /* CreditsDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CreditsDialog.h; sourceTree = "<group>"; };
 		D848C43915CC2AC600B6088A /* ClipNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClipNode.h; sourceTree = "<group>"; };
 		D848C43A15CC2AC600B6088A /* ClipNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClipNode.m; sourceTree = "<group>"; };
@@ -673,7 +673,7 @@
 		D8D2FCDA15C1706800C3FBF1 /* ZipUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZipUtils.h; sourceTree = "<group>"; };
 		D8D2FCDB15C1706800C3FBF1 /* ZipUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZipUtils.m; sourceTree = "<group>"; };
 		D8E418E115BDA04D00A4E5E5 /* LogViewer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogViewer.h; sourceTree = "<group>"; };
-		D8E418E215BDA04D00A4E5E5 /* LogViewer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogViewer.m; sourceTree = "<group>"; };
+		D8E418E215BDA04D00A4E5E5 /* LogViewer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = LogViewer.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		D8F547EB15C1E59B007F1AE1 /* score-ipad.GlyphProject */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = "score-ipad.GlyphProject"; sourceTree = "<group>"; };
 		D8F547EC15C1E59B007F1AE1 /* score-ipad.fnt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "score-ipad.fnt"; sourceTree = "<group>"; };
 		D8F547ED15C1E59B007F1AE1 /* score-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "score-ipad.png"; sourceTree = "<group>"; };

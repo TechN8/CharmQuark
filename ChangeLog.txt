@@ -1,5 +1,14 @@
 Next release
 
+Beta 9
+
+Renamed Practice back to Meditation.
+Fixed bug where high score would not be indicated on game over screen.
+New fonts and colors.
+New menu layouts.
+Modified log message popup animation.
+
+
 Beta 8
 
 Renamed Meditation to Practice.

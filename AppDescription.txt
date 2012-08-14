@@ -1,25 +1,20 @@
 Charm Quark is a fast paced puzzle game inspired by the Large Hadron Collider.
 
-- GAMEPLAY
-
+GAMEPLAY:
 ·Match like colored particles by swiping the right side.
-
-·Fire new particles by tapping the left side.
-
+·Fire next particle by tapping the left side.
 ·Get bonus points for combos and extra matches.
-
 ·Keep the particles inside the detector!
 
-- FEATURES
-·3 Game Modes:
-  Time Attack - How many points can you score before time runs out?
-  Accelerator - Pieces will drop automatically.  Can you keep up?
-  Practice - Learn the basics. Try out combo techniques.
+THREE GAME MODES:
+·Time Attack - How many points can you score before time runs out?
+·Accelerator - Particles launch faster each level.  Can you keep up?
+·Meditation - Learn the basics. Practice combo techniques.
 
-·Dynamic background music.
+FEATURES:
+·Universal app with iPad and iPhone / iPod Touch support!
+·Gamecenter leaderboards and achievements.
 
-·Gamecenter Leaderboards.
-
-- SUPPORTED DEVICES
+SUPPORTED DEVICES:
 ·iPhone 3GS, iPod Touch 3rd Gen or Later, iPad
-·iOS 4.3 or later
+·iOS 4.3 or later required.

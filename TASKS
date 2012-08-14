@@ -1,6 +1,14 @@
+. Fancier combo animations!
+
+. BGM fade in and out between scenes.
+
 . Game Center Pop Up if logged in and viewing highscore.
 
-. Add launch cooldown ~= 0.25 seconds.
+. Add launch cooldown ~= 0.2 seconds.
+
+. Show build number / version somewhere.
+
+. Achievements!
 
 . BGM
     Work on theme a bit more.
@@ -9,7 +17,7 @@
 . Sound changes
     . Have separate voice / melody for scoring / bonus / combo.
     . Click sound for menus and controls would be nice.
-
+    
 . Final Sound effects.
     Use afconvert tool to convert.
         afconvert -f caff -d LEI16@22050 --mix -c 1  
