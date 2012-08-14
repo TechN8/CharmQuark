@@ -331,13 +331,16 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 }
 
 -(void) launch {
-//    PLAYSOUNDEFFECT(PARTICLE_LAUNCH, 1.0);
-
+    // Launch!
+    if (mode == kGameSceneSurvival) {
+        timeRemaining = dropFrequency;   
+    }
+    lastLaunch = 0;
+    
     // Calculate launch position and vector.
     cpVect rot = cpvforangle(CC_DEGREES_TO_RADIANS(centerNode.rotation));
     CGPoint pos = cpvrotate(rot, kLaunchPoint);
     cpVect launchVect = cpvmult(cpvnormalize(cpvsub(ccp(0,0), pos)), kLaunchV);
-
 
     // Set position and velocity of particle.
     Particle *particle = [self readyNextParticle];
@@ -612,9 +615,10 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
                     [self end:nil]; // Game over.
                     break;
                 case kGameSceneSurvival:
-                default:
                     [self drop];
+                    break;
                 case kGameSceneMomMode:
+                default:
                     timeRemaining = dropFrequency;
                     break;
             }
@@ -766,14 +770,12 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
             levelLabel= [CCLabelBMFont labelWithString:@"2:00.00" fntFile:@"score.fnt"];
             levelLabel.position = levelPosition;
             levelLabel.color = kColorUI;
-//            levelLabel.opacity = 230;
             [self addChild:levelLabel z:kZUIElements];
             break;
         case kGameSceneSurvival:
             levelLabel = [CCLabelBMFont labelWithString:@"Level 1" fntFile:@"score.fnt"];
             levelLabel.position = levelPosition;
             levelLabel.color = kColorUI;
-//            levelLabel.opacity = 230;
             [self addChild:levelLabel z:kZUIElements];
             break;
         default:
@@ -814,7 +816,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     // Add the thumb guides.
     thumbGuide = [CCSprite spriteWithSpriteFrameName:@"thumbguide.png"];
     thumbGuide.opacity = 0;
-    [uiBatchNode addChild:thumbGuide z:kZUIElements];
+    [uiBatchNode addChild:thumbGuide z:kZUIElements - 1];
     
     fireButton = [CCSprite spriteWithSpriteFrameName:@"firebutton.png"];
     fireButton.opacity = 0;
@@ -917,10 +919,6 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 {
     for (UITouch *touch in touches) {
         if (touch == launchTouch) {
-            // Launch!
-            if (mode == kGameSceneSurvival) {
-                timeRemaining = dropFrequency;   
-            }
             [self launch];
             
             // Forget this touch.

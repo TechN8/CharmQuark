@@ -1,10 +1,12 @@
-. Game Center Pop Up if logged in and viewing highscore.
-
 . Add launch cooldown ~= 0.2 seconds.
 
-. Show build number / version somewhere.
+. Fix BGM on / off bug.
+
+. Game Center Pop Up if logged in and viewing highscore.
 
 . Achievements!
+
+. Twitter & Facebook
 
 . BGM
     Work on theme a bit more.

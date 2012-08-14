@@ -59,6 +59,7 @@
 #define kShapeCollisionType     1
 #define kSensorCollisionType    2
 #define kUnitVectorUp           ccp(0, 1)
+#define kLaunchCoolDown         0.25
 
 enum {
 	kTagPacketBatchNode = 1,
@@ -90,15 +91,17 @@ enum {
     Detector *detector;
     LogViewer *logViewer;
     
-	// Touch handling
+	// Rotation handling
     UITouch *rotationTouch;
     NSTimeInterval rotationTouchTime;
 	CGPoint rotTouchPointInit;
 	CGPoint rotTouchPointCur;
 	CGFloat centerNodeAngleInit;
     CGFloat rotAngleV;
-    
+
+    // Launch Handling
     UITouch *launchTouch;
+    ccTime lastLaunch;
     
     // Game State
     SceneTypes mode;

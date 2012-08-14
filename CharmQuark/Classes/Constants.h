@@ -16,8 +16,9 @@
 #define kColorBonus         ccc3(200, 200, 230)
 #define kColorTimeAdd       ccc3(200, 230, 200)
 #define kColorLevelUp       ccc3(230, 200, 200)
-#define kColorUI            ccc3(80, 120, 130)
-#define kColorButton        ccc3(120, 160, 170)
+#define kColorUI            ccc3(90, 140, 150)
+//#define kColorButton        ccc3(120, 160, 170)
+#define kColorButton        ccc3(140, 170, 180)
 #define kColorDialogRed     ccc3(160, 0, 0)
 #define kColorDialogGreen   ccc3(0, 160, 0)
 #define kPopupSpeed         0.3
