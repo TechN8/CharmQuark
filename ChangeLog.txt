@@ -2,11 +2,15 @@ Next release
 
 Beta 9
 
-Renamed Practice back to Meditation.
-Fixed bug where high score would not be indicated on game over screen.
 New fonts and colors.
 New menu layouts.
+High score screen alignment changed.
 Modified log message popup animation.
+Out-of bounds particle that causes game over will now blink.
+Game over flasher now aligned better with detector ring.
+Renamed Practice back to Meditation.
+Fixed bug where high score would not be indicated on game over screen.
+Added version string to lower right corner main menu screen.
 
 
 Beta 8

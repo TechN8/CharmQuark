@@ -1,7 +1,3 @@
-. Fancier combo animations!
-
-. BGM fade in and out between scenes.
-
 . Game Center Pop Up if logged in and viewing highscore.
 
 . Add launch cooldown ~= 0.2 seconds.
@@ -22,12 +18,6 @@
     Use afconvert tool to convert.
         afconvert -f caff -d LEI16@22050 --mix -c 1  
         afconvert -f m4a
-
-. Re-center map, move log to display over puzzle.
-    - Log messages should pop up and then fade out.
-    - Messages should be removed after fade.
-    - Messages should appear over the puzzle.
-    - Messages should be partly transparent.
 
 . Tuning
     - Pre-load sound and sprites on intro screen.

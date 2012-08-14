@@ -218,7 +218,6 @@
     label = [CCLabelBMFont labelWithString:@"Meditation" 
                                    fntFile:@"score.fnt"];
     label.color = kColorButton;
-//    label.opacity = 230;
     item = [CCMenuItemFont itemWithLabel:label
                                   target:self 
                                 selector:@selector(playMomMode)];
@@ -252,26 +251,21 @@
     item.position = ccp(0.25 * winSize.width, -0.2 * winSize.height);
     [menu addChild:item];
 
-    
-//    [menu alignItemsInRows:[NSNumber numberWithUnsignedInt:3],
-//     [NSNumber numberWithUnsignedInt:3],
-//     nil];
-//    [menu alignItemsVerticallyWithPadding:0.03 * winSize.height];
-//    [menu alignItemsHorizontallyWithPadding:50];
-
-    // TODO Override menu positioning...
-    
     [self addChild:menu z:kZMenu];
 
-//    // Animate in menu.
-//    [mainMenu setPosition:ccp(winSize.width * 0.5, - 1 * winSize.height)];
-//    id moveAction = 
-//    [CCMoveTo actionWithDuration:1.2f 
-//                        position:ccp(winSize.width * 0.5, winSize.height * 0.5)];
-//    id moveEffect = [CCEaseIn actionWithAction:moveAction rate:1.0f];
-//    [mainMenu runAction:moveEffect];
-    
-//    [[GameManager sharedGameManager] stopBackgroundTrack];
+    // Show version.
+    NSString *vers =[[[NSBundle mainBundle] infoDictionary] valueForKey:@"CFBundleVersion"];
+    NSString *mvers =[[[NSBundle mainBundle] infoDictionary] valueForKey:@"CFBundleShortVersionString"];
+    NSString *versionString = [NSString stringWithFormat:@"v%@ (%@)", mvers, vers];
+//    label = [CCLabelBMFont labelWithString:versionString fntFile:@"score.fnt"];
+    CCLabelTTF *versionLabel = [CCLabelTTF labelWithString:versionString 
+                                                 fontName:@"American Typewriter"
+                                                 fontSize:12.0];
+    versionLabel.opacity = 128;
+    versionLabel.color = kColorUI;
+    versionLabel.anchorPoint = ccp(1.0, 0.0);
+    versionLabel.position = ccp(winSize.width, 0);
+    [self addChild:versionLabel];
 }
 
 -(void)onEnter {

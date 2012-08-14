@@ -37,6 +37,8 @@
 		D834ACDD15D98AC300987B68 /* G4.caf in Resources */ = {isa = PBXBuildFile; fileRef = D834ACCC15D98AC300987B68 /* G4.caf */; };
 		D834ACDF15D98BE200987B68 /* Outro.caf in Resources */ = {isa = PBXBuildFile; fileRef = D834ACDE15D98BE200987B68 /* Outro.caf */; };
 		D834ACEA15D9C21400987B68 /* SmoothPiano.m4a in Resources */ = {isa = PBXBuildFile; fileRef = D834ACE915D9C21400987B68 /* SmoothPiano.m4a */; };
+		D834AD2C15DACF7200987B68 /* CDXMacOSXSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = D834AD2915DACF7200987B68 /* CDXMacOSXSupport.m */; };
+		D834AD2D15DACF7200987B68 /* CDXPropertyModifierAction.m in Sources */ = {isa = PBXBuildFile; fileRef = D834AD2B15DACF7200987B68 /* CDXPropertyModifierAction.m */; };
 		D847E06615AC87FF0044FC48 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D847E06515AC87FF0044FC48 /* QuartzCore.framework */; };
 		D847E06815AC87FF0044FC48 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D847E06715AC87FF0044FC48 /* OpenGLES.framework */; };
 		D847E06A15AC87FF0044FC48 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D847E06915AC87FF0044FC48 /* OpenAL.framework */; };
@@ -286,6 +288,10 @@
 		D834ACCC15D98AC300987B68 /* G4.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = G4.caf; sourceTree = "<group>"; };
 		D834ACDE15D98BE200987B68 /* Outro.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Outro.caf; sourceTree = "<group>"; };
 		D834ACE915D9C21400987B68 /* SmoothPiano.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = SmoothPiano.m4a; sourceTree = "<group>"; };
+		D834AD2815DACF7200987B68 /* CDXMacOSXSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDXMacOSXSupport.h; sourceTree = "<group>"; };
+		D834AD2915DACF7200987B68 /* CDXMacOSXSupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDXMacOSXSupport.m; sourceTree = "<group>"; };
+		D834AD2A15DACF7200987B68 /* CDXPropertyModifierAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDXPropertyModifierAction.h; sourceTree = "<group>"; };
+		D834AD2B15DACF7200987B68 /* CDXPropertyModifierAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDXPropertyModifierAction.m; sourceTree = "<group>"; };
 		D847E06115AC87FF0044FC48 /* CharmQuark.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CharmQuark.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D847E06515AC87FF0044FC48 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		D847E06715AC87FF0044FC48 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -754,6 +760,18 @@
 			path = Music;
 			sourceTree = "<group>";
 		};
+		D834AD2715DACF7200987B68 /* CocosDenshionExtras */ = {
+			isa = PBXGroup;
+			children = (
+				D834AD2815DACF7200987B68 /* CDXMacOSXSupport.h */,
+				D834AD2915DACF7200987B68 /* CDXMacOSXSupport.m */,
+				D834AD2A15DACF7200987B68 /* CDXPropertyModifierAction.h */,
+				D834AD2B15DACF7200987B68 /* CDXPropertyModifierAction.m */,
+			);
+			name = CocosDenshionExtras;
+			path = libs/CocosDenshionExtras;
+			sourceTree = "<group>";
+		};
 		D847E05615AC87FF0044FC48 = {
 			isa = PBXGroup;
 			children = (
@@ -839,6 +857,7 @@
 				D847E1EA15AC88010044FC48 /* LICENSE_Kazmath.txt */,
 				D847E24915AC88020044FC48 /* LICENSE_Chipmunk.txt */,
 				D847E1AA15AC88010044FC48 /* CocosDenshion */,
+				D834AD2715DACF7200987B68 /* CocosDenshionExtras */,
 				D847E1B915AC88010044FC48 /* kazmath */,
 				D847E1EB15AC88010044FC48 /* Chipmunk */,
 			);
@@ -1773,6 +1792,8 @@
 				D848C43B15CC2AC600B6088A /* ClipNode.m in Sources */,
 				D8A0685115D2CBB7002B63B4 /* GCHelper.m in Sources */,
 				D8A0685515D2CC06002B63B4 /* GCDatabase.m in Sources */,
+				D834AD2C15DACF7200987B68 /* CDXMacOSXSupport.m in Sources */,
+				D834AD2D15DACF7200987B68 /* CDXPropertyModifierAction.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1784,7 +1805,7 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 0.5;
+				CURRENT_PROJECT_VERSION = 9;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1807,7 +1828,7 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 0.5;
+				CURRENT_PROJECT_VERSION = 9;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					NDEBUG,
