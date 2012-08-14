@@ -100,7 +100,20 @@
     CCParticleSystemQuad *explosion = [particle explode];
     explosion.position = detector.position;
     [particleBatch addChild:explosion z:kZDetector];
-    [detector animateAtAngle:-1 * explosion.angle];
+//    [detector kColorUI:-1 * explosion.angle graphColor:ccGREEN];
+    
+    switch (rand() & 3) {
+        case 0:
+            [detector animateAtAngle:-1 * explosion.angle graphColor:ccc3(0, 255, 255)];
+            break;
+        case 1:
+            [detector animateAtAngle:-1 * explosion.angle graphColor:ccc3(255, 255, 0)];
+            break;
+        default:
+            [detector animateAtAngle:-1 * explosion.angle graphColor:ccGREEN];
+            break;
+    }
+    
 }
 
 -(void)animateBackground {
@@ -186,6 +199,7 @@
     
     label = [CCLabelBMFont labelWithString:@"Time Attack" 
                                    fntFile:@"score.fnt"];
+    label.color = kColorButton;
     item = [CCMenuItemFont itemWithLabel:label
                                   target:self 
                                 selector:@selector(playTimeAttack)];
@@ -194,14 +208,17 @@
 
     label = [CCLabelBMFont labelWithString:@"Accelerator" 
                                    fntFile:@"score.fnt"];
+    label.color = kColorButton;
     item = [CCMenuItemFont itemWithLabel:label
                                   target:self 
                                 selector:@selector(playSurvival)];
     item.position = ccp(-0.25 * winSize.width, -0.1 * winSize.height);
     [menu addChild:item];
     
-    label = [CCLabelBMFont labelWithString:@"Practice" 
+    label = [CCLabelBMFont labelWithString:@"Meditation" 
                                    fntFile:@"score.fnt"];
+    label.color = kColorButton;
+//    label.opacity = 230;
     item = [CCMenuItemFont itemWithLabel:label
                                   target:self 
                                 selector:@selector(playMomMode)];
@@ -210,6 +227,7 @@
     
     label = [CCLabelBMFont labelWithString:@"Options" 
                                    fntFile:@"score.fnt"];
+    label.color = kColorButton;
     item = [CCMenuItemFont itemWithLabel:label
                                   target:self 
                                 selector:@selector(showOptions)];
@@ -218,6 +236,7 @@
     
     label = [CCLabelBMFont labelWithString:@"High Scores" 
                                    fntFile:@"score.fnt"];
+    label.color = kColorButton;
     item = [CCMenuItemFont itemWithLabel:label
                                   target:self 
                                 selector:@selector(showScores)];
@@ -226,6 +245,7 @@
     
     label = [CCLabelBMFont labelWithString:@"Credits" 
                                    fntFile:@"score.fnt"];
+    label.color = kColorButton;
     item = [CCMenuItemFont itemWithLabel:label
                                   target:self 
                                 selector:@selector(showCredits)];

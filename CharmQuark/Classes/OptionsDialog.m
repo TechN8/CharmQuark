@@ -47,7 +47,7 @@
 -(void)initUI {
     CGSize winSize = [[CCDirector sharedDirector] winSize];
     CCLabelBMFont *title = [CCLabelBMFont labelWithString:@"Options" fntFile:@"score.fnt"];
-    title.color = ccGREEN;
+    title.color = kColorDialogGreen;
     title.position = ccp(winSize.width * 0.5, winSize.height * 0.7);
     title.scale = 1.5;
     [self addChild:title z:100];
@@ -60,6 +60,7 @@
         musicString = @"Turn Music On";
     }
     CCLabelBMFont *musicLabel = [CCLabelBMFont labelWithString:musicString fntFile:@"score.fnt"];
+    musicLabel.color = kColorButton;
     musicToggle = [CCMenuItemFont itemWithLabel:musicLabel
                                          target:self 
                                        selector:@selector(toggleMusic)];
@@ -72,6 +73,7 @@
         soundString = @"Turn Sound On";
     }
     CCLabelBMFont *soundLabel = [CCLabelBMFont labelWithString:soundString fntFile:@"score.fnt"];
+    soundLabel.color = kColorButton;
     soundToggle = [CCMenuItemFont itemWithLabel:soundLabel target:self selector:@selector(toggleSound)];
 
 //    //Resume

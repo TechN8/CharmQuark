@@ -51,19 +51,21 @@
 -(void)initUI {
     CGSize winSize = [[CCDirector sharedDirector] winSize];
     CCLabelBMFont *title = [CCLabelBMFont labelWithString:@"Paused" fntFile:@"score.fnt"];
-    title.color = ccGREEN;
+    title.color = kColorDialogGreen;
     title.position = ccp(winSize.width * 0.5, winSize.height * 0.7);
     title.scale = 1.5;
     [self addChild:title z:100];
     
     //Resume
     CCLabelBMFont *resumeLabel = [CCLabelBMFont labelWithString:@"Resume" fntFile:@"score.fnt"];
+    resumeLabel.color = kColorButton;
     CCMenuItemFont *resumeItem = [CCMenuItemFont itemWithLabel:resumeLabel 
                                                         target:self 
                                                       selector:@selector(resumeParent)];
     
     //Quit
     CCLabelBMFont *quitLabel = [CCLabelBMFont labelWithString:@"Quit" fntFile:@"score.fnt"];
+    quitLabel.color = kColorButton;
     CCMenuItemFont *quitItem = [CCMenuItemFont itemWithLabel:quitLabel
                                                       target:self 
                                                     selector:@selector(quitGame)];
@@ -76,6 +78,7 @@
         musicString = @"Turn Music On";
     }
     CCLabelBMFont *musicLabel = [CCLabelBMFont labelWithString:musicString fntFile:@"score.fnt"];
+    musicLabel.color = kColorButton;
     musicToggle = [CCMenuItemFont itemWithLabel:musicLabel
                                          target:self 
                                        selector:@selector(toggleMusic)];
@@ -88,12 +91,17 @@
         soundString = @"Turn Sound On";
     }
     CCLabelBMFont *soundLabel = [CCLabelBMFont labelWithString:soundString fntFile:@"score.fnt"];
+    soundLabel.color = kColorButton;
     soundToggle = [CCMenuItemFont itemWithLabel:soundLabel target:self selector:@selector(toggleSound)];
+    CCMenu *menu1 = [CCMenu menuWithItems:musicToggle, soundToggle, nil];
+    [menu1 alignItemsVerticallyWithPadding:0.03 * winSize.height];
+    menu1.position = ccp(winSize.width * 0.5, winSize.height * 0.50f);
+    [self addChild:menu1 z:100];
     
-    CCMenu *menu = [CCMenu menuWithItems:resumeItem, musicToggle, soundToggle, quitItem, nil];
-    [menu alignItemsVerticallyWithPadding:0.03 * winSize.height];
-    menu.position = ccp(winSize.width * 0.5, winSize.height * 0.42f);
-    [self addChild:menu z:100];
+    CCMenu *menu2 = [CCMenu menuWithItems:resumeItem, quitItem, nil];
+    [menu2 alignItemsHorizontallyWithPadding:0.15 * winSize.width];
+    menu2.position = ccp(winSize.width * 0.5, winSize.height * 0.25f);
+    [self addChild:menu2 z:100];
 }
 
 #pragma mark - CCNode

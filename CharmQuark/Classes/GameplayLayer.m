@@ -18,7 +18,6 @@ static CGPoint launchPoint;
 static cpFloat launchV;
 static CGFloat scaleFactor;
 static CGPoint skewVector;
-static BOOL emergency = NO;
 
 @interface GameplayLayer()
 
@@ -65,14 +64,6 @@ static void postStepRemoveParticle(cpSpace *space, cpBody *body, GameplayLayer *
     }
 }
 
-static void postStepCheckGameOver(cpSpace *space, cpBody *body, GameplayLayer *self) {
-    emergency = YES;
-    if (![self scoreParticles]) {
-        Particle *particle = body->data;
-        [self end:particle];
-    }
-}
-
 static void scheduleForRemoval(cpBody *body, GameplayLayer *self) {
     cpSpaceAddPostStepCallback(self.space, (cpPostStepFunc)postStepRemoveParticle, body, self);
 }
@@ -82,15 +73,6 @@ static void syncSpriteToBody(cpBody *body, GameplayLayer* self) {
 	Particle *particle = body->data;
 	if( particle ) {
 		[particle setPosition: cpvmult(body->p, scaleFactor)];
-        //        [particle setPosition: worldToView(body->p)];
-        
-        if ([particle isLive] 
-            && cpvlength(cpBodyGetPos(body)) >= kFailRadius - kParticleRadius) {
-            cpSpaceAddPostStepCallback(self.space, 
-                                       (cpPostStepFunc)postStepCheckGameOver,
-                                       body,
-                                       self);
-        }
 	}
 }
 
@@ -305,11 +287,6 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     
     // Start animation / simulation timer.
     [self schedule: @selector(step:)];
-    
-//    // Play the BGM
-//    [[GameManager sharedGameManager] setBgmIntensity:1];
-//    [[GameManager sharedGameManager] startBGM];
-//    [self schedule:@selector(bgmManager) interval:8.0 repeat:kCCRepeatForever delay:7.0];
 }
 
 -(Particle*)randomParticle {
@@ -459,52 +436,62 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 -(BOOL) scoreParticles {
     NSInteger multiplier = 0;
     NSInteger points = 0;
+    BOOL gameOver = NO;
+    Particle *gameOverParticle = nil;
     
     // Reset
     [visitedParticles removeAllObjects];
     
     // Iterate on collidedParticles
     for (Particle *particle in particles) {
-        // Don't double count.
-        if ([particle isLive] && ![visitedParticles containsObject:particle]) {
-            
-            // Add self and all matching to scoredParticles && visitedParticles.
-            [countedParticles removeAllObjects];
-            [particle addMatchingParticlesToSet:countedParticles 
-                                       minMatch:kMinMatchSize
-                                    requireLive:!emergency];
-            [visitedParticles unionSet:countedParticles];
-            
-            // If scoredParticles > kMinMatchSize then move them to final array?
-            if (countedParticles.count >= kMinMatchSize) {
-                for (Particle *p in countedParticles) {
-                    [scoredParticles addObject:p];
+        if ([particle isLive]) {
+            // Check game over condition.
+            if (cpvlength(cpBodyGetPos(particle.body)) >= kFailRadius - kParticleRadius) {
+                gameOver = YES;
+                gameOverParticle = particle;
+            }
+
+            // Don't double count.
+            if (![visitedParticles containsObject:particle]) {
+                
+                // Add self and all matching to scoredParticles && visitedParticles.
+                [countedParticles removeAllObjects];
+                [particle addMatchingParticlesToSet:countedParticles 
+                                           minMatch:kMinMatchSize
+                                        requireLive:!gameOver];
+                [visitedParticles unionSet:countedParticles];
+                
+                // If scoredParticles > kMinMatchSize then move them to final array?
+                if (countedParticles.count >= kMinMatchSize) {
+                    for (Particle *p in countedParticles) {
+                        [scoredParticles addObject:p];
+                    }
+                    matchesToNextLevel--;
+                    multiplier = countedParticles.count - kMinMatchSize + 1;
+                    points = kPointsPerMatch;
+                    
+                    NSString *bonusText = nil;
+                    if (multiplier > 1) {
+                        points *= multiplier;
+                        // Play multiplier animation.
+                        [logViewer addMessage:[NSString stringWithFormat:@"%dX Bonus!", multiplier]];
+                    }
+                    
+                    if (comboLevel) {
+                        points *= comboLevel + 1;
+                        [logViewer addMessage:[NSString stringWithFormat:@"%dX Combo!", comboLevel + 1]];
+                    }
+                    
+                    if (bonusText) {
+                        [logViewer addMessage:bonusText];
+                    }
+                    
+                    comboCount = 2 / kSweepRate;  // Two seconds.
+                    comboLevel++;
+                    
+                    [self addPoints:points]; // Update score.
+                    [logViewer addMessage:[NSString stringWithFormat:@"%d", points]];
                 }
-                matchesToNextLevel--;
-                multiplier = countedParticles.count - kMinMatchSize + 1;
-                points = kPointsPerMatch;
-                
-                NSString *bonusText = nil;
-                if (multiplier > 1) {
-                    points *= multiplier;
-                    // Play multiplier animation.
-                    [logViewer addMessage:[NSString stringWithFormat:@"%dX Bonus!", multiplier]];
-                }
-                
-                if (comboLevel) {
-                    points *= comboLevel + 1;
-                    [logViewer addMessage:[NSString stringWithFormat:@"%dX Combo!", comboLevel + 1]];
-                }
-                
-                if (bonusText) {
-                    [logViewer addMessage:bonusText];
-                }
-                
-                comboCount = 2 / kSweepRate;  // Two seconds.
-                comboLevel++;
-                
-                [self addPoints:points]; // Update score.
-                [logViewer addMessage:[NSString stringWithFormat:@"%d", points]];
             }
         }
     }
@@ -524,6 +511,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
         [self playRandomNoteAtVolume:1.0];
         [self playRandomNoteAtVolume:1.0];
         [self playRandomNoteAtVolume:1.0];
+        gameOver = NO;
     }
     
     // Delete scored particles.  If this is done in the iterator, will throw exceptions.
@@ -535,15 +523,33 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
         CCParticleSystemQuad *explosion = [particle explode];  // Play the explosion animation.
         explosion.position = [centerNode convertToWorldSpace:particle.position];
         [[self getChildByTag:kTagParticleBatchNode] addChild:explosion];
-//        [self addChild:explosion z:kZParticles];
-        [detector animateAtAngle:-1 * explosion.angle];
-//        [particle removeFromParentAndCleanup:YES];
-//        [detector animateAtAngle:(float)rand()/(float)RAND_MAX * 360.0];
+        
+//        switch (rand() & 3) {
+//            case 0:
+//                [detector animateAtAngle:-1 * explosion.angle graphColor:ccc3(0, 255, 255)];
+//                break;
+//            case 1:
+//                [detector animateAtAngle:-1 * explosion.angle graphColor:ccc3(255, 255, 0)];
+//                break;
+//            default:
+                [detector animateAtAngle:-1 * explosion.angle graphColor:ccGREEN];
+//                break;
+//        }
+        
+//        if (comboLevel > 1) {
+//            [detector animateAtAngle:-1 * explosion.angle graphColor:ccc3(0, 255, 128)];
+//        } else if (multiplier > 1) {
+//            [detector animateAtAngle:-1 * explosion.angle graphColor:ccc3(128, 255, 0)];
+//        } else {
+//            [detector animateAtAngle:-1 * explosion.angle graphColor:ccGREEN];
+//        }
 
         postStepRemoveParticle(space, particle.body, self);  // Don't need to schedule, called from update.
     }
     
-    emergency = NO;
+    if (gameOver) {
+        [self end:gameOverParticle];
+    }
     
     if (points) {
         return YES;
@@ -662,7 +668,6 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 -(void)end:(Particle *)particle {
     CGSize winSize = [[CCDirector sharedDirector] winSize];
     
-//    [[GameManager sharedGameManager] stopBGM];
     [[GameManager sharedGameManager] stopBackgroundTrack];
     PLAYSOUNDEFFECT(GAME_OVER, 0.5);
     
@@ -749,7 +754,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     scoreLabel = [CCLabelBMFont labelWithString:@"0" fntFile:@"score.fnt"];
     [scoreLabel setAnchorPoint:ccp(0.0f, 0.5f)];
     [scoreLabel setPosition:scorePosition];
-    [scoreLabel setColor:kScoreColor];
+    [scoreLabel setColor:kColorScore];
     [self addChild:scoreLabel z:kZUIElements];
     
     // Add level label / clock
@@ -757,13 +762,15 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
         case kGameSceneTimeAttack:
             levelLabel= [CCLabelBMFont labelWithString:@"2:00.00" fntFile:@"score.fnt"];
             levelLabel.position = levelPosition;
-            levelLabel.color = kUIColor;
+            levelLabel.color = kColorUI;
+//            levelLabel.opacity = 230;
             [self addChild:levelLabel z:kZUIElements];
             break;
         case kGameSceneSurvival:
             levelLabel = [CCLabelBMFont labelWithString:@"Level 1" fntFile:@"score.fnt"];
             levelLabel.position = levelPosition;
-            levelLabel.color = kUIColor;
+            levelLabel.color = kColorUI;
+//            levelLabel.opacity = 230;
             [self addChild:levelLabel z:kZUIElements];
             break;
         default:
@@ -774,7 +781,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     CGPoint nextLabelPosition = ccp(scorePosition.x,
                             scorePosition.y - scoreLabel.contentSize.height - 10 * scaleFactor);
     CCLabelBMFont *nextLabel = [CCLabelBMFont labelWithString:@"Next:" fntFile:@"score.fnt"];
-    nextLabel.color = kUIColor;
+    nextLabel.color = kColorUI;
     nextLabel.position = nextLabelPosition;
     [nextLabel setAnchorPoint:ccp(0.0, 0.5)];
     [self addChild:nextLabel z:kZUIElements];

@@ -34,7 +34,7 @@
             bold = last == c && lastlast == c ? YES : NO;
         } else if (bold) {
             CCSprite *sprite = (CCSprite *)[label getChildByTag:i];
-            sprite.color = kScoreColor;
+            sprite.color = kColorScore;
         }
         lastlast = last;
         last = c;
@@ -68,8 +68,9 @@
     CCLabelBMFont *label = [CCLabelBMFont labelWithString:credits
                                                   fntFile:@"score.fnt"];
 //    [label setWidth:windowSprite.contentSize.width - 10];
-    [label setAnchorPoint:ccp(0.5, 1.0)];
-    [label setAlignment:kCCTextAlignmentCenter];
+    label.anchorPoint = ccp(0.5, 1.0);
+    label.alignment = kCCTextAlignmentCenter;
+    label.color = kColorUI;
     [self colorizeLabel:label];
     scrollHeight += label.contentSize.height;
     [scroller addChild:label];
@@ -81,11 +82,12 @@
     scrollHeight += cocosLogo.contentSize.height;
     [scroller addChild:cocosLogo];
   
-    CCLabelBMFont *copyright = [CCLabelBMFont labelWithString:@"\nGame and Software © 2012"
+    CCLabelBMFont *copyright = [CCLabelBMFont labelWithString:@" \nGame and Software\nCopyright © 2012"
                                                       fntFile:@"score.fnt"];
     copyright.anchorPoint = ccp(0.5, 1.0);
+    copyright.alignment = kCCTextAlignmentCenter;
     copyright.position = ccp(0, -1 * scrollHeight);
-    copyright.color = kScoreColor;
+    copyright.color = kColorScore;
     scrollHeight += copyright.contentSize.height;
     [scroller addChild:copyright];
     

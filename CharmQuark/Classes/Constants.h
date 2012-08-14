@@ -11,9 +11,12 @@
 
 #define kMainMenuTagValue 10
 
-#define kScoreColor     ccc3(255, 240, 128)
-#define kUIColor        ccc3(90, 130, 140)
-#define kPopupSpeed     0.3
+#define kColorScore         ccc3(240, 200, 80)
+#define kColorUI            ccc3(80, 120, 130)
+#define kColorButton        ccc3(120, 160, 170)
+#define kColorDialogRed     ccc3(160, 0, 0)
+#define kColorDialogGreen   ccc3(0, 160, 0)
+#define kPopupSpeed         0.3
 
 // Device support
 #define kSimDimensions  ccp(1024,768)

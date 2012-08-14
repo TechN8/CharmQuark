@@ -27,77 +27,70 @@
 -(void)initUI {
     CGSize winSize = [[CCDirector sharedDirector] winSize];
     CCLabelBMFont *title = [CCLabelBMFont labelWithString:@"High Scores" fntFile:@"score.fnt"];
-    title.color = ccGREEN;
+    title.color = kColorDialogGreen;
     title.position = ccp(winSize.width * 0.5, winSize.height * 0.7);
     title.scale = 1.5;
     [self addChild:title z:100];
     
-    CCMenu *menu = [CCMenu node];
+    CCLabelBMFont *label;
+    NSString *scoreString;
     
-    // Accelerator
-    CCLabelBMFont *label = [CCLabelBMFont labelWithString:@"Accelerator" fntFile:@"score.fnt"];
-    CCMenuItemFont *item = [CCMenuItemFont itemWithLabel:label];
-    item.disabledColor = ccWHITE;
-    item.isEnabled = NO;
-    [menu addChild:item];
+    // Time Attack Label
+    label = [CCLabelBMFont labelWithString:@"Time Attack" fntFile:@"score.fnt"];
+    label.anchorPoint = ccp(0, 0.5);
+    label.alignment = kCCTextAlignmentLeft;
+    label.color = kColorUI;
+    label.position = ccp(winSize.width * 0.15, winSize.height * 0.50);
+    [self addChild:label];
     
-    NSString *scoreString = [NSString stringWithFormat:@"%d",
+    // Time Attack Score
+    scoreString = [NSString stringWithFormat:@"%d",
+                   [[GameManager sharedGameManager] getHighScoreForSceneWithID:kGameSceneTimeAttack]];
+    label = [CCLabelBMFont labelWithString:scoreString
+                                   fntFile:@"score.fnt"];
+    label.anchorPoint = ccp(1.0, 0.5);
+    label.alignment = kCCTextAlignmentRight;
+    label.color = kColorScore;
+    label.position = ccp(winSize.width * 0.85, winSize.height * 0.50);
+    [self addChild:label];
+    
+    // Accelerator Label
+    label = [CCLabelBMFont labelWithString:@"Accelerator" fntFile:@"score.fnt"];
+    label.anchorPoint = ccp(0, 0.5);
+    label.alignment = kCCTextAlignmentLeft;
+    label.color = kColorUI;
+    label.position = ccp(winSize.width * 0.15, winSize.height * 0.40);
+    [self addChild:label];
+    
+    // Accelerator Score
+    scoreString = [NSString stringWithFormat:@"%d",
                             [[GameManager sharedGameManager] getHighScoreForSceneWithID:kGameSceneSurvival]];
     label = [CCLabelBMFont labelWithString:scoreString
                                    fntFile:@"score.fnt"];
-    item = [CCMenuItemFont itemWithLabel:label];
-    item.disabledColor = kScoreColor;
-    item.isEnabled = NO;
-    [menu addChild:item];
+    label.anchorPoint = ccp(1.0, 0.5);
+    label.alignment = kCCTextAlignmentRight;
+    label.color = kColorScore;
+    label.position = ccp(winSize.width * 0.85, winSize.height * 0.40);
+    [self addChild:label];
    
-    // Time attack
-    label = [CCLabelBMFont labelWithString:@"Time Attack" fntFile:@"score.fnt"];
-    item = [CCMenuItemFont itemWithLabel:label];
-    item.disabledColor = ccWHITE;
-    item.isEnabled = NO;
-    [menu addChild:item];
-    
-    scoreString = [NSString stringWithFormat:@"%d",
-                             [[GameManager sharedGameManager] getHighScoreForSceneWithID:kGameSceneTimeAttack]];
-    label = [CCLabelBMFont labelWithString:scoreString
-                                   fntFile:@"score.fnt"];
-    item = [CCMenuItemFont itemWithLabel:label];
-    item.disabledColor = kScoreColor;
-    item.isEnabled = NO;
-    [menu addChild:item];
-
-    
-    // Meditation
+    // Meditation Label
     label = [CCLabelBMFont labelWithString:@"Meditation" fntFile:@"score.fnt"];
-    item = [CCMenuItemFont itemWithLabel:label];
-    item.disabledColor = ccWHITE;
-    item.isEnabled = NO;
-    [menu addChild:item];
+    label.anchorPoint = ccp(0, 0.5);
+    label.alignment = kCCTextAlignmentLeft;
+    label.color = kColorUI;
+    label.position = ccp(winSize.width * 0.15, winSize.height * 0.30);
+    [self addChild:label];
     
+    // Meditation Score
     scoreString = [NSString stringWithFormat:@"%d",
                    [[GameManager sharedGameManager] getHighScoreForSceneWithID:kGameSceneMomMode]];
     label = [CCLabelBMFont labelWithString:scoreString
                                    fntFile:@"score.fnt"];
-    item = [CCMenuItemFont itemWithLabel:label];
-    item.disabledColor = kScoreColor;
-    item.isEnabled = NO;
-    [menu addChild:item];
-    
-//    //Done
-//    CCLabelBMFont *resumeLabel = [CCLabelBMFont labelWithString:@"Done" fntFile:@"score.fnt"];
-//    CCMenuItemFont *resumeItem = [CCMenuItemFont itemWithLabel:resumeLabel 
-//                                                          target:self 
-//                                                        selector:@selector(resumeParent)];
-//    [menu addChild:resumeItem];
-    
-//    [menu alignItemsVerticallyWithPadding:0.03 * winSize.height];
-    [menu alignItemsInColumns:[NSNumber numberWithUnsignedInt:2],
-     [NSNumber numberWithUnsignedInt:2],
-     [NSNumber numberWithUnsignedInt:2],
-     nil];
-
-    menu.position = ccp(winSize.width * 0.5, winSize.height * 0.42f);
-    [self addChild:menu z:100];
+    label.anchorPoint = ccp(1.0, 0.5);
+    label.alignment = kCCTextAlignmentRight;
+    label.color = kColorScore;
+    label.position = ccp(winSize.width * 0.85, winSize.height * 0.30);
+    [self addChild:label];
 }
 
 #pragma mark - CCTargetedTouchDelegate
