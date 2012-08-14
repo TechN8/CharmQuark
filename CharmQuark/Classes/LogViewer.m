@@ -33,10 +33,10 @@
     }
 }
 
--(void)addMessage:(NSString *)message {
+-(void)addMessage:(NSString *)message color:(ccColor3B)color {
     // Add new message
     CCLabelBMFont *newMessage = [CCLabelBMFont labelWithString:message fntFile:@"score.fnt"];
-    newMessage.color = kColorScore;
+    newMessage.color = color;
     newMessage.anchorPoint = ccp(0.5, 0.0);
     newMessage.position = ccp(0, [[messages lastObject] position].y - lineHeight);
     

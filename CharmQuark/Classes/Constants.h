@@ -12,6 +12,10 @@
 #define kMainMenuTagValue 10
 
 #define kColorScore         ccc3(240, 200, 80)
+#define kColorCombo         ccc3(200, 200, 230)
+#define kColorBonus         ccc3(200, 200, 230)
+#define kColorTimeAdd       ccc3(200, 230, 200)
+#define kColorLevelUp       ccc3(230, 200, 200)
 #define kColorUI            ccc3(80, 120, 130)
 #define kColorButton        ccc3(120, 160, 170)
 #define kColorDialogRed     ccc3(160, 0, 0)
@@ -24,8 +28,6 @@
 #define kLaunchPoint    ccp(-720, 0)
 #define kiPhoneScale    0.46875f
 #define kiPhoneSkew     ccp(0,-32);
-//#define kiPadScale      1.0
-//#define kiPadSkew       ccp(0,0);
 #define kiPadScale      0.875
 #define kiPadSkew       ccp(0, 48)
 

@@ -404,7 +404,8 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
         switch (mode) {
             case kGameSceneTimeAttack:
                 timeRemaining += kTimeAttackAdd;
-                [logViewer addMessage:[NSString stringWithFormat:@"+%d Seconds!", (int)kTimeAttackAdd]];
+                [logViewer addMessage:[NSString stringWithFormat:@"+%d Seconds!", (int)kTimeAttackAdd]
+                                color:kColorTimeAdd];
                 break;
             case kGameSceneSurvival:
                 level++;
@@ -413,7 +414,8 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
                     dropFrequency = kDropTimeMin;
                 }
                 [levelLabel setString:[NSString stringWithFormat:@"Level %d", level]];
-                [logViewer addMessage:[NSString stringWithFormat:@"Level %d!", level]];
+                [logViewer addMessage:[NSString stringWithFormat:@"Level %d!", level]
+                                color:kColorLevelUp];
                 break;
             default:
                 break;
@@ -470,27 +472,25 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
                     multiplier = countedParticles.count - kMinMatchSize + 1;
                     points = kPointsPerMatch;
                     
-                    NSString *bonusText = nil;
-                    if (multiplier > 1) {
+//                    if (multiplier > 1) {
                         points *= multiplier;
                         // Play multiplier animation.
-                        [logViewer addMessage:[NSString stringWithFormat:@"%dX Bonus!", multiplier]];
-                    }
+                        [logViewer addMessage:[NSString stringWithFormat:@"%dX Bonus!", multiplier]
+                                        color:kColorBonus];
+//                    }
                     
-                    if (comboLevel) {
+//                    if (comboLevel) {
                         points *= comboLevel + 1;
-                        [logViewer addMessage:[NSString stringWithFormat:@"%dX Combo!", comboLevel + 1]];
-                    }
-                    
-                    if (bonusText) {
-                        [logViewer addMessage:bonusText];
-                    }
+                        [logViewer addMessage:[NSString stringWithFormat:@"%dX Combo!", comboLevel + 1]
+                                        color:kColorCombo];
+//                    }
                     
                     comboCount = 2 / kSweepRate;  // Two seconds.
                     comboLevel++;
                     
                     [self addPoints:points]; // Update score.
-                    [logViewer addMessage:[NSString stringWithFormat:@"%d", points]];
+                    [logViewer addMessage:[NSString stringWithFormat:@"%d", points]
+                                    color:kColorScore];
                 }
             }
         }
@@ -683,6 +683,9 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
         float angle = -1 * CC_RADIANS_TO_DEGREES(cpvtoangle(cpBodyGetPos(particle.body)));
         angle += centerNode.rotation;
         [detector gameOverAtAngle:angle];
+        id flash = [CCBlink actionWithDuration:1.0 blinks:2];
+        id loop = [CCRepeatForever actionWithAction:flash];
+        [particle runAction:loop];
     }
     
     // Throw up modal layer.

@@ -18,6 +18,6 @@
     CGFloat lineHeight;
 }
 
--(void)addMessage:(NSString*)message;
+-(void)addMessage:(NSString *)message color:(ccColor3B)color;
 
 @end
