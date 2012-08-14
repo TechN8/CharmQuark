@@ -481,18 +481,18 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
                     multiplier = countedParticles.count - kMinMatchSize + 1;
                     points = kPointsPerMatch;
                     
-//                    if (multiplier > 1) {
+                    if (multiplier > 1) {
                         points *= multiplier;
                         // Play multiplier animation.
                         [logViewer addMessage:[NSString stringWithFormat:@"%dX Bonus!", multiplier]
                                         color:kColorBonus];
-//                    }
+                    }
                     
-//                    if (comboLevel) {
+                    if (comboLevel) {
                         points *= comboLevel + 1;
                         [logViewer addMessage:[NSString stringWithFormat:@"%dX Combo!", comboLevel + 1]
                                         color:kColorCombo];
-//                    }
+                    }
                     
                     comboCount = 2 / kSweepRate;  // Two seconds.
                     comboLevel++;
