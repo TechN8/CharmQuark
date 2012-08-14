@@ -100,20 +100,7 @@
     CCParticleSystemQuad *explosion = [particle explode];
     explosion.position = detector.position;
     [particleBatch addChild:explosion z:kZDetector];
-//    [detector kColorUI:-1 * explosion.angle graphColor:ccGREEN];
-    
-    switch (rand() & 3) {
-        case 0:
-            [detector animateAtAngle:-1 * explosion.angle graphColor:ccc3(0, 255, 255)];
-            break;
-        case 1:
-            [detector animateAtAngle:-1 * explosion.angle graphColor:ccc3(255, 255, 0)];
-            break;
-        default:
-            [detector animateAtAngle:-1 * explosion.angle graphColor:ccGREEN];
-            break;
-    }
-    
+    [detector kColorUI:-1 * explosion.angle graphColor:ccGREEN];
 }
 
 -(void)animateBackground {
@@ -257,7 +244,6 @@
     NSString *vers =[[[NSBundle mainBundle] infoDictionary] valueForKey:@"CFBundleVersion"];
     NSString *mvers =[[[NSBundle mainBundle] infoDictionary] valueForKey:@"CFBundleShortVersionString"];
     NSString *versionString = [NSString stringWithFormat:@"v%@ (%@)", mvers, vers];
-//    label = [CCLabelBMFont labelWithString:versionString fntFile:@"score.fnt"];
     CCLabelTTF *versionLabel = [CCLabelTTF labelWithString:versionString 
                                                  fontName:@"American Typewriter"
                                                  fontSize:12.0];
