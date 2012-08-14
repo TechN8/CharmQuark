@@ -415,8 +415,7 @@ static GameManager* _sharedGameManager = nil;
 
 -(void)stopBackgroundTrack {
     if (managerSoundState == kAudioManagerReady) {
-        [CDXPropertyModifierAction fadeBackgroundMusic:1.0f finalVolume:0.0f curveType:kIT_SCurve shouldStop:YES];
-//        [soundEngine stopBackgroundMusic];
+        [soundEngine stopBackgroundMusic];
     }
 }
 
@@ -428,21 +427,10 @@ static GameManager* _sharedGameManager = nil;
 @synthesize soundEngine;
 
 -(NSDictionary *)getSoundEffectsListForSceneWithID:(SceneTypes)sceneID {
-    NSString *fullFileName = @"SoundEffects.plist";
-    NSString *plistPath;
     
     // 1: Get the Path to the plist file
-    
-    // TODO: Test this, I don't think the PLIST will ever be in NSDocumentDirectory...
-    NSString *rootPath = 
-    [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
-                                         NSUserDomainMask, YES) 
-     objectAtIndex:0];
-    plistPath = [rootPath stringByAppendingPathComponent:fullFileName];
-    if (![[NSFileManager defaultManager] fileExistsAtPath:plistPath]) {
-        plistPath = [[NSBundle mainBundle] 
+    NSString *plistPath = [[NSBundle mainBundle] 
                      pathForResource:@"SoundEffects" ofType:@"plist"];
-    }
     
     // 2: Read in the plist file
     NSDictionary *plistDictionary = 
