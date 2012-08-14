@@ -12,6 +12,8 @@
 #import "IntroLayer.h"
 #import "GameScene.h"
 #import "GCHelper.h"
+#import "CDXPropertyModifierAction.h"
+
 
 static NSString *kSoundEffectsOnKey	= @"isSoundEffectsOn";
 static NSString *kMusicOnKey		= @"isMusicOn";
@@ -406,12 +408,15 @@ static GameManager* _sharedGameManager = nil;
         }
         [soundEngine preloadBackgroundMusic:trackFileName];
         [soundEngine playBackgroundMusic:trackFileName loop:YES];
+        [soundEngine setBackgroundMusicVolume:0.0];
+        [CDXPropertyModifierAction fadeBackgroundMusic:1.0f finalVolume:0.5f curveType:kIT_SCurve shouldStop:NO];
     }
 }
 
 -(void)stopBackgroundTrack {
     if (managerSoundState == kAudioManagerReady) {
-        [soundEngine stopBackgroundMusic];
+        [CDXPropertyModifierAction fadeBackgroundMusic:1.0f finalVolume:0.0f curveType:kIT_SCurve shouldStop:YES];
+//        [soundEngine stopBackgroundMusic];
     }
 }
 
