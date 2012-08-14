@@ -331,6 +331,12 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 }
 
 -(void) launch {
+    // Make sure it's legal.
+    if (lastLaunch < kLaunchCoolDown) {
+        CCLOG(@"Ignored launch during cooldown.");
+        return;
+    }
+    
     // Launch!
     if (mode == kGameSceneSurvival) {
         timeRemaining = dropFrequency;   
@@ -605,6 +611,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     for (int i = 0; i < steps; i++) {
         // Update clock.
         timeRemaining -= kSimulationRate;
+        lastLaunch += kSimulationRate;
         [map setTime:(dropFrequency - timeRemaining) / dropFrequency];
         
         // Check for gameover or drop conditions.
@@ -713,10 +720,6 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     puzzleCenter = worldToView(kPuzzleCenter);
     CGPoint scorePosition = ccp(10, winSize.height * 0.95f);
     CGPoint levelPosition = ccp(winSize.width * 0.5f, winSize.height * 0.95f);
-//    CGPoint nextLabelPosition = ccp(winSize.width * 0.80f, winSize.height * 0.95f);
-//    CGPoint nextLabelPosition = ccp(10, winSize.height * 0.85f);
-//    nextParticlePos = ccp(winSize.width * 0.85f, winSize.height * 0.95f);
-//    nextParticlePos = ccp(winSize.width * 0.10f, winSize.height * 0.85f);
     
     launchPoint = worldToView(kLaunchPoint);
     
@@ -746,9 +749,9 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
                                self);   
     
     // Configure the two batch nodes for rendering.
-    CCSpriteBatchNode *packetBatchNode = [CCSpriteBatchNode batchNodeWithFile:@"scene1Atlas.png" capacity:50];
-    CCSpriteBatchNode *uiBatchNode = [CCSpriteBatchNode batchNodeWithFile:@"scene1Atlas.png" capacity:50];
-    CCParticleBatchNode *particleBatch = [CCParticleBatchNode batchNodeWithFile:@"scene1Atlas.png" capacity:10];
+    CCSpriteBatchNode *packetBatchNode = [CCSpriteBatchNode batchNodeWithFile:@"scene1Atlas.png" capacity:45];
+    CCSpriteBatchNode *uiBatchNode = [CCSpriteBatchNode batchNodeWithFile:@"scene1Atlas.png" capacity:60];
+    CCParticleBatchNode *particleBatch = [CCParticleBatchNode batchNodeWithFile:@"scene1Atlas.png" capacity:100];
     [self addChild:uiBatchNode z:kZUIElements tag:kTagUIBatchNode];
     [self addChild:particleBatch z:kZParticles tag:kTagParticleBatchNode];
     

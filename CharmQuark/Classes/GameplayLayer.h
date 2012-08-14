@@ -59,7 +59,7 @@
 #define kShapeCollisionType     1
 #define kSensorCollisionType    2
 #define kUnitVectorUp           ccp(0, 1)
-#define kLaunchCoolDown         0.25
+#define kLaunchCoolDown         0.166667f
 
 enum {
 	kTagPacketBatchNode = 1,
