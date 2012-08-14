@@ -8,6 +8,7 @@
 
 #import "LogViewer.h"
 #import "RemoveFromParentAction.h"
+#import "Constants.h"
 
 @implementation LogViewer
 
@@ -35,12 +36,16 @@
 -(void)addMessage:(NSString *)message {
     // Add new message
     CCLabelBMFont *newMessage = [CCLabelBMFont labelWithString:message fntFile:@"score.fnt"];
-    newMessage.color = ccc3(200, 255, 200);
+    newMessage.color = kColorScore;
     newMessage.anchorPoint = ccp(0.5, 0.0);
     newMessage.position = ccp(0, [[messages lastObject] position].y - lineHeight);
     
-    CCFadeOut *fadeOut = [CCFadeOut actionWithDuration:2.0];
-    [newMessage runAction:[CCEaseExponentialIn actionWithAction:fadeOut]];
+    CCFadeOut *fadeOut = [CCFadeOut actionWithDuration:1.0];
+    CCEaseExponentialIn *fadeEase = [CCEaseExponentialIn actionWithAction:fadeOut];
+    CCScaleTo *scaleTo = [CCScaleTo actionWithDuration:0.5 scale:1.3];
+    CCSequence *seq = [CCSequence actions:scaleTo, fadeEase, nil];
+    [newMessage runAction:seq];
+//    [newMessage runAction:scaleTo];
     
     [self addChild:newMessage z:0];
     [messages addObject:newMessage];
