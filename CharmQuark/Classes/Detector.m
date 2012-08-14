@@ -45,7 +45,14 @@
 -(void)gameOverAtAngle:(CGFloat)angle {
     // Work in radians.
     angle = CC_DEGREES_TO_RADIANS(angle);
-
+    
+    float deviation = (fmodf(angle, M_PI / 12));
+    if (angle < 0) {
+        angle -= M_PI / 24 + deviation;
+    } else {
+        angle += M_PI / 24 - deviation;
+    }
+    
     CCSprite *blink = [CCSprite spriteWithSpriteFrameName:@"blink.png"];
     blink.color = ccRED;
     blink.anchorPoint = ccp(0.5, 0.5);
@@ -95,16 +102,24 @@
 -(void)animateAtAngle:(CGFloat)angle graphColor:(ccColor3B)color {
     // Work in radians.
     angle = CC_DEGREES_TO_RADIANS(angle);
-    
+
+    // Adjust to nearest multiple of M_PI / 12.
+    float deviation = (fmodf(angle, M_PI / 12));
+    if (angle < 0) {
+        angle -= M_PI / 24 + deviation;
+    } else {
+        angle += M_PI / 24 - deviation;
+    }
+
     // Draw three blinks.
-    float blinkAngle = angle - M_PI / 24 - (fmodf(angle, M_PI / 12));
+    float blinkAngle = angle - M_PI / 12;
     for (int i = 0; i < 3; i++) {
         [self blinkAtAngle:blinkAngle];
         blinkAngle += M_PI / 12;
     }
     
     // Draw 5 graphs.
-    float graphAngle = angle - M_PI / 24 - (fmodf(angle, M_PI / 12));
+    float graphAngle = angle - M_PI / 24;
     for (int i = 0; i < 5; i++) {
         [self graphAtAngle:graphAngle color:color];
         graphAngle += M_PI / 24;
