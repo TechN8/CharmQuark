@@ -4,6 +4,13 @@ Beta 8
 
 Renamed Meditation to Practice.
 Added Game Center high score support.
+Added shading to artwork and adjusted colors to match icon.
+New background music and sound effects.
+Moved LHC map.
+Log messages now display on top of puzzle.
+Moved next piece indicator.
+Fixed typo in Accelerator.
+
 
 Beta 7
 
