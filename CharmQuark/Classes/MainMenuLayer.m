@@ -100,7 +100,7 @@
     CCParticleSystemQuad *explosion = [particle explode];
     explosion.position = detector.position;
     [particleBatch addChild:explosion z:kZDetector];
-    [detector kColorUI:-1 * explosion.angle graphColor:ccGREEN];
+    [detector animateAtAngle:-1 * explosion.angle graphColor:ccGREEN];
 }
 
 -(void)animateBackground {
