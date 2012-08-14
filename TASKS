@@ -1,12 +1,10 @@
-. Add launch cooldown ~= 0.2 seconds.
-
-. Fix BGM on / off bug.
+. Achievements!
 
 . Game Center Pop Up if logged in and viewing highscore.
 
-. Achievements!
+. Twitter
 
-. Twitter & Facebook
+. Facebook
 
 . BGM
     Work on theme a bit more.
@@ -30,7 +28,6 @@
     - Reset from options screen.
     - Should explain how to rotate and drop.
         Add arrow sprite, have user tap through help items on first play.
-    
 
 . iTunes Connect App Setup
     - Screenshots

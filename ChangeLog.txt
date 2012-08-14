@@ -2,6 +2,9 @@ Next release
 
 Beta 9
 
+Can no longer rapid-fire particles to cause them to colide outside of the game.
+Fixed bug where high score would not be indicated on game over screen.
+Added audio fade in when switching BGM tracks.
 New fonts and colors.
 New menu layouts.
 High score screen alignment changed.
@@ -9,7 +12,6 @@ Modified log message popup animation.
 Out-of bounds particle that causes game over will now blink.
 Game over flasher now aligned better with detector ring.
 Renamed Practice back to Meditation.
-Fixed bug where high score would not be indicated on game over screen.
 Added version string to lower right corner main menu screen.
 
 
