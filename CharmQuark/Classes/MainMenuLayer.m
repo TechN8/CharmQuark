@@ -13,6 +13,7 @@
 #import "CreditsDialog.h"
 #import "OptionsDialog.h"
 #import "HighScoreDialog.h"
+#import "GCHelper.h"
 
 @interface MainMenuLayer()
 -(void)displayMainMenu;
@@ -52,13 +53,19 @@
     CCLOG(@"Show high scores.");
     CGSize winSize = [[CCDirector sharedDirector] winSize];
     
-    // Throw up modal layer.
-    HighScoreDialog *scores = [HighScoreDialog node];
-    CGPoint oldPos = scores.position;
-    scores.position = ccp(0, 2 * winSize.height);
-    [self addChild:scores z:kZPopups];
-    [scores runAction:[CCMoveTo actionWithDuration:kPopupSpeed
-                                          position:oldPos]];
+    GCHelper *gchelper = [GCHelper sharedInstance];
+    if (gchelper.isUserAuthenticated) {
+        // Show the Game center leaderboard.
+        [gchelper showLeaderboard];
+    } else {
+        // Show the local leader board.
+        HighScoreDialog *scores = [HighScoreDialog node];
+        CGPoint oldPos = scores.position;
+        scores.position = ccp(0, 2 * winSize.height);
+        [self addChild:scores z:kZPopups];
+        [scores runAction:[CCMoveTo actionWithDuration:kPopupSpeed
+                                              position:oldPos]];
+    }
 }
 
 -(void)showCredits {

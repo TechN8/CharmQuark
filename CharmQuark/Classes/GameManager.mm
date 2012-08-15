@@ -220,6 +220,9 @@ static GameManager* _sharedGameManager = nil;
         [self playBackgroundTrackForCurrentScene];
     }
 }
+
+#pragma mark - Game Center / High Scores
+
 -(NSInteger)getHighScoreForSceneWithID:(SceneTypes)sceneID {
     NSInteger highScore = 0;
     NSDictionary *highScoreDict = [[NSUserDefaults standardUserDefaults] dictionaryForKey:kHighScoreKey];

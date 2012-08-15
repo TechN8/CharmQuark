@@ -12,6 +12,7 @@ Beta 10
 
 Game will now pause when it is entering the background state.
 Fixed memory leak in SFX loading code.
+When possible, the Game Center leaderboard will be used when viewing High Scores from the menu.
 
 
 Beta 9

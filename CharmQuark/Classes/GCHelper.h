@@ -12,15 +12,20 @@
 #define kLeaderboardTimeAttack @"CQ1_TIMEATTACK"
 #define kLeaderboardAccelerator @"CQ1_ACCELERATOR"
 
-@interface GCHelper : NSObject <NSCoding> {
+@interface GCHelper : NSObject <NSCoding, GKLeaderboardViewControllerDelegate> {
     BOOL gameCenterAvailable;
     BOOL userAuthenticated;
     NSMutableArray *scoresToReport;
     NSMutableArray *achievementsToReport;
+    GKLeaderboardTimeScope timeScope;
+    NSString *category;
 }
 
 @property (retain) NSMutableArray *scoresToReport;
 @property (retain) NSMutableArray *achievementsToReport;
+@property (retain) NSString *category;
+@property (assign) GKLeaderboardTimeScope timeScope;
+@property (readonly) BOOL isUserAuthenticated; 
 
 + (GCHelper *) sharedInstance;
 - (void)authenticationChanged;
@@ -31,6 +36,6 @@
 - (void)reportAchievement:(NSString *)identifier 
           percentComplete:(double)percentComplete;
 - (void)reportScore:(NSString *)identifier score:(int)score;
-- (int)retrieveScore:(NSString *)identifier;
+- (void)showLeaderboard;
 
 @end

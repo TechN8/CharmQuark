@@ -5,12 +5,16 @@
 //  Portions copyright 2011 Ray Wenderlich.
 //
 
+#import "cocos2d.h"
 #import "GCHelper.h"
 #import "GCDatabase.h"
 
 @implementation GCHelper
 @synthesize scoresToReport;
 @synthesize achievementsToReport;
+@synthesize isUserAuthenticated = userAuthenticated;
+@synthesize category;
+@synthesize timeScope;
 
 #pragma mark Loading/Saving
 
@@ -23,7 +27,9 @@ static GCHelper *sharedHelper = nil;
             if (!sharedHelper) {
                 [[self alloc] 
                  initWithScoresToReport:[NSMutableArray array] 
-                 achievementsToReport:[NSMutableArray array]];
+                 achievementsToReport:[NSMutableArray array]
+                 timeScope: nil
+                 category: nil];
             }
         }
         return sharedHelper;
@@ -61,10 +67,14 @@ static GCHelper *sharedHelper = nil;
 }
 
 - (id)initWithScoresToReport:(NSMutableArray *)theScoresToReport 
-        achievementsToReport:(NSMutableArray *)theAchievementsToReport {
+        achievementsToReport:(NSMutableArray *)theAchievementsToReport
+                   timeScope:(GKLeaderboardTimeScope)theTimeScope 
+                    category: (NSString *)theCategory {
     if ((self = [super init])) {
         self.scoresToReport = theScoresToReport;
         self.achievementsToReport = theAchievementsToReport;
+        self.timeScope = theTimeScope;
+        self.category = theCategory;
         gameCenterAvailable = [self isGameCenterAvailable];
         if (gameCenterAvailable) {
             NSNotificationCenter *nc = 
@@ -122,8 +132,7 @@ static GCHelper *sharedHelper = nil;
 - (void)authenticationChanged {    
     dispatch_async(dispatch_get_main_queue(), ^(void) 
                    {
-                       if ([GKLocalPlayer localPlayer].isAuthenticated && 
-                           !userAuthenticated) {
+                       if ([GKLocalPlayer localPlayer].isAuthenticated) {
                            NSLog(@"Authentication changed: player authenticated.");
                            userAuthenticated = TRUE;    
                            [self resendData];
@@ -133,6 +142,7 @@ static GCHelper *sharedHelper = nil;
                        }
                    });
 }
+
 #pragma mark User functions
 
 - (void)authenticateLocalUser { 
@@ -175,12 +185,27 @@ static GCHelper *sharedHelper = nil;
     [self sendAchievement:achievement];    
 }
 
--(int)retrieveScore:(NSString *)identifier {
-    int score = 0;
-    if (gameCenterAvailable && userAuthenticated) {
-        
+- (void) showLeaderboard
+{
+    if (!gameCenterAvailable || !userAuthenticated) return;
+    
+    // Show the leaderboard.
+    GKLeaderboardViewController *leaderboardController = [[GKLeaderboardViewController alloc] init];
+    if (leaderboardController != nil)
+    {
+        leaderboardController.leaderboardDelegate = self;
+        leaderboardController.category = category;
+        leaderboardController.timeScope = timeScope;
+        [[CCDirector sharedDirector] presentModalViewController: leaderboardController animated: YES];
     }
-    return score;
+}
+
+- (void)leaderboardViewControllerDidFinish:(GKLeaderboardViewController *)viewController
+{
+    [[CCDirector sharedDirector] dismissModalViewControllerAnimated:YES];
+    self.timeScope = viewController.timeScope;
+    self.category = viewController.category;
+    [self save];
 }
 
 #pragma mark NSCoding
@@ -189,6 +214,9 @@ static GCHelper *sharedHelper = nil;
     [encoder encodeObject:scoresToReport forKey:@"ScoresToReport"];
     [encoder encodeObject:achievementsToReport 
                    forKey:@"AchievementsToReport"];
+    [encoder encodeObject:[NSNumber numberWithInt:timeScope]
+                   forKey:@"LastTimeScope"];
+    [encoder encodeObject:category forKey:@"LastCategory"];
 }
 
 - (id)initWithCoder:(NSCoder *)decoder {
@@ -196,8 +224,13 @@ static GCHelper *sharedHelper = nil;
     [decoder decodeObjectForKey:@"ScoresToReport"];
     NSMutableArray * theAchievementsToReport = 
     [decoder decodeObjectForKey:@"AchievementsToReport"];
+    GKLeaderboardTimeScope theTimeScope 
+    = [[decoder decodeObjectForKey:@"LastTimeScope"] intValue];
+    NSString *theCategory = [decoder decodeObjectForKey:@"LastCategory"];
     return [self initWithScoresToReport:theScoresToReport 
-                   achievementsToReport:theAchievementsToReport];
+                   achievementsToReport:theAchievementsToReport
+                              timeScope:theTimeScope
+                               category:theCategory];
 }
 
 @end
