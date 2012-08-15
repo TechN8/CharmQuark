@@ -986,6 +986,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 }
 
 -(void)onExit {
+    [super onExit];
     // Remove notification observer.
     [[NSNotificationCenter defaultCenter] 
      removeObserver:self 

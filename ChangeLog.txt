@@ -1,9 +1,23 @@
 Next release
 
+Twitter & Facebook.
+Achievements.
+More sounds.
+Instructions.
+Possible changes to Meditation mode.
+New particle graphic / animation?
+
+
+Beta 10
+
+Game will now pause when it is entering the background state.
+Fixed memory leak in SFX loading code.
+
+
 Beta 9
 
 Can no longer rapid-fire particles to cause them to colide outside of the game.
-Fixed bug where high score would not be indicated on game over screen.
+Fixed bug where new high score would not be indicated on game over screen.
 Added audio fade in when switching BGM tracks.
 New fonts and colors.
 New menu layouts.
@@ -12,7 +26,7 @@ Modified log message popup animation.
 Out-of bounds particle that causes game over will now blink.
 Game over flasher now aligned better with detector ring.
 Renamed Practice back to Meditation.
-Added version string to lower right corner main menu screen.
+Added version string to lower right corner of main menu screen.
 
 
 Beta 8

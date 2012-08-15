@@ -515,13 +515,13 @@ static GameManager* _sharedGameManager = nil;
         [soundEffectsState setObject:[NSNumber numberWithBool:SFX_LOADED] forKey:keyString];
         
     }
-    [pool release];
     
     [self unloadAudioForSceneWithID:[NSNumber numberWithInt:lastLevel]];
+    [pool release];
 }
 
 -(void)unloadAudioForSceneWithID:(NSNumber*)sceneIDNumber {
-    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+//    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
     SceneTypes sceneID = (SceneTypes) [sceneIDNumber intValue];
     if (sceneID == kNoSceneUninitialized) {
         return; // Nothing to unload
@@ -546,7 +546,7 @@ static GameManager* _sharedGameManager = nil;
             
         }
     }
-    [pool release];
+//    [pool release];
 }
 
 -(void)initAudioAsync {
