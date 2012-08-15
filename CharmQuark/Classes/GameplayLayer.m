@@ -214,6 +214,8 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 }
 
 -(void)resetGame {
+    paused = NO;
+    
     // Each level should be the same?
     srand(94876);
     
@@ -661,18 +663,22 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 -(void) pause {
     CGSize winSize = [[CCDirector sharedDirector] winSize];
     
-    [self pauseSchedulerAndActions];
-    
-    // Throw up modal layer.
-    PauseLayer *pauseLayer = [PauseLayer node];
-    CGPoint oldPos = pauseLayer.position;
-    pauseLayer.position = ccp(0, 2 * winSize.height);
-    [self addChild:pauseLayer z:kZPopups];
-    [pauseLayer runAction:[CCMoveTo actionWithDuration:kPopupSpeed
-                                              position:oldPos]];
+    if (!paused) {
+        paused = YES;
+        [self pauseSchedulerAndActions];
+        
+        // Throw up modal layer.
+        PauseLayer *pauseLayer = [PauseLayer node];
+        CGPoint oldPos = pauseLayer.position;
+        pauseLayer.position = ccp(0, 2 * winSize.height);
+        [self addChild:pauseLayer z:kZPopups];
+        [pauseLayer runAction:[CCMoveTo actionWithDuration:kPopupSpeed
+                                                  position:oldPos]];
+    }
 }
 
 -(void) resume {
+    paused = NO;
     [self resumeSchedulerAndActions];
 }
 
@@ -970,6 +976,21 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     
     // This will set up the initial particle system.
     [self resetGame];
+    
+    // Pause if we get backgrounded.
+    [[NSNotificationCenter defaultCenter] 
+     addObserver:self 
+     selector:@selector(pause) 
+     name:UIApplicationWillResignActiveNotification 
+     object:nil];
+}
+
+-(void)onExit {
+    // Remove notification observer.
+    [[NSNotificationCenter defaultCenter] 
+     removeObserver:self 
+     name:UIApplicationWillResignActiveNotification
+     object:nil];
 }
 
 -(void)draw {

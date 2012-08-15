@@ -110,6 +110,7 @@ enum {
     NSInteger comboCount;
     NSInteger level;
     NSInteger matchesToNextLevel;
+    BOOL paused;
 
     cpFloat dropFrequency;
     cpFloat timeRemaining;
