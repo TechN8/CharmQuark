@@ -256,6 +256,7 @@
     [menu addChild:item];
     [self addChild:menu z:kZMenu];
 
+    /*
     // Facebook.
     CCSprite *facebookSprite = [CCSprite spriteWithSpriteFrameName:@"facebook-icon.png"];
     CCMenuItemSprite* facebookItem = [CCMenuItemSprite 
@@ -278,6 +279,7 @@
     [menu2 alignItemsHorizontallyWithPadding:winSize.width * 0.05];
     menu2.position = ccp(winSize.width * 0.5, winSize.height * 0.02);
     [self addChild:menu2 z:kZMenu];
+     */
     
     // Show version.
     NSString *vers =[[[NSBundle mainBundle] infoDictionary] valueForKey:@"CFBundleVersion"];
