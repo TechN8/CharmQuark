@@ -92,9 +92,9 @@
 
 -(id)init {
     self = [super init];
-//    self.isTouchEnabled = YES;
-    CGSize size = [[CCDirector sharedDirector] winSize];
-    CCLOG(@"Size = (%f, %f)", size.width, size.height);
+////    self.isTouchEnabled = YES;
+//    CGSize size = [[CCDirector sharedDirector] winSize];
+//    CCLOG(@"Size = (%f, %f)", size.width, size.height);
     return self;
 }
 
