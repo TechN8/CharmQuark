@@ -177,15 +177,22 @@ static GCHelper *sharedHelper = nil;
 
 - (void)reportAchievement:(NSString *)identifier 
           percentComplete:(double)percentComplete {    
-    
-    GKAchievement* achievement = [[[GKAchievement alloc] 
+    // Check for progress.
+    GKAchievement* achievement = [achievementProgress objectForKey:identifier];
+    if (nil == achievement) {
+        achievement = [[[GKAchievement alloc] 
                                    initWithIdentifier:identifier] autorelease];
-    achievement.percentComplete = percentComplete;
-    [achievementsToReport addObject:achievement];    
-    [self save]; 
-    
-    if (!gameCenterAvailable || !userAuthenticated) return;
-    [self sendAchievement:achievement];    
+        [achievementProgress setObject:achievement forKey:identifier];
+    }
+    // If new report is greater, send to Game Center.
+    if (percentComplete > achievement.percentComplete) {
+        achievement.percentComplete = percentComplete;
+        [achievementsToReport addObject:achievement];    
+        [self save]; 
+        
+        if (!gameCenterAvailable || !userAuthenticated) return;
+        [self sendAchievement:achievement]; 
+    }
 }
 
 - (void) showLeaderboard

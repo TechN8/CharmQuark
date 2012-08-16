@@ -16,7 +16,7 @@
 
 // Scoring
 #define kMinMatchSize           4
-#define kPointsPerMatch         800
+#define kPointsPerMatch         200
 #define kMatchesPerLevel        5
 #define kFailRadius             235.0f
 #define kColorsInit             6

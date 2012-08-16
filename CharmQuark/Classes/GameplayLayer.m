@@ -11,6 +11,7 @@
 #import "GameOverLayer.h"
 #import "RemoveFromParentAction.h"
 #import "GameManager.h"
+#import "GCHelper.h"
 
 static CGPoint puzzleCenter;
 static CGPoint nextParticlePos;
@@ -476,24 +477,46 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
                 
                 // If scoredParticles > kMinMatchSize then move them to final array?
                 if (countedParticles.count >= kMinMatchSize) {
+                    GCHelper *gc = [GCHelper sharedInstance];
                     for (Particle *p in countedParticles) {
                         [scoredParticles addObject:p];
                     }
                     matchesToNextLevel--;
                     multiplier = countedParticles.count - kMinMatchSize + 1;
-                    points = kPointsPerMatch;
+                    points = kPointsPerMatch * countedParticles.count;
                     
                     if (multiplier > 1) {
                         points *= multiplier;
                         // Play multiplier animation.
                         [logViewer addMessage:[NSString stringWithFormat:@"%dX Bonus!", multiplier]
                                         color:kColorBonus];
+                        if (multiplier == 2) {
+                            [gc reportAchievement:kAchievementBonus2X percentComplete:100.0];
+                        }
+                        if (multiplier == 3) {
+                            [gc reportAchievement:kAchievementBonus3X percentComplete:100.0];
+                        }
                     }
                     
                     if (comboLevel) {
                         points *= comboLevel + 1;
                         [logViewer addMessage:[NSString stringWithFormat:@"%dX Combo!", comboLevel + 1]
                                         color:kColorCombo];
+                        if (comboLevel == 1) {
+                            [gc reportAchievement:kAchievementCombo2X percentComplete:100.0];
+                        }
+                        if (comboLevel == 2) {
+                            [gc reportAchievement:kAchievementCombo3X percentComplete:100.0];
+                        }
+                        if (comboLevel == 3) {
+                            [gc reportAchievement:kAchievementCombo4X percentComplete:100.0];
+                        }
+                        if (comboLevel == 4) {
+                            [gc reportAchievement:kAchievementCombo5X percentComplete:100.0];
+                        }
+                        if (comboLevel == 5) {
+                            [gc reportAchievement:kAchievementCombo6X percentComplete:100.0];
+                        }
                     }
                     
                     comboCount = 2 / kSweepRate;  // Two seconds.
@@ -502,6 +525,10 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
                     [self addPoints:points]; // Update score.
                     [logViewer addMessage:[NSString stringWithFormat:@"%d", points]
                                     color:kColorScore];
+                    
+                    // Send achievements
+                    [gc reportAchievement:kAchievementFirstMatch 
+                          percentComplete:100.0];
                 }
             }
         }
@@ -534,28 +561,15 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
         CCParticleSystemQuad *explosion = [particle explode];  // Play the explosion animation.
         explosion.position = [centerNode convertToWorldSpace:particle.position];
         [[self getChildByTag:kTagParticleBatchNode] addChild:explosion];
-        
-//        switch (rand() & 3) {
-//            case 0:
-//                [detector animateAtAngle:-1 * explosion.angle graphColor:ccc3(0, 255, 255)];
-//                break;
-//            case 1:
-//                [detector animateAtAngle:-1 * explosion.angle graphColor:ccc3(255, 255, 0)];
-//                break;
-//            default:
-                [detector animateAtAngle:-1 * explosion.angle graphColor:ccGREEN];
-//                break;
-//        }
-        
-//        if (comboLevel > 1) {
-//            [detector animateAtAngle:-1 * explosion.angle graphColor:ccc3(0, 255, 128)];
-//        } else if (multiplier > 1) {
-//            [detector animateAtAngle:-1 * explosion.angle graphColor:ccc3(128, 255, 0)];
-//        } else {
-//            [detector animateAtAngle:-1 * explosion.angle graphColor:ccGREEN];
-//        }
+        [detector animateAtAngle:-1 * explosion.angle graphColor:ccGREEN];
 
         postStepRemoveParticle(space, particle.body, self);  // Don't need to schedule, called from update.
+    }
+    
+    // No Balls!
+    if (particles.count == 0) {
+        [[GCHelper sharedInstance] reportAchievement:kAchievementNoBalls
+                                     percentComplete:100.0];
     }
     
     if (gameOver) {
@@ -717,6 +731,24 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     [self addChild:gameOverLayer z:kZPopups];
     [gameOverLayer runAction:[CCMoveTo actionWithDuration:kPopupSpeed
                                                  position:oldPos]];
+    
+    // Award score achievements
+    GCHelper *gc = [GCHelper sharedInstance];
+    if (mode == kGameSceneSurvival) {
+        [gc reportAchievement:kAchievementAccelerator percentComplete:100.0];   
+        if (score >= 100000) {
+            [gc reportAchievement:kAchievementAccelerator100K percentComplete:100.0];
+        }
+    }
+    if (mode == kGameSceneTimeAttack) {
+        [gc reportAchievement:kAchievementTimeAttack percentComplete:100.0];   
+        if (score >= 100000) {
+            [gc reportAchievement:kAchievementTimeAttack100K percentComplete:100.0];
+        }
+    }
+    if (mode == kGameSceneMomMode) {
+        [gc reportAchievement:kAchievementMeditation percentComplete:100.0];
+    }
 }
 
 
