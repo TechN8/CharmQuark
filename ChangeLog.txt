@@ -1,7 +1,6 @@
 Next release
 
 Twitter & Facebook.
-Achievements.
 More sounds.
 Instructions.
 Possible changes to Meditation mode.
@@ -10,10 +9,15 @@ New particle graphic / animation?
 
 Beta 10
 
+Achievements implemented.
+Increased minimum match size from 4 to 5.
+Accelerator now speeds up in 0.2 second increments so max speed is level 10.
+Scoring is now per particle not per set.  This means larger have a higher starting value before applying multipliers.
 Game will now pause when it is entering the background state.
 Fixed memory leak in SFX loading code.
-When possible, the Game Center leaderboard will be used when viewing High Scores from the menu.
-
+When available, the Game Center leaderboards will be used when viewing High Scores.
+Adjusted shading of LHC map.
+Adjusted color of dialog windows.
 
 Beta 9
 

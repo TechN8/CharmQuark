@@ -15,7 +15,7 @@
 #import "LogViewer.h"
 
 // Scoring
-#define kMinMatchSize           4
+#define kMinMatchSize           5
 #define kPointsPerMatch         200
 #define kMatchesPerLevel        5
 #define kFailRadius             235.0f
@@ -29,9 +29,9 @@
 #define kLaunchVMax             1800.0f
 
 // Accelerator
-#define kDropTimeInit           2.9f
-#define kDropTimeMin            0.9f // 2.9 - 0.9 = 20 levels.
-#define kDropTimeStep           0.1f
+#define kDropTimeInit           2.8f
+#define kDropTimeMin            0.8f // 2.8 - 0.8 = 10 levels.
+#define kDropTimeStep           0.2f
 
 // Time Attack
 #define kTimeLimit              60.0f
@@ -59,7 +59,7 @@
 #define kShapeCollisionType     1
 #define kSensorCollisionType    2
 #define kUnitVectorUp           ccp(0, 1)
-#define kLaunchCoolDown         0.166667f
+#define kLaunchCoolDown         0.10f
 
 enum {
 	kTagPacketBatchNode = 1,

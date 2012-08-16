@@ -1,31 +1,9 @@
-. Achievements!
-    10  Make your first match.
-    10  Play a game of Acellerator.
-    10  Play a game of Time-Attack.
-    10  Play a game of Meditation.
-    20  Get a 2X combo.
-    30  Get a 3X combo.
-    40  Get a 4X combo.
-    50  Get a 5X combo.
-    60  Get a 6X combo.
-    20  Get a 2X multiplier.
-    30  Get a 3X multiplier.
-    40  Get a 4X multiplier.
-    50  Get 100,000 points on Time Attack.
-    50  Get 100,000 points on Acellerator.
-    ----------
-    430 / 1000
-
 . Twitter
     Add tweet my score menu option to Game over screen.
     Main page
     
 . Facebook
     Hide FB and Twitter icons on main screen in popup menu.
-
-. Prettier windows
-    Try to do some more glowy window outlines like the other UI elements. 
-    May need to remove the faux-buttons.
 
 . BGM
     Work on theme a bit more.
