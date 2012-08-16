@@ -685,6 +685,10 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 -(void)end:(Particle *)particle {
     CGSize winSize = [[CCDirector sharedDirector] winSize];
     
+    // Don't pause on top of game over.
+    paused = YES;
+    
+    // Play the finale music.
     [[GameManager sharedGameManager] stopBackgroundTrack];
     PLAYSOUNDEFFECT(GAME_OVER, 0.5);
     

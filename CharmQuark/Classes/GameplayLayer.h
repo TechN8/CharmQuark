@@ -15,7 +15,7 @@
 #import "LogViewer.h"
 
 // Scoring
-#define kMinMatchSize           7
+#define kMinMatchSize           4
 #define kPointsPerMatch         800
 #define kMatchesPerLevel        5
 #define kFailRadius             235.0f

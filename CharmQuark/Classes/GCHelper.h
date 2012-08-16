@@ -17,11 +17,13 @@
     BOOL userAuthenticated;
     NSMutableArray *scoresToReport;
     NSMutableArray *achievementsToReport;
+    NSMutableDictionary *achievementProgress;
     GKLeaderboardTimeScope timeScope;
     NSString *category;
 }
 
 @property (retain) NSMutableArray *scoresToReport;
+@property (nonatomic, retain) NSMutableDictionary *achievementProgress;
 @property (retain) NSMutableArray *achievementsToReport;
 @property (retain) NSString *category;
 @property (assign) GKLeaderboardTimeScope timeScope;
@@ -32,7 +34,9 @@
 - (void)authenticateLocalUser;
 - (void)save;
 - (id)initWithScoresToReport:(NSMutableArray *)scoresToReport 
-        achievementsToReport:(NSMutableArray *)achievementsToReport;
+        achievementsToReport:(NSMutableArray *)achievementsToReport
+                   timeScope:(GKLeaderboardTimeScope)timeScope
+                    category:(NSString*)category;
 - (void)reportAchievement:(NSString *)identifier 
           percentComplete:(double)percentComplete;
 - (void)reportScore:(NSString *)identifier score:(int)score;

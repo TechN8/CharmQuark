@@ -41,9 +41,9 @@
     CGSize winSize = [[CCDirector sharedDirector] winSize];
     
     CCLabelBMFont *title = [CCLabelBMFont labelWithString:@"Game Over" fntFile:@"score.fnt"];
-    title.scale = 1.5;
-    title.color = kColorDialogRed;
-    title.position = ccp(winSize.width * 0.5, winSize.height * 0.7);
+    title.color = kColorDialogTitle;
+    title.position = kDialogTitlePos;
+    title.scale = 1.3;
     [self addChild:title z:100];
     
     // Score / High Score

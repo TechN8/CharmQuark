@@ -72,15 +72,15 @@
             <key>pause.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{319,647},{36,44}}</string>
+                <string>{{319,647},{30,38}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{36,44}}</string>
+                <string>{{0,0},{30,38}}</string>
                 <key>sourceSize</key>
-                <string>{36,44}</string>
+                <string>{30,38}</string>
             </dict>
             <key>thumbguide.png</key>
             <dict>
@@ -144,7 +144,7 @@
             <key>size</key>
             <string>{1024,1024}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:5cbbb44635ab48eb09be69ae5275eed0$</string>
+            <string>$TexturePacker:SmartUpdate:8ac2ad4d0c00afe21682b2599daff1aa$</string>
             <key>textureFileName</key>
             <string>scene1Atlas-ipad.png</string>
         </dict>

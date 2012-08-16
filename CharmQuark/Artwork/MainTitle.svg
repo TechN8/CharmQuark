@@ -122,6 +122,15 @@
        x2="487.18329"
        y2="487.26019"
        gradientUnits="userSpaceOnUse" />
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath3429">
+      <path
+         inkscape:connector-curvature="0"
+         d="M 300,17.142844 C 300,7.7184376 292.28143,-4.6875001e-5 282.85716,-4.6875001e-5 l -265.714316,0 C 7.7175939,-4.6875001e-5 0,7.7184376 0,17.142844 L 0,282.85716 C 0,292.28143 7.7175939,300 17.142844,300 l 265.714316,0 C 292.28143,300 300,292.28143 300,282.85716 l 0,-265.714316"
+         style="fill:#3d549e;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         id="path3431" />
+    </clipPath>
   </defs>
   <sodipodi:namedview
      id="base"
@@ -130,11 +139,11 @@
      borderopacity="1.0"
      inkscape:pageopacity="1"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.1041667"
-     inkscape:cx="350.79245"
-     inkscape:cy="384"
+     inkscape:zoom="3.1230549"
+     inkscape:cx="524.08854"
+     inkscape:cy="281.53622"
      inkscape:document-units="px"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="layer4"
      showgrid="false"
      inkscape:window-width="1916"
      inkscape:window-height="1036"
@@ -229,5 +238,49 @@
          id="tspan3766"
          sodipodi:role="line"
          style="fill:url(#radialGradient3796);fill-opacity:1;stroke:url(#radialGradient3788)">Charm Quark</tspan></text>
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer4"
+     inkscape:label="Social Media Links">
+    <g
+       id="facebook-icon"
+       inkscape:label="#g3414">
+      <path
+         inkscape:connector-curvature="0"
+         d="m 492.37737,533.70135 c 0,2.01053 -1.64663,3.65714 -3.65715,3.65714 l -56.68572,0 c -2.01071,0 -3.65714,-1.64661 -3.65714,-3.65714 l 0,-56.68572 c 0,-2.01052 1.64643,-3.65715 3.65714,-3.65715 l 56.68572,0 c 2.01052,0 3.65715,1.64663 3.65715,3.65715 l 0,56.68572"
+         style="fill:#3d549e;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         id="path3147" />
+      <path
+         inkscape:connector-curvature="0"
+         d="m 432.94879,532.78706 54.85715,0 0,-9.14286 -54.85715,0 0,9.14286 z"
+         style="fill:#6b7fb9;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         id="path3149" />
+      <path
+         inkscape:connector-curvature="0"
+         d="m 464.94879,532.78706 0,-23.5286 -6.22144,0 0,-8.4714 6.22144,0 c 0,0 0,-3.47145 0,-7.23571 0,-5.68589 3.67502,-10.90738 12.14309,-10.90738 3.42857,0 5.96389,0.32869 5.96389,0.32869 l -0.19978,7.91085 c 0,0 -2.5856,-0.0251 -5.40708,-0.0251 -3.05372,0 -3.54295,1.40727 -3.54295,3.743 0,1.8464 0,-3.93591 0,6.18569 l 9.19278,0 -0.4,8.4714 -8.79278,0 0,23.5286 -8.95717,0"
+         style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         id="path3151" />
+    </g>
+    <g
+       transform="matrix(0.21333333,0,0,-0.21333333,531.62264,537.35849)"
+       inkscape:label="ink_ext_XXXXXX"
+       id="twitter-icon"
+       clip-path="url(#clipPath3429)">
+      <g
+         transform="scale(0.1,0.1)"
+         id="g3398">
+        <path
+           id="path3400"
+           style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none"
+           d="m 0,0 3000,0 0,3000 L 0,3000 0,0 z"
+           inkscape:connector-curvature="0" />
+        <path
+           id="path3402"
+           style="fill:#52ade5;fill-opacity:1;fill-rule:nonzero;stroke:none"
+           d="m 2500,2120.27 c -73.58,-32.64 -152.67,-54.7 -235.66,-64.62 84.7,50.79 149.77,131.2 180.41,227.02 -79.29,-47.03 -167.1,-81.17 -260.57,-99.57 -74.84,79.74 -181.48,129.57 -299.5,129.57 -226.6,0 -410.33,-183.71 -410.33,-410.32 0,-32.15 3.63,-63.47 10.63,-93.51 -341.02,17.12 -643.371,180.47 -845.742,428.72 -35.32,-60.6 -55.554,-131.08 -55.554,-206.28 0,-142.36 72.433,-267.95 182.539,-341.53 -67.262,2.13 -130.535,20.59 -185.852,51.32 -0.039,-1.71 -0.039,-3.43 -0.039,-5.16 0,-198.81 141.441,-364.64 329.145,-402.35 -34.426,-9.37 -70.676,-14.39 -108.098,-14.39 -26.441,0 -52.145,2.58 -77.203,7.36 52.215,-163 203.75,-281.65 383.304,-284.95 C 967.051,931.52 790.129,865.93 597.883,865.93 c -33.121,0 -65.781,1.941 -97.883,5.742 181.586,-116.434 397.27,-184.371 628.99,-184.371 754.73,0 1167.46,625.249 1167.46,1167.479 0,17.78 -0.41,35.48 -1.2,53.08 80.18,57.85 149.74,130.12 204.75,212.41"
+           inkscape:connector-curvature="0" />
+      </g>
+    </g>
   </g>
 </svg>

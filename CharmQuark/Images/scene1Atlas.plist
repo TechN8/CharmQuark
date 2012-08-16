@@ -46,7 +46,7 @@
             <key>graph.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{80,478},{68,9}}</string>
+                <string>{{59,500},{68,9}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -72,15 +72,15 @@
             <key>pause.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{59,478},{19,23}}</string>
+                <string>{{59,478},{16,20}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{19,23}}</string>
+                <string>{{0,0},{16,20}}</string>
                 <key>sourceSize</key>
-                <string>{19,23}</string>
+                <string>{16,20}</string>
             </dict>
             <key>thumbguide.png</key>
             <dict>
@@ -98,7 +98,7 @@
             <key>track.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{68,503},{4,4}}</string>
+                <string>{{77,487},{4,4}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -111,7 +111,7 @@
             <key>white-small.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{59,503},{7,7}}</string>
+                <string>{{77,478},{7,7}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -144,7 +144,7 @@
             <key>size</key>
             <string>{512,512}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:b05bab981e2c36cdaab4d58df9746c56$</string>
+            <string>$TexturePacker:SmartUpdate:c9a97f91ee2ff40761e539170856acac$</string>
             <key>textureFileName</key>
             <string>scene1Atlas.png</string>
         </dict>

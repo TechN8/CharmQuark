@@ -92,13 +92,12 @@ static GameManager* _sharedGameManager = nil;
         CCLOG(@"Opening Developer Site for Rod");
         urlToOpen = [NSURL URLWithString:@"http://www.aethertheory.com/support"];
     } else if (linkTypeToOpen == kLinkTypeFacebook) {
-        CCLOG(@"Opening Developer Site for Ray");
+        CCLOG(@"Opening Facebook Page");
         urlToOpen = 
-        [NSURL URLWithString:@"http://www.facebook.com/AetherTheory"];
+        [NSURL URLWithString:@"http://www.facebook.com/AetherTheoryLLC"];
     } else {
-        CCLOG(@"Defaulting to Cocos2DBook.com Blog Site");
-        urlToOpen = 
-        [NSURL URLWithString:@"http://www.cocos2dbook.com"];
+        CCLOG(@"Unknown link type!");
+        return;
     }
     
     if (![[UIApplication sharedApplication] openURL:urlToOpen]) {

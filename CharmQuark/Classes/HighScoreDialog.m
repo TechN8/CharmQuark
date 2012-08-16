@@ -27,9 +27,9 @@
 -(void)initUI {
     CGSize winSize = [[CCDirector sharedDirector] winSize];
     CCLabelBMFont *title = [CCLabelBMFont labelWithString:@"High Scores" fntFile:@"score.fnt"];
-    title.color = kColorDialogGreen;
-    title.position = ccp(winSize.width * 0.5, winSize.height * 0.7);
-    title.scale = 1.5;
+    title.color = kColorDialogTitle;
+    title.position = kDialogTitlePos;
+    title.scale = 1.3;
     [self addChild:title z:100];
     
     CCLabelBMFont *label;

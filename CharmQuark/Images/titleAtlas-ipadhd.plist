@@ -4,6 +4,19 @@
     <dict>
         <key>frames</key>
         <dict>
+            <key>facebook-icon.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1844,649},{128,128}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{128,128}}</string>
+                <key>sourceSize</key>
+                <string>{128,128}</string>
+            </dict>
             <key>title-flash.png</key>
             <dict>
                 <key>frame</key>
@@ -43,6 +56,19 @@
                 <key>sourceSize</key>
                 <string>{1723,222}</string>
             </dict>
+            <key>twitter-icon.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1844,519},{128,128}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{128,128}}</string>
+                <key>sourceSize</key>
+                <string>{128,128}</string>
+            </dict>
         </dict>
         <key>metadata</key>
         <dict>
@@ -53,7 +79,7 @@
             <key>size</key>
             <string>{2048,2048}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:29dfe2c6c6964bee232de5ec53108672$</string>
+            <string>$TexturePacker:SmartUpdate:7ad1879ec0dee7ca853e16cf586202d2$</string>
             <key>textureFileName</key>
             <string>titleAtlas-ipadhd.png</string>
         </dict>

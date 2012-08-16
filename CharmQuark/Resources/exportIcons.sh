@@ -52,3 +52,4 @@ $INKSCAPE --file=$INPUT --export-png=$FILENAME --export-width=$SIZE --export-hei
 FILENAME=iTunesArtwork
 SIZE=512
 $INKSCAPE --file=$INPUT --export-png=$FILENAME --export-width=$SIZE --export-height=$SIZE --export-id=icon-rect 
+cp $FILENAME Icon-512.png

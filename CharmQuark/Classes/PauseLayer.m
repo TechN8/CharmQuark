@@ -50,10 +50,10 @@
 
 -(void)initUI {
     CGSize winSize = [[CCDirector sharedDirector] winSize];
-    CCLabelBMFont *title = [CCLabelBMFont labelWithString:@"Paused" fntFile:@"score.fnt"];
-    title.color = kColorDialogGreen;
-    title.position = ccp(winSize.width * 0.5, winSize.height * 0.7);
-    title.scale = 1.5;
+    CCLabelBMFont *title = [CCLabelBMFont labelWithString:@"Game Paused" fntFile:@"score.fnt"];
+    title.color = kColorDialogTitle;
+    title.position = kDialogTitlePos;
+    title.scale = 1.3;
     [self addChild:title z:100];
     
     //Resume
@@ -95,7 +95,7 @@
     soundToggle = [CCMenuItemFont itemWithLabel:soundLabel target:self selector:@selector(toggleSound)];
     CCMenu *menu1 = [CCMenu menuWithItems:musicToggle, soundToggle, nil];
     [menu1 alignItemsVerticallyWithPadding:0.03 * winSize.height];
-    menu1.position = ccp(winSize.width * 0.5, winSize.height * 0.50f);
+    menu1.position = ccp(winSize.width * 0.5, winSize.height * 0.48f);
     [self addChild:menu1 z:100];
     
     CCMenu *menu2 = [CCMenu menuWithItems:resumeItem, quitItem, nil];

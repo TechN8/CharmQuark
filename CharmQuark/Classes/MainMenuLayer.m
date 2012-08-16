@@ -22,7 +22,7 @@
 @implementation MainMenuLayer
 
 -(void)showOptions {
-    CCLOG(@"Show the Options screen");
+    CCLOG(@"Showing options");
     CGSize winSize = [[CCDirector sharedDirector] winSize];
     
     // Throw up modal layer.
@@ -35,30 +35,31 @@
 }
 
 -(void)playSurvival {
-    CCLOG(@"Play the game.");
+    CCLOG(@"Playing Accelerator.");
     [[GameManager sharedGameManager] runSceneWithID:kGameSceneSurvival];
 }
 
 -(void)playTimeAttack {
-    CCLOG(@"Play the game.");
+    CCLOG(@"Playing Time Attack.");
     [[GameManager sharedGameManager] runSceneWithID:kGameSceneTimeAttack];
 }
 
 -(void)playMomMode {
-    CCLOG(@"Hi Mom.");
+    CCLOG(@"Playing Meditation.");
     [[GameManager sharedGameManager] runSceneWithID:kGameSceneMomMode];
 }
 
 -(void)showScores {
-    CCLOG(@"Show high scores.");
     CGSize winSize = [[CCDirector sharedDirector] winSize];
     
     GCHelper *gchelper = [GCHelper sharedInstance];
     if (gchelper.isUserAuthenticated) {
         // Show the Game center leaderboard.
+        CCLOG(@"Showing GC leaderboard.");
         [gchelper showLeaderboard];
     } else {
         // Show the local leader board.
+        CCLOG(@"Show local scores.");
         HighScoreDialog *scores = [HighScoreDialog node];
         CGPoint oldPos = scores.position;
         scores.position = ccp(0, 2 * winSize.height);
@@ -69,7 +70,7 @@
 }
 
 -(void)showCredits {
-    CCLOG(@"Show credits screen.");
+    CCLOG(@"Showing credits.");
     CGSize winSize = [[CCDirector sharedDirector] winSize];
     
     // Throw up modal layer.
@@ -79,6 +80,15 @@
     [self addChild:credits z:kZPopups];
     [credits runAction:[CCMoveTo actionWithDuration:kPopupSpeed
                                            position:oldPos]];
+}
+
+-(void)facebook {
+    CCLOG(@"Opening facebook page.");
+    [[GameManager sharedGameManager] openSiteWithLinkType:kLinkTypeFacebook];
+}
+
+-(void)twitter {
+    CCLOG(@"Tweet something.");
 }
 
 -(void)flashTitle {
@@ -244,9 +254,31 @@
                                 selector:@selector(showCredits)];
     item.position = ccp(0.25 * winSize.width, -0.2 * winSize.height);
     [menu addChild:item];
-
     [self addChild:menu z:kZMenu];
 
+    // Facebook.
+    CCSprite *facebookSprite = [CCSprite spriteWithSpriteFrameName:@"facebook-icon.png"];
+    CCMenuItemSprite* facebookItem = [CCMenuItemSprite 
+                                      itemWithNormalSprite:facebookSprite 
+                                      selectedSprite:nil 
+                                      target:self
+                                      selector:@selector(facebook)];
+    facebookItem.anchorPoint = ccp(0.5, 0);
+    
+    // Twitter.
+    CCSprite *twitterSprite = [CCSprite spriteWithSpriteFrameName:@"twitter-icon.png"];
+    CCMenuItemSprite* twitterItem = [CCMenuItemSprite 
+                                      itemWithNormalSprite:twitterSprite 
+                                      selectedSprite:nil 
+                                      target:self
+                                      selector:@selector(twitter)];
+    twitterItem.anchorPoint = ccp(0.5, 0);
+    
+    CCMenu *menu2 = [CCMenu menuWithItems:facebookItem, twitterItem, nil];
+    [menu2 alignItemsHorizontallyWithPadding:winSize.width * 0.05];
+    menu2.position = ccp(winSize.width * 0.5, winSize.height * 0.02);
+    [self addChild:menu2 z:kZMenu];
+    
     // Show version.
     NSString *vers =[[[NSBundle mainBundle] infoDictionary] valueForKey:@"CFBundleVersion"];
     NSString *mvers =[[[NSBundle mainBundle] infoDictionary] valueForKey:@"CFBundleShortVersionString"];

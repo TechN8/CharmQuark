@@ -14,7 +14,7 @@ IPHONE_DPI=42.19
 IPHONEHD_DIR=$EXPORT_DIR/iPhone-hd
 IPHONEHD_DPI=84.38
 
-PNG_IDS='title-text title-glow title-flash'
+PNG_IDS='title-text title-glow title-flash facebook-icon twitter-icon'
 
 mkdir -p $IPAD_DIR $IPADHD_DIR $IPHONE_DIR $IPHONEHD_DIR
 

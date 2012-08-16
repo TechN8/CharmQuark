@@ -19,9 +19,9 @@
 #define kColorUI            ccc3(90, 140, 150)
 //#define kColorButton        ccc3(120, 160, 170)
 #define kColorButton        ccc3(140, 170, 180)
-#define kColorDialogRed     ccc3(160, 0, 0)
-#define kColorDialogGreen   ccc3(0, 160, 0)
+#define kColorDialogTitle   ccc3(90, 140, 150)
 #define kPopupSpeed         0.3
+#define kDialogTitlePos     ccp(winSize.width * 0.5, winSize.height * 0.72);
 
 // Device support
 #define kSimDimensions  ccp(1024,768)
@@ -74,7 +74,7 @@ typedef enum {
 typedef enum {
     kLinkTypeMainSite,
     kLinkTypeSupportSite,
-    kLinkTypeFacebook
+    kLinkTypeFacebook,
 } LinkTypes;
 
 #endif

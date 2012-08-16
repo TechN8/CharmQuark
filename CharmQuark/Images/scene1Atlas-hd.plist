@@ -46,7 +46,7 @@
             <key>graph.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{113,999},{136,19}}</string>
+                <string>{{113,992},{136,19}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -72,15 +72,15 @@
             <key>pause.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{113,950},{38,47}}</string>
+                <string>{{113,950},{32,40}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{38,47}}</string>
+                <string>{{0,0},{32,40}}</string>
                 <key>sourceSize</key>
-                <string>{38,47}</string>
+                <string>{32,40}</string>
             </dict>
             <key>thumbguide.png</key>
             <dict>
@@ -111,7 +111,7 @@
             <key>white-small.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{153,950},{14,14}}</string>
+                <string>{{147,950},{14,14}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -144,7 +144,7 @@
             <key>size</key>
             <string>{1024,1024}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:11427f6758c4cff70e08f1eb8175e5d6$</string>
+            <string>$TexturePacker:SmartUpdate:4f3aa7b1da5f592b80dfa9d583a2bf34$</string>
             <key>textureFileName</key>
             <string>scene1Atlas-hd.png</string>
         </dict>

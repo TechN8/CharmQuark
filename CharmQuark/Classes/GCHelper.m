@@ -10,13 +10,15 @@
 #import "GCDatabase.h"
 
 @implementation GCHelper
+
 @synthesize scoresToReport;
 @synthesize achievementsToReport;
+@synthesize achievementProgress;
 @synthesize isUserAuthenticated = userAuthenticated;
 @synthesize category;
 @synthesize timeScope;
 
-#pragma mark Loading/Saving
+#pragma mark - Loading/Saving
 
 static GCHelper *sharedHelper = nil;
 + (GCHelper *) sharedInstance {
@@ -28,25 +30,13 @@ static GCHelper *sharedHelper = nil;
                 [[self alloc] 
                  initWithScoresToReport:[NSMutableArray array] 
                  achievementsToReport:[NSMutableArray array]
-                 timeScope: nil
+                 timeScope: GKLeaderboardTimeScopeToday
                  category: nil];
             }
         }
         return sharedHelper;
     }
     return nil;
-}
-
-+(id)alloc 
-{
-	@synchronized ([GCHelper class])
-	{
-		NSAssert(sharedHelper == nil, @"Attempted to allocated a \
-                 second instance of the GCHelper singleton");
-		sharedHelper = [super alloc];
-		return sharedHelper;
-	}
-	return nil;  
 }
 
 - (void)save {
@@ -69,12 +59,13 @@ static GCHelper *sharedHelper = nil;
 - (id)initWithScoresToReport:(NSMutableArray *)theScoresToReport 
         achievementsToReport:(NSMutableArray *)theAchievementsToReport
                    timeScope:(GKLeaderboardTimeScope)theTimeScope 
-                    category: (NSString *)theCategory {
+                    category:(NSString *)theCategory {
     if ((self = [super init])) {
         self.scoresToReport = theScoresToReport;
         self.achievementsToReport = theAchievementsToReport;
         self.timeScope = theTimeScope;
         self.category = theCategory;
+        achievementProgress = [[NSMutableDictionary alloc] init];
         gameCenterAvailable = [self isGameCenterAvailable];
         if (gameCenterAvailable) {
             NSNotificationCenter *nc = 
@@ -88,7 +79,18 @@ static GCHelper *sharedHelper = nil;
     return self;
 }
 
-#pragma mark Internal functions
+#pragma mark - Internal functions
+
+- (void)loadAchievements {
+    [GKAchievement loadAchievementsWithCompletionHandler:^(NSArray *achievements, NSError *error)
+     {
+         if (error == nil)
+         {
+             for (GKAchievement* achievement in achievements)
+                 [achievementProgress setObject: achievement forKey: achievement.identifier];
+         }
+     }];
+}
 
 - (void)sendScore:(GKScore *)score {
     [score reportScoreWithCompletionHandler:^(NSError *error) {
@@ -96,7 +98,7 @@ static GCHelper *sharedHelper = nil;
                        {
                            if (error == NULL) {
                                NSLog(@"Successfully sent score!");
-                               [scoresToReport removeObject:score];                
+                               [scoresToReport removeObject:score];
                            } else {
                                NSLog(@"Score failed to send... will try again later.  Reason: %@", error.localizedDescription);                
                            }
@@ -126,7 +128,7 @@ static GCHelper *sharedHelper = nil;
     }
     for (GKScore *score in scoresToReport) {
         [self sendScore:score];
-    }    
+    }
 }
 
 - (void)authenticationChanged {    
@@ -134,7 +136,8 @@ static GCHelper *sharedHelper = nil;
                    {
                        if ([GKLocalPlayer localPlayer].isAuthenticated) {
                            NSLog(@"Authentication changed: player authenticated.");
-                           userAuthenticated = TRUE;    
+                           userAuthenticated = TRUE;
+                           [self loadAchievements];
                            [self resendData];
                        } else if (userAuthenticated) {
                            NSLog(@"Authentication changed: player not authenticated");
@@ -143,7 +146,7 @@ static GCHelper *sharedHelper = nil;
                    });
 }
 
-#pragma mark User functions
+#pragma mark - User functions
 
 - (void)authenticateLocalUser { 
     
@@ -200,6 +203,8 @@ static GCHelper *sharedHelper = nil;
     }
 }
 
+#pragma mark - GKLeaderboardViewControllerDelegate
+
 - (void)leaderboardViewControllerDidFinish:(GKLeaderboardViewController *)viewController
 {
     [[CCDirector sharedDirector] dismissModalViewControllerAnimated:YES];
@@ -208,7 +213,7 @@ static GCHelper *sharedHelper = nil;
     [self save];
 }
 
-#pragma mark NSCoding
+#pragma mark - NSCoding
 
 - (void)encodeWithCoder:(NSCoder *)encoder {
     [encoder encodeObject:scoresToReport forKey:@"ScoresToReport"];
@@ -231,6 +236,28 @@ static GCHelper *sharedHelper = nil;
                    achievementsToReport:theAchievementsToReport
                               timeScope:theTimeScope
                                category:theCategory];
+}
+
+#pragma mark - NSObject
+
++(id)alloc 
+{
+	@synchronized ([GCHelper class])
+	{
+		NSAssert(sharedHelper == nil, @"Attempted to allocated a \
+                 second instance of the GCHelper singleton");
+		sharedHelper = [super alloc];
+		return sharedHelper;
+	}
+	return nil;  
+}
+
+-(void)dealloc {
+    [super dealloc];
+    [achievementProgress release];
+    [achievementsToReport release];
+    [scoresToReport release];
+    [category release];
 }
 
 @end
