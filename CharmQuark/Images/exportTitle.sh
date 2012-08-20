@@ -14,7 +14,7 @@ IPHONE_DPI=42.19
 IPHONEHD_DIR=$EXPORT_DIR/iPhone-hd
 IPHONEHD_DPI=84.38
 
-PNG_IDS='title-text title-glow title-flash facebook-icon twitter-icon'
+PNG_IDS='title-text title-glow title-flash facebook-icon twitter-icon twitter-bird'
 
 mkdir -p $IPAD_DIR $IPADHD_DIR $IPHONE_DIR $IPHONEHD_DIR
 
@@ -25,8 +25,12 @@ $INKSCAPE --export-png=$IPAD_DIR/$i.png --export-background-opacity=0 --export-d
 $INKSCAPE --export-png=$IPADHD_DIR/$i.png --export-background-opacity=0 --export-dpi=$IPADHD_DPI --export-id=$i --export-id-only $INPUT_FILE
 $INKSCAPE --export-png=$IPHONE_DIR/$i.png --export-background-opacity=0 --export-dpi=$IPHONE_DPI --export-id=$i --export-id-only $INPUT_FILE
 $INKSCAPE --export-png=$IPHONEHD_DIR/$i.png --export-background-opacity=0 --export-dpi=$IPHONEHD_DPI --export-id=$i --export-id-only $INPUT_FILE
-#$INKSCAPE --export-png=${i}-ipad.png --export-background-opacity=0 --export-dpi=$IPAD_DPI --export-id=$i --export-id-only $INPUT_FILE
-#$INKSCAPE --export-png=${i}-ipadhd.png --export-background-opacity=0 --export-dpi=$IPADHD_DPI --export-id=$i --export-id-only $INPUT_FILE
-#$INKSCAPE --export-png=${i}.png --export-background-opacity=0 --export-dpi=$IPHONE_DPI --export-id=$i --export-id-only $INPUT_FILE
-#$INKSCAPE --export-png=${i}-hd.png --export-background-opacity=0 --export-dpi=$IPHONEHD_DPI --export-id=$i --export-id-only $INPUT_FILE
 done;
+
+# Export bird
+#i=twitter-bird
+#
+#$INKSCAPE --export-png=$IPAD_DIR/$i.png --export-background-opacity=0 --export-dpi=$IPAD_DPI --export-id=$i --export-id-only $INPUT_FILE
+#$INKSCAPE --export-png=$IPADHD_DIR/$i.png --export-background-opacity=0 --export-dpi=$IPADHD_DPI --export-id=$i --export-id-only $INPUT_FILE
+#$INKSCAPE --export-png=$IPHONE_DIR/$i.png --export-background-opacity=0 --export-dpi=$IPHONE_DPI --export-id=$i --export-id-only $INPUT_FILE
+#$INKSCAPE --export-png=$IPHONEHD_DIR/$i.png --export-background-opacity=0 --export-dpi=$IPHONEHD_DPI --export-id=$i --export-id-only $INPUT_FILE

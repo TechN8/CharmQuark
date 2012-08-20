@@ -1,9 +1,9 @@
-. Twitter
-    Add tweet my score menu option to Game over screen.
-    Main page
-    
+. Toggle for Sound & Music
+
+. Achievements View & Popup
+
 . Facebook
-    Hide FB and Twitter icons on main screen in popup menu.
+    What to do with Facebook?
 
 . BGM
     Work on theme a bit more.
@@ -18,10 +18,6 @@
         afconvert -f caff -d LEI16@22050 --mix -c 1  
         afconvert -f m4a
 
-. Tuning
-    - Pre-load sound and sprites on intro screen.
-    - Add ball indicator.
-    
 . Help System / Screen
     - Show on game scene first time.
     - Reset from options screen.
@@ -30,8 +26,6 @@
 
 . iTunes Connect App Setup
     - Screenshots
-
-. Test 5 piece minimum.
 
 . Custom MenuItem : CCMenuItemFont
     - Don't grow and shrink when selected, just change colors.

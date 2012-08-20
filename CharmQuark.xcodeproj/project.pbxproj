@@ -153,6 +153,8 @@
 		D8A0684615D0877C002B63B4 /* ChangeLog.txt in Resources */ = {isa = PBXBuildFile; fileRef = D8A0684515D0877B002B63B4 /* ChangeLog.txt */; };
 		D8A0685115D2CBB7002B63B4 /* GCHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A0685015D2CBB7002B63B4 /* GCHelper.m */; };
 		D8A0685515D2CC06002B63B4 /* GCDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A0685415D2CC05002B63B4 /* GCDatabase.m */; };
+		D8C34E6515E27B11002AA2E6 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8C34E6415E27B11002AA2E6 /* Twitter.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		D8C34E6915E27B9F002AA2E6 /* TwitterHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C34E6815E27B9F002AA2E6 /* TwitterHelper.m */; };
 		D8CE5B9F15B713EA00E76ADA /* scene1Atlas-ipad.plist in Resources */ = {isa = PBXBuildFile; fileRef = D8CE5B9B15B713EA00E76ADA /* scene1Atlas-ipad.plist */; };
 		D8CE5BA015B713EA00E76ADA /* scene1Atlas-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = D8CE5B9C15B713EA00E76ADA /* scene1Atlas-ipad.png */; };
 		D8CE5BA115B713EA00E76ADA /* scene1Atlas-ipadhd.plist in Resources */ = {isa = PBXBuildFile; fileRef = D8CE5B9D15B713EA00E76ADA /* scene1Atlas-ipadhd.plist */; };
@@ -481,6 +483,9 @@
 		D8A0685015D2CBB7002B63B4 /* GCHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCHelper.m; sourceTree = "<group>"; };
 		D8A0685315D2CC04002B63B4 /* GCDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDatabase.h; sourceTree = "<group>"; };
 		D8A0685415D2CC05002B63B4 /* GCDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDatabase.m; sourceTree = "<group>"; };
+		D8C34E6415E27B11002AA2E6 /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
+		D8C34E6715E27B9F002AA2E6 /* TwitterHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwitterHelper.h; sourceTree = "<group>"; };
+		D8C34E6815E27B9F002AA2E6 /* TwitterHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TwitterHelper.m; sourceTree = "<group>"; };
 		D8CE5B9B15B713EA00E76ADA /* scene1Atlas-ipad.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "scene1Atlas-ipad.plist"; sourceTree = "<group>"; };
 		D8CE5B9C15B713EA00E76ADA /* scene1Atlas-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scene1Atlas-ipad.png"; sourceTree = "<group>"; };
 		D8CE5B9D15B713EA00E76ADA /* scene1Atlas-ipadhd.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "scene1Atlas-ipadhd.plist"; sourceTree = "<group>"; };
@@ -701,6 +706,7 @@
 				D847E07215AC87FF0044FC48 /* Foundation.framework in Frameworks */,
 				D847E07415AC87FF0044FC48 /* CoreGraphics.framework in Frameworks */,
 				D847E07615AC87FF0044FC48 /* GameKit.framework in Frameworks */,
+				D8C34E6515E27B11002AA2E6 /* Twitter.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -791,12 +797,13 @@
 		D847E06415AC87FF0044FC48 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D847E06F15AC87FF0044FC48 /* UIKit.framework */,
 				D847E06515AC87FF0044FC48 /* QuartzCore.framework */,
+				D8C34E6415E27B11002AA2E6 /* Twitter.framework */,
 				D847E06715AC87FF0044FC48 /* OpenGLES.framework */,
 				D847E06915AC87FF0044FC48 /* OpenAL.framework */,
 				D847E06B15AC87FF0044FC48 /* AudioToolbox.framework */,
 				D847E06D15AC87FF0044FC48 /* AVFoundation.framework */,
-				D847E06F15AC87FF0044FC48 /* UIKit.framework */,
 				D847E07115AC87FF0044FC48 /* Foundation.framework */,
 				D847E07315AC87FF0044FC48 /* CoreGraphics.framework */,
 				D847E07515AC87FF0044FC48 /* GameKit.framework */,
@@ -1126,6 +1133,8 @@
 				D8A0685015D2CBB7002B63B4 /* GCHelper.m */,
 				D8A0685315D2CC04002B63B4 /* GCDatabase.h */,
 				D8A0685415D2CC05002B63B4 /* GCDatabase.m */,
+				D8C34E6715E27B9F002AA2E6 /* TwitterHelper.h */,
+				D8C34E6815E27B9F002AA2E6 /* TwitterHelper.m */,
 			);
 			name = Singletons;
 			sourceTree = "<group>";
@@ -1788,6 +1797,7 @@
 				D8A0685115D2CBB7002B63B4 /* GCHelper.m in Sources */,
 				D8A0685515D2CC06002B63B4 /* GCDatabase.m in Sources */,
 				D834AD2D15DACF7200987B68 /* CDXPropertyModifierAction.m in Sources */,
+				D8C34E6915E27B9F002AA2E6 /* TwitterHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1799,7 +1809,7 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 11;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1822,7 +1832,7 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 11;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					NDEBUG,

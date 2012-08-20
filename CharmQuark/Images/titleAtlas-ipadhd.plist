@@ -56,6 +56,19 @@
                 <key>sourceSize</key>
                 <string>{1723,222}</string>
             </dict>
+            <key>twitter-bird.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1974,519},{89,72}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{89,72}}</string>
+                <key>sourceSize</key>
+                <string>{89,72}</string>
+            </dict>
             <key>twitter-icon.png</key>
             <dict>
                 <key>frame</key>
@@ -79,7 +92,7 @@
             <key>size</key>
             <string>{2048,2048}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:7ad1879ec0dee7ca853e16cf586202d2$</string>
+            <string>$TexturePacker:SmartUpdate:63e23620a7ed7723f8a97a81b10e2d95$</string>
             <key>textureFileName</key>
             <string>titleAtlas-ipadhd.png</string>
         </dict>
