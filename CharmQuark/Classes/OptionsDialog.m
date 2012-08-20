@@ -26,9 +26,9 @@
     GameManager *sharedGameManager = [GameManager sharedGameManager];
     [sharedGameManager setIsMusicON:![sharedGameManager isMusicON]];
     if ([[GameManager sharedGameManager] isMusicON]) {
-        [musicToggle setString:@"Turn Music Off"];
+        [musicToggle setString:@"Music: On"];
     } else {
-        [musicToggle setString:@"Turn Music On"];
+        [musicToggle setString:@"Music: Off"];
     }
 }
 
@@ -36,9 +36,9 @@
     GameManager *sharedGameManager = [GameManager sharedGameManager];
     [sharedGameManager setIsSoundEffectsON:![sharedGameManager isSoundEffectsON]];
     if ([[GameManager sharedGameManager] isSoundEffectsON]) {
-        [soundToggle setString:@"Turn Sound Off"];
+        [soundToggle setString:@"Sound: On"];
     } else {
-        [soundToggle setString:@"Turn Sound On"];
+        [soundToggle setString:@"Sound: Off"];
     }
 }
 
@@ -55,9 +55,9 @@
     // Music off
     NSString *musicString = nil;
     if ([[GameManager sharedGameManager] isMusicON]) {
-        musicString = @"Turn Music Off";
+        musicString = @"Music: On";
     } else {
-        musicString = @"Turn Music On";
+        musicString = @"Music: Off";
     }
     CCLabelBMFont *musicLabel = [CCLabelBMFont labelWithString:musicString fntFile:@"score.fnt"];
     musicLabel.color = kColorButton;
@@ -68,9 +68,9 @@
     // Sound off
     NSString *soundString = nil;
     if ([[GameManager sharedGameManager] isSoundEffectsON]) {
-        soundString = @"Turn Sound Off";
+        soundString = @"Sound: On";
     } else {
-        soundString = @"Turn Sound On";
+        soundString = @"Sound: Off";
     }
     CCLabelBMFont *soundLabel = [CCLabelBMFont labelWithString:soundString fntFile:@"score.fnt"];
     soundLabel.color = kColorButton;
