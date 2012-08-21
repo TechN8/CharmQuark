@@ -496,6 +496,9 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
                         if (multiplier == 3) {
                             [gc reportAchievement:kAchievementBonus3X percentComplete:100.0];
                         }
+                        if (multiplier == 4) {
+                            [gc reportAchievement:kAchievementBonus4X percentComplete:100.0];
+                        }
                     }
                     
                     if (comboLevel) {

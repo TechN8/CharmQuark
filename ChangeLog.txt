@@ -6,6 +6,13 @@ Instructions.
 Possible changes to Meditation mode.
 New particle graphic / animation?
 
+Beta 11
+
+Can now Tweet your score from the Game Over screen.
+Sound and music toggles reworded.
+High score screen now has links to game center leaderboard and achievements.
+UI Colors Tweaked
+It's now possible to get the 4X Bonus achievement.
 
 Beta 10
 

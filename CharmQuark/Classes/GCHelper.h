@@ -19,6 +19,7 @@
 #define kAchievementCombo6X @"CQ1_COMBO6X"
 #define kAchievementBonus2X @"CQ1_BONUS2X"
 #define kAchievementBonus3X @"CQ1_BONUS3X"
+#define kAchievementBonus4X @"CQ1_BONUS4X"
 #define kAchievementTimeAttack100K @"CQ1_TIMEATTACK_100K"
 #define kAchievementAccelerator100K @"CQ1_ACCELERATOR_100K"
 #define kAchievementNoBalls @"CQ1_NOBALLS"
