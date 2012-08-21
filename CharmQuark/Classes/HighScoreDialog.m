@@ -27,7 +27,7 @@
 
 -(void)initUI {
     CGSize winSize = [[CCDirector sharedDirector] winSize];
-    CCLabelBMFont *title = [CCLabelBMFont labelWithString:@"High Scores" fntFile:@"score.fnt"];
+    CCLabelBMFont *title = [CCLabelBMFont labelWithString:@"Records" fntFile:@"score.fnt"];
     title.color = kColorDialogTitle;
     title.position = kDialogTitlePos;
     title.scale = 1.3;
@@ -41,7 +41,7 @@
     label.anchorPoint = ccp(0, 0.5);
     label.alignment = kCCTextAlignmentLeft;
     label.color = kColorUI;
-    label.position = ccp(winSize.width * 0.15, winSize.height * 0.55);
+    label.position = ccp(winSize.width * 0.15, winSize.height * 0.60);
     [self addChild:label];
     
     // Time Attack Score
@@ -52,7 +52,7 @@
     label.anchorPoint = ccp(1.0, 0.5);
     label.alignment = kCCTextAlignmentRight;
     label.color = kColorScore;
-    label.position = ccp(winSize.width * 0.85, winSize.height * 0.55);
+    label.position = ccp(winSize.width * 0.85, winSize.height * 0.60);
     [self addChild:label];
     
     // Accelerator Label
@@ -60,7 +60,7 @@
     label.anchorPoint = ccp(0, 0.5);
     label.alignment = kCCTextAlignmentLeft;
     label.color = kColorUI;
-    label.position = ccp(winSize.width * 0.15, winSize.height * 0.45);
+    label.position = ccp(winSize.width * 0.15, winSize.height * 0.50);
     [self addChild:label];
     
     // Accelerator Score
@@ -71,7 +71,7 @@
     label.anchorPoint = ccp(1.0, 0.5);
     label.alignment = kCCTextAlignmentRight;
     label.color = kColorScore;
-    label.position = ccp(winSize.width * 0.85, winSize.height * 0.45);
+    label.position = ccp(winSize.width * 0.85, winSize.height * 0.50);
     [self addChild:label];
    
     // Meditation Label
@@ -79,7 +79,7 @@
     label.anchorPoint = ccp(0, 0.5);
     label.alignment = kCCTextAlignmentLeft;
     label.color = kColorUI;
-    label.position = ccp(winSize.width * 0.15, winSize.height * 0.35);
+    label.position = ccp(winSize.width * 0.15, winSize.height * 0.40);
     [self addChild:label];
     
     // Meditation Score
@@ -90,26 +90,34 @@
     label.anchorPoint = ccp(1.0, 0.5);
     label.alignment = kCCTextAlignmentRight;
     label.color = kColorScore;
-    label.position = ccp(winSize.width * 0.85, winSize.height * 0.35);
+    label.position = ccp(winSize.width * 0.85, winSize.height * 0.40);
     [self addChild:label];
     
     // Leaderboards
-    CCLabelBMFont *lbLabel = [CCLabelBMFont labelWithString:@"Leaderboard"
-                                                   fntFile:@"score.fnt"];
-    CCMenuItemFont *lbItem = [CCMenuItemFont itemWithLabel:lbLabel
-                                                   target:[GCHelper sharedInstance]
-                                                 selector:@selector(showLeaderboard)];
-    lbItem.color = kColorButton;
-    lbItem.disabledColor = kColorUI;
+    CCSprite *lbNormal = [CCSprite spriteWithSpriteFrameName:@"leaderboard.png"];
+    CCSprite *lbSelected = [CCSprite spriteWithSpriteFrameName:@"leaderboard.png"];
+    CCSprite *lbDisabled = [CCSprite spriteWithSpriteFrameName:@"leaderboard.png"];
+    lbNormal.color = kColorButton;
+    lbSelected.color = kColorButtonSelected;
+    lbDisabled.color = kColorUI;
+    CCMenuItemSprite *lbItem = [CCMenuItemSprite itemWithNormalSprite:lbNormal
+                                                       selectedSprite:lbSelected
+                                                       disabledSprite:lbDisabled
+                                                               target:[GCHelper sharedInstance]
+                                                             selector:@selector(showLeaderboard)];
     
     // Achievements
-    CCLabelBMFont *aLabel = [CCLabelBMFont labelWithString:@"Achievements"
-                                                    fntFile:@"score.fnt"];
-    CCMenuItemFont *aItem = [CCMenuItemFont itemWithLabel:aLabel
-                                                    target:[GCHelper sharedInstance]
-                                                  selector:@selector(showAchievements)];
-    aItem.color = kColorButton;
-    aItem.disabledColor = kColorUI;
+    CCSprite *aNormal = [CCSprite spriteWithSpriteFrameName:@"achievements.png"];
+    CCSprite *aSelected = [CCSprite spriteWithSpriteFrameName:@"achievements.png"];
+    CCSprite *aDisabled = [CCSprite spriteWithSpriteFrameName:@"achievements.png"];
+    aNormal.color = kColorButton;
+    aSelected.color = kColorButtonSelected;
+    aDisabled.color = kColorUI;
+    CCMenuItemSprite *aItem = [CCMenuItemSprite itemWithNormalSprite:aNormal
+                                                       selectedSprite:aSelected
+                                                       disabledSprite:aDisabled
+                                                               target:[GCHelper sharedInstance]
+                                                             selector:@selector(showAchievements)];
     
     if (![[GCHelper sharedInstance] isUserAuthenticated]) {
         lbItem.isEnabled = NO;

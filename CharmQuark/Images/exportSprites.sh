@@ -26,26 +26,26 @@ mkdir -p $IPAD_DIR $IPADHD_DIR $IPHONE_DIR $IPHONEHD_DIR
 export LANG=C
 
 for i in $IPHONE_SPRITES; do
-$INKSCAPE --export-png=$IPHONE_DIR/$i.png --export-dpi=$IPHONE_DPI --export-id=$i --export-id-only $INPUT_FILE
-$INKSCAPE --export-png=$IPHONEHD_DIR/$i.png --export-dpi=$IPHONEHD_DPI --export-id=$i --export-id-only $INPUT_FILE
+$INKSCAPE --export-png=$IPHONE_DIR/$i.png --export-background-opacity=0 --export-dpi=$IPHONE_DPI --export-id=$i --export-id-only $INPUT_FILE
+$INKSCAPE --export-png=$IPHONEHD_DIR/$i.png --export-background-opacity=0 --export-dpi=$IPHONEHD_DPI --export-id=$i --export-id-only $INPUT_FILE
 done;
 
 for i in $IPAD_SPRITES; do
 i=${i%%-ipad}
-$INKSCAPE --export-png=$IPAD_DIR/$i.png --export-dpi=$IPAD_DPI --export-id=$i --export-id-only $INPUT_FILE
-$INKSCAPE --export-png=$IPADHD_DIR/$i.png --export-dpi=$IPADHD_DPI --export-id=$i --export-id-only $INPUT_FILE
+$INKSCAPE --export-png=$IPAD_DIR/$i.png --export-background-opacity=0 --export-dpi=$IPAD_DPI --export-id=$i --export-id-only $INPUT_FILE
+$INKSCAPE --export-png=$IPADHD_DIR/$i.png --export-background-opacity=0 --export-dpi=$IPADHD_DPI --export-id=$i --export-id-only $INPUT_FILE
 done;
 
 for i in $IPAD_SPRITES_LO; do
-$INKSCAPE --export-png=$IPAD_DIR/$i.png --export-dpi=$IPAD_DPI_LO --export-id=$i --export-id-only $INPUT_FILE
-$INKSCAPE --export-png=$IPADHD_DIR/$i.png --export-dpi=$IPADHD_DPI_LO --export-id=$i --export-id-only $INPUT_FILE
+$INKSCAPE --export-png=$IPAD_DIR/$i.png --export-background-opacity=0 --export-dpi=$IPAD_DPI_LO --export-id=$i --export-id-only $INPUT_FILE
+$INKSCAPE --export-png=$IPADHD_DIR/$i.png --export-background-opacity=0 --export-dpi=$IPADHD_DPI_LO --export-id=$i --export-id-only $INPUT_FILE
 done;
 
 for i in $PNG_IDS; do
-$INKSCAPE --export-png=${i}-ipad.png --export-dpi=$IPAD_DPI --export-id=$i --export-id-only $INPUT_FILE
-$INKSCAPE --export-png=${i}-ipadhd.png --export-dpi=$IPADHD_DPI --export-id=$i --export-id-only $INPUT_FILE
-$INKSCAPE --export-png=${i}.png --export-dpi=$IPHONE_DPI --export-id=$i --export-id-only $INPUT_FILE
-$INKSCAPE --export-png=${i}-hd.png --export-dpi=$IPHONEHD_DPI --export-id=$i --export-id-only $INPUT_FILE
+$INKSCAPE --export-png=${i}-ipad.png --export-background-opacity=0 --export-dpi=$IPAD_DPI --export-id=$i --export-id-only $INPUT_FILE
+$INKSCAPE --export-png=${i}-ipadhd.png --export-background-opacity=0 --export-dpi=$IPADHD_DPI --export-id=$i --export-id-only $INPUT_FILE
+$INKSCAPE --export-png=${i}.png --export-background-opacity=0 --export-dpi=$IPHONE_DPI --export-id=$i --export-id-only $INPUT_FILE
+$INKSCAPE --export-png=${i}-hd.png --export-background-opacity=0 --export-dpi=$IPHONEHD_DPI --export-id=$i --export-id-only $INPUT_FILE
 done;
 
 #cp window-ipad.png window.png

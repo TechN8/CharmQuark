@@ -155,6 +155,15 @@
 		D8A0685515D2CC06002B63B4 /* GCDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A0685415D2CC05002B63B4 /* GCDatabase.m */; };
 		D8C34E6515E27B11002AA2E6 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8C34E6415E27B11002AA2E6 /* Twitter.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		D8C34E6915E27B9F002AA2E6 /* TwitterHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C34E6815E27B9F002AA2E6 /* TwitterHelper.m */; };
+		D8C34E7615E3FCF1002AA2E6 /* iconAtlas-hd.plist in Resources */ = {isa = PBXBuildFile; fileRef = D8C34E6E15E3FCF0002AA2E6 /* iconAtlas-hd.plist */; };
+		D8C34E7715E3FCF1002AA2E6 /* iconAtlas-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = D8C34E6F15E3FCF0002AA2E6 /* iconAtlas-hd.png */; };
+		D8C34E7815E3FCF1002AA2E6 /* iconAtlas-ipad.plist in Resources */ = {isa = PBXBuildFile; fileRef = D8C34E7015E3FCF0002AA2E6 /* iconAtlas-ipad.plist */; };
+		D8C34E7915E3FCF1002AA2E6 /* iconAtlas-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = D8C34E7115E3FCF0002AA2E6 /* iconAtlas-ipad.png */; };
+		D8C34E7A15E3FCF1002AA2E6 /* iconAtlas-ipadhd.plist in Resources */ = {isa = PBXBuildFile; fileRef = D8C34E7215E3FCF0002AA2E6 /* iconAtlas-ipadhd.plist */; };
+		D8C34E7B15E3FCF1002AA2E6 /* iconAtlas-ipadhd.png in Resources */ = {isa = PBXBuildFile; fileRef = D8C34E7315E3FCF1002AA2E6 /* iconAtlas-ipadhd.png */; };
+		D8C34E7C15E3FCF1002AA2E6 /* iconAtlas.plist in Resources */ = {isa = PBXBuildFile; fileRef = D8C34E7415E3FCF1002AA2E6 /* iconAtlas.plist */; };
+		D8C34E7D15E3FCF1002AA2E6 /* iconAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = D8C34E7515E3FCF1002AA2E6 /* iconAtlas.png */; };
+		D8C34E8115E4064B002AA2E6 /* CQMenuItemFont.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C34E8015E4064B002AA2E6 /* CQMenuItemFont.m */; };
 		D8CE5B9F15B713EA00E76ADA /* scene1Atlas-ipad.plist in Resources */ = {isa = PBXBuildFile; fileRef = D8CE5B9B15B713EA00E76ADA /* scene1Atlas-ipad.plist */; };
 		D8CE5BA015B713EA00E76ADA /* scene1Atlas-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = D8CE5B9C15B713EA00E76ADA /* scene1Atlas-ipad.png */; };
 		D8CE5BA115B713EA00E76ADA /* scene1Atlas-ipadhd.plist in Resources */ = {isa = PBXBuildFile; fileRef = D8CE5B9D15B713EA00E76ADA /* scene1Atlas-ipadhd.plist */; };
@@ -486,6 +495,16 @@
 		D8C34E6415E27B11002AA2E6 /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
 		D8C34E6715E27B9F002AA2E6 /* TwitterHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwitterHelper.h; sourceTree = "<group>"; };
 		D8C34E6815E27B9F002AA2E6 /* TwitterHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TwitterHelper.m; sourceTree = "<group>"; };
+		D8C34E6E15E3FCF0002AA2E6 /* iconAtlas-hd.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "iconAtlas-hd.plist"; sourceTree = "<group>"; };
+		D8C34E6F15E3FCF0002AA2E6 /* iconAtlas-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconAtlas-hd.png"; sourceTree = "<group>"; };
+		D8C34E7015E3FCF0002AA2E6 /* iconAtlas-ipad.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "iconAtlas-ipad.plist"; sourceTree = "<group>"; };
+		D8C34E7115E3FCF0002AA2E6 /* iconAtlas-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconAtlas-ipad.png"; sourceTree = "<group>"; };
+		D8C34E7215E3FCF0002AA2E6 /* iconAtlas-ipadhd.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "iconAtlas-ipadhd.plist"; sourceTree = "<group>"; };
+		D8C34E7315E3FCF1002AA2E6 /* iconAtlas-ipadhd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconAtlas-ipadhd.png"; sourceTree = "<group>"; };
+		D8C34E7415E3FCF1002AA2E6 /* iconAtlas.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = iconAtlas.plist; sourceTree = "<group>"; };
+		D8C34E7515E3FCF1002AA2E6 /* iconAtlas.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iconAtlas.png; sourceTree = "<group>"; };
+		D8C34E7F15E4064B002AA2E6 /* CQMenuItemFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CQMenuItemFont.h; sourceTree = "<group>"; };
+		D8C34E8015E4064B002AA2E6 /* CQMenuItemFont.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CQMenuItemFont.m; sourceTree = "<group>"; };
 		D8CE5B9B15B713EA00E76ADA /* scene1Atlas-ipad.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "scene1Atlas-ipad.plist"; sourceTree = "<group>"; };
 		D8CE5B9C15B713EA00E76ADA /* scene1Atlas-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scene1Atlas-ipad.png"; sourceTree = "<group>"; };
 		D8CE5B9D15B713EA00E76ADA /* scene1Atlas-ipadhd.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "scene1Atlas-ipadhd.plist"; sourceTree = "<group>"; };
@@ -1105,6 +1124,14 @@
 				D848C3F015CB607B00B6088A /* titleAtlas-ipad.png */,
 				D848C3F115CB607B00B6088A /* titleAtlas-ipadhd.plist */,
 				D848C3F215CB607C00B6088A /* titleAtlas-ipadhd.png */,
+				D8C34E7415E3FCF1002AA2E6 /* iconAtlas.plist */,
+				D8C34E7515E3FCF1002AA2E6 /* iconAtlas.png */,
+				D8C34E6E15E3FCF0002AA2E6 /* iconAtlas-hd.plist */,
+				D8C34E6F15E3FCF0002AA2E6 /* iconAtlas-hd.png */,
+				D8C34E7015E3FCF0002AA2E6 /* iconAtlas-ipad.plist */,
+				D8C34E7115E3FCF0002AA2E6 /* iconAtlas-ipad.png */,
+				D8C34E7215E3FCF0002AA2E6 /* iconAtlas-ipadhd.plist */,
+				D8C34E7315E3FCF1002AA2E6 /* iconAtlas-ipadhd.png */,
 				D8151DDE15B9B46E007D8AE2 /* window.png */,
 				D8151DDB15B9B46E007D8AE2 /* window-hd.png */,
 				D8151DDC15B9B46E007D8AE2 /* window-ipad.png */,
@@ -1253,6 +1280,8 @@
 				D80B620315AF055A006F2472 /* DialogNode.m */,
 				D848C43915CC2AC600B6088A /* ClipNode.h */,
 				D848C43A15CC2AC600B6088A /* ClipNode.m */,
+				D8C34E7F15E4064B002AA2E6 /* CQMenuItemFont.h */,
+				D8C34E8015E4064B002AA2E6 /* CQMenuItemFont.m */,
 			);
 			name = Nodes;
 			sourceTree = "<group>";
@@ -1616,6 +1645,14 @@
 				D834ACDD15D98AC300987B68 /* G4.caf in Resources */,
 				D834ACDF15D98BE200987B68 /* Outro.caf in Resources */,
 				D834ACEA15D9C21400987B68 /* SmoothPiano.m4a in Resources */,
+				D8C34E7615E3FCF1002AA2E6 /* iconAtlas-hd.plist in Resources */,
+				D8C34E7715E3FCF1002AA2E6 /* iconAtlas-hd.png in Resources */,
+				D8C34E7815E3FCF1002AA2E6 /* iconAtlas-ipad.plist in Resources */,
+				D8C34E7915E3FCF1002AA2E6 /* iconAtlas-ipad.png in Resources */,
+				D8C34E7A15E3FCF1002AA2E6 /* iconAtlas-ipadhd.plist in Resources */,
+				D8C34E7B15E3FCF1002AA2E6 /* iconAtlas-ipadhd.png in Resources */,
+				D8C34E7C15E3FCF1002AA2E6 /* iconAtlas.plist in Resources */,
+				D8C34E7D15E3FCF1002AA2E6 /* iconAtlas.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1798,6 +1835,7 @@
 				D8A0685515D2CC06002B63B4 /* GCDatabase.m in Sources */,
 				D834AD2D15DACF7200987B68 /* CDXPropertyModifierAction.m in Sources */,
 				D8C34E6915E27B9F002AA2E6 /* TwitterHelper.m in Sources */,
+				D8C34E8115E4064B002AA2E6 /* CQMenuItemFont.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

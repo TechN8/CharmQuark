@@ -9,6 +9,7 @@
 #import "OptionsDialog.h"
 #import "RemoveFromParentAction.h"
 #import "GameManager.h"
+#import "CQMenuItemFont.h"
 
 @implementation OptionsDialog
 
@@ -61,7 +62,7 @@
     }
     CCLabelBMFont *musicLabel = [CCLabelBMFont labelWithString:musicString fntFile:@"score.fnt"];
     musicLabel.color = kColorButton;
-    musicToggle = [CCMenuItemFont itemWithLabel:musicLabel
+    musicToggle = [CQMenuItemFont itemWithLabel:musicLabel
                                          target:self 
                                        selector:@selector(toggleMusic)];
     
@@ -74,11 +75,11 @@
     }
     CCLabelBMFont *soundLabel = [CCLabelBMFont labelWithString:soundString fntFile:@"score.fnt"];
     soundLabel.color = kColorButton;
-    soundToggle = [CCMenuItemFont itemWithLabel:soundLabel target:self selector:@selector(toggleSound)];
+    soundToggle = [CQMenuItemFont itemWithLabel:soundLabel target:self selector:@selector(toggleSound)];
 
 //    //Resume
 //    CCLabelBMFont *resumeLabel = [CCLabelBMFont labelWithString:@"Done" fntFile:@"score.fnt"];
-//    CCMenuItemFont *resumeItem = [CCMenuItemFont itemWithLabel:resumeLabel 
+//    CQMenuItemFont *resumeItem = [CQMenuItemFont itemWithLabel:resumeLabel 
 //                                                        target:self 
 //                                                      selector:@selector(resumeParent)];
     

@@ -9,6 +9,7 @@
 #import "PauseLayer.h"
 #import "GameManager.h"
 #import "RemoveFromParentAction.h"
+#import "CQMenuItemFont.h"
 
 @implementation PauseLayer
 
@@ -59,14 +60,14 @@
     //Resume
     CCLabelBMFont *resumeLabel = [CCLabelBMFont labelWithString:@"Resume" fntFile:@"score.fnt"];
     resumeLabel.color = kColorButton;
-    CCMenuItemFont *resumeItem = [CCMenuItemFont itemWithLabel:resumeLabel 
+    CQMenuItemFont *resumeItem = [CQMenuItemFont itemWithLabel:resumeLabel 
                                                         target:self 
                                                       selector:@selector(resumeParent)];
     
     //Quit
     CCLabelBMFont *quitLabel = [CCLabelBMFont labelWithString:@"Quit" fntFile:@"score.fnt"];
     quitLabel.color = kColorButton;
-    CCMenuItemFont *quitItem = [CCMenuItemFont itemWithLabel:quitLabel
+    CQMenuItemFont *quitItem = [CQMenuItemFont itemWithLabel:quitLabel
                                                       target:self 
                                                     selector:@selector(quitGame)];
 
@@ -79,7 +80,7 @@
     }
     CCLabelBMFont *musicLabel = [CCLabelBMFont labelWithString:musicString fntFile:@"score.fnt"];
     musicLabel.color = kColorButton;
-    musicToggle = [CCMenuItemFont itemWithLabel:musicLabel
+    musicToggle = [CQMenuItemFont itemWithLabel:musicLabel
                                          target:self 
                                        selector:@selector(toggleMusic)];
     
@@ -92,7 +93,7 @@
     }
     CCLabelBMFont *soundLabel = [CCLabelBMFont labelWithString:soundString fntFile:@"score.fnt"];
     soundLabel.color = kColorButton;
-    soundToggle = [CCMenuItemFont itemWithLabel:soundLabel target:self selector:@selector(toggleSound)];
+    soundToggle = [CQMenuItemFont itemWithLabel:soundLabel target:self selector:@selector(toggleSound)];
     CCMenu *menu1 = [CCMenu menuWithItems:musicToggle, soundToggle, nil];
     [menu1 alignItemsVerticallyWithPadding:0.03 * winSize.height];
     menu1.position = ccp(winSize.width * 0.5, winSize.height * 0.48f);

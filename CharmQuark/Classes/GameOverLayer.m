@@ -9,6 +9,7 @@
 #import "GameOverLayer.h"
 #import "GameManager.h"
 #import "TwitterHelper.h"
+#import "CQMenuItemFont.h"
 
 @implementation GameOverLayer
 
@@ -60,7 +61,7 @@
         CCLabelBMFont *tweetLabel = [CCLabelBMFont labelWithString:@"Tweet Score" 
                                                            fntFile:@"score.fnt"];
         tweetLabel.color = kColorButton;
-        CCMenuItemFont *tweetItem = [CCMenuItemFont itemWithLabel:tweetLabel
+        CQMenuItemFont *tweetItem = [CQMenuItemFont itemWithLabel:tweetLabel
                                                            target:self 
                                                          selector:@selector(tweet)];
         //Twitter Bird.
@@ -103,7 +104,7 @@
     CCLabelBMFont *newGameLabel = [CCLabelBMFont labelWithString:@"New Game"
                                                          fntFile:@"score.fnt"];
     newGameLabel.color = kColorButton;
-    CCMenuItemFont *newGameItem = [CCMenuItemFont itemWithLabel:newGameLabel
+    CQMenuItemFont *newGameItem = [CQMenuItemFont itemWithLabel:newGameLabel
                                                           target:self 
                                                         selector:@selector(newGame)];
 
@@ -111,7 +112,7 @@
     CCLabelBMFont *quitLabel = [CCLabelBMFont labelWithString:@"Quit"
                                                       fntFile:@"score.fnt"];
     quitLabel.color = kColorButton;
-    CCMenuItemFont *quitItem = [CCMenuItemFont itemWithLabel:quitLabel
+    CQMenuItemFont *quitItem = [CQMenuItemFont itemWithLabel:quitLabel
                                                       target:self 
                                                     selector:@selector(quitGame)];
     

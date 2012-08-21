@@ -4,19 +4,6 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>facebook-icon.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{949,64},{60,60}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{60,60}}</string>
-                <key>sourceSize</key>
-                <string>{60,60}</string>
-            </dict>
             <key>title-flash.png</key>
             <dict>
                 <key>frame</key>
@@ -56,32 +43,6 @@
                 <key>sourceSize</key>
                 <string>{808,104}</string>
             </dict>
-            <key>twitter-bird.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{949,126},{42,34}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{42,34}}</string>
-                <key>sourceSize</key>
-                <string>{42,34}</string>
-            </dict>
-            <key>twitter-icon.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{949,2},{60,60}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{60,60}}</string>
-                <key>sourceSize</key>
-                <string>{60,60}</string>
-            </dict>
         </dict>
         <key>metadata</key>
         <dict>
@@ -92,7 +53,7 @@
             <key>size</key>
             <string>{1024,1024}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:091b1698354beac660eaea3fc7bf177c$</string>
+            <string>$TexturePacker:SmartUpdate:6507675be5128e9093f97fb1bb0a4cee$</string>
             <key>textureFileName</key>
             <string>titleAtlas-hd.png</string>
         </dict>

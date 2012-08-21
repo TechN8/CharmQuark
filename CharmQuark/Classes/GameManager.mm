@@ -77,6 +77,7 @@ static GameManager* _sharedGameManager = nil;
         // Load sprite sheets.
         [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"scene1Atlas.plist"];
         [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"titleAtlas.plist"];
+        [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"iconAtlas.plist"];
     }
     return self;
 }

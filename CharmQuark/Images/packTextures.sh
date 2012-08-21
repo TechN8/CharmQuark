@@ -2,6 +2,8 @@
 
 # This script will built texture atlasses for each device resolution.
 
+# Game Sprites
+
 /usr/local/bin/TexturePacker --no-trim --algorithm MaxRects --maxrects-heuristics best --format cocos2d \
 	--data scene1Atlas.plist --sheet scene1Atlas.png Sprites/iPhone/*.png
 
@@ -14,6 +16,8 @@
 /usr/local/bin/TexturePacker --no-trim --algorithm MaxRects --maxrects-heuristics best --format cocos2d \
 	--data scene1Atlas-ipadhd.plist --sheet scene1Atlas-ipadhd.png Sprites/iPad-hd/*.png
 
+# Titles
+
 /usr/local/bin/TexturePacker --no-trim --algorithm MaxRects --maxrects-heuristics best --format cocos2d \
 	--data titleAtlas.plist --sheet titleAtlas.png Titles/iPhone/*.png
 
@@ -25,3 +29,17 @@
 
 /usr/local/bin/TexturePacker --no-trim --algorithm MaxRects --maxrects-heuristics best --format cocos2d \
 	--data titleAtlas-ipadhd.plist --sheet titleAtlas-ipadhd.png Titles/iPad-hd/*.png
+
+# Icons
+
+/usr/local/bin/TexturePacker --no-trim --algorithm MaxRects --maxrects-heuristics best --format cocos2d \
+	--data iconAtlas.plist --sheet iconAtlas.png Icons/iPhone/*.png
+
+/usr/local/bin/TexturePacker --no-trim --algorithm MaxRects --maxrects-heuristics best --format cocos2d \
+	--data iconAtlas-hd.plist --sheet iconAtlas-hd.png Icons/iPhone-hd/*.png
+
+/usr/local/bin/TexturePacker --no-trim --algorithm MaxRects --maxrects-heuristics best --format cocos2d \
+	--data iconAtlas-ipad.plist --sheet iconAtlas-ipad.png Icons/iPad/*.png
+
+/usr/local/bin/TexturePacker --no-trim --algorithm MaxRects --maxrects-heuristics best --format cocos2d \
+	--data iconAtlas-ipadhd.plist --sheet iconAtlas-ipadhd.png Icons/iPad-hd/*.png

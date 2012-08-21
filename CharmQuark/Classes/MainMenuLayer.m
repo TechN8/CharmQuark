@@ -14,6 +14,7 @@
 #import "OptionsDialog.h"
 #import "HighScoreDialog.h"
 #import "GCHelper.h"
+#import "CQMenuItemFont.h"
 
 @interface MainMenuLayer()
 -(void)displayMainMenu;
@@ -199,12 +200,12 @@
                         winSize.height * 0.4);
 
     CCLabelBMFont *label;
-    CCMenuItemFont *item;
+    CQMenuItemFont *item;
     
     label = [CCLabelBMFont labelWithString:@"Time Attack" 
                                    fntFile:@"score.fnt"];
     label.color = kColorButton;
-    item = [CCMenuItemFont itemWithLabel:label
+    item = [CQMenuItemFont itemWithLabel:label
                                   target:self 
                                 selector:@selector(playTimeAttack)];
     item.position = ccp(-0.25 * winSize.width, 0);
@@ -213,7 +214,7 @@
     label = [CCLabelBMFont labelWithString:@"Accelerator" 
                                    fntFile:@"score.fnt"];
     label.color = kColorButton;
-    item = [CCMenuItemFont itemWithLabel:label
+    item = [CQMenuItemFont itemWithLabel:label
                                   target:self 
                                 selector:@selector(playSurvival)];
     item.position = ccp(-0.25 * winSize.width, -0.1 * winSize.height);
@@ -222,7 +223,7 @@
     label = [CCLabelBMFont labelWithString:@"Meditation" 
                                    fntFile:@"score.fnt"];
     label.color = kColorButton;
-    item = [CCMenuItemFont itemWithLabel:label
+    item = [CQMenuItemFont itemWithLabel:label
                                   target:self 
                                 selector:@selector(playMomMode)];
     item.position = ccp(-0.25 * winSize.width, -0.2 * winSize.height);
@@ -231,16 +232,16 @@
     label = [CCLabelBMFont labelWithString:@"Options" 
                                    fntFile:@"score.fnt"];
     label.color = kColorButton;
-    item = [CCMenuItemFont itemWithLabel:label
+    item = [CQMenuItemFont itemWithLabel:label
                                   target:self 
                                 selector:@selector(showOptions)];
     item.position = ccp(0.25 * winSize.width, 0);
     [menu addChild:item];
     
-    label = [CCLabelBMFont labelWithString:@"High Scores" 
+    label = [CCLabelBMFont labelWithString:@"Records" 
                                    fntFile:@"score.fnt"];
     label.color = kColorButton;
-    item = [CCMenuItemFont itemWithLabel:label
+    item = [CQMenuItemFont itemWithLabel:label
                                   target:self 
                                 selector:@selector(showScores)];
     item.position = ccp(0.25 * winSize.width, -0.1 * winSize.height);
@@ -249,7 +250,7 @@
     label = [CCLabelBMFont labelWithString:@"Credits" 
                                    fntFile:@"score.fnt"];
     label.color = kColorButton;
-    item = [CCMenuItemFont itemWithLabel:label
+    item = [CQMenuItemFont itemWithLabel:label
                                   target:self 
                                 selector:@selector(showCredits)];
     item.position = ccp(0.25 * winSize.width, -0.2 * winSize.height);
@@ -258,7 +259,7 @@
 
     /*
     // Facebook.
-    CCSprite *facebookSprite = [CCSprite spriteWithSpriteFrameName:@"facebook-icon.png"];
+    CCSprite *facebookSprite = [CCSprite spriteWithSpriteFrameName:@"facebook.png"];
     CCMenuItemSprite* facebookItem = [CCMenuItemSprite 
                                       itemWithNormalSprite:facebookSprite 
                                       selectedSprite:nil 
@@ -267,7 +268,7 @@
     facebookItem.anchorPoint = ccp(0.5, 0);
     
     // Twitter.
-    CCSprite *twitterSprite = [CCSprite spriteWithSpriteFrameName:@"twitter-icon.png"];
+    CCSprite *twitterSprite = [CCSprite spriteWithSpriteFrameName:@"twitter.png"];
     CCMenuItemSprite* twitterItem = [CCMenuItemSprite 
                                       itemWithNormalSprite:twitterSprite 
                                       selectedSprite:nil 
