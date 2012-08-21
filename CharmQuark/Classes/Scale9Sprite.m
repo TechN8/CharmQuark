@@ -10,7 +10,7 @@
 
 @implementation Scale9Sprite
 
-@synthesize opacity, color, top;
+@synthesize top, color, opacity;
 
 enum positions {
 pCentre = 0,
@@ -253,6 +253,31 @@ CGRect resizableRegion;
     
 }
 
+-(void) setColor:(ccColor3B)aColor {
+    color = aColor;
+    topLeft.color = color;
+	top.color = color;
+	topRight.color = color;
+	left.color = color;
+	centre.color = color;
+	right.color = color;
+	bottomLeft.color = color;
+	bottom.color = color;
+	bottomRight.color = color;
+}
+
+-(void) setOpacity:(GLubyte)theOpacity {
+    opacity = theOpacity;
+    topLeft.opacity = opacity;
+	top.opacity = opacity;
+	topRight.opacity = opacity;
+	left.opacity = opacity;
+	centre.opacity = opacity;
+	right.opacity = opacity;
+	bottomLeft.opacity = opacity;
+	bottom.opacity = opacity;
+	bottomRight.opacity = opacity;
+}
 
 -(void) draw {
 	[scale9Image draw];

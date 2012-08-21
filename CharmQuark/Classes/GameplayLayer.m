@@ -314,7 +314,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     // Set up next particle
     nextParticle = [self randomParticle];
     nextParticle.position = nextParticlePos;
-    [map setColor:nextParticle.particleColor];
+    [map setParticleColor:nextParticle.particleColor];
     [[self getChildByTag:kTagUIBatchNode] addChild:nextParticle];
     
     // Create physics shape.
@@ -760,7 +760,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     
     // Static variables.
     puzzleCenter = worldToView(kPuzzleCenter);
-    CGPoint scorePosition = ccp(10, winSize.height * 0.95f);
+    CGPoint scorePosition = ccp(5, winSize.height * 0.95f);
     CGPoint levelPosition = ccp(winSize.width * 0.5f, winSize.height * 0.95f);
     
     launchPoint = worldToView(kLaunchPoint);
@@ -799,7 +799,9 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     
     // Pause Button
     CCSprite *pauseSprite = [CCSprite spriteWithSpriteFrameName:@"pause.png"];
-    [pauseSprite setPosition:ccp(winSize.width * 0.95f, winSize.height * 0.95f)];
+    pauseSprite.color = kColorUI;
+    pauseSprite.anchorPoint = ccp(1.0, 0.5);
+    [pauseSprite setPosition:ccp(winSize.width - 5, winSize.height * 0.95f)];
     [uiBatchNode addChild:pauseSprite z:kZUIElements];
     
     // Add score label.
@@ -841,8 +843,8 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     
     // Add the map.
     map = [LHCMap node];
+    map.color = kColorUI;
     map.anchorPoint = ccp(0.02, 0.5);
-    //map.position = ccp(0, winSize.height * 0.62);
     map.position = ccp(0, puzzleCenter.y);
     [uiBatchNode addChild:map z:kZBackground];
     
@@ -860,10 +862,12 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     
     // Add the thumb guides.
     thumbGuide = [CCSprite spriteWithSpriteFrameName:@"thumbguide.png"];
+    thumbGuide.color = kColorThumbGuide;
     thumbGuide.opacity = 0;
     [uiBatchNode addChild:thumbGuide z:kZUIElements - 1];
     
     fireButton = [CCSprite spriteWithSpriteFrameName:@"firebutton.png"];
+    fireButton.color = kColorThumbGuide;
     fireButton.opacity = 0;
     [uiBatchNode addChild:fireButton z:kZUIElements];
     
@@ -908,7 +912,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
             if (nil == launchTouch) {
                 launchTouch = touch;
                 fireButton.position = location;
-                fireButton.opacity = 255;
+                fireButton.opacity = kOpacityThumbGuide;
             }
         } else if (nil == rotationTouch) {
             // Touches on the right are for rotation.  
@@ -926,7 +930,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
             // Show thumb guide.
             thumbGuide.position = location;
             thumbGuide.rotation = CC_RADIANS_TO_DEGREES(atanf(ray.x / ray.y));
-            thumbGuide.opacity = 255;
+            thumbGuide.opacity = kOpacityThumbGuide;
         }        
     }
 }

@@ -11,15 +11,21 @@
 
 #define kMainMenuTagValue 10
 
+// Scoring messages
 #define kColorScore         ccc3(240, 200, 80)
 #define kColorCombo         ccc3(200, 200, 230)
 #define kColorBonus         ccc3(200, 200, 230)
 #define kColorTimeAdd       ccc3(200, 230, 200)
 #define kColorLevelUp       ccc3(230, 200, 200)
+
+// UI Elements
 #define kColorUI            ccc3(90, 140, 150)
-//#define kColorButton        ccc3(120, 160, 170)
 #define kColorButton        ccc3(140, 170, 180)
 #define kColorDialogTitle   ccc3(90, 140, 150)
+#define kColorThumbGuide    ccc3(140, 190, 200)
+#define kOpacityThumbGuide  128
+
+// Dialog tuning
 #define kPopupSpeed         0.3
 #define kDialogTitlePos     ccp(winSize.width * 0.5, winSize.height * 0.72);
 

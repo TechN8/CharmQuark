@@ -7,6 +7,7 @@
 //
 
 #import "DialogNode.h"
+#import "Constants.h"
 
 @implementation DialogNode
 
@@ -63,7 +64,8 @@
     self.contentSize = winSize;
     
     windowSprite = [[[Scale9Sprite alloc] initWithFile:@"window.png" 
-                                                ratioX:0.49 ratioY:0.49] autorelease];;
+                                                ratioX:0.49 ratioY:0.49] autorelease];
+    windowSprite.color = kColorUI;
     [windowSprite setContentSize:CGSizeMake(winSize.width * .75, winSize.height * .75)];
     [windowSprite setPosition:ccp(winSize.width / 2, winSize.height / 2)];
     [self addChild:windowSprite];

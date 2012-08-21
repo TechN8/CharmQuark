@@ -36,7 +36,7 @@
     
 }
 
--(void)setColor:(ParticleColors)color {
+-(void)setParticleColor:(ParticleColors)color {
     switch (color) {
         case kParticleRed:
             colorPacket.color = kCC3ParticleRed;
@@ -81,7 +81,6 @@
     // Load background LHCMap.png
     self = [super initWithSpriteFrameName:@"lhcmap.png"];
     if (self) {
-        
         whitePacket = [CCSprite spriteWithSpriteFrameName:@"white-small.png"];
         colorPacket = [CCSprite spriteWithSpriteFrameName:@"white-small.png"];
         

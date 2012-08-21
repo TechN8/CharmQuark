@@ -22,6 +22,6 @@
 
 -(void)setTime:(float)time;
 
--(void)setColor:(ParticleColors)color;
+-(void)setParticleColor:(ParticleColors)color;
 
 @end
