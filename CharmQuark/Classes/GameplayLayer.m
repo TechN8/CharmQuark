@@ -151,66 +151,340 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     [p2 separateFromParticle:p1];
 }
 
-#pragma mark -
-
 @implementation GameplayLayer
 
 @synthesize space;
 @synthesize score;
 
--(void)playRandomNoteAtVolume:(ALfloat)volume {
-    switch(rand() % 15) {
-        case 0:
-            PLAYSOUNDEFFECT(PARTICLE_COLLIDE_1, volume);
+#pragma mark - Setup
+
+-(void)initUI {
+    self.isTouchEnabled = YES;
+    self.isAccelerometerEnabled = NO;
+    
+    CGSize winSize = [[CCDirector sharedDirector] winSize];
+    
+    // Static variables.
+    puzzleCenter = worldToView(kPuzzleCenter);
+    CGPoint scorePosition = ccp(5, winSize.height * 0.95f);
+    CGPoint levelPosition = ccp(winSize.width * 0.5f, winSize.height * 0.95f);
+    
+    launchPoint = worldToView(kLaunchPoint);
+    
+    // Field initializations
+    rotationTouch = nil;
+    launchTouch = nil;
+    centerNodeAngleInit = 0;
+    nextParticle = nil;
+    
+    // Set up simulation.
+    space = cpSpaceNew();
+    cpSpaceSetGravity(space, ccp(0,0));
+    cpSpaceSetDamping(space, kParticleDamping);
+    cpSpaceAddCollisionHandler(space, 
+                               kSensorCollisionType, kSensorCollisionType, 
+                               (cpCollisionBeginFunc)collisionBegin, 
+                               (cpCollisionPreSolveFunc)collisionPreSolve, 
+                               nil, 
+                               (cpCollisionSeparateFunc)collisionSeparate, 
+                               self);
+    cpSpaceAddCollisionHandler(space, 
+                               kShapeCollisionType, kShapeCollisionType, 
+                               nil, 
+                               nil, 
+                               (cpCollisionPostSolveFunc)collisionPostSolve, 
+                               nil, 
+                               self);   
+    
+    // Configure the two batch nodes for rendering.
+    CCSpriteBatchNode *packetBatchNode = [CCSpriteBatchNode batchNodeWithFile:@"scene1Atlas.png" capacity:45];
+    CCSpriteBatchNode *uiBatchNode = [CCSpriteBatchNode batchNodeWithFile:@"scene1Atlas.png" capacity:60];
+    CCParticleBatchNode *particleBatch = [CCParticleBatchNode batchNodeWithFile:@"scene1Atlas.png" capacity:100];
+    [self addChild:uiBatchNode z:kZUIElements tag:kTagUIBatchNode];
+    [self addChild:particleBatch z:kZParticles tag:kTagParticleBatchNode];
+    
+    // Pause Button
+    CCSprite *pauseSprite = [CCSprite spriteWithSpriteFrameName:@"pause.png"];
+    pauseSprite.color = kColorUI;
+    pauseSprite.anchorPoint = ccp(1.0, 0.5);
+    [pauseSprite setPosition:ccp(winSize.width - 5, winSize.height * 0.95f)];
+    [uiBatchNode addChild:pauseSprite z:kZUIElements];
+    
+    // Add score label.
+    scoreLabel = [CCLabelBMFont labelWithString:@"0" fntFile:@"score.fnt"];
+    [scoreLabel setAnchorPoint:ccp(0.0f, 0.5f)];
+    [scoreLabel setPosition:scorePosition];
+    [scoreLabel setColor:kColorScore];
+    [self addChild:scoreLabel z:kZUIElements];
+    
+    // Add level label / clock
+    switch (mode) {
+        case kGameSceneTimeAttack:
+            levelLabel= [CCLabelBMFont labelWithString:@"2:00.00" fntFile:@"score.fnt"];
+            levelLabel.position = levelPosition;
+            levelLabel.color = kColorUI;
+            [self addChild:levelLabel z:kZUIElements];
             break;
-        case 1:
-            PLAYSOUNDEFFECT(PARTICLE_COLLIDE_2, volume);
-            break;
-        case 2:
-            PLAYSOUNDEFFECT(PARTICLE_COLLIDE_3, volume);
-            break;
-        case 3:
-            PLAYSOUNDEFFECT(PARTICLE_COLLIDE_4, volume);
-            break;
-        case 4:
-            PLAYSOUNDEFFECT(PARTICLE_COLLIDE_5, volume);
-            break;
-        case 5:
-            PLAYSOUNDEFFECT(PARTICLE_COLLIDE_6, volume);
-            break;
-        case 6:
-            PLAYSOUNDEFFECT(PARTICLE_COLLIDE_7, volume);
-            break;
-        case 7:
-            PLAYSOUNDEFFECT(PARTICLE_COLLIDE_8, volume);
-            break;
-        case 8:
-            PLAYSOUNDEFFECT(PARTICLE_COLLIDE_9, volume);
-            break;
-        case 9:
-            PLAYSOUNDEFFECT(PARTICLE_COLLIDE_10, volume);
-            break;
-        case 10:
-            PLAYSOUNDEFFECT(PARTICLE_COLLIDE_11, volume);
-            break;
-        case 11:
-            PLAYSOUNDEFFECT(PARTICLE_COLLIDE_12, volume);
-            break;
-        case 12:
-            PLAYSOUNDEFFECT(PARTICLE_COLLIDE_13, volume);
-            break;
-        case 13:
-            PLAYSOUNDEFFECT(PARTICLE_COLLIDE_14, volume);
-            break;
-        case 14:
-            PLAYSOUNDEFFECT(PARTICLE_COLLIDE_15, volume);
-            break;
-        case 15:
-            PLAYSOUNDEFFECT(PARTICLE_COLLIDE_16, volume);
+        case kGameSceneSurvival:
+            levelLabel = [CCLabelBMFont labelWithString:@"Level 1" fntFile:@"score.fnt"];
+            levelLabel.position = levelPosition;
+            levelLabel.color = kColorUI;
+            [self addChild:levelLabel z:kZUIElements];
             break;
         default:
-            PLAYSOUNDEFFECT(PARTICLE_COLLIDE_2, volume);
             break;
+    }
+    
+    // Add Next
+    CGPoint nextLabelPosition = ccp(scorePosition.x,
+                                    scorePosition.y - scoreLabel.contentSize.height - 10 * scaleFactor);
+    CCLabelBMFont *nextLabel = [CCLabelBMFont labelWithString:@"Next:" fntFile:@"score.fnt"];
+    nextLabel.color = kColorUI;
+    nextLabel.position = nextLabelPosition;
+    [nextLabel setAnchorPoint:ccp(0.0, 0.5)];
+    [self addChild:nextLabel z:kZUIElements];
+    
+    nextParticlePos = ccp(nextLabelPosition.x + nextLabel.contentSize.width + kParticleRadius * scaleFactor,
+                          nextLabelPosition.y);
+    
+    // Add the map.
+    map = [LHCMap node];
+    map.color = kColorUI;
+    map.anchorPoint = ccp(0.02, 0.5);
+    map.position = ccp(0, puzzleCenter.y);
+    [uiBatchNode addChild:map z:kZBackground];
+    
+    // Add the log viewer.
+    logViewer = [LogViewer node];
+    //logViewer.position = ccp(10, 5);
+    //logViewer.position = ccp(winSize.width / 2, winSize.height / 2);
+    logViewer.position = puzzleCenter;
+    [self addChild:logViewer z:kZLog];
+    
+    // Add the detector.
+    detector = [Detector node];
+    detector.position = puzzleCenter;
+    [uiBatchNode addChild:detector z:kZBackground];
+    
+    // Add the thumb guides.
+    thumbGuide = [CCSprite spriteWithSpriteFrameName:@"thumbguide.png"];
+    thumbGuide.color = kColorThumbGuide;
+    thumbGuide.opacity = 0;
+    [uiBatchNode addChild:thumbGuide z:kZUIElements - 1];
+    
+    fireButton = [CCSprite spriteWithSpriteFrameName:@"firebutton.png"];
+    fireButton.color = kColorThumbGuide;
+    fireButton.opacity = 0;
+    [uiBatchNode addChild:fireButton z:kZUIElements];
+    
+    // Configure the node which controls rotation.
+    centerNode = [CCNode node];
+    centerNode.position = puzzleCenter;
+    centerNode.rotation = 0;
+    [centerNode addChild:packetBatchNode z:kZParticles tag:kTagPacketBatchNode];
+    [self addChild:centerNode z:kZParticles];
+}
+
+#pragma mark - Runloop
+
+-(void) alignParticleToCenter:(Particle *)particle {
+    // Rotate particle position and velocity the other way.
+    cpBody *body = particle.body;
+    cpVect rot = cpvforangle(CC_DEGREES_TO_RADIANS(centerNode.rotation));
+    cpFloat distance = -1 * cpvlength(body->p);
+    cpFloat speed = cpvlength(body->v);
+    cpVect pos = cpvmult(rot, distance);
+    cpVect vel = cpvmult(rot, speed);
+    cpBodySetPos(body, pos);
+    cpBodySetVel(body, vel);
+    particle.position = cpvmult(pos, scaleFactor);
+}
+
+-(void) drop {
+    launchTouch = nil; // Prevent double launch on touch end.
+    fireButton.opacity = 0;
+    [self launch];
+}
+
+-(void) moveInFlightBodies {
+    for (NSInteger i=0; i < inFlightParticles.count; i++) {
+        Particle *particle = [inFlightParticles objectAtIndex:i];
+        cpBody * body = particle.body;
+        cpBodyUpdatePosition(body, kSimulationRate);
+        particle.position = cpvmult(body->p, scaleFactor);
+        cpFloat d = cpvlength(cpBodyGetPos(body));
+        if (d < 5) particle.isInFlight = NO;
+        if (!particle.isInFlight) {
+            // Add body to space.
+            [self addBodyToSpace:body];
+            
+            // Add to list for scoring.
+            [particles addObject:particle];
+            
+            // Remove from in-flight list.
+            [inFlightParticles removeObject:particle];
+            i--;
+        }
+    }
+}
+
+-(void) step: (ccTime)dt {
+    static ccTime remainder = 0;
+    dt += remainder;
+    int steps = dt / kSimulationRate;
+    remainder = fmodf(dt, kSimulationRate);
+    
+    // Run steps
+    for (int i = 0; i < steps; i++) {
+        // Update clock.
+        timeRemaining -= kSimulationRate;
+        lastLaunch += kSimulationRate;
+        [map setTime:(dropFrequency - timeRemaining) / dropFrequency];
+        
+        // Check for gameover or drop conditions.
+        if (timeRemaining <= 0) {
+            switch (mode) {
+                case kGameSceneTimeAttack:
+                    timeRemaining = 0;
+                    [self end:nil]; // Game over.
+                    break;
+                case kGameSceneSurvival:
+                    [self drop];
+                    break;
+                case kGameSceneMomMode:
+                default:
+                    timeRemaining = dropFrequency;
+                    break;
+            }
+        }
+        
+        // Update time attack countdown.
+        if (mode == kGameSceneTimeAttack) {
+            [levelLabel setString:[NSString stringWithFormat:@"%01d:%02d.%02d", 
+                                   (int)timeRemaining / 60,
+                                   (int)(fmodf(timeRemaining, 60)),
+                                   (int)(fmodf(timeRemaining, 1.0) * 100)]];
+        }
+        
+        // Update touch inertia.
+        if (nil == rotationTouch && fabs(rotAngleV) > 1) {
+            centerNode.rotation = fmodf(centerNode.rotation + rotAngleV * dt, 360.0);
+            rotAngleV *= 1 - (kRotationFalloff * kSimulationRate);
+        }
+        
+        // Update physics and move stuff.
+        cpSpaceStep(space, kSimulationRate);
+        cpSpaceEachBody(space, (cpSpaceBodyIteratorFunc)syncSpriteToBody, self);
+        [self moveInFlightBodies];
+    }
+}
+
+#pragma mark - Game Control
+
+-(void)end:(Particle *)particle {
+    CGSize winSize = [[CCDirector sharedDirector] winSize];
+    
+    // Don't pause on top of game over.
+    paused = YES;
+    
+    // Play the finale music.
+    [[GameManager sharedGameManager] stopBackgroundTrack];
+    PLAYSOUNDEFFECT(GAME_OVER, 0.5);
+    
+    // Cancel touches.
+    rotationTouch = nil;
+    launchTouch = nil;
+    
+    [self unscheduleAllSelectors];
+    
+    // Flash the detector.
+    if (nil != particle) {
+        // Calculate angle
+        float angle = -1 * CC_RADIANS_TO_DEGREES(cpvtoangle(cpBodyGetPos(particle.body)));
+        angle += centerNode.rotation;
+        [detector gameOverAtAngle:angle];
+        id flash = [CCBlink actionWithDuration:1.0 blinks:2];
+        id loop = [CCRepeatForever actionWithAction:flash];
+        [particle runAction:loop];
+    }
+    
+    // Throw up modal layer.
+    GameOverLayer *gameOverLayer = [GameOverLayer node];
+    CGPoint oldPos = gameOverLayer.position;
+    gameOverLayer.position = ccp(0, 2 * winSize.height);
+    [gameOverLayer setScore:score];
+    [self addChild:gameOverLayer z:kZPopups];
+    [gameOverLayer runAction:[CCMoveTo actionWithDuration:kPopupSpeed
+                                                 position:oldPos]];
+    
+    // Award score achievements
+    GCHelper *gc = [GCHelper sharedInstance];
+    if (mode == kGameSceneSurvival) {
+        [gc reportAchievement:kAchievementAccelerator percentComplete:100.0];   
+        if (score >= 100000) {
+            [gc reportAchievement:kAchievementAccelerator100K percentComplete:100.0];
+        }
+    }
+    if (mode == kGameSceneTimeAttack) {
+        [gc reportAchievement:kAchievementTimeAttack percentComplete:100.0];   
+        if (score >= 100000) {
+            [gc reportAchievement:kAchievementTimeAttack100K percentComplete:100.0];
+        }
+    }
+    if (mode == kGameSceneMomMode) {
+        [gc reportAchievement:kAchievementMeditation percentComplete:100.0];
+    }
+}
+
+-(void) launch {
+    // Make sure it's legal.
+    if (lastLaunch < kLaunchCoolDown) {
+        CCLOG(@"Ignored launch during cooldown.");
+        return;
+    }
+    
+    // Launch!
+    if (mode == kGameSceneSurvival) {
+        timeRemaining = dropFrequency;   
+    }
+    lastLaunch = 0;
+    
+    // Calculate launch position and vector.
+    cpVect rot = cpvforangle(CC_DEGREES_TO_RADIANS(centerNode.rotation));
+    CGPoint pos = cpvrotate(rot, kLaunchPoint);
+    cpVect launchVect = cpvmult(cpvnormalize(cpvsub(ccp(0,0), pos)), kLaunchV);
+    
+    // Set position and velocity of particle.
+    Particle *particle = [self readyNextParticle];
+    cpBody *body = particle.body;
+    cpBodySetPos(body, pos);
+    cpBodySetVel(body, launchVect);
+    particle.position = [centerNode convertToWorldSpace:launchPoint];
+    
+    // Mark particle as in-flight.
+    particle.isInFlight = YES;
+    [inFlightParticles addObject:particle];
+    
+    // Add to batch node for rendering.
+    [particle removeFromParentAndCleanup:NO];
+    CCSpriteBatchNode *batch = (CCSpriteBatchNode*) [centerNode getChildByTag:kTagPacketBatchNode];
+    [batch addChild: particle];
+}
+
+-(void) pause {
+    CGSize winSize = [[CCDirector sharedDirector] winSize];
+    
+    if (!paused) {
+        paused = YES;
+        [self pauseSchedulerAndActions];
+        
+        // Throw up modal layer.
+        PauseLayer *pauseLayer = [PauseLayer node];
+        CGPoint oldPos = pauseLayer.position;
+        pauseLayer.position = ccp(0, 2 * winSize.height);
+        [self addChild:pauseLayer z:kZPopups];
+        [pauseLayer runAction:[CCMoveTo actionWithDuration:kPopupSpeed
+                                                  position:oldPos]];
     }
 }
 
@@ -292,6 +566,121 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     [self schedule: @selector(step:)];
 }
 
+-(void) resume {
+    paused = NO;
+    [self resumeSchedulerAndActions];
+}
+
+#pragma mark - Sound
+
+-(void)bgmManager {
+    NSInteger intensity = [GameManager sharedGameManager].bgmIntensity;
+    
+    NSInteger count = particles.count;
+    if (count > 26 || (mode == kGameSceneTimeAttack && timeRemaining < 16.0)) {
+        intensity = intensity % 2 ? 8 : 7;
+    } else if (count > 20) {
+        intensity = intensity % 2 ? 6 : 5;
+    } else if (count > 12) {
+        intensity = intensity % 2 ? 4 : 3;
+    } else {
+        intensity = intensity % 2 ? 2 : 1;
+    }
+    [GameManager sharedGameManager].bgmIntensity = intensity;
+}
+
+-(void)playRandomNoteAtVolume:(ALfloat)volume {
+    switch(rand() % 15) {
+        case 0:
+            PLAYSOUNDEFFECT(PARTICLE_COLLIDE_1, volume);
+            break;
+        case 1:
+            PLAYSOUNDEFFECT(PARTICLE_COLLIDE_2, volume);
+            break;
+        case 2:
+            PLAYSOUNDEFFECT(PARTICLE_COLLIDE_3, volume);
+            break;
+        case 3:
+            PLAYSOUNDEFFECT(PARTICLE_COLLIDE_4, volume);
+            break;
+        case 4:
+            PLAYSOUNDEFFECT(PARTICLE_COLLIDE_5, volume);
+            break;
+        case 5:
+            PLAYSOUNDEFFECT(PARTICLE_COLLIDE_6, volume);
+            break;
+        case 6:
+            PLAYSOUNDEFFECT(PARTICLE_COLLIDE_7, volume);
+            break;
+        case 7:
+            PLAYSOUNDEFFECT(PARTICLE_COLLIDE_8, volume);
+            break;
+        case 8:
+            PLAYSOUNDEFFECT(PARTICLE_COLLIDE_9, volume);
+            break;
+        case 9:
+            PLAYSOUNDEFFECT(PARTICLE_COLLIDE_10, volume);
+            break;
+        case 10:
+            PLAYSOUNDEFFECT(PARTICLE_COLLIDE_11, volume);
+            break;
+        case 11:
+            PLAYSOUNDEFFECT(PARTICLE_COLLIDE_12, volume);
+            break;
+        case 12:
+            PLAYSOUNDEFFECT(PARTICLE_COLLIDE_13, volume);
+            break;
+        case 13:
+            PLAYSOUNDEFFECT(PARTICLE_COLLIDE_14, volume);
+            break;
+        case 14:
+            PLAYSOUNDEFFECT(PARTICLE_COLLIDE_15, volume);
+            break;
+        case 15:
+            PLAYSOUNDEFFECT(PARTICLE_COLLIDE_16, volume);
+            break;
+        default:
+            PLAYSOUNDEFFECT(PARTICLE_COLLIDE_2, volume);
+            break;
+    }
+}
+
+#pragma mark - Particle Management
+
+-(void) addBodyToSpace:(cpBody *)body {
+    // Add body to space.
+    body->velocity_func = gravityVelocityIntegrator;
+    cpBodySetVelLimit(body, kVelocityLimit);
+    cpSpaceAddBody(space, body);
+}
+
+-(void) addParticle:(Particle*)particle atPosition:(CGPoint)position
+{
+    // Add to list for scoring.
+    [particles addObject:particle];
+    
+    // Convert position coordinates.
+    position = [centerNode convertToNodeSpace:position];
+	particle.position = position;
+    
+    // Remove from layer and add to batch node.
+    [particle removeFromParentAndCleanup:NO];
+    CCSpriteBatchNode *batch = (CCSpriteBatchNode*) [centerNode getChildByTag:kTagPacketBatchNode];
+    [batch addChild: particle];
+    
+    cpBody *body = particle.body;
+    
+    // Rotate body to match centerNode.
+    cpFloat v = cpvlength(body->v);
+    if (v > 0.0f) {
+        cpVect rot = cpvforangle(CC_DEGREES_TO_RADIANS(centerNode.rotation));
+        cpVect a = cpvrotate(cpvnormalize(body->v), rot);
+        cpBodySetVel(body, cpvmult(a, v));
+    }
+    cpBodySetPos(body, cpvmult(position, 1.0/scaleFactor));
+    [self addBodyToSpace:body];
+}
+
 -(Particle*)randomParticle {
     Particle *particle = nil;
     ParticleColors color = rand() % colors; //9;
@@ -333,74 +722,9 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     return particle;
 }
 
--(void) launch {
-    // Make sure it's legal.
-    if (lastLaunch < kLaunchCoolDown) {
-        CCLOG(@"Ignored launch during cooldown.");
-        return;
-    }
-    
-    // Launch!
-    if (mode == kGameSceneSurvival) {
-        timeRemaining = dropFrequency;   
-    }
-    lastLaunch = 0;
-    
-    // Calculate launch position and vector.
-    cpVect rot = cpvforangle(CC_DEGREES_TO_RADIANS(centerNode.rotation));
-    CGPoint pos = cpvrotate(rot, kLaunchPoint);
-    cpVect launchVect = cpvmult(cpvnormalize(cpvsub(ccp(0,0), pos)), kLaunchV);
 
-    // Set position and velocity of particle.
-    Particle *particle = [self readyNextParticle];
-    cpBody *body = particle.body;
-    cpBodySetPos(body, pos);
-    cpBodySetVel(body, launchVect);
-    particle.position = [centerNode convertToWorldSpace:launchPoint];
-    
-    // Mark particle as in-flight.
-    particle.isInFlight = YES;
-    [inFlightParticles addObject:particle];
-    
-    // Add to batch node for rendering.
-    [particle removeFromParentAndCleanup:NO];
-    CCSpriteBatchNode *batch = (CCSpriteBatchNode*) [centerNode getChildByTag:kTagPacketBatchNode];
-    [batch addChild: particle];
-}
 
--(void) addBodyToSpace:(cpBody *)body {
-    // Add body to space.
-    body->velocity_func = gravityVelocityIntegrator;
-    cpBodySetVelLimit(body, kVelocityLimit);
-    cpSpaceAddBody(space, body);
-}
-
--(void) addParticle:(Particle*)particle atPosition:(CGPoint)position
-{
-    // Add to list for scoring.
-    [particles addObject:particle];
-    
-    // Convert position coordinates.
-    position = [centerNode convertToNodeSpace:position];
-	particle.position = position;
-    
-    // Remove from layer and add to batch node.
-    [particle removeFromParentAndCleanup:NO];
-    CCSpriteBatchNode *batch = (CCSpriteBatchNode*) [centerNode getChildByTag:kTagPacketBatchNode];
-    [batch addChild: particle];
-    
-    cpBody *body = particle.body;
-    
-    // Rotate body to match centerNode.
-    cpFloat v = cpvlength(body->v);
-    if (v > 0.0f) {
-        cpVect rot = cpvforangle(CC_DEGREES_TO_RADIANS(centerNode.rotation));
-        cpVect a = cpvrotate(cpvnormalize(body->v), rot);
-        cpBodySetVel(body, cpvmult(a, v));
-    }
-    cpBodySetPos(body, cpvmult(position, 1.0/scaleFactor));
-    [self addBodyToSpace:body];
-}
+#pragma mark - Scoring
 
 -(void) addPoints:(NSInteger)points {
     if (points > 0) {
@@ -433,18 +757,6 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
                 break;
         }
     }
-}
-
--(void) animateText:(NSString *)bonusString atPosition:(CGPoint)position {
-    CCLabelBMFont *label = [CCLabelBMFont labelWithString:bonusString fntFile:@"score.fnt"];
-    label.position = position;
-    id move = [CCMoveBy actionWithDuration:1.0f position:ccp(0, 100)];
-    id fade = [CCFadeOut actionWithDuration:1.0f];
-    id remove = [RemoveFromParentAction action];
-    id seq = [CCSequence actions:fade, remove, nil];
-    [self addChild:label z:kZUIElements];
-    [label runAction:move];
-    [label runAction:seq];
 }
 
 -(BOOL) scoreParticles {
@@ -583,319 +895,6 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
         return YES;
     }
     return NO;
-}
-
--(void) alignParticleToCenter:(Particle *)particle {
-    // Rotate particle position and velocity the other way.
-    cpBody *body = particle.body;
-    cpVect rot = cpvforangle(CC_DEGREES_TO_RADIANS(centerNode.rotation));
-    cpFloat distance = -1 * cpvlength(body->p);
-    cpFloat speed = cpvlength(body->v);
-    cpVect pos = cpvmult(rot, distance);
-    cpVect vel = cpvmult(rot, speed);
-    cpBodySetPos(body, pos);
-    cpBodySetVel(body, vel);
-    particle.position = cpvmult(pos, scaleFactor);
-}
-
--(void) moveInFlightBodies {
-    for (NSInteger i=0; i < inFlightParticles.count; i++) {
-        Particle *particle = [inFlightParticles objectAtIndex:i];
-        cpBody * body = particle.body;
-        cpBodyUpdatePosition(body, kSimulationRate);
-        particle.position = cpvmult(body->p, scaleFactor);
-        cpFloat d = cpvlength(cpBodyGetPos(body));
-        if (d < 5) particle.isInFlight = NO;
-        if (!particle.isInFlight) {
-            // Add body to space.
-            [self addBodyToSpace:body];
-            
-            // Add to list for scoring.
-            [particles addObject:particle];
-            
-            // Remove from in-flight list.
-            [inFlightParticles removeObject:particle];
-            i--;
-        }
-    }
-}
-
--(void) step: (ccTime)dt {
-    static ccTime remainder = 0;
-    dt += remainder;
-    int steps = dt / kSimulationRate;
-    remainder = fmodf(dt, kSimulationRate);
-    
-    // Run steps
-    for (int i = 0; i < steps; i++) {
-        // Update clock.
-        timeRemaining -= kSimulationRate;
-        lastLaunch += kSimulationRate;
-        [map setTime:(dropFrequency - timeRemaining) / dropFrequency];
-        
-        // Check for gameover or drop conditions.
-        if (timeRemaining <= 0) {
-            switch (mode) {
-                case kGameSceneTimeAttack:
-                    timeRemaining = 0;
-                    [self end:nil]; // Game over.
-                    break;
-                case kGameSceneSurvival:
-                    [self drop];
-                    break;
-                case kGameSceneMomMode:
-                default:
-                    timeRemaining = dropFrequency;
-                    break;
-            }
-        }
-
-        // Update time attack countdown.
-        if (mode == kGameSceneTimeAttack) {
-            [levelLabel setString:[NSString stringWithFormat:@"%01d:%02d.%02d", 
-                                   (int)timeRemaining / 60,
-                                   (int)(fmodf(timeRemaining, 60)),
-                                   (int)(fmodf(timeRemaining, 1.0) * 100)]];
-        }
-        
-        // Update touch inertia.
-        if (nil == rotationTouch && fabs(rotAngleV) > 1) {
-            centerNode.rotation = fmodf(centerNode.rotation + rotAngleV * dt, 360.0);
-            rotAngleV *= 1 - (kRotationFalloff * kSimulationRate);
-        }
-        
-        // Update physics and move stuff.
-        cpSpaceStep(space, kSimulationRate);
-        cpSpaceEachBody(space, (cpSpaceBodyIteratorFunc)syncSpriteToBody, self);
-        [self moveInFlightBodies];
-    }
-}
-
--(void) drop {
-    launchTouch = nil; // Prevent double launch on touch end.
-    fireButton.opacity = 0;
-    [self launch];
-}
-
--(void) pause {
-    CGSize winSize = [[CCDirector sharedDirector] winSize];
-    
-    if (!paused) {
-        paused = YES;
-        [self pauseSchedulerAndActions];
-        
-        // Throw up modal layer.
-        PauseLayer *pauseLayer = [PauseLayer node];
-        CGPoint oldPos = pauseLayer.position;
-        pauseLayer.position = ccp(0, 2 * winSize.height);
-        [self addChild:pauseLayer z:kZPopups];
-        [pauseLayer runAction:[CCMoveTo actionWithDuration:kPopupSpeed
-                                                  position:oldPos]];
-    }
-}
-
--(void) resume {
-    paused = NO;
-    [self resumeSchedulerAndActions];
-}
-
--(void)end:(Particle *)particle {
-    CGSize winSize = [[CCDirector sharedDirector] winSize];
-    
-    // Don't pause on top of game over.
-    paused = YES;
-    
-    // Play the finale music.
-    [[GameManager sharedGameManager] stopBackgroundTrack];
-    PLAYSOUNDEFFECT(GAME_OVER, 0.5);
-    
-    // Cancel touches.
-    rotationTouch = nil;
-    launchTouch = nil;
-    
-    [self unscheduleAllSelectors];
-    
-    // Flash the detector.
-    if (nil != particle) {
-        // Calculate angle
-        float angle = -1 * CC_RADIANS_TO_DEGREES(cpvtoangle(cpBodyGetPos(particle.body)));
-        angle += centerNode.rotation;
-        [detector gameOverAtAngle:angle];
-        id flash = [CCBlink actionWithDuration:1.0 blinks:2];
-        id loop = [CCRepeatForever actionWithAction:flash];
-        [particle runAction:loop];
-    }
-    
-    // Throw up modal layer.
-    GameOverLayer *gameOverLayer = [GameOverLayer node];
-    CGPoint oldPos = gameOverLayer.position;
-    gameOverLayer.position = ccp(0, 2 * winSize.height);
-    [gameOverLayer setScore:score];
-    [self addChild:gameOverLayer z:kZPopups];
-    [gameOverLayer runAction:[CCMoveTo actionWithDuration:kPopupSpeed
-                                                 position:oldPos]];
-    
-    // Award score achievements
-    GCHelper *gc = [GCHelper sharedInstance];
-    if (mode == kGameSceneSurvival) {
-        [gc reportAchievement:kAchievementAccelerator percentComplete:100.0];   
-        if (score >= 100000) {
-            [gc reportAchievement:kAchievementAccelerator100K percentComplete:100.0];
-        }
-    }
-    if (mode == kGameSceneTimeAttack) {
-        [gc reportAchievement:kAchievementTimeAttack percentComplete:100.0];   
-        if (score >= 100000) {
-            [gc reportAchievement:kAchievementTimeAttack100K percentComplete:100.0];
-        }
-    }
-    if (mode == kGameSceneMomMode) {
-        [gc reportAchievement:kAchievementMeditation percentComplete:100.0];
-    }
-}
-
-
--(void)initUI {
-    self.isTouchEnabled = YES;
-    self.isAccelerometerEnabled = NO;
-    
-    CGSize winSize = [[CCDirector sharedDirector] winSize];
-    
-    // Static variables.
-    puzzleCenter = worldToView(kPuzzleCenter);
-    CGPoint scorePosition = ccp(5, winSize.height * 0.95f);
-    CGPoint levelPosition = ccp(winSize.width * 0.5f, winSize.height * 0.95f);
-    
-    launchPoint = worldToView(kLaunchPoint);
-    
-    // Field initializations
-    rotationTouch = nil;
-    launchTouch = nil;
-    centerNodeAngleInit = 0;
-    nextParticle = nil;
-    
-    // Set up simulation.
-    space = cpSpaceNew();
-    cpSpaceSetGravity(space, ccp(0,0));
-    cpSpaceSetDamping(space, kParticleDamping);
-    cpSpaceAddCollisionHandler(space, 
-                               kSensorCollisionType, kSensorCollisionType, 
-                               (cpCollisionBeginFunc)collisionBegin, 
-                               (cpCollisionPreSolveFunc)collisionPreSolve, 
-                               nil, 
-                               (cpCollisionSeparateFunc)collisionSeparate, 
-                               self);
-    cpSpaceAddCollisionHandler(space, 
-                               kShapeCollisionType, kShapeCollisionType, 
-                               nil, 
-                               nil, 
-                               (cpCollisionPostSolveFunc)collisionPostSolve, 
-                               nil, 
-                               self);   
-    
-    // Configure the two batch nodes for rendering.
-    CCSpriteBatchNode *packetBatchNode = [CCSpriteBatchNode batchNodeWithFile:@"scene1Atlas.png" capacity:45];
-    CCSpriteBatchNode *uiBatchNode = [CCSpriteBatchNode batchNodeWithFile:@"scene1Atlas.png" capacity:60];
-    CCParticleBatchNode *particleBatch = [CCParticleBatchNode batchNodeWithFile:@"scene1Atlas.png" capacity:100];
-    [self addChild:uiBatchNode z:kZUIElements tag:kTagUIBatchNode];
-    [self addChild:particleBatch z:kZParticles tag:kTagParticleBatchNode];
-    
-    // Pause Button
-    CCSprite *pauseSprite = [CCSprite spriteWithSpriteFrameName:@"pause.png"];
-    pauseSprite.color = kColorUI;
-    pauseSprite.anchorPoint = ccp(1.0, 0.5);
-    [pauseSprite setPosition:ccp(winSize.width - 5, winSize.height * 0.95f)];
-    [uiBatchNode addChild:pauseSprite z:kZUIElements];
-    
-    // Add score label.
-    scoreLabel = [CCLabelBMFont labelWithString:@"0" fntFile:@"score.fnt"];
-    [scoreLabel setAnchorPoint:ccp(0.0f, 0.5f)];
-    [scoreLabel setPosition:scorePosition];
-    [scoreLabel setColor:kColorScore];
-    [self addChild:scoreLabel z:kZUIElements];
-    
-    // Add level label / clock
-    switch (mode) {
-        case kGameSceneTimeAttack:
-            levelLabel= [CCLabelBMFont labelWithString:@"2:00.00" fntFile:@"score.fnt"];
-            levelLabel.position = levelPosition;
-            levelLabel.color = kColorUI;
-            [self addChild:levelLabel z:kZUIElements];
-            break;
-        case kGameSceneSurvival:
-            levelLabel = [CCLabelBMFont labelWithString:@"Level 1" fntFile:@"score.fnt"];
-            levelLabel.position = levelPosition;
-            levelLabel.color = kColorUI;
-            [self addChild:levelLabel z:kZUIElements];
-            break;
-        default:
-            break;
-    }
-    
-    // Add Next
-    CGPoint nextLabelPosition = ccp(scorePosition.x,
-                            scorePosition.y - scoreLabel.contentSize.height - 10 * scaleFactor);
-    CCLabelBMFont *nextLabel = [CCLabelBMFont labelWithString:@"Next:" fntFile:@"score.fnt"];
-    nextLabel.color = kColorUI;
-    nextLabel.position = nextLabelPosition;
-    [nextLabel setAnchorPoint:ccp(0.0, 0.5)];
-    [self addChild:nextLabel z:kZUIElements];
-
-    nextParticlePos = ccp(nextLabelPosition.x + nextLabel.contentSize.width + kParticleRadius * scaleFactor,
-                          nextLabelPosition.y);
-    
-    // Add the map.
-    map = [LHCMap node];
-    map.color = kColorUI;
-    map.anchorPoint = ccp(0.02, 0.5);
-    map.position = ccp(0, puzzleCenter.y);
-    [uiBatchNode addChild:map z:kZBackground];
-    
-    // Add the log viewer.
-    logViewer = [LogViewer node];
-    //logViewer.position = ccp(10, 5);
-    //logViewer.position = ccp(winSize.width / 2, winSize.height / 2);
-    logViewer.position = puzzleCenter;
-    [self addChild:logViewer z:kZLog];
-    
-    // Add the detector.
-    detector = [Detector node];
-    detector.position = puzzleCenter;
-    [uiBatchNode addChild:detector z:kZBackground];
-    
-    // Add the thumb guides.
-    thumbGuide = [CCSprite spriteWithSpriteFrameName:@"thumbguide.png"];
-    thumbGuide.color = kColorThumbGuide;
-    thumbGuide.opacity = 0;
-    [uiBatchNode addChild:thumbGuide z:kZUIElements - 1];
-    
-    fireButton = [CCSprite spriteWithSpriteFrameName:@"firebutton.png"];
-    fireButton.color = kColorThumbGuide;
-    fireButton.opacity = 0;
-    [uiBatchNode addChild:fireButton z:kZUIElements];
-    
-    // Configure the node which controls rotation.
-    centerNode = [CCNode node];
-    centerNode.position = puzzleCenter;
-    centerNode.rotation = 0;
-    [centerNode addChild:packetBatchNode z:kZParticles tag:kTagPacketBatchNode];
-    [self addChild:centerNode z:kZParticles];
-}
-
--(void)bgmManager {
-    NSInteger intensity = [GameManager sharedGameManager].bgmIntensity;
-
-    NSInteger count = particles.count;
-    if (count > 26 || (mode == kGameSceneTimeAttack && timeRemaining < 16.0)) {
-        intensity = intensity % 2 ? 8 : 7;
-    } else if (count > 20) {
-        intensity = intensity % 2 ? 6 : 5;
-    } else if (count > 12) {
-        intensity = intensity % 2 ? 4 : 3;
-    } else {
-        intensity = intensity % 2 ? 2 : 1;
-    }
-    [GameManager sharedGameManager].bgmIntensity = intensity;
 }
 
 #pragma mark -
