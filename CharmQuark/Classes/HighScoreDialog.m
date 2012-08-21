@@ -10,6 +10,7 @@
 #import "RemoveFromParentAction.h"
 #import "GameManager.h"
 #import "Constants.h"
+#import "GCHelper.h"
 
 @implementation HighScoreDialog
 
@@ -40,7 +41,7 @@
     label.anchorPoint = ccp(0, 0.5);
     label.alignment = kCCTextAlignmentLeft;
     label.color = kColorUI;
-    label.position = ccp(winSize.width * 0.15, winSize.height * 0.50);
+    label.position = ccp(winSize.width * 0.15, winSize.height * 0.55);
     [self addChild:label];
     
     // Time Attack Score
@@ -51,7 +52,7 @@
     label.anchorPoint = ccp(1.0, 0.5);
     label.alignment = kCCTextAlignmentRight;
     label.color = kColorScore;
-    label.position = ccp(winSize.width * 0.85, winSize.height * 0.50);
+    label.position = ccp(winSize.width * 0.85, winSize.height * 0.55);
     [self addChild:label];
     
     // Accelerator Label
@@ -59,7 +60,7 @@
     label.anchorPoint = ccp(0, 0.5);
     label.alignment = kCCTextAlignmentLeft;
     label.color = kColorUI;
-    label.position = ccp(winSize.width * 0.15, winSize.height * 0.40);
+    label.position = ccp(winSize.width * 0.15, winSize.height * 0.45);
     [self addChild:label];
     
     // Accelerator Score
@@ -70,7 +71,7 @@
     label.anchorPoint = ccp(1.0, 0.5);
     label.alignment = kCCTextAlignmentRight;
     label.color = kColorScore;
-    label.position = ccp(winSize.width * 0.85, winSize.height * 0.40);
+    label.position = ccp(winSize.width * 0.85, winSize.height * 0.45);
     [self addChild:label];
    
     // Meditation Label
@@ -78,7 +79,7 @@
     label.anchorPoint = ccp(0, 0.5);
     label.alignment = kCCTextAlignmentLeft;
     label.color = kColorUI;
-    label.position = ccp(winSize.width * 0.15, winSize.height * 0.30);
+    label.position = ccp(winSize.width * 0.15, winSize.height * 0.35);
     [self addChild:label];
     
     // Meditation Score
@@ -89,8 +90,39 @@
     label.anchorPoint = ccp(1.0, 0.5);
     label.alignment = kCCTextAlignmentRight;
     label.color = kColorScore;
-    label.position = ccp(winSize.width * 0.85, winSize.height * 0.30);
+    label.position = ccp(winSize.width * 0.85, winSize.height * 0.35);
     [self addChild:label];
+    
+    // Leaderboards
+    CCLabelBMFont *lbLabel = [CCLabelBMFont labelWithString:@"Leaderboard"
+                                                   fntFile:@"score.fnt"];
+    CCMenuItemFont *lbItem = [CCMenuItemFont itemWithLabel:lbLabel
+                                                   target:[GCHelper sharedInstance]
+                                                 selector:@selector(showLeaderboard)];
+    lbItem.color = kColorButton;
+    lbItem.disabledColor = kColorUI;
+    
+    // Achievements
+    CCLabelBMFont *aLabel = [CCLabelBMFont labelWithString:@"Achievements"
+                                                    fntFile:@"score.fnt"];
+    CCMenuItemFont *aItem = [CCMenuItemFont itemWithLabel:aLabel
+                                                    target:[GCHelper sharedInstance]
+                                                  selector:@selector(showAchievements)];
+    aItem.color = kColorButton;
+    aItem.disabledColor = kColorUI;
+    
+    if (![[GCHelper sharedInstance] isUserAuthenticated]) {
+        lbItem.isEnabled = NO;
+        aItem.isEnabled = NO;
+    }
+    
+    // Menu
+    CCMenu *menu = [CCMenu menuWithItems:lbItem, aItem, nil];
+    //[menu alignItemsHorizontallyWithPadding:0.15 * winSize.width];
+    [menu alignItemsHorizontally];
+    menu.position = ccp(winSize.width * 0.5, winSize.height * 0.25f);
+    
+    [self addChild:menu];
 }
 
 #pragma mark - CCTargetedTouchDelegate

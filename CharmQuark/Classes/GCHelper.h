@@ -28,7 +28,7 @@
 
 
 
-@interface GCHelper : NSObject <NSCoding, GKLeaderboardViewControllerDelegate> {
+@interface GCHelper : NSObject <NSCoding, GKLeaderboardViewControllerDelegate, GKAchievementViewControllerDelegate> {
     BOOL gameCenterAvailable;
     BOOL userAuthenticated;
     NSMutableArray *scoresToReport;
@@ -56,6 +56,7 @@
 - (void)reportAchievement:(NSString *)identifier 
           percentComplete:(double)percentComplete;
 - (void)reportScore:(NSString *)identifier score:(int)score;
+- (void)showAchievements;
 - (void)showLeaderboard;
 
 @end

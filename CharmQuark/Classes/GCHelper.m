@@ -210,14 +210,32 @@ static GCHelper *sharedHelper = nil;
     }
 }
 
+- (void) showAchievements
+{
+    if (!gameCenterAvailable || !userAuthenticated) return;
+
+    GKAchievementViewController *achievements = [[GKAchievementViewController alloc] init];
+    if (achievements != nil)
+    {
+        achievements.achievementDelegate = self;
+        [[CCDirector sharedDirector] presentModalViewController: achievements animated: YES];
+    }
+    [achievements release];
+}
+
 #pragma mark - GKLeaderboardViewControllerDelegate
 
-- (void)leaderboardViewControllerDidFinish:(GKLeaderboardViewController *)viewController
-{
+- (void)leaderboardViewControllerDidFinish:(GKLeaderboardViewController *)viewController {
     [[CCDirector sharedDirector] dismissModalViewControllerAnimated:YES];
     self.timeScope = viewController.timeScope;
     self.category = viewController.category;
     [self save];
+}
+
+# pragma mark - GKAchievementViewControllerDelegate
+
+- (void)achievementViewControllerDidFinish:(GKAchievementViewController *)viewController {
+    [[CCDirector sharedDirector] dismissModalViewControllerAnimated:YES];
 }
 
 #pragma mark - NSCoding

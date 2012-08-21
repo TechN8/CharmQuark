@@ -52,12 +52,12 @@
 -(void)showScores {
     CGSize winSize = [[CCDirector sharedDirector] winSize];
     
-    GCHelper *gchelper = [GCHelper sharedInstance];
-    if (gchelper.isUserAuthenticated) {
-        // Show the Game center leaderboard.
-        CCLOG(@"Showing GC leaderboard.");
-        [gchelper showLeaderboard];
-    } else {
+//    GCHelper *gchelper = [GCHelper sharedInstance];
+//    if (gchelper.isUserAuthenticated) {
+//        // Show the Game center leaderboard.
+//        CCLOG(@"Showing GC leaderboard.");
+//        [gchelper showLeaderboard];
+//    } else {
         // Show the local leader board.
         CCLOG(@"Show local scores.");
         HighScoreDialog *scores = [HighScoreDialog node];
@@ -66,7 +66,7 @@
         [self addChild:scores z:kZPopups];
         [scores runAction:[CCMoveTo actionWithDuration:kPopupSpeed
                                               position:oldPos]];
-    }
+//    }
 }
 
 -(void)showCredits {
