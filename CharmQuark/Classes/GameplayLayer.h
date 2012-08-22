@@ -75,13 +75,15 @@ enum {
     kZPopups = 1000
 };
 
+
+
 @interface GameplayLayer : CCLayerColor {
     // Chipmunk
     cpSpace *space;
     
     // Cocos2D Objects
     CCLabelBMFont *scoreLabel;
-    CCLabelBMFont *levelLabel;
+//    CCLabelBMFont *levelLabel;
     CCNode *centerNode;
     CCMenuItemSprite *resetButton;
     Particle *nextParticle;
@@ -104,14 +106,15 @@ enum {
     ccTime lastLaunch;
     
     // Game State
-    SceneTypes mode;
+//    SceneTypes mode;
     NSInteger score;
     NSInteger comboLevel;
     NSInteger comboCount;
     NSInteger level;
     NSInteger matchesToNextLevel;
     BOOL paused;
-    NSInteger tutorialStep;
+//    NSInteger tutorialStep;
+    CGPoint puzzleCenter;
 
     cpFloat dropFrequency;
     cpFloat timeRemaining;
@@ -127,4 +130,36 @@ enum {
 @property cpSpace *space;
 @property NSInteger score;
 
++(CCScene *) scene;
+-(void)initUI;
+-(void) gameStep;
+-(BOOL) launch;
+-(void) end:(Particle*)particle;
+-(void) moveInFlightBodies;
+-(void) resetGame;
+-(BOOL) updateLevel;
+-(void) pause;
+
 @end
+
+#pragma mark - Chipmunk Callbacks
+
+void removeShapesFromBody(cpBody *body, cpShape *shape, GameplayLayer *self);
+void postStepRemoveBody(cpSpace *space, cpBody *body, GameplayLayer *self);
+
+void scheduleForRemoval(cpBody *body, GameplayLayer *self);
+
+// This function synchronizes the body with the sprite.
+void syncSpriteToBody(cpBody *body, GameplayLayer* self);
+
+// This is what makes the particles cluster.  Tries to move towards the origin.
+void gravityVelocityIntegrator(cpBody *body, cpVect gravity, cpFloat damping, cpFloat dt);
+
+#pragma mark - Collision Handlers
+
+int collisionBegin(cpArbiter *arb, struct cpSpace *space, GameplayLayer *self);
+int collisionPreSolve(cpArbiter *arb, cpSpace *space, GameplayLayer *self);
+void collisionPostSolve(cpArbiter *arb, cpSpace *space, GameplayLayer *self);
+void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self);
+
+

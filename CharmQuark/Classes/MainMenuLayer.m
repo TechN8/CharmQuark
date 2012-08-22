@@ -16,6 +16,18 @@
 #import "GCHelper.h"
 #import "CQMenuItemFont.h"
 
+// Z Values for UI Elements.
+enum {
+    kZRightParticle = 0,
+    kZDetector,
+    kZGlow,
+    kZTitle,
+    kZFlash,
+    kZMenu = 100,
+    kZLeftParticle,
+    kZPopups,
+};
+
 @interface MainMenuLayer()
 -(void)displayMainMenu;
 @end

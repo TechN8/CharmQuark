@@ -39,8 +39,6 @@
 #define kiPadScale      0.875
 #define kiPadSkew       ccp(0, 48)
 
-
-
 typedef enum {
     kNoSceneUninitialized=0,
     kMainMenuScene=1,

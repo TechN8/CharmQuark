@@ -14,17 +14,6 @@
 #define kLeftStartScale     2
 #define kRightStartScale    0
 
-enum {
-    kZRightParticle = 0,
-    kZDetector,
-    kZGlow,
-    kZTitle,
-    kZFlash,
-    kZMenu = 100,
-    kZLeftParticle,
-    kZPopups,
-};
-
 @interface MainMenuLayer : CCLayer {
     CCMenu *menu;
     CCSprite *titleFlash;

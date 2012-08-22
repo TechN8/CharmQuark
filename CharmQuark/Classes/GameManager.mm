@@ -10,7 +10,10 @@
 #import "GameManager.h"
 #import "MainMenuScene.h"
 #import "IntroLayer.h"
-#import "GameScene.h"
+#import "TimeAttack.h"
+#import "Accelerator.h"
+#import "Meditation.h"
+#import "Tutorial.h"
 #import "GCHelper.h"
 #import "CDXPropertyModifierAction.h"
 
@@ -189,10 +192,25 @@ static GameManager* _sharedGameManager = nil;
             sceneToRun = [IntroLayer scene];
             break;
         case kGameSceneSurvival: 
+            if (shouldShowTutorial) {
+                sceneToRun = [Tutorial sceneWithNextSceneId:kGameSceneSurvival];
+            } else {
+                sceneToRun = [Accelerator scene];
+            }
+            break;
         case kGameSceneTimeAttack:
+            if (shouldShowTutorial) {
+                sceneToRun = [Tutorial sceneWithNextSceneId:kGameSceneSurvival];
+            } else {
+                sceneToRun = [TimeAttack scene];
+            }
+            break;
         case kGameSceneMomMode:
-            // Same scene used for both modes.
-            sceneToRun = [GameScene node];
+            if (shouldShowTutorial) {
+                sceneToRun = [Tutorial sceneWithNextSceneId:kGameSceneSurvival];
+            } else {
+                sceneToRun = [Meditation scene];
+            }
             break;
         default:
             CCLOG(@"Unknown ID, cannot switch scenes");

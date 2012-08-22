@@ -111,7 +111,6 @@
 		D847E28515AC93610044FC48 /* GameManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = D847E27115AC93610044FC48 /* GameManager.mm */; };
 		D847E28615AC93610044FC48 /* GameObject.m in Sources */ = {isa = PBXBuildFile; fileRef = D847E27315AC93610044FC48 /* GameObject.m */; };
 		D847E28715AC93610044FC48 /* GameplayLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = D847E27515AC93610044FC48 /* GameplayLayer.m */; };
-		D847E28815AC93610044FC48 /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = D847E27715AC93610044FC48 /* GameScene.m */; };
 		D847E28915AC93610044FC48 /* MainMenuLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = D847E27915AC93610044FC48 /* MainMenuLayer.m */; };
 		D847E28A15AC93610044FC48 /* MainMenuScene.m in Sources */ = {isa = PBXBuildFile; fileRef = D847E27B15AC93610044FC48 /* MainMenuScene.m */; };
 		D847E28B15AC93610044FC48 /* OptionsDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = D847E27D15AC93610044FC48 /* OptionsDialog.m */; };
@@ -164,6 +163,10 @@
 		D8C34E7C15E3FCF1002AA2E6 /* iconAtlas.plist in Resources */ = {isa = PBXBuildFile; fileRef = D8C34E7415E3FCF1002AA2E6 /* iconAtlas.plist */; };
 		D8C34E7D15E3FCF1002AA2E6 /* iconAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = D8C34E7515E3FCF1002AA2E6 /* iconAtlas.png */; };
 		D8C34E8115E4064B002AA2E6 /* CQMenuItemFont.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C34E8015E4064B002AA2E6 /* CQMenuItemFont.m */; };
+		D8C34E8515E50967002AA2E6 /* TimeAttack.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C34E8415E50967002AA2E6 /* TimeAttack.m */; };
+		D8C34E8815E50AAB002AA2E6 /* Accelerator.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C34E8715E50AAB002AA2E6 /* Accelerator.m */; };
+		D8C34E8C15E50D71002AA2E6 /* Meditation.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C34E8B15E50D71002AA2E6 /* Meditation.m */; };
+		D8C34E8F15E516B5002AA2E6 /* Tutorial.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C34E8E15E516B4002AA2E6 /* Tutorial.m */; };
 		D8CE5B9F15B713EA00E76ADA /* scene1Atlas-ipad.plist in Resources */ = {isa = PBXBuildFile; fileRef = D8CE5B9B15B713EA00E76ADA /* scene1Atlas-ipad.plist */; };
 		D8CE5BA015B713EA00E76ADA /* scene1Atlas-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = D8CE5B9C15B713EA00E76ADA /* scene1Atlas-ipad.png */; };
 		D8CE5BA115B713EA00E76ADA /* scene1Atlas-ipadhd.plist in Resources */ = {isa = PBXBuildFile; fileRef = D8CE5B9D15B713EA00E76ADA /* scene1Atlas-ipadhd.plist */; };
@@ -434,8 +437,6 @@
 		D847E27315AC93610044FC48 /* GameObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameObject.m; sourceTree = "<group>"; };
 		D847E27415AC93610044FC48 /* GameplayLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameplayLayer.h; sourceTree = "<group>"; };
 		D847E27515AC93610044FC48 /* GameplayLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = GameplayLayer.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		D847E27615AC93610044FC48 /* GameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameScene.h; sourceTree = "<group>"; };
-		D847E27715AC93610044FC48 /* GameScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameScene.m; sourceTree = "<group>"; };
 		D847E27815AC93610044FC48 /* MainMenuLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = MainMenuLayer.h; sourceTree = "<group>"; };
 		D847E27915AC93610044FC48 /* MainMenuLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = MainMenuLayer.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		D847E27A15AC93610044FC48 /* MainMenuScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = MainMenuScene.h; sourceTree = "<group>"; };
@@ -505,6 +506,14 @@
 		D8C34E7515E3FCF1002AA2E6 /* iconAtlas.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iconAtlas.png; sourceTree = "<group>"; };
 		D8C34E7F15E4064B002AA2E6 /* CQMenuItemFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CQMenuItemFont.h; sourceTree = "<group>"; };
 		D8C34E8015E4064B002AA2E6 /* CQMenuItemFont.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CQMenuItemFont.m; sourceTree = "<group>"; };
+		D8C34E8315E50967002AA2E6 /* TimeAttack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeAttack.h; sourceTree = "<group>"; };
+		D8C34E8415E50967002AA2E6 /* TimeAttack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeAttack.m; sourceTree = "<group>"; };
+		D8C34E8615E50AAA002AA2E6 /* Accelerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Accelerator.h; sourceTree = "<group>"; };
+		D8C34E8715E50AAB002AA2E6 /* Accelerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Accelerator.m; sourceTree = "<group>"; };
+		D8C34E8A15E50D70002AA2E6 /* Meditation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Meditation.h; sourceTree = "<group>"; };
+		D8C34E8B15E50D71002AA2E6 /* Meditation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Meditation.m; sourceTree = "<group>"; };
+		D8C34E8D15E516B3002AA2E6 /* Tutorial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tutorial.h; sourceTree = "<group>"; };
+		D8C34E8E15E516B4002AA2E6 /* Tutorial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tutorial.m; sourceTree = "<group>"; };
 		D8CE5B9B15B713EA00E76ADA /* scene1Atlas-ipad.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "scene1Atlas-ipad.plist"; sourceTree = "<group>"; };
 		D8CE5B9C15B713EA00E76ADA /* scene1Atlas-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scene1Atlas-ipad.png"; sourceTree = "<group>"; };
 		D8CE5B9D15B713EA00E76ADA /* scene1Atlas-ipadhd.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "scene1Atlas-ipadhd.plist"; sourceTree = "<group>"; };
@@ -1195,11 +1204,9 @@
 		D847E51915AC97A80044FC48 /* Game */ = {
 			isa = PBXGroup;
 			children = (
-				D8C34E8215E5068D002AA2E6 /* TimeAttack */,
+				D8C34E8915E50ABF002AA2E6 /* Modes */,
 				D847E27415AC93610044FC48 /* GameplayLayer.h */,
 				D847E27515AC93610044FC48 /* GameplayLayer.m */,
-				D847E27615AC93610044FC48 /* GameScene.h */,
-				D847E27715AC93610044FC48 /* GameScene.m */,
 				D80B61FB15AE24F5006F2472 /* GameOverLayer.h */,
 				D80B61FC15AE24F5006F2472 /* GameOverLayer.m */,
 				D80B61FF15AE2500006F2472 /* PauseLayer.h */,
@@ -1272,11 +1279,19 @@
 			name = Actions;
 			sourceTree = "<group>";
 		};
-		D8C34E8215E5068D002AA2E6 /* TimeAttack */ = {
+		D8C34E8915E50ABF002AA2E6 /* Modes */ = {
 			isa = PBXGroup;
 			children = (
+				D8C34E8615E50AAA002AA2E6 /* Accelerator.h */,
+				D8C34E8715E50AAB002AA2E6 /* Accelerator.m */,
+				D8C34E8A15E50D70002AA2E6 /* Meditation.h */,
+				D8C34E8B15E50D71002AA2E6 /* Meditation.m */,
+				D8C34E8315E50967002AA2E6 /* TimeAttack.h */,
+				D8C34E8415E50967002AA2E6 /* TimeAttack.m */,
+				D8C34E8D15E516B3002AA2E6 /* Tutorial.h */,
+				D8C34E8E15E516B4002AA2E6 /* Tutorial.m */,
 			);
-			name = TimeAttack;
+			name = Modes;
 			sourceTree = "<group>";
 		};
 		D8CE5B8F15B5FB0A00E76ADA /* Nodes */ = {
@@ -1739,7 +1754,6 @@
 				D847E28515AC93610044FC48 /* GameManager.mm in Sources */,
 				D847E28615AC93610044FC48 /* GameObject.m in Sources */,
 				D847E28715AC93610044FC48 /* GameplayLayer.m in Sources */,
-				D847E28815AC93610044FC48 /* GameScene.m in Sources */,
 				D847E28915AC93610044FC48 /* MainMenuLayer.m in Sources */,
 				D847E28A15AC93610044FC48 /* MainMenuScene.m in Sources */,
 				D847E28B15AC93610044FC48 /* OptionsDialog.m in Sources */,
@@ -1844,6 +1858,10 @@
 				D834AD2D15DACF7200987B68 /* CDXPropertyModifierAction.m in Sources */,
 				D8C34E6915E27B9F002AA2E6 /* TwitterHelper.m in Sources */,
 				D8C34E8115E4064B002AA2E6 /* CQMenuItemFont.m in Sources */,
+				D8C34E8515E50967002AA2E6 /* TimeAttack.m in Sources */,
+				D8C34E8815E50AAB002AA2E6 /* Accelerator.m in Sources */,
+				D8C34E8C15E50D71002AA2E6 /* Meditation.m in Sources */,
+				D8C34E8F15E516B5002AA2E6 /* Tutorial.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
