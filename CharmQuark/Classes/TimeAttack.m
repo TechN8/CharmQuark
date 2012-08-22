@@ -28,7 +28,7 @@
     // Check for gameover or drop conditions.
     if (timeRemaining <= 0) {
         timeRemaining = 0;
-        [super end:nil]; // Game over.
+        [self end:nil]; // Game over.
     }
     
     // Update time attack countdown.
