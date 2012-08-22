@@ -1,9 +1,9 @@
 Next release
 
+Nicer BGM.
 More sounds.
-Possible changes to Meditation mode.
 
-Beta 11
+RC 1
 
 Game will now play the tutorial on first run.
 Can now reset tutorial from options screen.
