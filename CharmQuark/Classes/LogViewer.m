@@ -25,9 +25,6 @@
     // Remove overflow
     while (messages.count > maxEntries) {
         CCLabelBMFont *oldMessage = [messages objectAtIndex:0];
-//        id fadeout = [CCFadeOut actionWithDuration:0.5];
-//        id remove = [RemoveFromParentAction action];
-//        [oldMessage runAction:[CCSequence actions:fadeout, remove, nil]];
         [oldMessage removeFromParentAndCleanup:YES];
         [messages removeObject:oldMessage];
     }
@@ -45,25 +42,12 @@
     CCScaleTo *scaleTo = [CCScaleTo actionWithDuration:0.5 scale:1.3];
     CCSequence *seq = [CCSequence actions:scaleTo, fadeEase, nil];
     [newMessage runAction:seq];
-//    [newMessage runAction:scaleTo];
     
     [self addChild:newMessage z:0];
     [messages addObject:newMessage];
     [self scheduleOnce:@selector(scrollMessages) delay:0.1];
 }
 
-#pragma mark - CCNode
-
--(void)onExit {
-    [self unscheduleAllSelectors];
-    [super onExit];
-}
-
--(void)onEnter {
-    [super onEnter];
-    
-//    [self schedule:@selector(scrollMessages) interval:0.25];
-}
 
 #pragma mark - NSObject
 
@@ -72,8 +56,6 @@
     if (self) {
         messages = [[[NSMutableArray alloc] init] retain];
         CCLabelBMFont *newMessage = [CCLabelBMFont labelWithString:@"> tail EventLog" fntFile:@"score.fnt"];
-//        newMessage.color = ccc3(200, 255, 200);
-//        [messages addObject:newMessage];
         lineHeight = newMessage.contentSize.height;
         [newMessage cleanup];
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
@@ -81,9 +63,6 @@
         } else {
             maxEntries = kMaxLogEntriesiPhone;
         }
-//        newMessage.anchorPoint = ccp(0, 1);
-//        newMessage.position = ccp(0,lineHeight);
-//        [self addChild:newMessage z:0];
     }
     return self;
 }
