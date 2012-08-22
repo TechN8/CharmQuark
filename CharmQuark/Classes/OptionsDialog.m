@@ -106,15 +106,21 @@
                                             target:self 
                                           selector:@selector(toggleTutorial)];
     
-    // Reset achievements!!!  Remove before launch.
+#ifndef DEBUG
+    CCMenu *menu = [CCMenu menuWithItems:musicToggle, soundToggle, tutorialToggle, nil];
+#endif
+    
+#ifdef DEBUG
+    // Reset achievements!!!  Remove in release builds.
     CCLabelBMFont *resetLabel = [CCLabelBMFont labelWithString:@"Reset Achievements"
                                                        fntFile:@"score.fnt"];
     CQMenuItemFont *resetAchievements = [CQMenuItemFont itemWithLabel:resetLabel
                                                                target:[GCHelper sharedInstance]
                                                              selector:@selector(resetAchievements)];
     resetAchievements.color = ccRED;
-    
     CCMenu *menu = [CCMenu menuWithItems:musicToggle, soundToggle, tutorialToggle, resetAchievements, nil];
+#endif
+    
     [menu alignItemsVerticallyWithPadding:0.03 * winSize.height];
     menu.position = ccp(winSize.width * 0.5, winSize.height * 0.40);
     [self addChild:menu z:100];
@@ -123,7 +129,13 @@
 #pragma mark - CCTargetedTouchDelegate
 
 -(void)ccTouchEnded:(UITouch *)touch withEvent:(UIEvent *)event {
-    [self resumeParent];
+    CGSize winSize = [[CCDirector sharedDirector] winSize];
+    CGPoint location = [touch locationInView: [touch view]];
+    location = [[CCDirector sharedDirector] convertToGL: location];
+
+    if (location.y > winSize.height * 0.75) {
+        [self resumeParent];
+    }
 }
 
 @end
