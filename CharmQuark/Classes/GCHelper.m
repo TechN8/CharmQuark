@@ -8,12 +8,17 @@
 #import "cocos2d.h"
 #import "GCHelper.h"
 #import "GCDatabase.h"
+#import "Constants.h"
+#import "RemoveFromParentAction.h"
+#import "AchievementPopup.h"
+#import "GameManager.h"
 
 @implementation GCHelper
 
 @synthesize scoresToReport;
 @synthesize achievementsToReport;
 @synthesize achievementProgress;
+@synthesize achievementDescriptions;
 @synthesize isUserAuthenticated = userAuthenticated;
 @synthesize category;
 @synthesize timeScope;
@@ -66,6 +71,7 @@ static GCHelper *sharedHelper = nil;
         self.timeScope = theTimeScope;
         self.category = theCategory;
         achievementProgress = [[NSMutableDictionary alloc] init];
+        achievementDescriptions = [[NSMutableDictionary alloc] init];
         gameCenterAvailable = [self isGameCenterAvailable];
         if (gameCenterAvailable) {
             NSNotificationCenter *nc = 
@@ -86,8 +92,26 @@ static GCHelper *sharedHelper = nil;
      {
          if (error == nil)
          {
-             for (GKAchievement* achievement in achievements)
+             for (GKAchievement* achievement in achievements) {
                  [achievementProgress setObject: achievement forKey: achievement.identifier];
+             }
+             [self retrieveAchievmentMetadata];
+         }
+     }];
+}
+
+- (void) retrieveAchievmentMetadata
+{
+    [GKAchievementDescription loadAchievementDescriptionsWithCompletionHandler:
+     ^(NSArray *descriptions, NSError *error) {
+         if (error == nil) {
+             if (descriptions != nil) {
+                 for (GKAchievementDescription *description in descriptions) {
+                     [achievementDescriptions setObject:description forKey:description.identifier];
+                     [description loadImageWithCompletionHandler:nil];
+                 }
+                 [self resendData];
+             }
          }
      }];
 }
@@ -96,7 +120,7 @@ static GCHelper *sharedHelper = nil;
     [score reportScoreWithCompletionHandler:^(NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^(void)
                        {
-                           if (error == NULL) {
+                           if (error == nil) {
                                NSLog(@"Successfully sent score!");
                                [scoresToReport removeObject:score];
                            } else {
@@ -106,6 +130,19 @@ static GCHelper *sharedHelper = nil;
     }];
 }
 
+- (void)showAchievementNotification:(GKAchievement *)achievement {
+    CCNode *notificationNode = [[CCDirector sharedDirector] notificationNode];
+    if (nil != notificationNode) {
+        GKAchievementDescription *description 
+        = [achievementDescriptions objectForKey:achievement.identifier];
+        
+        if (nil != description) {
+            [notificationNode addChild:
+             [AchievementPopup popupWithDescription:description]];
+        }
+    }
+}
+
 - (void)sendAchievement:(GKAchievement *)achievement {
     [achievement reportAchievementWithCompletionHandler:
      ^(NSError *error) {
@@ -113,7 +150,9 @@ static GCHelper *sharedHelper = nil;
                         {
                             if (error == NULL) {
                                 NSLog(@"Successfully sent archievement!");
-                                [achievementsToReport removeObject:achievement];                
+                                [achievementsToReport removeObject:achievement];
+                                [self save];  // Don't repeat.
+                                [self showAchievementNotification:achievement];
                             } else {
                                 NSLog(@"Achievement failed to send... will try again \
                                       later.  Reason: %@", error.localizedDescription);                
@@ -131,6 +170,28 @@ static GCHelper *sharedHelper = nil;
     }
 }
 
+- (void)loadScore:(NSString *)aCategory sceneType:(SceneTypes)sceneType {
+    NSArray *ids = [NSArray arrayWithObject:[GKLocalPlayer localPlayer].playerID];
+    GKLeaderboard *leaderboardRequest = [[GKLeaderboard alloc] initWithPlayerIDs:ids];
+    leaderboardRequest.category = aCategory;
+    if (leaderboardRequest != nil)
+    {
+        leaderboardRequest.timeScope = GKLeaderboardTimeScopeAllTime;
+        leaderboardRequest.range = NSMakeRange(1,10);
+        [leaderboardRequest loadScoresWithCompletionHandler: ^(NSArray *scores, NSError *error) {
+            if (error == nil) {
+                if (scores != nil) {
+                    // process the score information.
+                    for (GKScore *score in scores) {
+                        [[GameManager sharedGameManager] setHighScore:score.value
+                                                       forSceneWithID:sceneType];
+                    }
+                }
+            }
+        }];
+    }
+}
+
 - (void)authenticationChanged {    
     dispatch_async(dispatch_get_main_queue(), ^(void) 
                    {
@@ -138,7 +199,8 @@ static GCHelper *sharedHelper = nil;
                            NSLog(@"Authentication changed: player authenticated.");
                            userAuthenticated = TRUE;
                            [self loadAchievements];
-                           [self resendData];
+                           [self loadScore:kLeaderboardAccelerator sceneType:kGameSceneSurvival];
+                           [self loadScore:kLeaderboardTimeAttack sceneType:kGameSceneTimeAttack];
                        } else if (userAuthenticated) {
                            NSLog(@"Authentication changed: player not authenticated");
                            userAuthenticated = FALSE;
@@ -171,9 +233,7 @@ static GCHelper *sharedHelper = nil;
     
     if (!gameCenterAvailable || !userAuthenticated) return;
     [self sendScore:score];
-    
 }
-
 
 - (void)reportAchievement:(NSString *)identifier 
           percentComplete:(double)percentComplete {    
@@ -181,7 +241,7 @@ static GCHelper *sharedHelper = nil;
     GKAchievement* achievement = [achievementProgress objectForKey:identifier];
     if (nil == achievement) {
         achievement = [[[GKAchievement alloc] 
-                                   initWithIdentifier:identifier] autorelease];
+                        initWithIdentifier:identifier] autorelease];
         [achievementProgress setObject:achievement forKey:identifier];
     }
     // If new report is greater, send to Game Center.
@@ -193,6 +253,20 @@ static GCHelper *sharedHelper = nil;
         if (!gameCenterAvailable || !userAuthenticated) return;
         [self sendAchievement:achievement]; 
     }
+}
+
+- (void) resetAchievements
+{
+    // Clear all locally saved achievement objects.
+    [achievementProgress removeAllObjects];
+    
+    // Clear all progress saved on Game Center
+    [GKAchievement resetAchievementsWithCompletionHandler:^(NSError *error)
+     {
+         if (error != nil) {
+             // handle errors
+         }
+     }];
 }
 
 - (void) showLeaderboard
@@ -213,7 +287,7 @@ static GCHelper *sharedHelper = nil;
 - (void) showAchievements
 {
     if (!gameCenterAvailable || !userAuthenticated) return;
-
+    
     GKAchievementViewController *achievements = [[GKAchievementViewController alloc] init];
     if (achievements != nil)
     {

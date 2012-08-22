@@ -1,12 +1,16 @@
-. Achievement Popup
-
-. Facebook
-    What to do with Facebook?
+. Game Center
+    - Load High scores from leaderboard.
 
 . BGM
     Work on theme a bit more.
     Do version for menu screen.
+    Make Collision sounds quieter.
     
+. Window close indicator.
+    
+. Facebook
+    What to do with Facebook?
+
 . Sound changes
     . Have separate voice / melody for scoring / bonus / combo.
     . Click sound for menus and controls would be nice.

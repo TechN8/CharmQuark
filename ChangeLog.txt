@@ -1,15 +1,14 @@
 Next release
 
-Twitter & Facebook.
 More sounds.
-Instructions.
 Possible changes to Meditation mode.
-New particle graphic / animation?
 
 Beta 11
 
 Game will now play the tutorial on first run.
 Can now reset tutorial from options screen.
+High scores for Time Attack and Accelerator will now be loaded from Game Center.
+Achievement popup is now shown during game if gamecenter is available.
 Menu items now change color instead of scaling.
 Can now Tweet your score from the Game Over screen.
 Sound and music toggles reworded.
@@ -17,8 +16,8 @@ High score screen renamed to Records
 Records screen now has buttons for game center leaderboard and achievements.
 UI Colors Tweaked
 It's now possible to get the 4X Bonus achievement.
-5X combo achievement removed?
-5X bonus achievement added?
+6X combo achievement removed.
+5X bonus achievement added.
 
 Beta 10
 

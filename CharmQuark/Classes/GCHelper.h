@@ -20,6 +20,7 @@
 #define kAchievementBonus2X @"CQ1_BONUS2X"
 #define kAchievementBonus3X @"CQ1_BONUS3X"
 #define kAchievementBonus4X @"CQ1_BONUS4X"
+#define kAchievementBonus5X @"CQ1_BONUS5X"
 #define kAchievementTimeAttack100K @"CQ1_TIMEATTACK_100K"
 #define kAchievementAccelerator100K @"CQ1_ACCELERATOR_100K"
 #define kAchievementNoBalls @"CQ1_NOBALLS"
@@ -34,6 +35,7 @@
     BOOL userAuthenticated;
     NSMutableArray *scoresToReport;
     NSMutableArray *achievementsToReport;
+    NSMutableDictionary *achievementDescriptions;
     NSMutableDictionary *achievementProgress;
     GKLeaderboardTimeScope timeScope;
     NSString *category;
@@ -41,23 +43,25 @@
 
 @property (retain) NSMutableArray *scoresToReport;
 @property (nonatomic, retain) NSMutableDictionary *achievementProgress;
+@property (retain) NSMutableDictionary *achievementDescriptions;
 @property (retain) NSMutableArray *achievementsToReport;
 @property (retain) NSString *category;
 @property (assign) GKLeaderboardTimeScope timeScope;
 @property (readonly) BOOL isUserAuthenticated; 
 
 + (GCHelper *) sharedInstance;
-- (void)authenticationChanged;
-- (void)authenticateLocalUser;
-- (void)save;
-- (id)initWithScoresToReport:(NSMutableArray *)scoresToReport 
-        achievementsToReport:(NSMutableArray *)achievementsToReport
-                   timeScope:(GKLeaderboardTimeScope)timeScope
-                    category:(NSString*)category;
-- (void)reportAchievement:(NSString *)identifier 
-          percentComplete:(double)percentComplete;
-- (void)reportScore:(NSString *)identifier score:(int)score;
-- (void)showAchievements;
-- (void)showLeaderboard;
+- (void) authenticationChanged;
+- (void) authenticateLocalUser;
+- (void) save;
+- (id) initWithScoresToReport:(NSMutableArray *)scoresToReport 
+         achievementsToReport:(NSMutableArray *)achievementsToReport
+                    timeScope:(GKLeaderboardTimeScope)timeScope
+                     category:(NSString*)category;
+- (void) reportAchievement:(NSString *)identifier 
+           percentComplete:(double)percentComplete;
+- (void) reportScore:(NSString *)identifier score:(int)score;
+- (void) resetAchievements;
+- (void) showAchievements;
+- (void) showLeaderboard;
 
 @end

@@ -266,9 +266,6 @@ static GameManager* _sharedGameManager = nil;
             highScore = [scoreNum intValue];
         }
     }
-    
-    // TODO: Get from gamecenter if authenticated.
-    
     return highScore;
 }
 

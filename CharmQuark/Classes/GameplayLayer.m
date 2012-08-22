@@ -696,6 +696,9 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
                         if (multiplier == 4) {
                             [gc reportAchievement:kAchievementBonus4X percentComplete:100.0];
                         }
+                        if (multiplier == 5) {
+                            [gc reportAchievement:kAchievementBonus5X percentComplete:100.0];
+                        }
                     }
                     
                     if (comboLevel) {
@@ -713,9 +716,6 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
                         }
                         if (comboLevel == 4) {
                             [gc reportAchievement:kAchievementCombo5X percentComplete:100.0];
-                        }
-                        if (comboLevel == 5) {
-                            [gc reportAchievement:kAchievementCombo6X percentComplete:100.0];
                         }
                     }
                     

@@ -12,6 +12,7 @@
 #import "IntroLayer.h"
 #import "GameManager.h"
 #import "GCHelper.h"
+#import "NotificationLayer.h"
 
 @implementation AppController
 
@@ -36,7 +37,7 @@
 	[glView setMultipleTouchEnabled:YES];
     
 	director_ = (CCDirectorIOS*) [CCDirector sharedDirector];
-	
+    
 	director_.wantsFullScreenLayout = YES;
 	
 	// Display FSP and SPF
@@ -82,6 +83,11 @@
 	// and add the scene to the stack. The director will run it when it automatically when the view is displayed.
     //[director_ pushScene:[IntroLayer scene]];
 	
+    // Set up notifications.
+    NotificationLayer *notificationLayer = [NotificationLayer node];
+    [director_ setNotificationNode:notificationLayer];
+    [notificationLayer onEnter];
+    
     // Start Audio
     [[GameManager sharedGameManager] setupAudioEngine];
     

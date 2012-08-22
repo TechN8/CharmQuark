@@ -19,7 +19,7 @@ IPHONEHD_DPI=84.38
 IPHONE_SPRITES='white white-small lhcmap pause detector thumbguide firebutton blink graph track'
 IPAD_SPRITES='white white-small lhcmap pause detector thumbguide firebutton blink graph track'
 IPAD_SPRITES_LO='thumbguide firebutton'
-PNG_IDS='window'
+PNG_IDS='window frame'
 
 mkdir -p $IPAD_DIR $IPADHD_DIR $IPHONE_DIR $IPHONEHD_DIR
 

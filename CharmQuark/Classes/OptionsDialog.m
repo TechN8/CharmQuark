@@ -10,6 +10,7 @@
 #import "RemoveFromParentAction.h"
 #import "GameManager.h"
 #import "CQMenuItemFont.h"
+#import "GCHelper.h"
 
 @implementation OptionsDialog
 
@@ -105,7 +106,15 @@
                                             target:self 
                                           selector:@selector(toggleTutorial)];
     
-    CCMenu *menu = [CCMenu menuWithItems:musicToggle, soundToggle, tutorialToggle, nil];
+    // Reset achievements!!!  Remove before launch.
+    CCLabelBMFont *resetLabel = [CCLabelBMFont labelWithString:@"Reset Achievements"
+                                                       fntFile:@"score.fnt"];
+    CQMenuItemFont *resetAchievements = [CQMenuItemFont itemWithLabel:resetLabel
+                                                               target:[GCHelper sharedInstance]
+                                                             selector:@selector(resetAchievements)];
+    resetAchievements.color = ccRED;
+    
+    CCMenu *menu = [CCMenu menuWithItems:musicToggle, soundToggle, tutorialToggle, resetAchievements, nil];
     [menu alignItemsVerticallyWithPadding:0.03 * winSize.height];
     menu.position = ccp(winSize.width * 0.5, winSize.height * 0.40);
     [self addChild:menu z:100];

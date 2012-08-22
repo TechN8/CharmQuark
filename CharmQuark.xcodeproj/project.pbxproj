@@ -167,6 +167,12 @@
 		D8C34E8815E50AAB002AA2E6 /* Accelerator.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C34E8715E50AAB002AA2E6 /* Accelerator.m */; };
 		D8C34E8C15E50D71002AA2E6 /* Meditation.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C34E8B15E50D71002AA2E6 /* Meditation.m */; };
 		D8C34E8F15E516B5002AA2E6 /* Tutorial.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C34E8E15E516B4002AA2E6 /* Tutorial.m */; };
+		D8C34E9A15E554B7002AA2E6 /* AchievementPopup.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C34E9915E554B7002AA2E6 /* AchievementPopup.m */; };
+		D8C34E9E15E554F3002AA2E6 /* NotificationLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C34E9D15E554F2002AA2E6 /* NotificationLayer.m */; };
+		D8C34EA315E5659A002AA2E6 /* frame-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = D8C34E9F15E5659A002AA2E6 /* frame-hd.png */; };
+		D8C34EA415E5659A002AA2E6 /* frame-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = D8C34EA015E5659A002AA2E6 /* frame-ipad.png */; };
+		D8C34EA515E5659A002AA2E6 /* frame-ipadhd.png in Resources */ = {isa = PBXBuildFile; fileRef = D8C34EA115E5659A002AA2E6 /* frame-ipadhd.png */; };
+		D8C34EA615E5659A002AA2E6 /* frame.png in Resources */ = {isa = PBXBuildFile; fileRef = D8C34EA215E5659A002AA2E6 /* frame.png */; };
 		D8CE5B9F15B713EA00E76ADA /* scene1Atlas-ipad.plist in Resources */ = {isa = PBXBuildFile; fileRef = D8CE5B9B15B713EA00E76ADA /* scene1Atlas-ipad.plist */; };
 		D8CE5BA015B713EA00E76ADA /* scene1Atlas-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = D8CE5B9C15B713EA00E76ADA /* scene1Atlas-ipad.png */; };
 		D8CE5BA115B713EA00E76ADA /* scene1Atlas-ipadhd.plist in Resources */ = {isa = PBXBuildFile; fileRef = D8CE5B9D15B713EA00E76ADA /* scene1Atlas-ipadhd.plist */; };
@@ -514,6 +520,14 @@
 		D8C34E8B15E50D71002AA2E6 /* Meditation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Meditation.m; sourceTree = "<group>"; };
 		D8C34E8D15E516B3002AA2E6 /* Tutorial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tutorial.h; sourceTree = "<group>"; };
 		D8C34E8E15E516B4002AA2E6 /* Tutorial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tutorial.m; sourceTree = "<group>"; };
+		D8C34E9815E554B6002AA2E6 /* AchievementPopup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AchievementPopup.h; sourceTree = "<group>"; };
+		D8C34E9915E554B7002AA2E6 /* AchievementPopup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AchievementPopup.m; sourceTree = "<group>"; };
+		D8C34E9C15E554F2002AA2E6 /* NotificationLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationLayer.h; sourceTree = "<group>"; };
+		D8C34E9D15E554F2002AA2E6 /* NotificationLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationLayer.m; sourceTree = "<group>"; };
+		D8C34E9F15E5659A002AA2E6 /* frame-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "frame-hd.png"; sourceTree = "<group>"; };
+		D8C34EA015E5659A002AA2E6 /* frame-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "frame-ipad.png"; sourceTree = "<group>"; };
+		D8C34EA115E5659A002AA2E6 /* frame-ipadhd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "frame-ipadhd.png"; sourceTree = "<group>"; };
+		D8C34EA215E5659A002AA2E6 /* frame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = frame.png; sourceTree = "<group>"; };
 		D8CE5B9B15B713EA00E76ADA /* scene1Atlas-ipad.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "scene1Atlas-ipad.plist"; sourceTree = "<group>"; };
 		D8CE5B9C15B713EA00E76ADA /* scene1Atlas-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scene1Atlas-ipad.png"; sourceTree = "<group>"; };
 		D8CE5B9D15B713EA00E76ADA /* scene1Atlas-ipadhd.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "scene1Atlas-ipadhd.plist"; sourceTree = "<group>"; };
@@ -1141,10 +1155,6 @@
 				D8C34E7115E3FCF0002AA2E6 /* iconAtlas-ipad.png */,
 				D8C34E7215E3FCF0002AA2E6 /* iconAtlas-ipadhd.plist */,
 				D8C34E7315E3FCF1002AA2E6 /* iconAtlas-ipadhd.png */,
-				D8151DDE15B9B46E007D8AE2 /* window.png */,
-				D8151DDB15B9B46E007D8AE2 /* window-hd.png */,
-				D8151DDC15B9B46E007D8AE2 /* window-ipad.png */,
-				D8151DDD15B9B46E007D8AE2 /* window-ipadhd.png */,
 				D848C39E15C9AB5700B6088A /* aethertheory-logo.png */,
 				D848C47D15CC632900B6088A /* aethertheory-logo-hd.png */,
 				D848C47B15CC632600B6088A /* aethertheory-logo-ipad.png */,
@@ -1153,6 +1163,14 @@
 				D848C47315CC61AE00B6088A /* cocos2d-landscape-hd.png */,
 				D848C47415CC61AF00B6088A /* cocos2d-landscape-ipad.png */,
 				D848C47515CC61B100B6088A /* cocos2d-landscape-ipadhd.png */,
+				D8C34E9F15E5659A002AA2E6 /* frame-hd.png */,
+				D8C34EA015E5659A002AA2E6 /* frame-ipad.png */,
+				D8C34EA115E5659A002AA2E6 /* frame-ipadhd.png */,
+				D8C34EA215E5659A002AA2E6 /* frame.png */,
+				D8151DDE15B9B46E007D8AE2 /* window.png */,
+				D8151DDB15B9B46E007D8AE2 /* window-hd.png */,
+				D8151DDC15B9B46E007D8AE2 /* window-ipad.png */,
+				D8151DDD15B9B46E007D8AE2 /* window-ipadhd.png */,
 				D871772315B344D90014E75E /* Fonts */,
 			);
 			path = Images;
@@ -1297,14 +1315,18 @@
 		D8CE5B8F15B5FB0A00E76ADA /* Nodes */ = {
 			isa = PBXGroup;
 			children = (
-				D8151DEA15B9C978007D8AE2 /* Scale9Sprite.h */,
-				D8151DEB15B9C978007D8AE2 /* Scale9Sprite.m */,
-				D80B620215AF055A006F2472 /* DialogNode.h */,
-				D80B620315AF055A006F2472 /* DialogNode.m */,
+				D8C34E9815E554B6002AA2E6 /* AchievementPopup.h */,
+				D8C34E9915E554B7002AA2E6 /* AchievementPopup.m */,
 				D848C43915CC2AC600B6088A /* ClipNode.h */,
 				D848C43A15CC2AC600B6088A /* ClipNode.m */,
 				D8C34E7F15E4064B002AA2E6 /* CQMenuItemFont.h */,
 				D8C34E8015E4064B002AA2E6 /* CQMenuItemFont.m */,
+				D80B620215AF055A006F2472 /* DialogNode.h */,
+				D80B620315AF055A006F2472 /* DialogNode.m */,
+				D8151DEA15B9C978007D8AE2 /* Scale9Sprite.h */,
+				D8151DEB15B9C978007D8AE2 /* Scale9Sprite.m */,
+				D8C34E9C15E554F2002AA2E6 /* NotificationLayer.h */,
+				D8C34E9D15E554F2002AA2E6 /* NotificationLayer.m */,
 			);
 			name = Nodes;
 			sourceTree = "<group>";
@@ -1676,6 +1698,10 @@
 				D8C34E7B15E3FCF1002AA2E6 /* iconAtlas-ipadhd.png in Resources */,
 				D8C34E7C15E3FCF1002AA2E6 /* iconAtlas.plist in Resources */,
 				D8C34E7D15E3FCF1002AA2E6 /* iconAtlas.png in Resources */,
+				D8C34EA315E5659A002AA2E6 /* frame-hd.png in Resources */,
+				D8C34EA415E5659A002AA2E6 /* frame-ipad.png in Resources */,
+				D8C34EA515E5659A002AA2E6 /* frame-ipadhd.png in Resources */,
+				D8C34EA615E5659A002AA2E6 /* frame.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1862,6 +1888,8 @@
 				D8C34E8815E50AAB002AA2E6 /* Accelerator.m in Sources */,
 				D8C34E8C15E50D71002AA2E6 /* Meditation.m in Sources */,
 				D8C34E8F15E516B5002AA2E6 /* Tutorial.m in Sources */,
+				D8C34E9A15E554B7002AA2E6 /* AchievementPopup.m in Sources */,
+				D8C34E9E15E554F3002AA2E6 /* NotificationLayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
