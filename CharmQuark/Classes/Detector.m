@@ -17,10 +17,6 @@
 
 @implementation Detector
 
--(void) tick: (ccTime) dt {
-    
-}
-
 -(id)init {
     self = [super initWithSpriteFrameName:@"detector.png"];
     if (self) {
@@ -33,7 +29,7 @@
 }
 
 -(void)onEnter {
-//    batchNode = (CCSpriteBatchNode*)self.parent;
+    [super onEnter];
     center = self.position;
 }
 

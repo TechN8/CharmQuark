@@ -8,6 +8,8 @@ New particle graphic / animation?
 
 Beta 11
 
+Game will now play the tutorial on first run.
+Can now reset tutorial from options screen.
 Menu items now change color instead of scaling.
 Can now Tweet your score from the Game Over screen.
 Sound and music toggles reworded.

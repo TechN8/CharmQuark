@@ -13,6 +13,7 @@
 @interface OptionsDialog : DialogNode {
     CCMenuItemFont *musicToggle;
     CCMenuItemFont *soundToggle;
+    CCMenuItemFont *tutorialToggle;
 }
 
 @end

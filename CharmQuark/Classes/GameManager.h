@@ -11,6 +11,7 @@
 @interface GameManager : NSObject {
     BOOL isMusicON;
     BOOL isSoundEffectsON;
+    BOOL shouldShowTutorial;
     BOOL hasPlayerDied;
     SceneTypes currentScene;
     SceneTypes curLevel;
@@ -34,6 +35,7 @@
 
 @property (nonatomic,readwrite) BOOL isMusicON;
 @property (nonatomic,readwrite) BOOL isSoundEffectsON;
+@property (nonatomic,readwrite) BOOL shouldShowTutorial;
 @property (readwrite) BOOL hasPlayerDied;
 @property (readwrite) GameManagerSoundState managerSoundState;
 @property (readonly) SimpleAudioEngine *soundEngine;

@@ -18,12 +18,14 @@
 static NSString *kSoundEffectsOnKey	= @"isSoundEffectsOn";
 static NSString *kMusicOnKey		= @"isMusicOn";
 static NSString *kHighScoreKey      = @"highScores";
+static NSString *kShowTutorialKey   = @"showTutorial";
 
 @implementation GameManager
 
 @synthesize curLevel;
 @synthesize hasPlayerDied;
 @synthesize lastLevel;
+@synthesize shouldShowTutorial;
 
 static GameManager* _sharedGameManager = nil;
 +(GameManager*)sharedGameManager {
@@ -66,6 +68,13 @@ static GameManager* _sharedGameManager = nil;
         } else {
             isSoundEffectsON = [defaults boolForKey:kSoundEffectsOnKey];
         }
+        
+        if (nil == [defaults objectForKey:kShowTutorialKey]) {
+            shouldShowTutorial = YES;
+        } else {
+            shouldShowTutorial = [defaults boolForKey:kShowTutorialKey];
+        }
+        
         hasPlayerDied = NO;
         currentScene = kNoSceneUninitialized;
         hasAudioBeenInitialized = NO;
@@ -106,6 +115,13 @@ static GameManager* _sharedGameManager = nil;
         [self runSceneWithID:kMainMenuScene];
     }    
 }
+
+-(void)setShouldShowTutorial:(BOOL)value {
+    shouldShowTutorial = value;
+    [[NSUserDefaults standardUserDefaults] setBool:value forKey:kShowTutorialKey];
+}
+
+
 
 #pragma mark - Scene Management
 

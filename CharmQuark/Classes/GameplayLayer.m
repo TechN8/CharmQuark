@@ -52,21 +52,14 @@ static void removeShapesFromBody(cpBody *body, cpShape *shape, GameplayLayer *se
     cpShapeFree(shape);
 }
 
-static void postStepRemoveParticle(cpSpace *space, cpBody *body, GameplayLayer *self) {
-    Particle *particle = body->data;
-    
+static void postStepRemoveBody(cpSpace *space, cpBody *body, GameplayLayer *self) {
     cpBodyEachShape(body, (cpBodyShapeIteratorFunc)removeShapesFromBody, self);
-    
     cpSpaceRemoveBody(space, body);
     cpBodyFree(body);
-    
-    if (particle) {
-//        [particle removeFromParentAndCleanup:YES];
-    }
 }
 
 static void scheduleForRemoval(cpBody *body, GameplayLayer *self) {
-    cpSpaceAddPostStepCallback(self.space, (cpPostStepFunc)postStepRemoveParticle, body, self);
+    cpSpaceAddPostStepCallback(self.space, (cpPostStepFunc)postStepRemoveBody, body, self);
 }
 
 // This function synchronizes the body with the sprite.
@@ -337,7 +330,9 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     // Run steps
     for (int i = 0; i < steps; i++) {
         // Update clock.
-        timeRemaining -= kSimulationRate;
+        if (0 == tutorialStep) {
+            timeRemaining -= kSimulationRate;
+        }
         lastLaunch += kSimulationRate;
         [map setTime:(dropFrequency - timeRemaining) / dropFrequency];
         
@@ -528,18 +523,21 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     
     // Remove all objects from the space.
     cpSpaceEachBody(space, (cpSpaceBodyIteratorFunc)scheduleForRemoval, self);
-    for (Particle *particle in particles) {
-        [particle removeFromParentAndCleanup:YES];
-    }
-    [particles removeAllObjects];
     
-    // Remove in-flight perticles too.
+    // Remove in-flight particles.
     for (Particle *particle in inFlightParticles) {
-        cpBodyFree(particle.body);
+        cpSpaceAddBody(space, particle.body);
+        scheduleForRemoval(particle.body, self);
         [particle removeFromParentAndCleanup:YES];
     }
     [inFlightParticles removeAllObjects];
     
+    // Remove particles from parent.
+    for (Particle *particle in particles) {
+        [particle removeFromParentAndCleanup:YES];
+    }
+    [particles removeAllObjects];
+
     // Set up the next particle.
     if (nextParticle) {
         [nextParticle removeFromParentAndCleanup:YES];
@@ -564,11 +562,111 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     
     // Start animation / simulation timer.
     [self schedule: @selector(step:)];
+    
+    // Play tutorial
+    if ([[GameManager sharedGameManager] shouldShowTutorial]) {
+        tutorialStep = 1;
+        [self scheduleOnce:@selector(tutorial) delay:0.0];
+    } else {
+        tutorialStep = 0;
+    }
 }
 
 -(void) resume {
     paused = NO;
     [self resumeSchedulerAndActions];
+}
+
+-(void) tutorial {
+    CGSize winSize = [[CCDirector sharedDirector] winSize];
+    static CCLabelBMFont *instructions = nil;
+    switch (tutorialStep) {
+        case 1:
+            // Swipe here to rotate.
+            instructions = [CCLabelBMFont labelWithString:@"Swipe here\nto rotate." 
+                                                  fntFile:@"score.fnt"];
+            instructions.position = ccp(puzzleCenter.x, winSize.height * 0.75);
+            instructions.alignment = kCCTextAlignmentCenter;
+            instructions.color = kColorButton;
+            [self addChild:instructions z:kZLog];
+            thumbGuide.position = ccp(puzzleCenter.x + detector.contentSize.width * 0.35, puzzleCenter.y);
+            thumbGuide.rotation = 90;
+            id fadeIn = [CCFadeTo actionWithDuration:0.5 opacity:128];
+            id fadeOut = [CCFadeTo actionWithDuration:0.5 opacity:64];
+            id seq = [CCSequence actions:fadeIn, fadeOut, nil];
+            [thumbGuide runAction: [CCRepeatForever actionWithAction:seq]];
+            tutorialStep++;
+            break;
+        case 2:
+            // Tap here to fire.
+            [thumbGuide stopAllActions];
+            thumbGuide.opacity = 0;
+            instructions.string = @"Tap here\nto fire..";
+            instructions.position = ccp(winSize.width * 0.20, winSize.height * 0.60);
+            fireButton.position = ccp(winSize.width * 0.20, winSize.height * 0.25);
+            fireButton.opacity = kOpacityThumbGuide;
+            fadeIn = [CCFadeTo actionWithDuration:0.5 opacity:128];
+            fadeOut = [CCFadeTo actionWithDuration:0.5 opacity:64];
+            seq = [CCSequence actions:fadeIn, fadeOut, nil];
+            [fireButton runAction: [CCRepeatForever actionWithAction:seq]];
+            tutorialStep++;
+            break;
+        case 3:
+            // Match N pieces to score.
+            [fireButton stopAllActions];
+            fireButton.opacity = 0;
+            instructions.string = [NSString stringWithFormat:@"Match %d particles\nto score.",
+                                   kMinMatchSize];
+            instructions.position = ccp(puzzleCenter.x, winSize.height * 0.75);
+            for (Particle *particle in particles) {
+                fadeOut = [CCFadeTo actionWithDuration:0.5 opacity:128];
+                fadeIn = [CCFadeTo actionWithDuration:0.5 opacity:255];
+                seq = [CCSequence actions:fadeOut, fadeIn, nil];
+                [particle runAction: [CCRepeatForever actionWithAction:seq]];
+            }
+            for (Particle *particle in inFlightParticles) {
+                fadeOut = [CCFadeTo actionWithDuration:0.5 opacity:128];
+                fadeIn = [CCFadeTo actionWithDuration:0.5 opacity:255];
+                seq = [CCSequence actions:fadeOut, fadeIn, nil];
+                [particle runAction: [CCRepeatForever actionWithAction:seq]];
+            }
+            tutorialStep++;
+            break;
+        case 4:
+            // Stay inside the ring.
+            for (Particle *particle in particles) {
+                [particle stopAllActions];
+                particle.opacity = 255;
+            }
+            for (Particle *particle in inFlightParticles) {
+                [particle stopAllActions];
+                particle.opacity = 255;
+            }
+            instructions.string = @"Keep particles\ninside the detector.";
+            instructions.position = ccp(puzzleCenter.x, winSize.height * 0.75);
+            fadeOut = [CCFadeTo actionWithDuration:0.5 opacity:128];
+            fadeIn = [CCFadeTo actionWithDuration:0.5 opacity:255];
+            seq = [CCSequence actions:fadeOut, fadeIn, nil];
+            [detector runAction: [CCRepeatForever actionWithAction:seq]];
+            tutorialStep++;
+            break;
+        case 5:
+            // Tap to play.
+            [detector stopAllActions];
+            detector.opacity = 255;
+            instructions.string = @"Tap to play.";
+            instructions.position = ccp(winSize.width * 0.50, winSize.height * 0.25);
+            tutorialStep++;
+            break;
+        case 6:
+            // Reset game.
+            [instructions removeFromParentAndCleanup:YES];
+            [[GameManager sharedGameManager] setShouldShowTutorial:NO];
+            [[GameManager sharedGameManager] runSceneWithID:mode];
+            break;
+        default:
+            break;
+    }
 }
 
 #pragma mark - Sound
@@ -878,7 +976,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
         [[self getChildByTag:kTagParticleBatchNode] addChild:explosion];
         [detector animateAtAngle:-1 * explosion.angle graphColor:ccGREEN];
 
-        postStepRemoveParticle(space, particle.body, self);  // Don't need to schedule, called from update.
+        postStepRemoveBody(space, particle.body, self);  // Don't need to schedule, called from update.
     }
     
     // No Balls!
@@ -911,29 +1009,33 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
             [self pause];
         } else if (location.x < winSize.width * 0.33) {
             // Touches on the left drop pieces on end.
-            if (nil == launchTouch) {
+            if (nil == launchTouch
+                && (tutorialStep == 0 || tutorialStep == 3)) {
                 launchTouch = touch;
                 fireButton.position = location;
                 fireButton.opacity = kOpacityThumbGuide;
             }
-        } else if (nil == rotationTouch) {
-            // Touches on the right are for rotation.  
-            rotationTouch = touch;
-            rotationTouchTime = touch.timestamp;
-            
-            // Save game angle from start of touches
-            centerNodeAngleInit = centerNode.rotation;
-            
-            // Calculate initial vector from puzzle to touch.
-            CGPoint ray = ccpSub(location, puzzleCenter);
-            rotTouchPointInit = ray;
-            rotTouchPointCur = ray;
-            
-            // Show thumb guide.
-            thumbGuide.position = location;
-            thumbGuide.rotation = CC_RADIANS_TO_DEGREES(atanf(ray.x / ray.y));
-            thumbGuide.opacity = kOpacityThumbGuide;
-        }        
+        } else if (location.x >= winSize.width * 0.33) {
+            if (nil == rotationTouch
+                && (tutorialStep == 0 || tutorialStep == 2)) {
+                // Touches on the right are for rotation.  
+                rotationTouch = touch;
+                rotationTouchTime = touch.timestamp;
+                
+                // Save game angle from start of touches
+                centerNodeAngleInit = centerNode.rotation;
+                
+                // Calculate initial vector from puzzle to touch.
+                CGPoint ray = ccpSub(location, puzzleCenter);
+                rotTouchPointInit = ray;
+                rotTouchPointCur = ray;
+                
+                // Show thumb guide.
+                thumbGuide.position = location;
+                thumbGuide.rotation = CC_RADIANS_TO_DEGREES(atanf(ray.x / ray.y));
+                thumbGuide.opacity = kOpacityThumbGuide;
+            }        
+        }
     }
 }
 
@@ -969,13 +1071,6 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 - (void)ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
     for (UITouch *touch in touches) {
-        if (touch == launchTouch) {
-            [self launch];
-            
-            // Forget this touch.
-            launchTouch = nil;
-            fireButton.opacity = 0;
-        }
         if (touch == rotationTouch) {
             if (touch.timestamp - rotationTouchTime > 0.05 
                 || fabsf(rotAngleV) < kRotationMinAngleV) { 
@@ -987,6 +1082,30 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
             // Forget this touch.
             rotationTouch = nil;
             thumbGuide.opacity = 0;
+            
+            if (tutorialStep == 2) {
+                [self scheduleOnce:@selector(tutorial)
+                             delay:0.0];
+            }
+        }
+        if (touch == launchTouch) {
+            [self launch];
+            
+            // Forget this touch.
+            launchTouch = nil;
+            fireButton.opacity = 0;
+            
+            if (tutorialStep == 3) {
+                [self scheduleOnce:@selector(tutorial)
+                             delay:0.0];
+            }
+        }
+
+        // Step the tutorial.
+        if (tutorialStep > 3 && !paused) {
+            [self scheduleOnce:@selector(tutorial)
+                         delay:0.0];
+            return;
         }
     }
 }
@@ -1043,25 +1162,6 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     }
 
     [super draw];
-    
-    return;
-#ifdef DEBUG
-    
-    // Debug draw for fail radius.
-    ccDrawColor4B(0, 255, 0, 128);
-    ccDrawCircle(puzzleCenter, kFailRadius * scaleFactor, 0, 30, NO);
-    
-    // Debug draw for rotation touch.
-    CGPoint location;
-    if (nil != rotationTouch) {
-        ccDrawColor4B(0, 0, 255, 200);
-        location = [rotationTouch locationInView:[rotationTouch view]];
-        location = [[CCDirector sharedDirector] convertToGL: location];
-        ccDrawCircle(location, 50, 0, 30, NO);
-        ccDrawLine(puzzleCenter, location);
-    }
-    
-#endif
 }
 
 #pragma mark -

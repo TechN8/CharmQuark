@@ -111,6 +111,7 @@ enum {
     NSInteger level;
     NSInteger matchesToNextLevel;
     BOOL paused;
+    NSInteger tutorialStep;
 
     cpFloat dropFrequency;
     cpFloat timeRemaining;

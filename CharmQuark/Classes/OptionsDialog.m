@@ -43,6 +43,16 @@
     }
 }
 
+- (void) toggleTutorial {
+    GameManager *sharedGameManager = [GameManager sharedGameManager];
+    [sharedGameManager setShouldShowTutorial:![sharedGameManager shouldShowTutorial]];
+    if ([[GameManager sharedGameManager] shouldShowTutorial]) {
+        [tutorialToggle setString:@"Tutorial: On"];
+    } else {
+        [tutorialToggle setString:@"Tutorial: Off"];
+    }
+}
+
 #pragma mark - ModalMenuLayer
 
 -(void)initUI {
@@ -60,7 +70,8 @@
     } else {
         musicString = @"Music: Off";
     }
-    CCLabelBMFont *musicLabel = [CCLabelBMFont labelWithString:musicString fntFile:@"score.fnt"];
+    CCLabelBMFont *musicLabel = [CCLabelBMFont labelWithString:musicString
+                                                       fntFile:@"score.fnt"];
     musicLabel.color = kColorButton;
     musicToggle = [CQMenuItemFont itemWithLabel:musicLabel
                                          target:self 
@@ -73,22 +84,30 @@
     } else {
         soundString = @"Sound: Off";
     }
-    CCLabelBMFont *soundLabel = [CCLabelBMFont labelWithString:soundString fntFile:@"score.fnt"];
+    CCLabelBMFont *soundLabel = [CCLabelBMFont labelWithString:soundString 
+                                                       fntFile:@"score.fnt"];
     soundLabel.color = kColorButton;
-    soundToggle = [CQMenuItemFont itemWithLabel:soundLabel target:self selector:@selector(toggleSound)];
+    soundToggle = [CQMenuItemFont itemWithLabel:soundLabel 
+                                         target:self 
+                                       selector:@selector(toggleSound)];
 
-//    //Resume
-//    CCLabelBMFont *resumeLabel = [CCLabelBMFont labelWithString:@"Done" fntFile:@"score.fnt"];
-//    CQMenuItemFont *resumeItem = [CQMenuItemFont itemWithLabel:resumeLabel 
-//                                                        target:self 
-//                                                      selector:@selector(resumeParent)];
+    // Tutorial on / off
+    NSString *tutorialString = nil;
+    if ([[GameManager sharedGameManager] shouldShowTutorial]) {
+        tutorialString = @"Tutorial: On";
+    } else {
+        tutorialString = @"Tutorial: Off";
+    }
+    CCLabelBMFont *tutorialLabel = [CCLabelBMFont labelWithString:tutorialString 
+                                                          fntFile:@"score.fnt"];
+    tutorialLabel.color = kColorButton;
+    tutorialToggle = [CQMenuItemFont itemWithLabel:tutorialLabel 
+                                            target:self 
+                                          selector:@selector(toggleTutorial)];
     
-    CCMenu *menu = [CCMenu menuWithItems:musicToggle, soundToggle, nil];
-    
+    CCMenu *menu = [CCMenu menuWithItems:musicToggle, soundToggle, tutorialToggle, nil];
     [menu alignItemsVerticallyWithPadding:0.03 * winSize.height];
-//    [menu alignItemsInColumns:[NSNumber numberWithUnsignedInt:2],
-//     [NSNumber numberWithUnsignedInt:2], nil];
-    menu.position = ccp(winSize.width * 0.5, winSize.height * 0.42f);
+    menu.position = ccp(winSize.width * 0.5, winSize.height * 0.40);
     [self addChild:menu z:100];
 }
 

@@ -1,8 +1,8 @@
-. Help System / Screen
-    - Show on game scene first time.
-    - Reset from options screen.
-    - Should explain how to rotate and drop.
-        Add arrow sprite, have user tap through help items on first play.
+. GameplayLayer refactor
+    TimeAttackLayer
+    AcceleratorLayer
+    MeditationLayer
+    TutorialLayer
 
 . Achievement Popup
 
@@ -21,6 +21,8 @@
     Use afconvert tool to convert.
         afconvert -f caff -d LEI16@22050 --mix -c 1  
         afconvert -f m4a
+
+. Website
 
 . iTunes Connect App Setup
     - Screenshots
