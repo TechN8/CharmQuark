@@ -57,6 +57,8 @@
 #pragma mark - ModalMenuLayer
 
 -(void)initUI {
+    [super addCloseArrow];
+    
     CGSize winSize = [[CCDirector sharedDirector] winSize];
     CCLabelBMFont *title = [CCLabelBMFont labelWithString:@"Options" fntFile:@"score.fnt"];
     title.color = kColorDialogTitle;

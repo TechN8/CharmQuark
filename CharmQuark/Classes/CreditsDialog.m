@@ -46,6 +46,8 @@
 #pragma mark - ModalMenuLayer
 
 -(void)initUI {
+    [super addCloseArrow];
+    
     // Clipping node.  
     ClipNode *clip = [ClipNode node];
     CGSize innerWinSize = windowSprite.contentSize;

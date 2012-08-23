@@ -18,4 +18,6 @@
 
 -(void)setBackgroundNode:(CCNode*)node;
 
+-(void)addCloseArrow;
+
 @end

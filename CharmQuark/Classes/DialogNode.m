@@ -15,6 +15,18 @@
     NSAssert(NO, @"Must override initMenus for ModalMenuLayer.");
 }
 
+-(void)addCloseArrow {
+    // Close arrow
+    CGFloat frameWidth 
+    = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ? 23 : 12;
+    
+    CCSprite *arrow = [CCSprite spriteWithSpriteFrameName:@"uparrow.png"];
+    arrow.color = kColorUI;
+    arrow.position = ccp(windowSprite.position.x,
+                         windowSprite.position.y + windowSprite.contentSize.height / 2 - frameWidth);
+    [self addChild:arrow];
+}
+
 -(void)setBackgroundNode:(CCNode*)node {
     CGSize winSize = [[CCDirector sharedDirector] winSize];
     node.position = ccp(winSize.width * 0.5f, winSize.height * 0.5f);
