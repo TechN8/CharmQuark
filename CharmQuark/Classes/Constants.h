@@ -20,8 +20,8 @@
 
 // UI Elements
 #define kColorUI                ccc3(90, 140, 150)
-#define kColorButton            ccc3(140, 170, 180)
-#define kColorButtonSelected    ccc3(160, 190, 200)
+#define kColorButton            ccc3(130, 180, 190)
+#define kColorButtonSelected    ccc3(160, 210, 220)
 #define kColorDialogTitle       ccc3(90, 140, 150)
 #define kColorThumbGuide        ccc3(160, 210, 220)
 #define kOpacityThumbGuide      128
@@ -29,6 +29,7 @@
 // Dialog tuning
 #define kPopupSpeed         0.3
 #define kDialogTitlePos     ccp(winSize.width * 0.5, winSize.height * 0.72);
+#define kDialogTitleScale   1.3
 
 // Device support
 #define kSimDimensions  ccp(1024,768)

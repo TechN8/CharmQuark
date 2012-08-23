@@ -1,8 +1,3 @@
-. BGM
-    Work on theme a bit more.
-    Do version for menu screen?
-    Make Collision sounds quieter.
-    
 . Sound changes
     . Have separate voice / melody for scoring / bonus / combo.
     . Click sound for menus and controls would be nice.
@@ -12,10 +7,11 @@
         afconvert -f caff -d LEI16@22050 --mix -c 1  
         afconvert -f m4a
 
-. Website
-
 . iTunes Connect App Setup
     - Screenshots
+
+. Website
+
 
 Future Enhancements
 . Localization
@@ -28,3 +24,4 @@ Future Enhancements
 
 . Facebook
     What to do with Facebook?
+    

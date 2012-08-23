@@ -380,12 +380,12 @@
      borderopacity="1.0"
      inkscape:pageopacity="1"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.94782938"
+     inkscape:zoom="1.9150022"
      inkscape:cx="135.28125"
-     inkscape:cy="501.81864"
+     inkscape:cy="636.06492"
      inkscape:document-units="px"
      inkscape:current-layer="layer3"
-     showgrid="false"
+     showgrid="true"
      inkscape:window-width="1681"
      inkscape:window-height="980"
      inkscape:window-x="30"
@@ -966,6 +966,13 @@
        height="27.744555"
        x="-57.763252"
        y="21.171183" />
+    <path
+       style="fill:#c0c0c0;stroke:#ffffff;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-linejoin:round;fill-opacity:1"
+       d="m 144.14362,38.758025 48.30282,-16.97126 48.30281,16.97126 z"
+       id="uparrow"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccc"
+       inkscape:label="#path3957" />
   </g>
   <g
      inkscape:groupmode="layer"

@@ -11,9 +11,9 @@
 #import "DialogNode.h"
 
 @interface OptionsDialog : DialogNode {
-    CCMenuItemFont *musicToggle;
-    CCMenuItemFont *soundToggle;
-    CCMenuItemFont *tutorialToggle;
+    CCMenuItemToggle *musicToggle;
+    CCMenuItemToggle *soundToggle;
+    CCMenuItemToggle *tutorialToggle;
 }
 
 @end

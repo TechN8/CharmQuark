@@ -20,7 +20,6 @@
 -(id)init {
     self = [super initWithSpriteFrameName:@"detector.png"];
     if (self) {
-        self.color = kColorUI;
         int radius = self.contentSize.height / 2;
         blinkRadius = radius * 0.88;
         graphRadius = radius * 0.52;

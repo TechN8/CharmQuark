@@ -11,6 +11,8 @@
 
 @implementation DialogNode
 
+@synthesize arrow;
+
 -(void)initUI {
     NSAssert(NO, @"Must override initMenus for ModalMenuLayer.");
 }
@@ -42,8 +44,9 @@
     location = [[CCDirector sharedDirector] convertToGL: location];
     CGPoint local = [arrow convertToNodeSpace:location];
     CGRect r = [arrow boundingBox];
-    
-    r.origin = CGPointZero;
+    r.size.width += 40;
+    r.size.height += 40;
+    r.origin = ccp(-20, -20);
     if( CGRectContainsPoint( r, local ) ) {
         arrow.color = kColorButtonSelected;
         return YES;

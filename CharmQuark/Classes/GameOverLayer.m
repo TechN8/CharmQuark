@@ -32,7 +32,7 @@
     [[GameManager sharedGameManager] runSceneWithID:kMainMenuScene];
 }
 
--(void) newGame {
+-(void) restart {
     GameManager *gm = [GameManager sharedGameManager];
     [gm runSceneWithID:[gm curLevel]];
 }
@@ -51,10 +51,15 @@
     CCLabelBMFont *title = [CCLabelBMFont labelWithString:@"Game Over" fntFile:@"score.fnt"];
     title.color = kColorDialogTitle;
     title.position = kDialogTitlePos;
-    title.scale = 1.3;
+    title.scale = kDialogTitleScale;
     [self addChild:title z:100];
     
     CGFloat scoreAdjust = 0;
+    
+    CCMenu *menu = [CCMenu node];
+    menu.position = ccp(0,0);
+    menu.anchorPoint = ccp(0,0);
+    [self addChild:menu z:100];
     
     if ([[TwitterHelper sharedInstance] isTwitterAvailable]) {
         //Tweet this!
@@ -71,55 +76,65 @@
                                    tweetLabel.contentSize.height / 2);
         [tweetItem addChild:twitterBird];
         
-        CCMenu *menu1= [CCMenu menuWithItems:tweetItem, nil];
-        tweetItem.position = ccp(tweetItem.position.x + twitterBird.contentSize.width / 2,
-                                 tweetItem.position.y);
-        
-        menu1.position = ccp(winSize.width * 0.5, winSize.height * 0.35);
-        [self addChild:menu1 z:100];
+        tweetItem.position = ccp(winSize.width * 0.5 + twitterBird.contentSize.width / 2,
+                                 winSize.height * 0.35);
+        [menu addChild:tweetItem];
         
         scoreAdjust = 0.05;
     }
     
     // Score / High Score
-    CCLabelBMFont *scoreLabel = [CCLabelBMFont labelWithString:[NSString stringWithFormat:@"Score %d", score]
+    CCLabelBMFont *scoreLabel = [CCLabelBMFont labelWithString:@"Score"
                                                        fntFile:@"score.fnt"];
-    scoreLabel.position = ccp(winSize.width * 0.5, winSize.height * (0.55 + scoreAdjust));
+    scoreLabel.anchorPoint = ccp(0.0, 0.5);
+    scoreLabel.position = ccp(winSize.width * 0.20, winSize.height * (0.55 + scoreAdjust));
+    scoreLabel.color = kColorUI;
+    [self addChild:scoreLabel z:100];
+    scoreLabel = [CCLabelBMFont labelWithString:[NSString stringWithFormat:@"%d", score]
+                                        fntFile:@"score.fnt"];
+    scoreLabel.anchorPoint = ccp(1.0, 0.5);
+    scoreLabel.position = ccp(winSize.width * 0.80, winSize.height * (0.55 + scoreAdjust));
     scoreLabel.color = kColorScore;
     [self addChild:scoreLabel z:100];
     
-    CCLabelBMFont *highScoreLabel = [CCLabelBMFont labelWithString:@"High Score"
-                                                           fntFile:@"score.fnt"];
     if (newHighScore) {
-        highScoreLabel.string = @"New High Score!";
+        CCLabelBMFont *highScoreLabel = [CCLabelBMFont labelWithString:@"New High Score!"
+                                                               fntFile:@"score.fnt"];
         highScoreLabel.color = kColorScore;
+        highScoreLabel.position = ccp(winSize.width * 0.5, winSize.height * (0.45 + scoreAdjust));
+        [self addChild:highScoreLabel z:100];
     } else {
-        highScoreLabel.string = [NSString stringWithFormat:@"High Score %d", highScore];
+        CCLabelBMFont *highScoreLabel = [CCLabelBMFont labelWithString:@"High Score"
+                                                               fntFile:@"score.fnt"];
         highScoreLabel.color = kColorUI;
+        highScoreLabel.anchorPoint = ccp(0.0, 0.5);
+        highScoreLabel.position = ccp(winSize.width * 0.20, winSize.height * (0.45 + scoreAdjust));
+        [self addChild:highScoreLabel z:100];
+        highScoreLabel = [CCLabelBMFont labelWithString:[NSString stringWithFormat:@"%d", highScore]
+                                            fntFile:@"score.fnt"];
+        highScoreLabel.color = kColorUI;
+        highScoreLabel.anchorPoint = ccp(1.0, 0.5);
+        highScoreLabel.position = ccp(winSize.width * 0.80, winSize.height * (0.45 + scoreAdjust));
+        [self addChild:highScoreLabel z:100];
     }
-    highScoreLabel.position = ccp(winSize.width * 0.5, winSize.height * (0.45 + scoreAdjust));
-    [self addChild:highScoreLabel z:100];
     
-    //New Game
-    CCLabelBMFont *newGameLabel = [CCLabelBMFont labelWithString:@"Restart"
-                                                         fntFile:@"score.fnt"];
-    newGameLabel.color = kColorButton;
-    CQMenuItemFont *newGameItem = [CQMenuItemFont itemWithLabel:newGameLabel
-                                                          target:self 
-                                                        selector:@selector(newGame)];
-
+    // Restart
+    CCLabelBMFont *restartLabel = [CCLabelBMFont labelWithString:@"Restart" fntFile:@"score.fnt"];
+    CQMenuItemFont *restartItem = [CQMenuItemFont itemWithLabel:restartLabel 
+                                                         target:self 
+                                                       selector:@selector(restart)];
+    restartItem.color = kColorButton;
+    restartItem.position = ccp(winSize.width * 0.33, winSize.height * 0.25f);
+    [menu addChild:restartItem];    
+    
     //Quit
-    CCLabelBMFont *quitLabel = [CCLabelBMFont labelWithString:@"Quit"
-                                                      fntFile:@"score.fnt"];
-    quitLabel.color = kColorButton;
+    CCLabelBMFont *quitLabel = [CCLabelBMFont labelWithString:@"Quit" fntFile:@"score.fnt"];
     CQMenuItemFont *quitItem = [CQMenuItemFont itemWithLabel:quitLabel
                                                       target:self 
                                                     selector:@selector(quitGame)];
-    
-    CCMenu *menu2 = [CCMenu menuWithItems:newGameItem, quitItem, nil];
-    [menu2 alignItemsHorizontallyWithPadding:0.15 * winSize.width];
-    menu2.position = ccp(winSize.width * 0.5, winSize.height * 0.25);
-    [self addChild:menu2 z:100];
+    quitItem.color = kColorButton;
+    quitItem.position = ccp(winSize.width * 0.66, winSize.height * 0.25f);
+    [menu addChild:quitItem];
 }
 
 -(id)init {

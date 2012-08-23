@@ -8,8 +8,12 @@ RC 2
 
 Time Attack clock will now blink when game over is triggered by time out.
 Game over window will now wait 1 seconds before appearing.
-Added close arrow to Options, Credits and Records screens.
-
+Added close arrow to Options, Credits, Records and Pause dialogs.
+BGM now plays continuously with volume changes betweeen scenes.
+BGM adjuested.  New percussion and swapped piano for guitar.
+Button colors adjusted.
+Adjusted dialog text alignment for consistency.
+Pause dialog now has restart option.
 
 RC 1
 

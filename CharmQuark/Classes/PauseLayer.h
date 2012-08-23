@@ -11,8 +11,8 @@
 #import "DialogNode.h"
 
 @interface PauseLayer : DialogNode {
-    CCMenuItemFont *musicToggle;
-    CCMenuItemFont *soundToggle;
+    CCMenuItemToggle *musicToggle;
+    CCMenuItemToggle *soundToggle;
 }
 
 @end

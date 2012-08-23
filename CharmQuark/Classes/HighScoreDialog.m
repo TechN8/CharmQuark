@@ -32,7 +32,7 @@
     CCLabelBMFont *title = [CCLabelBMFont labelWithString:@"Records" fntFile:@"score.fnt"];
     title.color = kColorDialogTitle;
     title.position = kDialogTitlePos;
-    title.scale = 1.3;
+    title.scale = kDialogTitleScale;
     [self addChild:title z:100];
     
     CCLabelBMFont *label;
@@ -43,7 +43,7 @@
     label.anchorPoint = ccp(0, 0.5);
     label.alignment = kCCTextAlignmentLeft;
     label.color = kColorUI;
-    label.position = ccp(winSize.width * 0.15, winSize.height * 0.60);
+    label.position = ccp(winSize.width * 0.20, winSize.height * 0.60);
     [self addChild:label];
     
     // Time Attack Score
@@ -54,7 +54,7 @@
     label.anchorPoint = ccp(1.0, 0.5);
     label.alignment = kCCTextAlignmentRight;
     label.color = kColorScore;
-    label.position = ccp(winSize.width * 0.85, winSize.height * 0.60);
+    label.position = ccp(winSize.width * 0.80, winSize.height * 0.60);
     [self addChild:label];
     
     // Accelerator Label
@@ -62,7 +62,7 @@
     label.anchorPoint = ccp(0, 0.5);
     label.alignment = kCCTextAlignmentLeft;
     label.color = kColorUI;
-    label.position = ccp(winSize.width * 0.15, winSize.height * 0.50);
+    label.position = ccp(winSize.width * 0.20, winSize.height * 0.50);
     [self addChild:label];
     
     // Accelerator Score
@@ -73,7 +73,7 @@
     label.anchorPoint = ccp(1.0, 0.5);
     label.alignment = kCCTextAlignmentRight;
     label.color = kColorScore;
-    label.position = ccp(winSize.width * 0.85, winSize.height * 0.50);
+    label.position = ccp(winSize.width * 0.80, winSize.height * 0.50);
     [self addChild:label];
    
     // Meditation Label
@@ -81,7 +81,7 @@
     label.anchorPoint = ccp(0, 0.5);
     label.alignment = kCCTextAlignmentLeft;
     label.color = kColorUI;
-    label.position = ccp(winSize.width * 0.15, winSize.height * 0.40);
+    label.position = ccp(winSize.width * 0.20, winSize.height * 0.40);
     [self addChild:label];
     
     // Meditation Score
@@ -92,7 +92,7 @@
     label.anchorPoint = ccp(1.0, 0.5);
     label.alignment = kCCTextAlignmentRight;
     label.color = kColorScore;
-    label.position = ccp(winSize.width * 0.85, winSize.height * 0.40);
+    label.position = ccp(winSize.width * 0.80, winSize.height * 0.40);
     [self addChild:label];
     
     // Leaderboards
