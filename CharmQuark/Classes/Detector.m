@@ -20,6 +20,7 @@
 -(id)init {
     self = [super initWithSpriteFrameName:@"detector.png"];
     if (self) {
+        self.color = kColorUI;
         int radius = self.contentSize.height / 2;
         blinkRadius = radius * 0.88;
         graphRadius = radius * 0.52;
@@ -56,10 +57,16 @@
                          center.y - blinkRadius * sinf(angle));
     blink.rotation = CC_RADIANS_TO_DEGREES(angle);
     [self.parent addChild:blink z:self.zOrder + 1];
-    id flash = [CCBlink actionWithDuration:1.0 blinks:2];
-    id loop = [CCRepeatForever actionWithAction:flash];
-    [blink runAction:loop];
 
+//    id flash = [CCBlink actionWithDuration:1.0 blinks:2];
+//    id loop = [CCRepeatForever actionWithAction:flash];
+
+    id fadeout = [CCFadeTo actionWithDuration:0.5 opacity:128];
+    id fadein = [CCFadeTo actionWithDuration:0.5 opacity:255];
+    id seq = [CCSequence actions:fadeout, fadein, nil];
+    id loop = [CCRepeatForever actionWithAction:seq];
+
+    [blink runAction:loop];
 }
 
 -(void)blinkAtAngle:(CGFloat)angle {

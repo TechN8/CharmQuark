@@ -350,8 +350,14 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
         float angle = -1 * CC_RADIANS_TO_DEGREES(cpvtoangle(cpBodyGetPos(particle.body)));
         angle += centerNode.rotation;
         [detector gameOverAtAngle:angle];
-        id flash = [CCBlink actionWithDuration:1.0 blinks:2];
-        id loop = [CCRepeatForever actionWithAction:flash];
+//        id flash = [CCBlink actionWithDuration:1.0 blinks:2];
+//        id loop = [CCRepeatForever actionWithAction:flash];
+        
+        id fadeout = [CCFadeTo actionWithDuration:0.5 opacity:128];
+        id fadein = [CCFadeTo actionWithDuration:0.5 opacity:255];
+        id seq = [CCSequence actions:fadeout, fadein, nil];
+        id loop = [CCRepeatForever actionWithAction:seq];
+
         [particle runAction:loop];
     }
     
@@ -361,8 +367,10 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     gameOverLayer.position = ccp(0, 2 * winSize.height);
     [gameOverLayer setScore:score];
     [self addChild:gameOverLayer z:kZPopups];
-    [gameOverLayer runAction:[CCMoveTo actionWithDuration:kPopupSpeed
-                                                 position:oldPos]];
+    id wait = [CCDelayTime actionWithDuration:1.0];
+    id move = [CCMoveTo actionWithDuration:kPopupSpeed position:oldPos];
+    id seq = [CCSequence actions:wait, move, nil];
+    [gameOverLayer runAction:seq];
     
 }
 

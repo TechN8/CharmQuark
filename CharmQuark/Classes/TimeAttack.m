@@ -28,6 +28,17 @@
     // Check for gameover or drop conditions.
     if (timeRemaining <= 0) {
         timeRemaining = 0;
+        
+        // Blink timer.
+        id fadeout = [CCFadeTo actionWithDuration:0.5 opacity:128];
+        id fadein = [CCFadeTo actionWithDuration:0.5 opacity:255];
+        id seq = [CCSequence actions:fadeout, fadein, nil];
+        id loop = [CCRepeatForever actionWithAction:seq];
+        
+//        id flash = [CCBlink actionWithDuration:1.0 blinks:2];
+//        id loop = [CCRepeatForever actionWithAction:flash];
+        [timerLabel runAction:loop];
+        
         [self end:nil]; // Game over.
     }
     

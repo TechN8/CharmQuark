@@ -3,8 +3,17 @@ Next release
 Nicer BGM.
 More sounds.
 
+
+RC 2
+
+Time Attack clock will now blink when game over is triggered by time out.
+Game over window will now wait 1 seconds before appearing.
+Added close arrow to Options, Credits and Records screens.
+
+
 RC 1
 
+Main menu windows now close by tapping the top 25% of the screen.
 Game will now play the tutorial on first run.
 Can now reset tutorial from options screen.
 High scores for Time Attack and Accelerator will now be loaded from Game Center.
@@ -19,6 +28,7 @@ It's now possible to get the 4X Bonus achievement.
 6X combo achievement removed.
 5X bonus achievement added.
 
+
 Beta 10
 
 Achievements implemented.
@@ -30,6 +40,7 @@ Fixed memory leak in SFX loading code.
 When available, the Game Center leaderboards will be used when viewing High Scores.
 Adjusted shading of LHC map.
 Adjusted color of dialog windows.
+
 
 Beta 9
 

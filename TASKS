@@ -18,19 +18,6 @@
     - Screenshots
 
 Future Enhancements
--------------------
-. Game Center Achievements
-. Twitter / Facebook
-. Actually draw some tracks...
-    - May be able to use CCDrawNode when it gets faster.
-    - Or FRCurve if it gets added to cocos2d.
-    - Or Bezier curve, but it's a pain to fade them.
-    - Or some pre-rendered animation...
-    
-. Enhanced HD graphics, possible on the detector / particles.
-    -Do this in 2 parts inner and outer.  Draw inners at 0,90,180,270; Outers at 45, 135, 225, 315.
-    -Intersection with outers should be drawn as yellow dot with green lines.
-
 . Localization
     Google translate menus.  Game is pretty self explanitory.
     Will need to generate BMFonts with reduced subset of characters for Japanese / Chinese.
