@@ -214,7 +214,7 @@ enum {
     item = [CQMenuItemFont itemWithLabel:label
                                   target:self 
                                 selector:@selector(playTimeAttack)];
-    item.position = ccp(-0.25 * winSize.width, 0.05 * winSize.height);
+    item.position = ccp(-0.25 * winSize.width, 0.025 * winSize.height);
     [menu addChild:item];
 
     // Accelerator
@@ -236,7 +236,7 @@ enum {
     item = [CQMenuItemFont itemWithLabel:label
                                   target:self 
                                 selector:@selector(playMomMode)];
-    item.position = ccp(-0.25 * winSize.width, -0.25 * winSize.height);
+    item.position = ccp(-0.25 * winSize.width, -0.225 * winSize.height);
     [menu addChild:item];
 
     // Options
@@ -247,7 +247,7 @@ enum {
     item = [CQMenuItemFont itemWithLabel:label
                                   target:self 
                                 selector:@selector(showOptions)];
-    item.position = ccp(0.25 * winSize.width, 0.05 * winSize.height);
+    item.position = ccp(0.25 * winSize.width, 0.025 * winSize.height);
     [menu addChild:item];
 
     // Records
@@ -269,7 +269,7 @@ enum {
     item = [CQMenuItemFont itemWithLabel:label
                                   target:self 
                                 selector:@selector(showCredits)];
-    item.position = ccp(0.25 * winSize.width, -0.25 * winSize.height);
+    item.position = ccp(0.25 * winSize.width, -0.225 * winSize.height);
     [menu addChild:item];
     [self addChild:menu z:kZMenu];
 
