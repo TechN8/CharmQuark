@@ -108,10 +108,23 @@
                 <key>sourceSize</key>
                 <string>{8,8}</string>
             </dict>
+            <key>uparrow.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{147,950},{92,18}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{92,18}}</string>
+                <key>sourceSize</key>
+                <string>{92,18}</string>
+            </dict>
             <key>white-small.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{147,950},{14,14}}</string>
+                <string>{{147,970},{14,14}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -144,7 +157,7 @@
             <key>size</key>
             <string>{1024,1024}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:d6c9caeaeb2890a9335db16afd0af793$</string>
+            <string>$TexturePacker:SmartUpdate:5f8bc6688192a236ac75b550ad639974$</string>
             <key>textureFileName</key>
             <string>scene1Atlas-hd.png</string>
         </dict>

@@ -7,7 +7,7 @@
             <key>blink.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{319,592},{44,53}}</string>
+                <string>{{338,534},{44,53}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -72,11 +72,11 @@
             <key>pause.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{319,647},{30,38}}</string>
+                <string>{{338,589},{30,38}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{30,38}}</string>
                 <key>sourceSize</key>
@@ -108,6 +108,19 @@
                 <key>sourceSize</key>
                 <string>{8,8}</string>
             </dict>
+            <key>uparrow.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{319,534},{86,17}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{86,17}}</string>
+                <key>sourceSize</key>
+                <string>{86,17}</string>
+            </dict>
             <key>white-small.png</key>
             <dict>
                 <key>frame</key>
@@ -124,7 +137,7 @@
             <key>white.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{319,534},{56,56}}</string>
+                <string>{{319,622},{56,56}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -144,7 +157,7 @@
             <key>size</key>
             <string>{1024,1024}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:b21038f34d042ca38ac94bdb7c4547a1$</string>
+            <string>$TexturePacker:SmartUpdate:d726a660d6c120cb0cea854cb237782f$</string>
             <key>textureFileName</key>
             <string>scene1Atlas-ipad.png</string>
         </dict>

@@ -108,10 +108,23 @@
                 <key>sourceSize</key>
                 <string>{15,15}</string>
             </dict>
+            <key>uparrow.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{39,2003},{173,33}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{173,33}}</string>
+                <key>sourceSize</key>
+                <string>{173,33}</string>
+            </dict>
             <key>white-small.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{39,2003},{27,27}}</string>
+                <string>{{214,2003},{27,27}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -144,7 +157,7 @@
             <key>size</key>
             <string>{2048,2048}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:90b57ba958c6776e61d878f9fe15fa33$</string>
+            <string>$TexturePacker:SmartUpdate:e76d49654e38f4b36a0a9aead0992364$</string>
             <key>textureFileName</key>
             <string>scene1Atlas-ipadhd.png</string>
         </dict>

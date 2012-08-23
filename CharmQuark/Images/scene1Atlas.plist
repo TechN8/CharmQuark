@@ -98,7 +98,7 @@
             <key>track.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{77,487},{4,4}}</string>
+                <string>{{86,489},{4,4}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -108,10 +108,23 @@
                 <key>sourceSize</key>
                 <string>{4,4}</string>
             </dict>
+            <key>uparrow.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{77,478},{46,9}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{46,9}}</string>
+                <key>sourceSize</key>
+                <string>{46,9}</string>
+            </dict>
             <key>white-small.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{77,478},{7,7}}</string>
+                <string>{{77,489},{7,7}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -144,7 +157,7 @@
             <key>size</key>
             <string>{512,512}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:801a4b2290565ef17529612cde84590d$</string>
+            <string>$TexturePacker:SmartUpdate:9ee6464c4de319659e6fdc4d9edee56f$</string>
             <key>textureFileName</key>
             <string>scene1Atlas.png</string>
         </dict>

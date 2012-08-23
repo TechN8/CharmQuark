@@ -4,19 +4,6 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>achievement-icon.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{188,2},{60,60}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{60,60}}</string>
-                <key>sourceSize</key>
-                <string>{60,60}</string>
-            </dict>
             <key>achievements.png</key>
             <dict>
                 <key>frame</key>
@@ -29,32 +16,6 @@
                 <string>{{0,0},{85,85}}</string>
                 <key>sourceSize</key>
                 <string>{85,85}</string>
-            </dict>
-            <key>facebook-icon.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{126,2},{60,60}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{60,60}}</string>
-                <key>sourceSize</key>
-                <string>{60,60}</string>
-            </dict>
-            <key>leaderboard-icon.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{64,176},{60,60}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{60,60}}</string>
-                <key>sourceSize</key>
-                <string>{60,60}</string>
             </dict>
             <key>leaderboard.png</key>
             <dict>
@@ -72,7 +33,7 @@
             <key>twitter-bird.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{89,64},{59,48}}</string>
+                <string>{{2,176},{59,48}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -82,19 +43,6 @@
                 <key>sourceSize</key>
                 <string>{59,48}</string>
             </dict>
-            <key>twitter-icon.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{2,176},{60,60}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{60,60}}</string>
-                <key>sourceSize</key>
-                <string>{60,60}</string>
-            </dict>
         </dict>
         <key>metadata</key>
         <dict>
@@ -103,9 +51,9 @@
             <key>realTextureFileName</key>
             <string>iconAtlas-hd.png</string>
             <key>size</key>
-            <string>{256,256}</string>
+            <string>{128,256}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:8e406862f5a5cfa2cf8f0d6afbd95f71$</string>
+            <string>$TexturePacker:SmartUpdate:01294dba6c61f03ccba2940f76c8fd80$</string>
             <key>textureFileName</key>
             <string>iconAtlas-hd.png</string>
         </dict>
