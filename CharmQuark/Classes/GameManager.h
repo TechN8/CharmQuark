@@ -31,6 +31,8 @@
     CDSoundSource *lastBGMSource;
     NSInteger bgmIntensity;
     NSInteger bgmIntensityLast;
+    NSString *currentBackgroundTrack;
+    float musicVolume;
 }
 
 @property (nonatomic,readwrite) BOOL isMusicON;
@@ -45,6 +47,7 @@
 @property (assign) SceneTypes curLevel;
 @property (assign) SceneTypes lastLevel;
 @property (assign) NSInteger bgmIntensity;
+@property (assign) float musicVolume;
 
 +(GameManager*)sharedGameManager;
 -(void)runSceneWithID:(SceneTypes)sceneID;

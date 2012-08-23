@@ -6,7 +6,6 @@
 //
 
 #import "cocos2d.h"
-#import "chipmunk.h"
 #import "GameManager.h"
 #import "MainMenuScene.h"
 #import "IntroLayer.h"
@@ -29,6 +28,7 @@ static NSString *kShowTutorialKey   = @"showTutorial";
 @synthesize hasPlayerDied;
 @synthesize lastLevel;
 @synthesize shouldShowTutorial;
+
 
 static GameManager* _sharedGameManager = nil;
 +(GameManager*)sharedGameManager {
@@ -244,7 +244,7 @@ static GameManager* _sharedGameManager = nil;
         [[CCDirector sharedDirector] runWithScene:sceneToRun];
     } else {
         [[CCDirector sharedDirector] 
-         replaceScene:[CCTransitionFade transitionWithDuration:1.0 
+         replaceScene:[CCTransitionFade transitionWithDuration:0.5 
                                                          scene:sceneToRun 
                                                      withColor:ccBLACK]];
     }
@@ -327,6 +327,7 @@ static GameManager* _sharedGameManager = nil;
 
 #pragma mark - Music
 
+@synthesize musicVolume;
 @synthesize bgmSources;
 @synthesize isMusicON;
 @synthesize bgmIntensity;
@@ -398,18 +399,21 @@ static GameManager* _sharedGameManager = nil;
 
 -(void)playBackgroundTrackForCurrentScene {
     switch (currentScene) {
-        case kMainMenuScene: 
-            [soundEngine setBackgroundMusicVolume:0.2];
+        case kMainMenuScene:
+            musicVolume = 0.2;
             [self playBackgroundTrack:@"SmoothPiano.m4a"];
+            [CDXPropertyModifierAction fadeBackgroundMusic:1.0f finalVolume:musicVolume curveType:kIT_SCurve shouldStop:NO];
             break;
         case kGameSceneSurvival:
         case kGameSceneTimeAttack:
         case kGameSceneMomMode:
             // Start the music.
-            [soundEngine setBackgroundMusicVolume:0.6];
+            musicVolume = 0.6;
             [self playBackgroundTrack:@"SmoothPiano.m4a"];
+            [CDXPropertyModifierAction fadeBackgroundMusic:1.0f finalVolume:musicVolume curveType:kIT_SCurve shouldStop:NO];
             break;
         case kIntroScene:
+            musicVolume = 0.2;
             [self stopBackgroundTrack];
             break;            
         default:
@@ -438,12 +442,15 @@ static GameManager* _sharedGameManager = nil;
     
     if (isMusicON && managerSoundState == kAudioManagerReady) {
         if ([soundEngine isBackgroundMusicPlaying]) {
+            if ([trackFileName isEqualToString: currentBackgroundTrack]) {
+                return; // Leave it alone.
+            }
             [soundEngine stopBackgroundMusic];
         }
+        currentBackgroundTrack = trackFileName;
         [soundEngine preloadBackgroundMusic:trackFileName];
+        [soundEngine setBackgroundMusicVolume: musicVolume];
         [soundEngine playBackgroundMusic:trackFileName loop:YES];
-        [soundEngine setBackgroundMusicVolume:0.0];
-        [CDXPropertyModifierAction fadeBackgroundMusic:1.0f finalVolume:0.5f curveType:kIT_SCurve shouldStop:NO];
     }
 }
 
