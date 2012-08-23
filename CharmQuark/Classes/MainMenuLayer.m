@@ -65,21 +65,13 @@ enum {
 -(void)showScores {
     CGSize winSize = [[CCDirector sharedDirector] winSize];
     
-//    GCHelper *gchelper = [GCHelper sharedInstance];
-//    if (gchelper.isUserAuthenticated) {
-//        // Show the Game center leaderboard.
-//        CCLOG(@"Showing GC leaderboard.");
-//        [gchelper showLeaderboard];
-//    } else {
-        // Show the local leader board.
-        CCLOG(@"Show local scores.");
-        HighScoreDialog *scores = [HighScoreDialog node];
-        CGPoint oldPos = scores.position;
-        scores.position = ccp(0, 2 * winSize.height);
-        [self addChild:scores z:kZPopups];
-        [scores runAction:[CCMoveTo actionWithDuration:kPopupSpeed
-                                              position:oldPos]];
-//    }
+    CCLOG(@"Show local scores.");
+    HighScoreDialog *scores = [HighScoreDialog node];
+    CGPoint oldPos = scores.position;
+    scores.position = ccp(0, 2 * winSize.height);
+    [self addChild:scores z:kZPopups];
+    [scores runAction:[CCMoveTo actionWithDuration:kPopupSpeed
+                                          position:oldPos]];
 }
 
 -(void)showCredits {
@@ -214,58 +206,70 @@ enum {
     CCLabelBMFont *label;
     CQMenuItemFont *item;
     
+    // Time Attack
     label = [CCLabelBMFont labelWithString:@"Time Attack" 
                                    fntFile:@"score.fnt"];
     label.color = kColorButton;
+    label.scale = 1.0;
     item = [CQMenuItemFont itemWithLabel:label
                                   target:self 
                                 selector:@selector(playTimeAttack)];
-    item.position = ccp(-0.25 * winSize.width, 0);
+    item.position = ccp(-0.25 * winSize.width, 0.05 * winSize.height);
     [menu addChild:item];
 
+    // Accelerator
     label = [CCLabelBMFont labelWithString:@"Accelerator" 
                                    fntFile:@"score.fnt"];
     label.color = kColorButton;
+    label.scale = 1.0;
     item = [CQMenuItemFont itemWithLabel:label
                                   target:self 
                                 selector:@selector(playSurvival)];
     item.position = ccp(-0.25 * winSize.width, -0.1 * winSize.height);
     [menu addChild:item];
     
+    // Meditation
     label = [CCLabelBMFont labelWithString:@"Meditation" 
                                    fntFile:@"score.fnt"];
+    label.scale = 1.0;
     label.color = kColorButton;
     item = [CQMenuItemFont itemWithLabel:label
                                   target:self 
                                 selector:@selector(playMomMode)];
-    item.position = ccp(-0.25 * winSize.width, -0.2 * winSize.height);
+    item.position = ccp(-0.25 * winSize.width, -0.25 * winSize.height);
     [menu addChild:item];
-    
+
+    // Options
     label = [CCLabelBMFont labelWithString:@"Options" 
                                    fntFile:@"score.fnt"];
     label.color = kColorButton;
+    label.scale = 1.0;
     item = [CQMenuItemFont itemWithLabel:label
                                   target:self 
                                 selector:@selector(showOptions)];
-    item.position = ccp(0.25 * winSize.width, 0);
+    item.position = ccp(0.25 * winSize.width, 0.05 * winSize.height);
     [menu addChild:item];
-    
+
+    // Records
     label = [CCLabelBMFont labelWithString:@"Records" 
                                    fntFile:@"score.fnt"];
     label.color = kColorButton;
+    label.scale = 1.0;
     item = [CQMenuItemFont itemWithLabel:label
                                   target:self 
                                 selector:@selector(showScores)];
     item.position = ccp(0.25 * winSize.width, -0.1 * winSize.height);
     [menu addChild:item];
-    
+
+    // Credits
     label = [CCLabelBMFont labelWithString:@"Credits" 
                                    fntFile:@"score.fnt"];
     label.color = kColorButton;
+    label.scale = 1.0;
     item = [CQMenuItemFont itemWithLabel:label
                                   target:self 
                                 selector:@selector(showCredits)];
-    item.position = ccp(0.25 * winSize.width, -0.2 * winSize.height);
+    item.position = ccp(0.25 * winSize.width, -0.25 * winSize.height);
     [menu addChild:item];
     [self addChild:menu z:kZMenu];
 
