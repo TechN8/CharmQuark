@@ -27,6 +27,11 @@
     [self runAction:seq];
 }
 
+-(void) restart {
+    GameManager *gm = [GameManager sharedGameManager];
+    [gm runSceneWithID:[gm curLevel]];
+}
+
 - (void) toggleMusic {
     GameManager *sharedGameManager = [GameManager sharedGameManager];
     [sharedGameManager setIsMusicON:![sharedGameManager isMusicON]];
@@ -50,6 +55,8 @@
 #pragma mark - ModalMenuLayer
 
 -(void)initUI {
+    [super addCloseArrow];
+    
     CGSize winSize = [[CCDirector sharedDirector] winSize];
     CCLabelBMFont *title = [CCLabelBMFont labelWithString:@"Game Paused" fntFile:@"score.fnt"];
     title.color = kColorDialogTitle;
@@ -57,12 +64,20 @@
     title.scale = 1.3;
     [self addChild:title z:100];
     
-    //Resume
-    CCLabelBMFont *resumeLabel = [CCLabelBMFont labelWithString:@"Resume" fntFile:@"score.fnt"];
-    resumeLabel.color = kColorButton;
-    CQMenuItemFont *resumeItem = [CQMenuItemFont itemWithLabel:resumeLabel 
+//    //Resume
+//    CCLabelBMFont *resumeLabel = [CCLabelBMFont labelWithString:@"Resume" fntFile:@"score.fnt"];
+//    resumeLabel.color = kColorButton;
+//    CQMenuItemFont *resumeItem = [CQMenuItemFont itemWithLabel:resumeLabel 
+//                                                        target:self 
+//                                                      selector:@selector(resumeParent)];
+    
+    // Restart
+    CCLabelBMFont *restartLabel = [CCLabelBMFont labelWithString:@"Restart" fntFile:@"score.fnt"];
+    restartLabel.color = kColorButton;
+    CQMenuItemFont *restartItem = [CQMenuItemFont itemWithLabel:restartLabel 
                                                         target:self 
-                                                      selector:@selector(resumeParent)];
+                                                      selector:@selector(restart)];
+    
     
     //Quit
     CCLabelBMFont *quitLabel = [CCLabelBMFont labelWithString:@"Quit" fntFile:@"score.fnt"];
@@ -99,16 +114,18 @@
     menu1.position = ccp(winSize.width * 0.5, winSize.height * 0.48f);
     [self addChild:menu1 z:100];
     
-    CCMenu *menu2 = [CCMenu menuWithItems:resumeItem, quitItem, nil];
+    CCMenu *menu2 = [CCMenu menuWithItems:restartItem, quitItem, nil];
     [menu2 alignItemsHorizontallyWithPadding:0.15 * winSize.width];
     menu2.position = ccp(winSize.width * 0.5, winSize.height * 0.25f);
     [self addChild:menu2 z:100];
 }
 
-#pragma mark - CCNode
+#pragma mark - CCTargetedTouchDelegate
 
--(void)onEnter {
-    [super onEnter];
+-(void)ccTouchEnded:(UITouch *)touch withEvent:(UIEvent *)event {
+    if ([self isButtonTouch:touch]) {
+        [self resumeParent];
+    }
 }
 
 @end

@@ -12,12 +12,17 @@
 
 @interface DialogNode : CCNode<CCTargetedTouchDelegate> {
     Scale9Sprite *windowSprite;
+    CCSprite *arrow;
 }
+
+@property (readonly) CCSprite *arrow;
 
 -(void)initUI;
 
 -(void)setBackgroundNode:(CCNode*)node;
 
 -(void)addCloseArrow;
+
+-(BOOL) isButtonTouch: (UITouch *)touch;
 
 @end

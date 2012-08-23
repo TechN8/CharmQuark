@@ -20,8 +20,8 @@
     CGFloat frameWidth 
     = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ? 23 : 12;
     
-    CCSprite *arrow = [CCSprite spriteWithSpriteFrameName:@"uparrow.png"];
-    arrow.color = kColorUI;
+    arrow = [CCSprite spriteWithSpriteFrameName:@"uparrow.png"];
+    arrow.color = kColorButton;
     arrow.position = ccp(windowSprite.position.x,
                          windowSprite.position.y + windowSprite.contentSize.height / 2 - frameWidth);
     [self addChild:arrow];
@@ -33,11 +33,42 @@
     [self addChild:node z:0];
 }
 
+-(BOOL) isButtonTouch: (UITouch *)touch {
+    if (nil == arrow) {
+        return NO;
+    }
+    
+    CGPoint location = [touch locationInView: [touch view]];
+    location = [[CCDirector sharedDirector] convertToGL: location];
+    CGPoint local = [arrow convertToNodeSpace:location];
+    CGRect r = [arrow boundingBox];
+    
+    r.origin = CGPointZero;
+    if( CGRectContainsPoint( r, local ) ) {
+        arrow.color = kColorButtonSelected;
+        return YES;
+    }
+    arrow.color = kColorButton;
+    return NO;
+}
+
 #pragma mark - CCTargetedTouchDelegate
 
-// This will consume any touches to this layer.
 -(BOOL)ccTouchBegan:(UITouch *)touch withEvent:(UIEvent *)event {
+    [self isButtonTouch:touch];
     return YES;
+}
+
+-(void)ccTouchMoved:(UITouch *)touch withEvent:(UIEvent *)event {
+    [self isButtonTouch:touch];
+}
+
+-(void)ccTouchEnded:(UITouch *)touch withEvent:(UIEvent *)event {
+    [self isButtonTouch:touch];
+}
+
+-(void)ccTouchCancelled:(UITouch *)touch withEvent:(UIEvent *)event {
+    [self isButtonTouch:touch];
 }
 
 #pragma mark - Touch handling

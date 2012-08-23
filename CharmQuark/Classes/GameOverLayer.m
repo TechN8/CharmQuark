@@ -101,7 +101,7 @@
     [self addChild:highScoreLabel z:100];
     
     //New Game
-    CCLabelBMFont *newGameLabel = [CCLabelBMFont labelWithString:@"New Game"
+    CCLabelBMFont *newGameLabel = [CCLabelBMFont labelWithString:@"Restart"
                                                          fntFile:@"score.fnt"];
     newGameLabel.color = kColorButton;
     CQMenuItemFont *newGameItem = [CQMenuItemFont itemWithLabel:newGameLabel
