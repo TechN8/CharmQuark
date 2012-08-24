@@ -1,7 +1,6 @@
 Next release
 
-Nicer BGM.
-More sounds.
+New sounds.
 
 
 RC 2
@@ -9,11 +8,15 @@ RC 2
 Time Attack clock will now blink when game over is triggered by time out.
 Game over window will now wait 1 seconds before appearing.
 Added close arrow to Options, Credits, Records and Pause dialogs.
+New background music and sound effects.
 BGM now plays continuously with volume changes betweeen scenes.
-BGM adjuested.  New percussion and swapped piano for guitar.
 Button colors adjusted.
 Adjusted dialog text alignment for consistency.
 Pause dialog now has restart option.
+Pause dialog can be dismissed using arrow or pause button.
+Added new background image.
+Background, detector, and map are now rendered into a single texture to improve fill rate.
+Score popups are now marked invisible when they are fully transparent.  Reduces render batches.
 
 RC 1
 
