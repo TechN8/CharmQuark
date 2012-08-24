@@ -29,6 +29,7 @@ static CGPoint skewVector;
 -(void) resume;
 -(BOOL) scoreParticles;
 -(void) playRandomCollisionAtVolume:(ALfloat)volume;
+-(void) playRandomExplosionAtVolume:(ALfloat)volume;
 
 @end
 
@@ -372,10 +373,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     
     // Play the finale music.
     GameManager *gm = [GameManager sharedGameManager];
-//    if ([gm isMusicON]) {
-        [gm setMusicVolume:kVolumeMenu];
-//        PLAYSOUNDEFFECT(GAME_OVER, 0.6);
-//    }
+    [gm setMusicVolume:kVolumeMenu];
     
     // Cancel touches.
     rotationTouch = nil;
@@ -455,6 +453,9 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
         paused = YES;
         [self pauseSchedulerAndActions];
         
+        // Change volume
+        [[GameManager sharedGameManager] setMusicVolume:kVolumeMenu];
+        
         // Throw up modal layer.
         PauseLayer *pauseLayer = [PauseLayer node];
         CGPoint oldPos = pauseLayer.position;
@@ -532,12 +533,15 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 -(void) resume {
     paused = NO;
     [self resumeSchedulerAndActions];
+    
+    // Change volume
+    [[GameManager sharedGameManager] setMusicVolume:kVolumeGame];
 }
 
 #pragma mark - Sound
 
 -(void)playRandomCollisionAtVolume:(ALfloat)volume {
-    switch(rand() % 3) {
+    switch(rand() % 4) {
         case 0:
             PLAYSOUNDEFFECT(COLLIDE_1, volume);
             break;
@@ -547,7 +551,25 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
         case 2:
             PLAYSOUNDEFFECT(COLLIDE_3, volume);
             break;
+        case 3:
+            PLAYSOUNDEFFECT(COLLIDE_4, volume);
+            break;
     }
+}
+
+-(void)playRandomExplosionAtVolume:(ALfloat)volume {
+    switch(rand() % 3) {
+        case 0:
+            PLAYSOUNDEFFECT(EXPLODE_1, volume);
+            break;
+        case 1:
+            PLAYSOUNDEFFECT(EXPLODE_2, volume);
+            break;
+        case 2:
+            PLAYSOUNDEFFECT(EXPLODE_3, volume);
+            break;
+    }
+
 }
 
 #pragma mark - Particle Management
@@ -748,11 +770,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     [self updateLevel]; // Update level.
 
     if (points) {
-        PLAYSOUNDEFFECT(COLLIDE_1, 1.0);
-        PLAYSOUNDEFFECT(COLLIDE_2, 1.0);
-//        [self playRandomCollisionAtVolume:1.0];
-//        [self playRandomCollisionAtVolume:1.0];
-//        [self playRandomCollisionAtVolume:1.0];
+        [self playRandomExplosionAtVolume:1.0];
         gameOver = NO;
     }
     
