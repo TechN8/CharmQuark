@@ -119,7 +119,7 @@
     }
     
     // Restart
-    CCLabelBMFont *restartLabel = [CCLabelBMFont labelWithString:@"Restart" fntFile:@"score.fnt"];
+    CCLabelBMFont *restartLabel = [CCLabelBMFont labelWithString:@"New Game" fntFile:@"score.fnt"];
     CQMenuItemFont *restartItem = [CQMenuItemFont itemWithLabel:restartLabel 
                                                          target:self 
                                                        selector:@selector(restart)];
