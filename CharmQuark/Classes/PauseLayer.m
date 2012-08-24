@@ -141,7 +141,15 @@
 #pragma mark - CCTargetedTouchDelegate
 
 -(void)ccTouchEnded:(UITouch *)touch withEvent:(UIEvent *)event {
+    CGSize winSize = [[CCDirector sharedDirector] winSize];
+    CGPoint location = [touch locationInView: [touch view]];
+    location = [[CCDirector sharedDirector] convertToGL: location];
+   
     if ([self isButtonTouch:touch]) {
+        [self resumeParent];
+    }
+    if (location.x > winSize.width * 0.9 
+        && location.y > winSize.height * 0.9) {
         [self resumeParent];
     }
 }
