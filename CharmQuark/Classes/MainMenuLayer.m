@@ -19,6 +19,7 @@
 // Z Values for UI Elements.
 enum {
     kZRightParticle = 0,
+    kZBackground,
     kZDetector,
     kZGlow,
     kZTitle,
@@ -177,11 +178,39 @@ enum {
     titleFlash.opacity = 0;
     [titleBatch addChild:titleFlash z:kZFlash];
     
-    //Detector and Particles
+    //Detector
     detector = [Detector node];
     detector.position = ccp(winSize.width / 2, winSize.height / 2);
-    [batchNode addChild:detector z:kZDetector];
+    
+    // Add the background tiles.
+    CCRenderTexture *rt = [CCRenderTexture renderTextureWithWidth:winSize.width
+                                                           height:winSize.height];
+    [rt begin];
+    CCSprite *bg = [CCSprite spriteWithFile:@"background.png"
+                                       rect:CGRectMake(0, 0, winSize.width, winSize.height)];
+    ccTexParams params = {GL_LINEAR,GL_NEAREST,GL_REPEAT,GL_REPEAT};
+    [bg.texture setTexParameters:&params];
+    bg.position = ccp(winSize.width / 2, winSize.height / 2);
+    bg.color = ccc3(0, 40, 60);
+    [bg visit];
+    [bg cleanup];
 
+    bg = [CCSprite spriteWithFile:@"bg-gradient.png"];
+    bg.scaleX = winSize.width / bg.contentSize.width;
+    bg.scaleY = winSize.height / bg.contentSize.height;
+    bg.position = ccp(winSize.width / 2, winSize.height / 2);
+    [bg visit];
+    [bg cleanup];
+    
+    [detector visit];
+    detector.visible = NO;
+    [batchNode addChild:detector z:kZDetector];
+    
+    [rt end];
+    rt.position = ccp(winSize.width / 2, winSize.height / 2);
+    [self addChild:rt z:kZBackground];    
+    
+    // Particles
     leftParticleStart = ccp(winSize.width / 2 - winSize.height * 0.4,
                             winSize.height * -0.1);
     leftParticle = [Particle particleWithColor:kParticleBlue];

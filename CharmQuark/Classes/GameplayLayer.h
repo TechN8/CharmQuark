@@ -38,8 +38,8 @@
 #define kTimeAttackAdd          20.0
 
 // Collision sound volume control
-#define kMinSoundImpulse        1200.0f
-#define kMaxSoundImpulse        4800.0f
+#define kMinSoundImpulse        2000.0f
+#define kMaxSoundImpulse        6000.0f
 
 // Rotation inertia
 #define kRotationFalloff        5.0f
@@ -69,6 +69,8 @@ enum {
 
 enum {
     kZBackground = 0,
+    kZMap = 1,
+    kZDetector = 2,
     kZUIElements = 50,
     kZParticles = 100,
     kZLog = 150,

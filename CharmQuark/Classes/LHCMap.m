@@ -66,13 +66,16 @@
     CGPoint clockPos = ccp(center.x + radius * cosf(clockwise),
                            center.y + radius * sinf(clockwise));
     [colorPacket setPosition:clockPos];
-    [self addChild:colorPacket z:10];
+    [self.parent addChild:colorPacket z:10];
     
     
     CGPoint antiClockPos = ccp(center.x + radius * cosf(antiClockwise),
                                center.y + radius * sinf(antiClockwise));
     [whitePacket setPosition:antiClockPos];
-    [self addChild:whitePacket z:10];
+    [self.parent addChild:whitePacket z:10];
+
+    center = ccp(self.position.x + self.contentSize.width - self.contentSize.height / 2,
+                 self.position.y);
 }
 
 #pragma mark - NSObject
@@ -85,8 +88,6 @@
         colorPacket = [CCSprite spriteWithSpriteFrameName:@"white-small.png"];
         
         radius = self.contentSize.height / 2.0 - whitePacket.contentSize.height * 0.4;
-        center = ccp(self.contentSize.width - self.contentSize.height / 2,
-                     self.contentSize.height / 2);
         
         clockwise = kcwStartAngle;
         antiClockwise = kacwStartAngle;

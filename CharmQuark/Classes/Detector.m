@@ -57,9 +57,6 @@
     blink.rotation = CC_RADIANS_TO_DEGREES(angle);
     [self.parent addChild:blink z:self.zOrder + 1];
 
-//    id flash = [CCBlink actionWithDuration:1.0 blinks:2];
-//    id loop = [CCRepeatForever actionWithAction:flash];
-
     id fadeout = [CCFadeTo actionWithDuration:0.5 opacity:128];
     id fadein = [CCFadeTo actionWithDuration:0.5 opacity:255];
     id seq = [CCSequence actions:fadeout, fadein, nil];

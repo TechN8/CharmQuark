@@ -28,7 +28,7 @@ static CGPoint skewVector;
 -(Particle *) readyNextParticle;
 -(void) resume;
 -(BOOL) scoreParticles;
--(void) playRandomNoteAtVolume:(ALfloat)volume;
+-(void) playRandomCollisionAtVolume:(ALfloat)volume;
 
 @end
 
@@ -121,7 +121,7 @@ void collisionPostSolve(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
             ALfloat volume 
             = fmax(fminf((impulse - kMinSoundImpulse)/(kMaxSoundImpulse - kMinSoundImpulse), 1.0f), 0.0f);
             //CCLOG(@"Impulse = %f. Volume = %f", impulse, volume);
-            [self playRandomNoteAtVolume:volume];
+            [self playRandomCollisionAtVolume:volume];
         }
     }
 }
@@ -202,7 +202,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     pauseSprite.color = kColorUI;
     pauseSprite.anchorPoint = ccp(1.0, 0.5);
     [pauseSprite setPosition:ccp(winSize.width - 5, winSize.height * 0.95f)];
-    [uiBatchNode addChild:pauseSprite z:kZUIElements];
+    //[uiBatchNode addChild:pauseSprite z:kZUIElements];
     
     // Add score label.
     scoreLabel = [CCLabelBMFont labelWithString:@"0" fntFile:@"score.fnt"];
@@ -226,9 +226,8 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     // Add the map.
     map = [LHCMap node];
     map.color = kColorUI;
-    map.anchorPoint = ccp(0.02, 0.5);
-    map.position = ccp(0, puzzleCenter.y);
-    [uiBatchNode addChild:map z:kZBackground];
+    map.anchorPoint = ccp(0, 0.5);
+    map.position = ccp(-3, puzzleCenter.y);
     
     // Add the log viewer.
     logViewer = [LogViewer node];
@@ -238,8 +237,45 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     // Add the detector.
     detector = [Detector node];
     detector.position = puzzleCenter;
-    [uiBatchNode addChild:detector z:kZBackground];
     
+    // Render the background.
+    CCRenderTexture *rt = [CCRenderTexture renderTextureWithWidth:winSize.width
+                                                           height:winSize.height];
+    [rt begin];
+    CCSprite *bg = [CCSprite spriteWithFile:@"background.png"
+                                       rect:CGRectMake(0, 0, winSize.width, winSize.height)];
+    ccTexParams params = {GL_LINEAR,GL_NEAREST,GL_REPEAT,GL_REPEAT};
+    [bg.texture setTexParameters:&params];
+    bg.position = ccp(winSize.width / 2, winSize.height / 2);
+    bg.color = ccc3(0, 40, 60);
+    [bg visit];
+    [bg cleanup];
+    
+    bg = [CCSprite spriteWithFile:@"bg-gradient.png"];
+    bg.scaleX = winSize.width / bg.contentSize.width;
+    bg.scaleY = winSize.height / bg.contentSize.height;
+    bg.position = ccp(winSize.width / 2, winSize.height / 2);
+    [bg visit];
+    [bg cleanup];
+    
+    [map visit];
+    map.visible = NO;
+    [uiBatchNode addChild:map z:kZMap];
+    
+    [detector visit];
+    detector.visible = NO;
+    [uiBatchNode addChild:detector z:kZDetector];
+    
+    [nextLabel visit];
+    [nextLabel removeFromParentAndCleanup:YES];
+    
+    [pauseSprite visit];
+    [pauseSprite cleanup];
+    
+    [rt end];
+    rt.position = ccp(winSize.width / 2, winSize.height / 2);
+    [self addChild:rt z:kZBackground];    
+
     // Add the thumb guides.
     thumbGuide = [CCSprite spriteWithSpriteFrameName:@"thumbguide.png"];
     thumbGuide.color = kColorThumbGuide;
@@ -335,8 +371,11 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     paused = YES;
     
     // Play the finale music.
-    [[GameManager sharedGameManager] stopBackgroundTrack];
-    PLAYSOUNDEFFECT(GAME_OVER, 0.5);
+    GameManager *gm = [GameManager sharedGameManager];
+//    if ([gm isMusicON]) {
+        [gm setMusicVolume:kVolumeMenu];
+//        PLAYSOUNDEFFECT(GAME_OVER, 0.6);
+//    }
     
     // Cancel touches.
     rotationTouch = nil;
@@ -350,8 +389,6 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
         float angle = -1 * CC_RADIANS_TO_DEGREES(cpvtoangle(cpBodyGetPos(particle.body)));
         angle += centerNode.rotation;
         [detector gameOverAtAngle:angle];
-//        id flash = [CCBlink actionWithDuration:1.0 blinks:2];
-//        id loop = [CCRepeatForever actionWithAction:flash];
         
         id fadeout = [CCFadeTo actionWithDuration:0.5 opacity:128];
         id fadein = [CCFadeTo actionWithDuration:0.5 opacity:255];
@@ -499,58 +536,16 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 
 #pragma mark - Sound
 
--(void)playRandomNoteAtVolume:(ALfloat)volume {
-    switch(rand() % 15) {
+-(void)playRandomCollisionAtVolume:(ALfloat)volume {
+    switch(rand() % 3) {
         case 0:
-            PLAYSOUNDEFFECT(PARTICLE_COLLIDE_1, volume);
+            PLAYSOUNDEFFECT(COLLIDE_1, volume);
             break;
         case 1:
-            PLAYSOUNDEFFECT(PARTICLE_COLLIDE_2, volume);
+            PLAYSOUNDEFFECT(COLLIDE_2, volume);
             break;
         case 2:
-            PLAYSOUNDEFFECT(PARTICLE_COLLIDE_3, volume);
-            break;
-        case 3:
-            PLAYSOUNDEFFECT(PARTICLE_COLLIDE_4, volume);
-            break;
-        case 4:
-            PLAYSOUNDEFFECT(PARTICLE_COLLIDE_5, volume);
-            break;
-        case 5:
-            PLAYSOUNDEFFECT(PARTICLE_COLLIDE_6, volume);
-            break;
-        case 6:
-            PLAYSOUNDEFFECT(PARTICLE_COLLIDE_7, volume);
-            break;
-        case 7:
-            PLAYSOUNDEFFECT(PARTICLE_COLLIDE_8, volume);
-            break;
-        case 8:
-            PLAYSOUNDEFFECT(PARTICLE_COLLIDE_9, volume);
-            break;
-        case 9:
-            PLAYSOUNDEFFECT(PARTICLE_COLLIDE_10, volume);
-            break;
-        case 10:
-            PLAYSOUNDEFFECT(PARTICLE_COLLIDE_11, volume);
-            break;
-        case 11:
-            PLAYSOUNDEFFECT(PARTICLE_COLLIDE_12, volume);
-            break;
-        case 12:
-            PLAYSOUNDEFFECT(PARTICLE_COLLIDE_13, volume);
-            break;
-        case 13:
-            PLAYSOUNDEFFECT(PARTICLE_COLLIDE_14, volume);
-            break;
-        case 14:
-            PLAYSOUNDEFFECT(PARTICLE_COLLIDE_15, volume);
-            break;
-        case 15:
-            PLAYSOUNDEFFECT(PARTICLE_COLLIDE_16, volume);
-            break;
-        default:
-            PLAYSOUNDEFFECT(PARTICLE_COLLIDE_2, volume);
+            PLAYSOUNDEFFECT(COLLIDE_3, volume);
             break;
     }
 }
@@ -753,10 +748,11 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     [self updateLevel]; // Update level.
 
     if (points) {
-//        PLAYSOUNDEFFECT(PARTICLE_EXPLODE, 1.0);
-        [self playRandomNoteAtVolume:1.0];
-        [self playRandomNoteAtVolume:1.0];
-        [self playRandomNoteAtVolume:1.0];
+        PLAYSOUNDEFFECT(COLLIDE_1, 1.0);
+        PLAYSOUNDEFFECT(COLLIDE_2, 1.0);
+//        [self playRandomCollisionAtVolume:1.0];
+//        [self playRandomCollisionAtVolume:1.0];
+//        [self playRandomCollisionAtVolume:1.0];
         gameOver = NO;
     }
     
