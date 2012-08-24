@@ -40,7 +40,9 @@
     CCFadeOut *fadeOut = [CCFadeOut actionWithDuration:1.0];
     CCEaseExponentialIn *fadeEase = [CCEaseExponentialIn actionWithAction:fadeOut];
     CCScaleTo *scaleTo = [CCScaleTo actionWithDuration:0.5 scale:1.3];
-    CCSequence *seq = [CCSequence actions:scaleTo, fadeEase, nil];
+    CCToggleVisibility *hide = [CCToggleVisibility action];
+    
+    CCSequence *seq = [CCSequence actions:scaleTo, fadeEase, hide, nil];
     [newMessage runAction:seq];
     
     [self addChild:newMessage z:0];
