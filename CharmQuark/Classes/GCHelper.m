@@ -123,6 +123,7 @@ static GCHelper *sharedHelper = nil;
                            if (error == nil) {
                                NSLog(@"Successfully sent score!");
                                [scoresToReport removeObject:score];
+                               [self save]; // Don't repeat.
                            } else {
                                NSLog(@"Score failed to send... will try again later.  Reason: %@", error.localizedDescription);                
                            }
@@ -151,7 +152,7 @@ static GCHelper *sharedHelper = nil;
                             if (error == NULL) {
                                 NSLog(@"Successfully sent archievement!");
                                 [achievementsToReport removeObject:achievement];
-                                [self save];  // Don't repeat.
+                                [self save]; // Don't repeat.
                                 [self showAchievementNotification:achievement];
                             } else {
                                 NSLog(@"Achievement failed to send... will try again \
