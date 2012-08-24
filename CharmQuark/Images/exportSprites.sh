@@ -48,5 +48,11 @@ $INKSCAPE --export-png=${i}.png --export-background-opacity=0 --export-dpi=$IPHO
 $INKSCAPE --export-png=${i}-hd.png --export-background-opacity=0 --export-dpi=$IPHONEHD_DPI --export-id=$i --export-id-only $INPUT_FILE
 done;
 
-#cp window-ipad.png window.png
-#cp window-ipadhd.png window-hd.png
+# Background
+i=background
+$INKSCAPE --export-png=${i}.png --export-background-opacity=0 --export-width=32 --export-height=32 --export-id=$i --export-id-only $INPUT_FILE
+$INKSCAPE --export-png=${i}-hd.png --export-background-opacity=0 --export-width=64 --export-height=64 --export-id=$i --export-id-only $INPUT_FILE
+$INKSCAPE --export-png=${i}-ipad.png --export-background-opacity=0 --export-width=64 --export-height=64 --export-id=$i --export-id-only $INPUT_FILE
+$INKSCAPE --export-png=${i}-ipadhd.png --export-background-opacity=0 --export-width=128 --export-height=128 --export-id=$i --export-id-only $INPUT_FILE
+i=bg-gradient
+$INKSCAPE --export-png=${i}.png --export-background-opacity=0 --export-width=4 --export-height=256 --export-id=$i --export-id-only $INPUT_FILE
