@@ -47,7 +47,7 @@
 @property (assign) SceneTypes curLevel;
 @property (assign) SceneTypes lastLevel;
 @property (assign) NSInteger bgmIntensity;
-@property (assign) float musicVolume;
+@property (nonatomic, assign) float musicVolume;
 
 +(GameManager*)sharedGameManager;
 -(void)runSceneWithID:(SceneTypes)sceneID;

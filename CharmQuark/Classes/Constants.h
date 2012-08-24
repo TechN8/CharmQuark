@@ -40,6 +40,10 @@
 #define kiPadScale      0.875
 #define kiPadSkew       ccp(0, 48)
 
+// Volume
+#define kVolumeMenu     0.1
+#define kVolumeGame     0.7
+
 typedef enum {
     kNoSceneUninitialized=0,
     kMainMenuScene=1,

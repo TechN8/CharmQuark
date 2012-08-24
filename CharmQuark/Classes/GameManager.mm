@@ -332,6 +332,14 @@ static GameManager* _sharedGameManager = nil;
 @synthesize isMusicON;
 @synthesize bgmIntensity;
 
+-(void)setMusicVolume:(float)volume {
+    musicVolume = volume;
+    [CDXPropertyModifierAction fadeBackgroundMusic:1.0f 
+                                       finalVolume:musicVolume
+                                         curveType:kIT_SCurve 
+                                        shouldStop:NO];
+}
+
 -(void)setIsMusicON:(BOOL)value {
     isMusicON = value;
     [[NSUserDefaults standardUserDefaults] setBool:value forKey:kMusicOnKey];
@@ -360,7 +368,7 @@ static GameManager* _sharedGameManager = nil;
             nextBGM = [soundEngine soundSourceForFile:
                       [listOfSoundEffectFiles objectForKey:loopKey]];
             [bgmSources setObject:nextBGM forKey:loopKey];
-            [nextBGM setGain:0.5];
+            [nextBGM setGain:kVolumeGame];
         }
         [nextBGM rewind];
         [nextBGM play];
@@ -400,20 +408,17 @@ static GameManager* _sharedGameManager = nil;
 -(void)playBackgroundTrackForCurrentScene {
     switch (currentScene) {
         case kMainMenuScene:
-            musicVolume = 0.2;
-            [self playBackgroundTrack:@"SmoothPiano.m4a"];
-            [CDXPropertyModifierAction fadeBackgroundMusic:1.0f finalVolume:musicVolume curveType:kIT_SCurve shouldStop:NO];
+            [self setMusicVolume: kVolumeMenu];
+            [self playBackgroundTrack:@"CharmQuark.m4a"];
             break;
         case kGameSceneSurvival:
         case kGameSceneTimeAttack:
         case kGameSceneMomMode:
             // Start the music.
-            musicVolume = 0.6;
-            [self playBackgroundTrack:@"SmoothPiano.m4a"];
-            [CDXPropertyModifierAction fadeBackgroundMusic:1.0f finalVolume:musicVolume curveType:kIT_SCurve shouldStop:NO];
+            [self setMusicVolume: kVolumeGame];
+            [self playBackgroundTrack:@"CharmQuark.m4a"];
             break;
         case kIntroScene:
-            musicVolume = 0.2;
             [self stopBackgroundTrack];
             break;            
         default:
