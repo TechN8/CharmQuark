@@ -92,39 +92,13 @@
 	</dict>
 	<key>kGameSceneMomMode</key>
 	<dict>
-		<key>PARTICLE_COLLIDE_1</key>
-		<string>A2.caf</string>
-		<key>PARTICLE_COLLIDE_2</key>
-		<string>C2.caf</string>
-		<key>PARTICLE_COLLIDE_3</key>
-		<string>D2.caf</string>
-		<key>PARTICLE_COLLIDE_4</key>
-		<string>E2.caf</string>
-		<key>PARTICLE_COLLIDE_5</key>
-		<string>G2.caf</string>
-		<key>PARTICLE_COLLIDE_6</key>
-		<string>A3.caf</string>
-		<key>PARTICLE_COLLIDE_7</key>
-		<string>C3.caf</string>
-		<key>PARTICLE_COLLIDE_8</key>
-		<string>D3.caf</string>
-		<key>PARTICLE_COLLIDE_9</key>
-		<string>E3.caf</string>
-		<key>PARTICLE_COLLIDE_10</key>
-		<string>G3.caf</string>
-		<key>PARTICLE_COLLIDE_11</key>
-		<string>A4.caf</string>
-		<key>PARTICLE_COLLIDE_12</key>
-		<string>C4.caf</string>
-		<key>PARTICLE_COLLIDE_13</key>
-		<string>D4.caf</string>
-		<key>PARTICLE_COLLIDE_14</key>
-		<string>E4.caf</string>
-		<key>PARTICLE_COLLIDE_15</key>
-		<string>G4.caf</string>
-		<key>PARTICLE_COLLIDE_16</key>
-		<string>A5.caf</string>
-		<key>PARTICLE_EXPLODE</key>
+		<key>COLLIDE_1</key>
+		<string>Collide1-2.caf</string>
+		<key>COLLIDE_2</key>
+		<string>Collide4-2.caf</string>
+		<key>COLLIDE_3</key>
+		<string>Collide5-2.caf</string>
+		<key>EXPLODE</key>
 		<string>AP.caf</string>
 		<key>GAME_OVER</key>
 		<string>Outro.caf</string>
