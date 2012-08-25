@@ -95,16 +95,17 @@
             }
             instructions.string = @"Keep particles\ninside the detector.";
             instructions.position = ccp(puzzleCenter.x, winSize.height * 0.75);
-            fadeOut = [CCFadeTo actionWithDuration:0.5 opacity:128];
-            fadeIn = [CCFadeTo actionWithDuration:0.5 opacity:255];
+            fadeOut = [CCTintTo actionWithDuration:0.5 red:128 green:128 blue:128];
+            fadeIn = [CCTintTo actionWithDuration:0.5 red:255 green:255 blue:255];
             seq = [CCSequence actions:fadeOut, fadeIn, nil];
+            detector.visible = YES;
             [detector runAction: [CCRepeatForever actionWithAction:seq]];
             tutorialStep++;
             break;
         case 5:
             // Tap to play.
             [detector stopAllActions];
-            detector.opacity = 255;
+            detector.visible = NO;
             instructions.string = @"Tap to play.";
             instructions.position = ccp(winSize.width * 0.50, winSize.height * 0.25);
             tutorialStep++;
