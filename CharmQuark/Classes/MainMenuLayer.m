@@ -219,6 +219,20 @@ enum {
     detector.visible = NO;
     [batchNode addChild:detector z:kZDetector];
     
+    // Show version.
+    NSString *vers =[[[NSBundle mainBundle] infoDictionary] valueForKey:@"CFBundleVersion"];
+    NSString *mvers =[[[NSBundle mainBundle] infoDictionary] valueForKey:@"CFBundleShortVersionString"];
+    NSString *versionString = [NSString stringWithFormat:@"v%@ (%@)", mvers, vers];
+    CCLabelTTF *versionLabel = [CCLabelTTF labelWithString:versionString 
+                                                  fontName:@"American Typewriter"
+                                                  fontSize:12.0];
+    versionLabel.opacity = 128;
+    versionLabel.color = kColorUI;
+    versionLabel.anchorPoint = ccp(1.0, 0.0);
+    versionLabel.position = ccp(winSize.width, 0);
+    [versionLabel visit];
+    [versionLabel cleanup];
+    
     [rt end];
     rt.position = ccp(winSize.width / 2, winSize.height / 2);
     [self addChild:rt z:kZBackground];    
@@ -339,19 +353,6 @@ enum {
     menu2.position = ccp(winSize.width * 0.5, winSize.height * 0.02);
     [self addChild:menu2 z:kZMenu];
      */
-    
-    // Show version.
-    NSString *vers =[[[NSBundle mainBundle] infoDictionary] valueForKey:@"CFBundleVersion"];
-    NSString *mvers =[[[NSBundle mainBundle] infoDictionary] valueForKey:@"CFBundleShortVersionString"];
-    NSString *versionString = [NSString stringWithFormat:@"v%@ (%@)", mvers, vers];
-    CCLabelTTF *versionLabel = [CCLabelTTF labelWithString:versionString 
-                                                 fontName:@"American Typewriter"
-                                                 fontSize:12.0];
-    versionLabel.opacity = 128;
-    versionLabel.color = kColorUI;
-    versionLabel.anchorPoint = ccp(1.0, 0.0);
-    versionLabel.position = ccp(winSize.width, 0);
-    [self addChild:versionLabel];
 }
 
 -(void)onEnter {
