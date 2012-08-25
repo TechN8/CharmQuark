@@ -7,13 +7,18 @@
 	<key>kIntroScene</key>
 	<dict/>
 	<key>kMainMenuScene</key>
-	<dict/>
+	<dict>
+		<key>CLICK</key>
+		<string>Click.caf</string>
+	</dict>
 	<key>kNoSceneUninitialized</key>
 	<dict/>
 	<key>kOptionsScene</key>
 	<dict/>
 	<key>kGameSceneMomMode</key>
 	<dict>
+		<key>CLICK</key>
+		<string>Click.caf</string>
 		<key>COLLIDE_1</key>
 		<string>Collide1-2.caf</string>
 		<key>COLLIDE_2</key>
@@ -31,6 +36,8 @@
 	</dict>
 	<key>kGameSceneSurvival</key>
 	<dict>
+		<key>CLICK</key>
+		<string>Click.caf</string>
 		<key>COLLIDE_1</key>
 		<string>Collide1-2.caf</string>
 		<key>COLLIDE_2</key>
@@ -48,6 +55,8 @@
 	</dict>
 	<key>kGameSceneTimeAttack</key>
 	<dict>
+		<key>CLICK</key>
+		<string>Click.caf</string>
 		<key>COLLIDE_1</key>
 		<string>Collide1-2.caf</string>
 		<key>COLLIDE_2</key>

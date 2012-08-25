@@ -1,8 +1,3 @@
-Next release
-
-New sounds.
-
-
 RC 2
 
 Time Attack clock will now blink when game over is triggered by time out.

@@ -452,7 +452,9 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     if (!paused) {
         paused = YES;
         [self pauseSchedulerAndActions];
-        
+
+        PLAYSOUNDEFFECT(CLICK, 1.0);
+
         // Change volume
         [[GameManager sharedGameManager] setMusicVolume:kVolumeMenu];
         

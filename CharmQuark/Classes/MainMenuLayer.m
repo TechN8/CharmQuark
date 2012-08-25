@@ -39,6 +39,8 @@ enum {
     CCLOG(@"Showing options");
     CGSize winSize = [[CCDirector sharedDirector] winSize];
     
+    PLAYSOUNDEFFECT(CLICK, 1.0);
+    
     // Throw up modal layer.
     OptionsDialog *options = [OptionsDialog node];
     CGPoint oldPos = options.position;
@@ -50,22 +52,27 @@ enum {
 
 -(void)playSurvival {
     CCLOG(@"Playing Accelerator.");
+    PLAYSOUNDEFFECT(CLICK, 1.0);
     [[GameManager sharedGameManager] runSceneWithID:kGameSceneSurvival];
 }
 
 -(void)playTimeAttack {
     CCLOG(@"Playing Time Attack.");
+    PLAYSOUNDEFFECT(CLICK, 1.0);
     [[GameManager sharedGameManager] runSceneWithID:kGameSceneTimeAttack];
 }
 
 -(void)playMomMode {
     CCLOG(@"Playing Meditation.");
+    PLAYSOUNDEFFECT(CLICK, 1.0);
     [[GameManager sharedGameManager] runSceneWithID:kGameSceneMomMode];
 }
 
 -(void)showScores {
     CGSize winSize = [[CCDirector sharedDirector] winSize];
     
+    PLAYSOUNDEFFECT(CLICK, 1.0);
+
     CCLOG(@"Show local scores.");
     HighScoreDialog *scores = [HighScoreDialog node];
     CGPoint oldPos = scores.position;
@@ -79,6 +86,8 @@ enum {
     CCLOG(@"Showing credits.");
     CGSize winSize = [[CCDirector sharedDirector] winSize];
     
+    PLAYSOUNDEFFECT(CLICK, 1.0);
+    
     // Throw up modal layer.
     CreditsDialog *credits = [CreditsDialog node];
     CGPoint oldPos = credits.position;
@@ -90,11 +99,15 @@ enum {
 
 -(void)facebook {
     CCLOG(@"Opening facebook page.");
+    PLAYSOUNDEFFECT(CLICK, 1.0);
+    
     [[GameManager sharedGameManager] openSiteWithLinkType:kLinkTypeFacebook];
 }
 
 -(void)twitter {
     CCLOG(@"Tweet something.");
+    PLAYSOUNDEFFECT(CLICK, 1.0);
+    
 }
 
 -(void)flashTitle {

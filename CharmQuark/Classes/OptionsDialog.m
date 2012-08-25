@@ -26,31 +26,19 @@
 - (void) toggleMusic {
     GameManager *sharedGameManager = [GameManager sharedGameManager];
     [sharedGameManager setIsMusicON:![sharedGameManager isMusicON]];
-//    if ([[GameManager sharedGameManager] isMusicON]) {
-//        [musicToggle setString:@"Music: On"];
-//    } else {
-//        [musicToggle setString:@"Music: Off"];
-//    }
+    PLAYSOUNDEFFECT(CLICK, 1.0);
 }
 
 - (void) toggleSound {
     GameManager *sharedGameManager = [GameManager sharedGameManager];
     [sharedGameManager setIsSoundEffectsON:![sharedGameManager isSoundEffectsON]];
-//    if ([[GameManager sharedGameManager] isSoundEffectsON]) {
-//        [soundToggle setString:@"Sound: On"];
-//    } else {
-//        [soundToggle setString:@"Sound: Off"];
-//    }
+    PLAYSOUNDEFFECT(CLICK, 1.0);
 }
 
 - (void) toggleTutorial {
     GameManager *sharedGameManager = [GameManager sharedGameManager];
     [sharedGameManager setShouldShowTutorial:![sharedGameManager shouldShowTutorial]];
-//    if ([[GameManager sharedGameManager] shouldShowTutorial]) {
-//        [tutorialToggle setString:@"Tutorial: On"];
-//    } else {
-//        [tutorialToggle setString:@"Tutorial: Off"];
-//    }
+    PLAYSOUNDEFFECT(CLICK, 1.0);
 }
 
 #pragma mark - ModalMenuLayer
@@ -166,6 +154,7 @@
 
 -(void)ccTouchEnded:(UITouch *)touch withEvent:(UIEvent *)event {
     if ([self isButtonTouch:touch]) {
+        PLAYSOUNDEFFECT(CLICK, 1.0);
         [self resumeParent];
     }
 }

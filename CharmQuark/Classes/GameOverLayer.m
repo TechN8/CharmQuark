@@ -29,15 +29,18 @@
 }
 
 -(void) quitGame {
+    PLAYSOUNDEFFECT(CLICK, 1.0);
     [[GameManager sharedGameManager] runSceneWithID:kMainMenuScene];
 }
 
 -(void) restart {
+    PLAYSOUNDEFFECT(CLICK, 1.0);
     GameManager *gm = [GameManager sharedGameManager];
     [gm runSceneWithID:[gm curLevel]];
 }
 
 -(void) tweet {
+    PLAYSOUNDEFFECT(CLICK, 1.0);
     NSString *tweet 
     = [NSString stringWithFormat:@"I just scored %d points in #CharmQuark!", score];
     [[TwitterHelper sharedInstance] composeTweet:tweet];

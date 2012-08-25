@@ -20,6 +20,7 @@
 		D815B03515E848030035E0EF /* Explode1.caf in Resources */ = {isa = PBXBuildFile; fileRef = D815B03215E848030035E0EF /* Explode1.caf */; };
 		D815B03615E848030035E0EF /* Explode2.caf in Resources */ = {isa = PBXBuildFile; fileRef = D815B03315E848030035E0EF /* Explode2.caf */; };
 		D815B03715E848030035E0EF /* Explode3.caf in Resources */ = {isa = PBXBuildFile; fileRef = D815B03415E848030035E0EF /* Explode3.caf */; };
+		D815B04515E84CB40035E0EF /* Click.caf in Resources */ = {isa = PBXBuildFile; fileRef = D815B04415E84CB40035E0EF /* Click.caf */; };
 		D827481E15E7C27C009454B6 /* CharmQuark.m4a in Resources */ = {isa = PBXBuildFile; fileRef = D827481D15E7C27B009454B6 /* CharmQuark.m4a */; };
 		D827482215E7D4E6009454B6 /* Collide1-2.caf in Resources */ = {isa = PBXBuildFile; fileRef = D827481F15E7D4E6009454B6 /* Collide1-2.caf */; };
 		D827482315E7D4E6009454B6 /* Collide4-2.caf in Resources */ = {isa = PBXBuildFile; fileRef = D827482015E7D4E6009454B6 /* Collide4-2.caf */; };
@@ -284,6 +285,7 @@
 		D815B03215E848030035E0EF /* Explode1.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Explode1.caf; sourceTree = "<group>"; };
 		D815B03315E848030035E0EF /* Explode2.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Explode2.caf; sourceTree = "<group>"; };
 		D815B03415E848030035E0EF /* Explode3.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Explode3.caf; sourceTree = "<group>"; };
+		D815B04415E84CB40035E0EF /* Click.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Click.caf; sourceTree = "<group>"; };
 		D827481D15E7C27B009454B6 /* CharmQuark.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = CharmQuark.m4a; sourceTree = "<group>"; };
 		D827481F15E7D4E6009454B6 /* Collide1-2.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Collide1-2.caf"; sourceTree = "<group>"; };
 		D827482015E7D4E6009454B6 /* Collide4-2.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Collide4-2.caf"; sourceTree = "<group>"; };
@@ -765,6 +767,7 @@
 		D8318D7215B49DFB0032D92E /* 22k_SFX */ = {
 			isa = PBXGroup;
 			children = (
+				D815B04415E84CB40035E0EF /* Click.caf */,
 				D827481F15E7D4E6009454B6 /* Collide1-2.caf */,
 				D827482015E7D4E6009454B6 /* Collide4-2.caf */,
 				D827482115E7D4E6009454B6 /* Collide5-2.caf */,
@@ -1682,6 +1685,7 @@
 				D815B03515E848030035E0EF /* Explode1.caf in Resources */,
 				D815B03615E848030035E0EF /* Explode2.caf in Resources */,
 				D815B03715E848030035E0EF /* Explode3.caf in Resources */,
+				D815B04515E84CB40035E0EF /* Click.caf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1881,7 +1885,7 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 12;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1904,7 +1908,7 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 12;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					NDEBUG,

@@ -14,6 +14,7 @@
 @implementation PauseLayer
 
 - (void) quitGame {
+    PLAYSOUNDEFFECT(CLICK, 1.0);
     [[GameManager sharedGameManager] runSceneWithID:kMainMenuScene];
 }
 
@@ -25,9 +26,11 @@
                        [CCCallFunc actionWithTarget:self.parent selector:@selector(resume)], 
                        nil];
     [self runAction:seq];
+    PLAYSOUNDEFFECT(CLICK, 1.0);
 }
 
 -(void) restart {
+    PLAYSOUNDEFFECT(CLICK, 1.0);
     GameManager *gm = [GameManager sharedGameManager];
     [gm runSceneWithID:[gm curLevel]];
 }
@@ -35,11 +38,13 @@
 - (void) toggleMusic {
     GameManager *sharedGameManager = [GameManager sharedGameManager];
     [sharedGameManager setIsMusicON:![sharedGameManager isMusicON]];
+    PLAYSOUNDEFFECT(CLICK, 1.0);
 }
 
 - (void) toggleSound {
     GameManager *sharedGameManager = [GameManager sharedGameManager];
     [sharedGameManager setIsSoundEffectsON:![sharedGameManager isSoundEffectsON]];
+    PLAYSOUNDEFFECT(CLICK, 1.0);
 }
 
 #pragma mark - ModalMenuLayer
@@ -131,11 +136,6 @@
     menu1.position = ccp(0,0);
     menu1.anchorPoint = ccp(0,0);
     [self addChild:menu1 z:100];
-    
-//    CCMenu *menu2 = [CCMenu menuWithItems:restartItem, quitItem, nil];
-//    [menu2 alignItemsHorizontallyWithPadding:0.15 * winSize.width];
-//    menu2.position = ccp(winSize.width * 0.5, winSize.height * 0.25f);
-//    [self addChild:menu2 z:100];
 }
 
 #pragma mark - CCTargetedTouchDelegate

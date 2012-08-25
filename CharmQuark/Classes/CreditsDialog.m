@@ -123,6 +123,7 @@
 
 -(void)ccTouchEnded:(UITouch *)touch withEvent:(UIEvent *)event {
     if ([self isButtonTouch:touch]) {
+        PLAYSOUNDEFFECT(CLICK, 1.0);
         [self resumeParent];
     }
 }

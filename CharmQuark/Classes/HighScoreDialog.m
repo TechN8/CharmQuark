@@ -23,6 +23,16 @@
     [self runAction:seq];
 }
 
+-(void)showAchievements {
+    PLAYSOUNDEFFECT(CLICK, 1.0);
+    [[GCHelper sharedInstance] showAchievements];
+}
+
+-(void)showLeaderboard {
+    PLAYSOUNDEFFECT(CLICK, 1.0);
+    [[GCHelper sharedInstance] showLeaderboard];
+}
+
 #pragma mark - ModalMenuLayer
 
 -(void)initUI {
@@ -105,7 +115,7 @@
     CCMenuItemSprite *lbItem = [CCMenuItemSprite itemWithNormalSprite:lbNormal
                                                        selectedSprite:lbSelected
                                                        disabledSprite:lbDisabled
-                                                               target:[GCHelper sharedInstance]
+                                                               target:self
                                                              selector:@selector(showLeaderboard)];
     
     // Achievements
@@ -118,7 +128,7 @@
     CCMenuItemSprite *aItem = [CCMenuItemSprite itemWithNormalSprite:aNormal
                                                        selectedSprite:aSelected
                                                        disabledSprite:aDisabled
-                                                               target:[GCHelper sharedInstance]
+                                                               target:self
                                                              selector:@selector(showAchievements)];
     
     if (![[GCHelper sharedInstance] isUserAuthenticated]) {
@@ -139,6 +149,7 @@
 
 -(void)ccTouchEnded:(UITouch *)touch withEvent:(UIEvent *)event {
     if ([self isButtonTouch:touch]) {
+        PLAYSOUNDEFFECT(CLICK, 1.0);
         [self resumeParent];
     }
 }

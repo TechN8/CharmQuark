@@ -524,6 +524,9 @@ static GameManager* _sharedGameManager = nil;
 
 -(void)loadAudioForSceneWithID:(NSNumber*)sceneIDNumber {
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+
+    // Unload first, sounds may be shared.
+    [self unloadAudioForSceneWithID:[NSNumber numberWithInt:lastLevel]];
     
     SceneTypes sceneID = (SceneTypes) [sceneIDNumber intValue];
     // 1
@@ -562,7 +565,6 @@ static GameManager* _sharedGameManager = nil;
         
     }
     
-    [self unloadAudioForSceneWithID:[NSNumber numberWithInt:lastLevel]];
     [pool release];
 }
 
