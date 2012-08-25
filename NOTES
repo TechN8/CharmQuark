@@ -7,6 +7,13 @@ iPad-2      1024x768	(4/3)   90dpi       132ppi  36px
 iPad3       2048×1536	(4/3)   180dpi      264ppi  64px
     - Thumb 104
 
+Audio Conversions
+-----------------
+Use afconvert tool to convert.
+        afconvert -f caff -d LEI16@22050 --mix -c 1  
+        afconvert -f m4a
+
+
 Simulation Scaling
 ------------------
 kSimDimensions  ccp(1024,768)

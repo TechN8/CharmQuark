@@ -1,16 +1,7 @@
-. Sound changes
-    . Click sound for menus and controls would be nice.
-    
-. Final Sound effects.
-    Use afconvert tool to convert.
-        afconvert -f caff -d LEI16@22050 --mix -c 1  
-        afconvert -f m4a
-
 . iTunes Connect App Setup
     - Screenshots
 
 . Website
-
 
 Future Enhancements
 . Localization
