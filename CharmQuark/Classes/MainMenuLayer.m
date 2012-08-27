@@ -13,8 +13,10 @@
 #import "CreditsDialog.h"
 #import "OptionsDialog.h"
 #import "HighScoreDialog.h"
+#import "LinksDialog.h"
 #import "GCHelper.h"
 #import "CQMenuItemFont.h"
+#import "CQLabelBMFont.h"
 
 // Z Values for UI Elements.
 enum {
@@ -97,17 +99,19 @@ enum {
                                            position:oldPos]];
 }
 
--(void)facebook {
-    CCLOG(@"Opening facebook page.");
+-(void)showLinks {
+    CCLOG(@"Showing link menu.");
+    CGSize winSize = [[CCDirector sharedDirector] winSize];
+    
     PLAYSOUNDEFFECT(CLICK, 1.0);
     
-    [[GameManager sharedGameManager] openSiteWithLinkType:kLinkTypeFacebook];
-}
-
--(void)twitter {
-    CCLOG(@"Tweet something.");
-    PLAYSOUNDEFFECT(CLICK, 1.0);
-    
+    // Throw up modal layer.
+    LinksDialog *links = [LinksDialog node];
+    CGPoint oldPos = links.position;
+    links.position = ccp(0, 2 * winSize.height);
+    [self addChild:links z:kZPopups];
+    [links runAction:[CCMoveTo actionWithDuration:kPopupSpeed
+                                           position:oldPos]];
 }
 
 -(void)flashTitle {
@@ -130,7 +134,6 @@ enum {
         rightParticle.scale = kRightStartScale;
         [self flashTitle];
         [batchNode addChild:rightParticle z:kZRightParticle];
-//        PLAYSOUNDEFFECT(PARTICLE_EXPLODE, 1.0);
     }
     
     CCParticleSystemQuad *explosion = [particle explode];
@@ -229,7 +232,7 @@ enum {
     versionLabel.opacity = 128;
     versionLabel.color = kColorUI;
     versionLabel.anchorPoint = ccp(1.0, 0.0);
-    versionLabel.position = ccp(winSize.width, 0);
+    versionLabel.position = ccp(winSize.width - 1, 1);
     [versionLabel visit];
     [versionLabel cleanup];
     
@@ -254,105 +257,97 @@ enum {
     
     [self schedule:@selector(animateBackground) interval:3.0];
     
-    //Menu
-    menu = [CCMenu node];
-    menu.position = ccp(winSize.width * 0.5,
-                        winSize.height * 0.4);
-
-    CCLabelBMFont *label;
+    CCMenu *menu = [CCMenu node];
+    menu.anchorPoint = ccp(0,0);
+    menu.position = ccp(0,0);
+    [self addChild:menu z:kZMenu];
+    
+    CQLabelBMFont *label;
     CQMenuItemFont *item;
     
     // Time Attack
-    label = [CCLabelBMFont labelWithString:@"Time Attack" 
+    label = [CQLabelBMFont labelWithString:@"Time Attack" 
                                    fntFile:@"score.fnt"];
     label.color = kColorButton;
     label.scale = 1.0;
     item = [CQMenuItemFont itemWithLabel:label
                                   target:self 
                                 selector:@selector(playTimeAttack)];
-    item.position = ccp(-0.25 * winSize.width, 0.025 * winSize.height);
+    item.position = ccp(winSize.width * 0.25, winSize.height * 0.425);
     [menu addChild:item];
 
     // Accelerator
-    label = [CCLabelBMFont labelWithString:@"Accelerator" 
+    label = [CQLabelBMFont labelWithString:@"Accelerator" 
                                    fntFile:@"score.fnt"];
     label.color = kColorButton;
     label.scale = 1.0;
     item = [CQMenuItemFont itemWithLabel:label
                                   target:self 
                                 selector:@selector(playSurvival)];
-    item.position = ccp(-0.25 * winSize.width, -0.1 * winSize.height);
+    item.position = ccp(winSize.width * 0.25, winSize.height * 0.30);
     [menu addChild:item];
     
     // Meditation
-    label = [CCLabelBMFont labelWithString:@"Meditation" 
+    label = [CQLabelBMFont labelWithString:@"Meditation" 
                                    fntFile:@"score.fnt"];
     label.scale = 1.0;
     label.color = kColorButton;
     item = [CQMenuItemFont itemWithLabel:label
                                   target:self 
                                 selector:@selector(playMomMode)];
-    item.position = ccp(-0.25 * winSize.width, -0.225 * winSize.height);
+    item.position = ccp(winSize.width * 0.25, winSize.height * 0.175);
     [menu addChild:item];
 
     // Options
-    label = [CCLabelBMFont labelWithString:@"Options" 
+    label = [CQLabelBMFont labelWithString:@"Options" 
                                    fntFile:@"score.fnt"];
     label.color = kColorButton;
     label.scale = 1.0;
     item = [CQMenuItemFont itemWithLabel:label
                                   target:self 
                                 selector:@selector(showOptions)];
-    item.position = ccp(0.25 * winSize.width, 0.025 * winSize.height);
+    item.position = ccp(winSize.width * 0.75, winSize.height * 0.425);
     [menu addChild:item];
 
     // Records
-    label = [CCLabelBMFont labelWithString:@"Records" 
+    label = [CQLabelBMFont labelWithString:@"Records" 
                                    fntFile:@"score.fnt"];
     label.color = kColorButton;
     label.scale = 1.0;
     item = [CQMenuItemFont itemWithLabel:label
                                   target:self 
                                 selector:@selector(showScores)];
-    item.position = ccp(0.25 * winSize.width, -0.1 * winSize.height);
+    item.position = ccp(winSize.width * 0.75, winSize.height * 0.30);
     [menu addChild:item];
 
     // Credits
-    label = [CCLabelBMFont labelWithString:@"Credits" 
+    label = [CQLabelBMFont labelWithString:@"Credits" 
                                    fntFile:@"score.fnt"];
     label.color = kColorButton;
     label.scale = 1.0;
     item = [CQMenuItemFont itemWithLabel:label
                                   target:self 
                                 selector:@selector(showCredits)];
-    item.position = ccp(0.25 * winSize.width, -0.225 * winSize.height);
+    item.position = ccp(winSize.width * 0.75, winSize.height * 0.175);
     [menu addChild:item];
-    [self addChild:menu z:kZMenu];
 
-    /*
-    // Facebook.
-    CCSprite *facebookSprite = [CCSprite spriteWithSpriteFrameName:@"facebook.png"];
-    CCMenuItemSprite* facebookItem = [CCMenuItemSprite 
-                                      itemWithNormalSprite:facebookSprite 
-                                      selectedSprite:nil 
-                                      target:self
-                                      selector:@selector(facebook)];
-    facebookItem.anchorPoint = ccp(0.5, 0);
+    // Aether Theory
+    CCSprite *atNormal = [CCSprite spriteWithSpriteFrameName:@"at-logo.png"];
+    atNormal.color = kColorUI;
+    CCSprite *atSelected = [CCSprite spriteWithSpriteFrameName:@"at-logo.png"];
+    atSelected.color = kColorButton;
     
-    // Twitter.
-    CCSprite *twitterSprite = [CCSprite spriteWithSpriteFrameName:@"twitter.png"];
-    CCMenuItemSprite* twitterItem = [CCMenuItemSprite 
-                                      itemWithNormalSprite:twitterSprite 
-                                      selectedSprite:nil 
-                                      target:self
-                                      selector:@selector(twitter)];
-    twitterItem.anchorPoint = ccp(0.5, 0);
-    
-    CCMenu *menu2 = [CCMenu menuWithItems:facebookItem, twitterItem, nil];
-    [menu2 alignItemsHorizontallyWithPadding:winSize.width * 0.05];
-    menu2.position = ccp(winSize.width * 0.5, winSize.height * 0.02);
-    [self addChild:menu2 z:kZMenu];
-     */
+    CCMenuItemSprite *atItem = [CCMenuItemSprite 
+                                itemWithNormalSprite:atNormal 
+                                selectedSprite:atSelected target:self 
+                                selector:@selector(showLinks)];
+//    atItem.anchorPoint = ccp(0,0);
+//    atItem.position = ccp(1,1);
+    atItem.anchorPoint = ccp(0.5,0);
+    atItem.position = ccp(versionLabel.position.x - versionLabel.contentSize.width / 2,
+                          versionLabel.position.y + versionLabel.contentSize.height + 2);
+    atItem.opacity = 128;
+    [menu addChild:atItem];
 }
 
 -(void)onEnter {

@@ -15,7 +15,6 @@
 #define kRightStartScale    0
 
 @interface MainMenuLayer : CCLayer {
-    CCMenu *menu;
     CCSprite *titleFlash;
     Particle *leftParticle;
     Particle *rightParticle;
