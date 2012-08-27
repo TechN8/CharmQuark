@@ -44,9 +44,9 @@
     location = [[CCDirector sharedDirector] convertToGL: location];
     CGPoint local = [arrow convertToNodeSpace:location];
     CGRect r = [arrow boundingBox];
-    r.size.width += 40;
+    r.size.width += 80;
     r.size.height += 40;
-    r.origin = ccp(-20, -20);
+    r.origin = ccp(-40, -20);
     if( CGRectContainsPoint( r, local ) ) {
         arrow.color = kColorButtonSelected;
         return YES;
