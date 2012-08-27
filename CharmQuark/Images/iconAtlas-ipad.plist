@@ -17,6 +17,19 @@
                 <key>sourceSize</key>
                 <string>{64,64}</string>
             </dict>
+            <key>at-logo.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{68,40},{36,35}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{36,35}}</string>
+                <key>sourceSize</key>
+                <string>{36,35}</string>
+            </dict>
             <key>leaderboard.png</key>
             <dict>
                 <key>frame</key>
@@ -53,7 +66,7 @@
             <key>size</key>
             <string>{128,256}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:a3e1ace76985dc640ecf5e03518501c8$</string>
+            <string>$TexturePacker:SmartUpdate:c913e37f583a66d8b999327605f690aa$</string>
             <key>textureFileName</key>
             <string>iconAtlas-ipad.png</string>
         </dict>
