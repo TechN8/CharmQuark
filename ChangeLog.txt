@@ -2,7 +2,7 @@ RC 3
 
 Fixed blinking detector bug in tutorial.
 Enlarged hit area for dialog close button.
-
+Aligned bitmap fonts on pixel boundaries to prevent blurring.
 
 
 RC 2
