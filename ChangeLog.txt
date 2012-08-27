@@ -1,3 +1,10 @@
+RC 3
+
+Fixed blinking detector bug in tutorial.
+Enlarged hit area for dialog close button.
+
+
+
 RC 2
 
 Time Attack clock will now blink when game over is triggered by time out.
@@ -12,6 +19,7 @@ Pause dialog can be dismissed using arrow or pause button.
 Added new background image.
 Background, detector, and map are now rendered into a single texture to improve fill rate.
 Score popups are now marked invisible when they are fully transparent.  Reduces render batches.
+
 
 RC 1
 

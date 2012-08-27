@@ -30,11 +30,11 @@
 
 -(void) tutorial {
     CGSize winSize = [[CCDirector sharedDirector] winSize];
-    static CCLabelBMFont *instructions = nil;
+    static CQLabelBMFont *instructions = nil;
     switch (tutorialStep) {
         case 1:
             // Swipe here to rotate.
-            instructions = [CCLabelBMFont labelWithString:@"Swipe here\nto rotate." 
+            instructions = [CQLabelBMFont labelWithString:@"Swipe here\nto rotate." 
                                                   fntFile:@"score.fnt"];
             instructions.position = ccp(puzzleCenter.x, winSize.height * 0.75);
             instructions.alignment = kCCTextAlignmentCenter;

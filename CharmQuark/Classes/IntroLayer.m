@@ -65,7 +65,7 @@
     
     // show the copyright statement.
     NSString *copyright = @"Game and Software © 2012 Aether Theory LLC";
-//    CCLabelBMFont *label = [CCLabelBMFont labelWithString:copyright
+//    CQLabelBMFont *label = [CQLabelBMFont labelWithString:copyright
 //                                                           fntFile:@"score.fnt"];
     CCLabelTTF *label = [CCLabelTTF labelWithString:copyright
                                            fontName:@"American Typewriter"

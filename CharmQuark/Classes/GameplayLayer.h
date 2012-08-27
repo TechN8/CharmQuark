@@ -13,6 +13,7 @@
 #import "Particle.h"
 #import "Detector.h"
 #import "LogViewer.h"
+#import "CQLabelBMFont.h"
 
 // Scoring
 #define kMinMatchSize           5
@@ -84,8 +85,8 @@ enum {
     cpSpace *space;
     
     // Cocos2D Objects
-    CCLabelBMFont *scoreLabel;
-//    CCLabelBMFont *levelLabel;
+    CQLabelBMFont *scoreLabel;
+//    CQLabelBMFont *levelLabel;
     CCNode *centerNode;
     CCMenuItemSprite *resetButton;
     Particle *nextParticle;

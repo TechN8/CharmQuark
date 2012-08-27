@@ -42,7 +42,7 @@
 	
 	// Display FSP and SPF
 #ifdef DEBUG
-	[director_ setDisplayStats:YES];
+//	[director_ setDisplayStats:YES];
 #endif
     
 	// set FPS at 60

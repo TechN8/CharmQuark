@@ -9,6 +9,7 @@
 #import "AchievementPopup.h"
 #import "Scale9Sprite.h"
 #import "Constants.h"
+#import "CQLabelBMFont.h"
 
 @implementation AchievementPopup
 
@@ -45,7 +46,7 @@
     NSString *text = [NSString stringWithFormat:@"%@\n%@", 
                       achievement.title, 
                       achievement.achievedDescription];
-    CCLabelBMFont *label = [CCLabelBMFont labelWithString:text
+    CQLabelBMFont *label = [CQLabelBMFont labelWithString:text
                                                   fntFile:@"score.fnt"];
     label.anchorPoint = ccp(0, 0.5);
     label.alignment = kCCTextAlignmentLeft;

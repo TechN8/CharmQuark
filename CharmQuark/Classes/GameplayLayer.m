@@ -12,6 +12,7 @@
 #import "RemoveFromParentAction.h"
 #import "GameManager.h"
 #import "GCHelper.h"
+#import "CQLabelBMFont.h"
 
 static CGPoint nextParticlePos;
 static CGPoint launchPoint;
@@ -206,7 +207,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     //[uiBatchNode addChild:pauseSprite z:kZUIElements];
     
     // Add score label.
-    scoreLabel = [CCLabelBMFont labelWithString:@"0" fntFile:@"score.fnt"];
+    scoreLabel = [CQLabelBMFont labelWithString:@"0" fntFile:@"score.fnt"];
     [scoreLabel setAnchorPoint:ccp(0.0f, 0.5f)];
     [scoreLabel setPosition:scorePosition];
     [scoreLabel setColor:kColorScore];
@@ -215,7 +216,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     // Add Next
     CGPoint nextLabelPosition = ccp(scorePosition.x,
                                     scorePosition.y - scoreLabel.contentSize.height - 10 * scaleFactor);
-    CCLabelBMFont *nextLabel = [CCLabelBMFont labelWithString:@"Next:" fntFile:@"score.fnt"];
+    CQLabelBMFont *nextLabel = [CQLabelBMFont labelWithString:@"Next:" fntFile:@"score.fnt"];
     nextLabel.color = kColorUI;
     nextLabel.position = nextLabelPosition;
     [nextLabel setAnchorPoint:ccp(0.0, 0.5)];

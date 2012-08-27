@@ -1,9 +1,28 @@
+TASKS
+-----
+
 . iTunes Connect App Setup
     - Screenshots
 
 . Website
 
-Future Enhancements
+. Add blurb about bonus and combo to tutorial.
+
+. Facebook: Add radio menu to home screen.  Should include.
+    - http://www.aethertheory.com
+    - http://facebook.com/AetherTheoryLLC
+    - Support email?
+    
+    https://www.facebook.com/AetherTheoryLLC/likes#
+
+BUGS
+----
+
+. Sound drop out bug.
+
+ENHANCEMENTS
+------------
+
 . Localization
     Google translate menus.  Game is pretty self explanitory.
     Will need to generate BMFonts with reduced subset of characters for Japanese / Chinese.
@@ -12,6 +31,3 @@ Future Enhancements
 
 . More game modes. (Better meditation.)
 
-. Facebook
-    What to do with Facebook?
-    

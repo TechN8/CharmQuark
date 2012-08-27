@@ -8,6 +8,7 @@
 
 #import "Accelerator.h"
 #import "GCHelper.h"
+#import "CQLabelBMFont.h"
 
 @implementation Accelerator
 
@@ -38,7 +39,7 @@
     [super initUI];
     
     CGPoint levelPosition = ccp(winSize.width * 0.5f, winSize.height * 0.95f);
-    levelLabel = [CCLabelBMFont labelWithString:@"Level 1" fntFile:@"score.fnt"];
+    levelLabel = [CQLabelBMFont labelWithString:@"Level 1" fntFile:@"score.fnt"];
     levelLabel.position = levelPosition;
     levelLabel.color = kColorUI;
     [self addChild:levelLabel z:kZUIElements];

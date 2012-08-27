@@ -10,6 +10,7 @@
 #import "GameManager.h"
 #import "RemoveFromParentAction.h"
 #import "CQMenuItemFont.h"
+#import "CQLabelBMFont.h"
 
 @implementation PauseLayer
 
@@ -53,28 +54,28 @@
     [super addCloseArrow];
     
     CGSize winSize = [[CCDirector sharedDirector] winSize];
-    CCLabelBMFont *title = [CCLabelBMFont labelWithString:@"Game Paused" fntFile:@"score.fnt"];
+    CQLabelBMFont *title = [CQLabelBMFont labelWithString:@"Game Paused" fntFile:@"score.fnt"];
     title.color = kColorDialogTitle;
     title.position = kDialogTitlePos;
     title.scale = kDialogTitleScale;
     [self addChild:title z:100];
     
-    CCLabelBMFont *optionLabel, *onLabel, *offLabel;
+    CQLabelBMFont *optionLabel, *onLabel, *offLabel;
     CCMenuItemFont *onItem, *offItem;
     
     // Music
-    optionLabel = [CCLabelBMFont labelWithString:@"Music:"
+    optionLabel = [CQLabelBMFont labelWithString:@"Music:"
                                          fntFile:@"score.fnt"];
     optionLabel.anchorPoint = ccp(1.0, 0.5);
     optionLabel.color = kColorUI;
     optionLabel.position = ccp(winSize.width * 0.45, winSize.height * 0.55);
     [self addChild:optionLabel];
     
-    onLabel = [CCLabelBMFont labelWithString:@"On"
+    onLabel = [CQLabelBMFont labelWithString:@"On"
                                      fntFile:@"score.fnt"];
     onItem = [CQMenuItemFont itemWithLabel:onLabel];
     onItem.color = kColorButton;
-    offLabel = [CCLabelBMFont labelWithString:@"Off"
+    offLabel = [CQLabelBMFont labelWithString:@"Off"
                                       fntFile:@"score.fnt"];
     offItem = [CQMenuItemFont itemWithLabel:offLabel];
     offItem.color = kColorButton;
@@ -86,18 +87,18 @@
     musicToggle.selectedIndex = [[GameManager sharedGameManager] isMusicON] ? 0 : 1;
     
     // Sound
-    optionLabel = [CCLabelBMFont labelWithString:@"Sound:"
+    optionLabel = [CQLabelBMFont labelWithString:@"Sound:"
                                          fntFile:@"score.fnt"];
     optionLabel.anchorPoint = ccp(1.0, 0.5);
     optionLabel.color = kColorUI;
     optionLabel.position = ccp(winSize.width * 0.45, winSize.height * 0.45);
     [self addChild:optionLabel];
     
-    onLabel = [CCLabelBMFont labelWithString:@"On"
+    onLabel = [CQLabelBMFont labelWithString:@"On"
                                      fntFile:@"score.fnt"];
     onItem = [CQMenuItemFont itemWithLabel:onLabel];
     onItem.color = kColorButton;
-    offLabel = [CCLabelBMFont labelWithString:@"Off"
+    offLabel = [CQLabelBMFont labelWithString:@"Off"
                                       fntFile:@"score.fnt"];
     offItem = [CQMenuItemFont itemWithLabel:offLabel];
     offItem.color = kColorButton;
@@ -109,14 +110,14 @@
     soundToggle.selectedIndex = [[GameManager sharedGameManager] isSoundEffectsON] ? 0 : 1;
     
     //    //Resume
-    //    CCLabelBMFont *resumeLabel = [CCLabelBMFont labelWithString:@"Resume" fntFile:@"score.fnt"];
+    //    CQLabelBMFont *resumeLabel = [CQLabelBMFont labelWithString:@"Resume" fntFile:@"score.fnt"];
     //    resumeLabel.color = kColorButton;
     //    CQMenuItemFont *resumeItem = [CQMenuItemFont itemWithLabel:resumeLabel 
     //                                                        target:self 
     //                                                      selector:@selector(resumeParent)];
     
     // Restart
-    CCLabelBMFont *restartLabel = [CCLabelBMFont labelWithString:@"Restart" fntFile:@"score.fnt"];
+    CQLabelBMFont *restartLabel = [CQLabelBMFont labelWithString:@"Restart" fntFile:@"score.fnt"];
     CQMenuItemFont *restartItem = [CQMenuItemFont itemWithLabel:restartLabel 
                                                          target:self 
                                                        selector:@selector(restart)];
@@ -125,7 +126,7 @@
     
     
     //Quit
-    CCLabelBMFont *quitLabel = [CCLabelBMFont labelWithString:@"Quit" fntFile:@"score.fnt"];
+    CQLabelBMFont *quitLabel = [CQLabelBMFont labelWithString:@"Quit" fntFile:@"score.fnt"];
     CQMenuItemFont *quitItem = [CQMenuItemFont itemWithLabel:quitLabel
                                                       target:self 
                                                     selector:@selector(quitGame)];

@@ -415,7 +415,7 @@
        y1="-2"
        x2="16"
        y2="769"
-       gradientTransform="matrix(0.25,0,0,0.08333333,-8,0)" />
+       gradientTransform="matrix(0.25,0,0,0.08333333,12,566)" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -424,9 +424,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="1"
      inkscape:pageshadow="2"
-     inkscape:zoom="12.375"
-     inkscape:cx="-4"
-     inkscape:cy="736"
+     inkscape:zoom="1.03125"
+     inkscape:cx="512"
+     inkscape:cy="384"
      inkscape:document-units="px"
      inkscape:current-layer="layer2"
      showgrid="true"
@@ -506,7 +506,7 @@
     <g
        inkscape:tile-y0="656"
        inkscape:tile-x0="-220"
-       transform="translate(-25,-518)"
+       transform="translate(-5,48)"
        inkscape:label="#g3951"
        id="background">
       <rect
@@ -579,8 +579,8 @@
        id="bg-gradient"
        width="8"
        height="64"
-       x="-8"
-       y="0"
+       x="12"
+       y="566"
        inkscape:label="#rect5980" />
   </g>
   <g

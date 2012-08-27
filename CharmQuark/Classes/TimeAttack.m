@@ -8,6 +8,7 @@
 
 #import "TimeAttack.h"
 #import "GCHelper.h"
+#import "CQLabelBMFont.h"
 
 @implementation TimeAttack
 
@@ -56,7 +57,7 @@
     
     // Add timer.
     CGPoint timerPosition = ccp(winSize.width * 0.5f, winSize.height * 0.95f);
-    timerLabel= [CCLabelBMFont labelWithString:@"2:00.00" fntFile:@"score.fnt"];
+    timerLabel= [CQLabelBMFont labelWithString:@"2:00.00" fntFile:@"score.fnt"];
     timerLabel.position = timerPosition;
     timerLabel.color = kColorUI;
     [self addChild:timerLabel z:kZUIElements];

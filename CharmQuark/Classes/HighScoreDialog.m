@@ -11,6 +11,8 @@
 #import "GameManager.h"
 #import "Constants.h"
 #import "GCHelper.h"
+#import "CQLabelBMFont.h"
+#import "CQLabelBMFont.h"
 
 @implementation HighScoreDialog
 
@@ -39,17 +41,17 @@
     [super addCloseArrow];
     
     CGSize winSize = [[CCDirector sharedDirector] winSize];
-    CCLabelBMFont *title = [CCLabelBMFont labelWithString:@"Records" fntFile:@"score.fnt"];
+    CQLabelBMFont *title = [CQLabelBMFont labelWithString:@"Records" fntFile:@"score.fnt"];
     title.color = kColorDialogTitle;
     title.position = kDialogTitlePos;
     title.scale = kDialogTitleScale;
     [self addChild:title z:100];
     
-    CCLabelBMFont *label;
+    CQLabelBMFont *label;
     NSString *scoreString;
     
     // Time Attack Label
-    label = [CCLabelBMFont labelWithString:@"Time Attack" fntFile:@"score.fnt"];
+    label = [CQLabelBMFont labelWithString:@"Time Attack" fntFile:@"score.fnt"];
     label.anchorPoint = ccp(0, 0.5);
     label.alignment = kCCTextAlignmentLeft;
     label.color = kColorUI;
@@ -59,7 +61,7 @@
     // Time Attack Score
     scoreString = [NSString stringWithFormat:@"%d",
                    [[GameManager sharedGameManager] getHighScoreForSceneWithID:kGameSceneTimeAttack]];
-    label = [CCLabelBMFont labelWithString:scoreString
+    label = [CQLabelBMFont labelWithString:scoreString
                                    fntFile:@"score.fnt"];
     label.anchorPoint = ccp(1.0, 0.5);
     label.alignment = kCCTextAlignmentRight;
@@ -68,7 +70,7 @@
     [self addChild:label];
     
     // Accelerator Label
-    label = [CCLabelBMFont labelWithString:@"Accelerator" fntFile:@"score.fnt"];
+    label = [CQLabelBMFont labelWithString:@"Accelerator" fntFile:@"score.fnt"];
     label.anchorPoint = ccp(0, 0.5);
     label.alignment = kCCTextAlignmentLeft;
     label.color = kColorUI;
@@ -78,7 +80,7 @@
     // Accelerator Score
     scoreString = [NSString stringWithFormat:@"%d",
                             [[GameManager sharedGameManager] getHighScoreForSceneWithID:kGameSceneSurvival]];
-    label = [CCLabelBMFont labelWithString:scoreString
+    label = [CQLabelBMFont labelWithString:scoreString
                                    fntFile:@"score.fnt"];
     label.anchorPoint = ccp(1.0, 0.5);
     label.alignment = kCCTextAlignmentRight;
@@ -87,7 +89,7 @@
     [self addChild:label];
    
     // Meditation Label
-    label = [CCLabelBMFont labelWithString:@"Meditation" fntFile:@"score.fnt"];
+    label = [CQLabelBMFont labelWithString:@"Meditation" fntFile:@"score.fnt"];
     label.anchorPoint = ccp(0, 0.5);
     label.alignment = kCCTextAlignmentLeft;
     label.color = kColorUI;
@@ -97,7 +99,7 @@
     // Meditation Score
     scoreString = [NSString stringWithFormat:@"%d",
                    [[GameManager sharedGameManager] getHighScoreForSceneWithID:kGameSceneMomMode]];
-    label = [CCLabelBMFont labelWithString:scoreString
+    label = [CQLabelBMFont labelWithString:scoreString
                                    fntFile:@"score.fnt"];
     label.anchorPoint = ccp(1.0, 0.5);
     label.alignment = kCCTextAlignmentRight;

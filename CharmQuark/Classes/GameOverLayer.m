@@ -10,6 +10,7 @@
 #import "GameManager.h"
 #import "TwitterHelper.h"
 #import "CQMenuItemFont.h"
+#import "CQLabelBMFont.h"
 
 @implementation GameOverLayer
 
@@ -51,7 +52,7 @@
 -(void) initUI {
     CGSize winSize = [[CCDirector sharedDirector] winSize];
     
-    CCLabelBMFont *title = [CCLabelBMFont labelWithString:@"Game Over" fntFile:@"score.fnt"];
+    CQLabelBMFont *title = [CQLabelBMFont labelWithString:@"Game Over" fntFile:@"score.fnt"];
     title.color = kColorDialogTitle;
     title.position = kDialogTitlePos;
     title.scale = kDialogTitleScale;
@@ -66,7 +67,7 @@
     
     if ([[TwitterHelper sharedInstance] isTwitterAvailable]) {
         //Tweet this!
-        CCLabelBMFont *tweetLabel = [CCLabelBMFont labelWithString:@"Tweet Score" 
+        CQLabelBMFont *tweetLabel = [CQLabelBMFont labelWithString:@"Tweet Score" 
                                                            fntFile:@"score.fnt"];
         tweetLabel.color = kColorButton;
         CQMenuItemFont *tweetItem = [CQMenuItemFont itemWithLabel:tweetLabel
@@ -87,13 +88,13 @@
     }
     
     // Score / High Score
-    CCLabelBMFont *scoreLabel = [CCLabelBMFont labelWithString:@"Score"
+    CQLabelBMFont *scoreLabel = [CQLabelBMFont labelWithString:@"Score"
                                                        fntFile:@"score.fnt"];
     scoreLabel.anchorPoint = ccp(0.0, 0.5);
     scoreLabel.position = ccp(winSize.width * 0.20, winSize.height * (0.55 + scoreAdjust));
     scoreLabel.color = kColorUI;
     [self addChild:scoreLabel z:100];
-    scoreLabel = [CCLabelBMFont labelWithString:[NSString stringWithFormat:@"%d", score]
+    scoreLabel = [CQLabelBMFont labelWithString:[NSString stringWithFormat:@"%d", score]
                                         fntFile:@"score.fnt"];
     scoreLabel.anchorPoint = ccp(1.0, 0.5);
     scoreLabel.position = ccp(winSize.width * 0.80, winSize.height * (0.55 + scoreAdjust));
@@ -101,19 +102,19 @@
     [self addChild:scoreLabel z:100];
     
     if (newHighScore) {
-        CCLabelBMFont *highScoreLabel = [CCLabelBMFont labelWithString:@"New High Score!"
+        CQLabelBMFont *highScoreLabel = [CQLabelBMFont labelWithString:@"New High Score!"
                                                                fntFile:@"score.fnt"];
         highScoreLabel.color = kColorScore;
         highScoreLabel.position = ccp(winSize.width * 0.5, winSize.height * (0.45 + scoreAdjust));
         [self addChild:highScoreLabel z:100];
     } else {
-        CCLabelBMFont *highScoreLabel = [CCLabelBMFont labelWithString:@"High Score"
+        CQLabelBMFont *highScoreLabel = [CQLabelBMFont labelWithString:@"High Score"
                                                                fntFile:@"score.fnt"];
         highScoreLabel.color = kColorUI;
         highScoreLabel.anchorPoint = ccp(0.0, 0.5);
         highScoreLabel.position = ccp(winSize.width * 0.20, winSize.height * (0.45 + scoreAdjust));
         [self addChild:highScoreLabel z:100];
-        highScoreLabel = [CCLabelBMFont labelWithString:[NSString stringWithFormat:@"%d", highScore]
+        highScoreLabel = [CQLabelBMFont labelWithString:[NSString stringWithFormat:@"%d", highScore]
                                             fntFile:@"score.fnt"];
         highScoreLabel.color = kColorUI;
         highScoreLabel.anchorPoint = ccp(1.0, 0.5);
@@ -122,7 +123,7 @@
     }
     
     // Restart
-    CCLabelBMFont *restartLabel = [CCLabelBMFont labelWithString:@"New Game" fntFile:@"score.fnt"];
+    CQLabelBMFont *restartLabel = [CQLabelBMFont labelWithString:@"New Game" fntFile:@"score.fnt"];
     CQMenuItemFont *restartItem = [CQMenuItemFont itemWithLabel:restartLabel 
                                                          target:self 
                                                        selector:@selector(restart)];
@@ -131,7 +132,7 @@
     [menu addChild:restartItem];    
     
     //Quit
-    CCLabelBMFont *quitLabel = [CCLabelBMFont labelWithString:@"Quit" fntFile:@"score.fnt"];
+    CQLabelBMFont *quitLabel = [CQLabelBMFont labelWithString:@"Quit" fntFile:@"score.fnt"];
     CQMenuItemFont *quitItem = [CQMenuItemFont itemWithLabel:quitLabel
                                                       target:self 
                                                     selector:@selector(quitGame)];

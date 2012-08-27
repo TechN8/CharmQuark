@@ -11,6 +11,7 @@
 #import "GameManager.h"
 #import "CQMenuItemFont.h"
 #import "GCHelper.h"
+#import "CQLabelBMFont.h"
 
 @implementation OptionsDialog
 
@@ -47,7 +48,7 @@
     [super addCloseArrow];
     
     CGSize winSize = [[CCDirector sharedDirector] winSize];
-    CCLabelBMFont *title = [CCLabelBMFont labelWithString:@"Options" fntFile:@"score.fnt"];
+    CQLabelBMFont *title = [CQLabelBMFont labelWithString:@"Options" fntFile:@"score.fnt"];
     title.color = kColorDialogTitle;
     title.position = kDialogTitlePos;
     title.scale = kDialogTitleScale;
@@ -59,22 +60,22 @@
 //    menu.contentSize = winSize;
     [self addChild:menu z:100];
     
-    CCLabelBMFont *optionLabel, *onLabel, *offLabel;
+    CQLabelBMFont *optionLabel, *onLabel, *offLabel;
     CCMenuItemFont *onItem, *offItem;
     
     // Music
-    optionLabel = [CCLabelBMFont labelWithString:@"Music:"
+    optionLabel = [CQLabelBMFont labelWithString:@"Music:"
                                    fntFile:@"score.fnt"];
     optionLabel.anchorPoint = ccp(1.0, 0.5);
     optionLabel.color = kColorUI;
     optionLabel.position = ccp(winSize.width * 0.45, winSize.height * 0.60);
     [self addChild:optionLabel];
     
-    onLabel = [CCLabelBMFont labelWithString:@"On"
+    onLabel = [CQLabelBMFont labelWithString:@"On"
                                                     fntFile:@"score.fnt"];
     onItem = [CQMenuItemFont itemWithLabel:onLabel];
     onItem.color = kColorButton;
-    offLabel = [CCLabelBMFont labelWithString:@"Off"
+    offLabel = [CQLabelBMFont labelWithString:@"Off"
                                                     fntFile:@"score.fnt"];
     offItem = [CQMenuItemFont itemWithLabel:offLabel];
     offItem.color = kColorButton;
@@ -87,18 +88,18 @@
     [menu addChild:musicToggle];
   
     // Sound
-    optionLabel = [CCLabelBMFont labelWithString:@"Sound:"
+    optionLabel = [CQLabelBMFont labelWithString:@"Sound:"
                                          fntFile:@"score.fnt"];
     optionLabel.anchorPoint = ccp(1.0, 0.5);
     optionLabel.color = kColorUI;
     optionLabel.position = ccp(winSize.width * 0.45, winSize.height * 0.50);
     [self addChild:optionLabel];
     
-    onLabel = [CCLabelBMFont labelWithString:@"On"
+    onLabel = [CQLabelBMFont labelWithString:@"On"
                                      fntFile:@"score.fnt"];
     onItem = [CQMenuItemFont itemWithLabel:onLabel];
     onItem.color = kColorButton;
-    offLabel = [CCLabelBMFont labelWithString:@"Off"
+    offLabel = [CQLabelBMFont labelWithString:@"Off"
                                       fntFile:@"score.fnt"];
     offItem = [CQMenuItemFont itemWithLabel:offLabel];
     offItem.color = kColorButton;
@@ -111,18 +112,18 @@
     [menu addChild:soundToggle];
     
     // Tutorial
-    optionLabel = [CCLabelBMFont labelWithString:@"Tutorial:"
+    optionLabel = [CQLabelBMFont labelWithString:@"Tutorial:"
                                          fntFile:@"score.fnt"];
     optionLabel.anchorPoint = ccp(1.0, 0.5);
     optionLabel.color = kColorUI;
     optionLabel.position = ccp(winSize.width * 0.45, winSize.height * 0.40);
     [self addChild:optionLabel];
     
-    onLabel = [CCLabelBMFont labelWithString:@"On"
+    onLabel = [CQLabelBMFont labelWithString:@"On"
                                      fntFile:@"score.fnt"];
     onItem = [CQMenuItemFont itemWithLabel:onLabel];
     onItem.color = kColorButton;
-    offLabel = [CCLabelBMFont labelWithString:@"Off"
+    offLabel = [CQLabelBMFont labelWithString:@"Off"
                                       fntFile:@"score.fnt"];
     offItem = [CQMenuItemFont itemWithLabel:offLabel];
     offItem.color = kColorButton;
@@ -137,7 +138,7 @@
     
 #ifdef DEBUG
     // Reset achievements!!!  Remove in release builds.
-    CCLabelBMFont *resetLabel = [CCLabelBMFont labelWithString:@"Reset Achievements"
+    CQLabelBMFont *resetLabel = [CQLabelBMFont labelWithString:@"Reset Achievements"
                                                        fntFile:@"score.fnt"];
     CQMenuItemFont *resetAchievements = [CQMenuItemFont itemWithLabel:resetLabel
                                                                target:[GCHelper sharedInstance]

@@ -11,6 +11,7 @@
 #import "GameManager.h"
 #import "Constants.h"
 #import "ClipNode.h"
+#import "CQLabelBMFont.h"
 
 @implementation CreditsDialog
 
@@ -23,7 +24,7 @@
     [self runAction:seq];
 }
 
--(void)colorizeLabel:(CCLabelBMFont *)label {
+-(void)colorizeLabel:(CQLabelBMFont *)label {
     NSString *text = label.string;
     BOOL bold = YES;
     unichar last = 0;
@@ -67,7 +68,7 @@
     NSString *credits = [NSString stringWithContentsOfFile:fileName
                                                   encoding:NSUTF8StringEncoding 
                                                      error:nil];
-    CCLabelBMFont *label = [CCLabelBMFont labelWithString:credits
+    CQLabelBMFont *label = [CQLabelBMFont labelWithString:credits
                                                   fntFile:@"score.fnt"];
 //    [label setWidth:windowSprite.contentSize.width - 10];
     label.anchorPoint = ccp(0.5, 1.0);
@@ -84,7 +85,7 @@
     scrollHeight += cocosLogo.contentSize.height;
     [scroller addChild:cocosLogo];
   
-    CCLabelBMFont *copyright = [CCLabelBMFont labelWithString:@" \nGame and Software\nCopyright © 2012"
+    CQLabelBMFont *copyright = [CQLabelBMFont labelWithString:@" \nGame and Software\nCopyright © 2012"
                                                       fntFile:@"score.fnt"];
     copyright.anchorPoint = ccp(0.5, 1.0);
     copyright.alignment = kCCTextAlignmentCenter;

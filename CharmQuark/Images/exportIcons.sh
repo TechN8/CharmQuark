@@ -14,7 +14,7 @@ IPHONE_DPI=60
 IPHONEHD_DIR=$EXPORT_DIR/iPhone-hd
 IPHONEHD_DPI=120
 
-PNG_IDS='facebook twitter twitter-bird leaderboard achievements'
+PNG_IDS='facebook twitter twitter-bird leaderboard achievements at-logo'
 
 mkdir -p $IPAD_DIR $IPADHD_DIR $IPHONE_DIR $IPHONEHD_DIR
 
