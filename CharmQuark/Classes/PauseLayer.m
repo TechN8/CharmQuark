@@ -68,7 +68,7 @@
                                          fntFile:@"score.fnt"];
     optionLabel.anchorPoint = ccp(1.0, 0.5);
     optionLabel.color = kColorUI;
-    optionLabel.position = ccp(winSize.width * 0.45, winSize.height * 0.55);
+    optionLabel.position = ccp(winSize.width * 0.45, winSize.height * 0.60);
     [self addChild:optionLabel];
     
     onLabel = [CQLabelBMFont labelWithString:@"On"
@@ -83,7 +83,7 @@
                                           selector:@selector(toggleMusic)
                                              items:onItem, offItem, nil];
     musicToggle.anchorPoint = ccp(0.0, 0.5);
-    musicToggle.position = ccp(winSize.width * 0.55, winSize.height * 0.55);
+    musicToggle.position = ccp(winSize.width * 0.55, winSize.height * 0.60);
     musicToggle.selectedIndex = [[GameManager sharedGameManager] isMusicON] ? 0 : 1;
     
     // Sound

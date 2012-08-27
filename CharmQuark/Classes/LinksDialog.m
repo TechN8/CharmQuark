@@ -62,23 +62,23 @@
     [menu addChild:wwwItem];
     
     // Facebook link.
-    CQLabelBMFont *fbLabel = [CQLabelBMFont labelWithString:@"facebook.com/AetherTheoryLLC"
+    CQLabelBMFont *fbLabel = [CQLabelBMFont labelWithString:@"Like us on Facebook."
                                                      fntFile:@"score.fnt"];
     fbLabel.color = kColorButton;
     CCMenuItem *fbItem = [CQMenuItemFont itemWithLabel:fbLabel
                                                  target:self 
                                                selector:@selector(facebook)];
-    fbItem.position = ccp(winSize.width * 0.5, winSize.height * 0.50);
+    fbItem.position = ccp(winSize.width * 0.5, winSize.height * 0.45);
     [menu addChild:fbItem];
     
     // Twitter link.
-    CQLabelBMFont *twitterLabel = [CQLabelBMFont labelWithString:@"Twitter..."
+    CQLabelBMFont *twitterLabel = [CQLabelBMFont labelWithString:@"Follow us on Twitter."
                                                      fntFile:@"score.fnt"];
     twitterLabel.color = kColorButton;
     CCMenuItem *twitterItem = [CQMenuItemFont itemWithLabel:twitterLabel
                                                  target:self 
                                                selector:@selector(twitter)];
-    twitterItem.position = ccp(winSize.width * 0.5, winSize.height * 0.40);
+    twitterItem.position = ccp(winSize.width * 0.5, winSize.height * 0.30);
     [menu addChild:twitterItem];
     
     

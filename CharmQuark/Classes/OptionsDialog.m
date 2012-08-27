@@ -92,7 +92,7 @@
                                          fntFile:@"score.fnt"];
     optionLabel.anchorPoint = ccp(1.0, 0.5);
     optionLabel.color = kColorUI;
-    optionLabel.position = ccp(winSize.width * 0.45, winSize.height * 0.50);
+    optionLabel.position = ccp(winSize.width * 0.45, winSize.height * 0.45);
     [self addChild:optionLabel];
     
     onLabel = [CQLabelBMFont labelWithString:@"On"
@@ -107,7 +107,7 @@
                                           selector:@selector(toggleSound)
                                              items:onItem, offItem, nil];
     soundToggle.anchorPoint = ccp(0.0, 0.5);
-    soundToggle.position = ccp(winSize.width * 0.55, winSize.height * 0.50);
+    soundToggle.position = ccp(winSize.width * 0.55, winSize.height * 0.45);
     soundToggle.selectedIndex = [[GameManager sharedGameManager] isSoundEffectsON] ? 0 : 1;
     [menu addChild:soundToggle];
     
@@ -116,7 +116,7 @@
                                          fntFile:@"score.fnt"];
     optionLabel.anchorPoint = ccp(1.0, 0.5);
     optionLabel.color = kColorUI;
-    optionLabel.position = ccp(winSize.width * 0.45, winSize.height * 0.40);
+    optionLabel.position = ccp(winSize.width * 0.45, winSize.height * 0.30);
     [self addChild:optionLabel];
     
     onLabel = [CQLabelBMFont labelWithString:@"On"
@@ -131,7 +131,7 @@
                                           selector:@selector(toggleTutorial)
                                              items:onItem, offItem, nil];
     tutorialToggle.anchorPoint = ccp(0.0, 0.5);
-    tutorialToggle.position = ccp(winSize.width * 0.55, winSize.height * 0.40);
+    tutorialToggle.position = ccp(winSize.width * 0.55, winSize.height * 0.30);
     tutorialToggle.selectedIndex = [[GameManager sharedGameManager] shouldShowTutorial] ? 0 : 1;
     [menu addChild:tutorialToggle];
 
@@ -144,7 +144,7 @@
                                                                target:[GCHelper sharedInstance]
                                                              selector:@selector(resetAchievements)];
     resetAchievements.color = ccRED;
-    resetAchievements.position = ccp(winSize.width / 2, winSize.height * 0.25);
+    resetAchievements.position = ccp(winSize.width / 2, winSize.height * 0.15);
     
     [menu addChild:resetAchievements];
 #endif

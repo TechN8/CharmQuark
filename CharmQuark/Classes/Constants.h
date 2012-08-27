@@ -28,7 +28,7 @@
 
 // Dialog tuning
 #define kPopupSpeed         0.3
-#define kDialogTitlePos     ccp(winSize.width * 0.5, winSize.height * 0.72);
+#define kDialogTitlePos     ccp(winSize.width * 0.5, winSize.height * 0.75);
 #define kDialogTitleScale   1.0
 
 // Device support
