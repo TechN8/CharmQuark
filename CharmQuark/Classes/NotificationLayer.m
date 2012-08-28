@@ -33,7 +33,7 @@
         id moveIn = [CCMoveTo actionWithDuration:kPopupSpeed
                                       position:ccp(next.position.x,
                                                    next.contentSize.height)];
-        id delay = [CCDelayTime actionWithDuration:1.0];
+        id delay = [CCDelayTime actionWithDuration:1.5];
         id moveOut = [CCMoveTo actionWithDuration:kPopupSpeed
                                          position:oldPos];
         id remove = [RemoveFromParentAction action];
