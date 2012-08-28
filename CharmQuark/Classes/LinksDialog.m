@@ -64,7 +64,7 @@
                                                  target:self 
                                                selector:@selector(www)];
     wwwItem.position = ccp(winSize.width * 0.5 + atSprite.contentSize.width,
-                           winSize.height * 0.60);
+                           winSize.height * 0.54);
     [menu addChild:wwwItem];
     
     atSprite.anchorPoint = ccp(0, 0.5);
@@ -85,7 +85,7 @@
                                                 target:self 
                                               selector:@selector(facebook)];
     fbItem.position = ccp(winSize.width * 0.5 + fbSprite.contentSize.width,
-                          winSize.height * 0.45);
+                          winSize.height * 0.42);
     [menu addChild:fbItem];
     
     fbSprite.anchorPoint = ccp(0, 0.5);
