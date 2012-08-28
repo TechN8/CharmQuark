@@ -16,15 +16,13 @@
 @implementation LinksDialog
 
 -(void)facebook {
-    CCLOG(@"Opening facebook page.");
     PLAYSOUNDEFFECT(CLICK, 1.0);
-    
     [[GameManager sharedGameManager] openSiteWithLinkType:kLinkTypeFacebook];
 }
 
 -(void)twitter {
-    CCLOG(@"Tweet something.");
     PLAYSOUNDEFFECT(CLICK, 1.0);
+    [[GameManager sharedGameManager] openSiteWithLinkType:kLinkTypeTwitter];
 }
 
 -(void)www {

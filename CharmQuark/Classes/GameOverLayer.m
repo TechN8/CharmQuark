@@ -81,23 +81,23 @@
         [tweetItem addChild:twitterBird];
         
         tweetItem.position = ccp(winSize.width * 0.5 + twitterBird.contentSize.width / 2,
-                                 winSize.height * 0.35);
+                                 winSize.height * 0.36);
         [menu addChild:tweetItem];
         
-        scoreAdjust = 0.05;
+        scoreAdjust = 0.06;
     }
     
     // Score / High Score
     CQLabelBMFont *scoreLabel = [CQLabelBMFont labelWithString:@"Score"
                                                        fntFile:@"score.fnt"];
     scoreLabel.anchorPoint = ccp(0.0, 0.5);
-    scoreLabel.position = ccp(winSize.width * 0.20, winSize.height * (0.55 + scoreAdjust));
+    scoreLabel.position = ccp(winSize.width * 0.20, winSize.height * (0.54 + scoreAdjust));
     scoreLabel.color = kColorUI;
     [self addChild:scoreLabel z:100];
     scoreLabel = [CQLabelBMFont labelWithString:[NSString stringWithFormat:@"%d", score]
                                         fntFile:@"score.fnt"];
     scoreLabel.anchorPoint = ccp(1.0, 0.5);
-    scoreLabel.position = ccp(winSize.width * 0.80, winSize.height * (0.55 + scoreAdjust));
+    scoreLabel.position = ccp(winSize.width * 0.80, winSize.height * (0.54 + scoreAdjust));
     scoreLabel.color = kColorScore;
     [self addChild:scoreLabel z:100];
     
@@ -105,20 +105,20 @@
         CQLabelBMFont *highScoreLabel = [CQLabelBMFont labelWithString:@"New High Score!"
                                                                fntFile:@"score.fnt"];
         highScoreLabel.color = kColorScore;
-        highScoreLabel.position = ccp(winSize.width * 0.5, winSize.height * (0.45 + scoreAdjust));
+        highScoreLabel.position = ccp(winSize.width * 0.5, winSize.height * (0.44 + scoreAdjust));
         [self addChild:highScoreLabel z:100];
     } else {
         CQLabelBMFont *highScoreLabel = [CQLabelBMFont labelWithString:@"High Score"
                                                                fntFile:@"score.fnt"];
         highScoreLabel.color = kColorUI;
         highScoreLabel.anchorPoint = ccp(0.0, 0.5);
-        highScoreLabel.position = ccp(winSize.width * 0.20, winSize.height * (0.45 + scoreAdjust));
+        highScoreLabel.position = ccp(winSize.width * 0.20, winSize.height * (0.44 + scoreAdjust));
         [self addChild:highScoreLabel z:100];
         highScoreLabel = [CQLabelBMFont labelWithString:[NSString stringWithFormat:@"%d", highScore]
                                             fntFile:@"score.fnt"];
         highScoreLabel.color = kColorUI;
         highScoreLabel.anchorPoint = ccp(1.0, 0.5);
-        highScoreLabel.position = ccp(winSize.width * 0.80, winSize.height * (0.45 + scoreAdjust));
+        highScoreLabel.position = ccp(winSize.width * 0.80, winSize.height * (0.44 + scoreAdjust));
         [self addChild:highScoreLabel z:100];
     }
     
@@ -128,7 +128,7 @@
                                                          target:self 
                                                        selector:@selector(restart)];
     restartItem.color = kColorButton;
-    restartItem.position = ccp(winSize.width * 0.33, winSize.height * 0.25f);
+    restartItem.position = ccp(winSize.width * 0.33, winSize.height * 0.24f);
     [menu addChild:restartItem];    
     
     //Quit
@@ -137,7 +137,7 @@
                                                       target:self 
                                                     selector:@selector(quitGame)];
     quitItem.color = kColorButton;
-    quitItem.position = ccp(winSize.width * 0.66, winSize.height * 0.25f);
+    quitItem.position = ccp(winSize.width * 0.66, winSize.height * 0.24f);
     [menu addChild:quitItem];
 }
 

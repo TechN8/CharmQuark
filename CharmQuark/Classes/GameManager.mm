@@ -96,21 +96,23 @@ static GameManager* _sharedGameManager = nil;
 
 -(void)openSiteWithLinkType:(LinkTypes)linkTypeToOpen {
     NSURL *urlToOpen = nil;
-    if (linkTypeToOpen == kLinkTypeMainSite) {
-        CCLOG(@"Opening Book Site");
-        urlToOpen = 
-        [NSURL URLWithString:
-         @"http://www.aethertheory.com"];
-    } else if (linkTypeToOpen == kLinkTypeSupportSite) {
-        CCLOG(@"Opening Developer Site for Rod");
-        urlToOpen = [NSURL URLWithString:@"http://www.aethertheory.com/support"];
-    } else if (linkTypeToOpen == kLinkTypeFacebook) {
-        CCLOG(@"Opening Facebook Page");
-        urlToOpen = 
-        [NSURL URLWithString:@"http://www.facebook.com/AetherTheoryLLC"];
-    } else {
-        CCLOG(@"Unknown link type!");
-        return;
+    switch (linkTypeToOpen) {
+        case kLinkTypeMainSite:
+            CCLOG(@"Opening Web Site");
+            urlToOpen = 
+            [NSURL URLWithString:
+             @"http://www.aethertheory.com"];
+            break;
+        case kLinkTypeFacebook:
+            CCLOG(@"Opening Facebook Page");
+            urlToOpen = 
+            [NSURL URLWithString:@"http://www.facebook.com/AetherTheoryLLC"];
+            break;
+        case kLinkTypeTwitter:
+            CCLOG(@"Opening Twitter Feed");
+            urlToOpen = 
+            [NSURL URLWithString:@"http://twitter.com/AetherTheory"];
+            break;
     }
     
     if (![[UIApplication sharedApplication] openURL:urlToOpen]) {

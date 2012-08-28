@@ -5,6 +5,7 @@ Enlarged hit area for dialog close button.
 Aligned bitmap fonts on pixel boundaries to prevent blurring.
 Added link menu accessed by clicking Aether Thoery logo.
 Adjusted menu spacing.
+Added scoring and level info to tutorial.
 
 RC 2
 

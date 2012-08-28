@@ -68,7 +68,7 @@
                                          fntFile:@"score.fnt"];
     optionLabel.anchorPoint = ccp(1.0, 0.5);
     optionLabel.color = kColorUI;
-    optionLabel.position = ccp(winSize.width * 0.45, winSize.height * 0.60);
+    optionLabel.position = ccp(winSize.width * 0.45, winSize.height * 0.54);
     [self addChild:optionLabel];
     
     onLabel = [CQLabelBMFont labelWithString:@"On"
@@ -83,7 +83,7 @@
                                           selector:@selector(toggleMusic)
                                              items:onItem, offItem, nil];
     musicToggle.anchorPoint = ccp(0.0, 0.5);
-    musicToggle.position = ccp(winSize.width * 0.55, winSize.height * 0.60);
+    musicToggle.position = ccp(winSize.width * 0.55, winSize.height * 0.54);
     musicToggle.selectedIndex = [[GameManager sharedGameManager] isMusicON] ? 0 : 1;
     
     // Sound
@@ -91,7 +91,7 @@
                                          fntFile:@"score.fnt"];
     optionLabel.anchorPoint = ccp(1.0, 0.5);
     optionLabel.color = kColorUI;
-    optionLabel.position = ccp(winSize.width * 0.45, winSize.height * 0.45);
+    optionLabel.position = ccp(winSize.width * 0.45, winSize.height * 0.42);
     [self addChild:optionLabel];
     
     onLabel = [CQLabelBMFont labelWithString:@"On"
@@ -106,7 +106,7 @@
                                           selector:@selector(toggleSound)
                                              items:onItem, offItem, nil];
     soundToggle.anchorPoint = ccp(0.0, 0.5);
-    soundToggle.position = ccp(winSize.width * 0.55, winSize.height * 0.45);
+    soundToggle.position = ccp(winSize.width * 0.55, winSize.height * 0.42);
     soundToggle.selectedIndex = [[GameManager sharedGameManager] isSoundEffectsON] ? 0 : 1;
     
     //    //Resume
@@ -122,7 +122,7 @@
                                                          target:self 
                                                        selector:@selector(restart)];
     restartItem.color = kColorButton;
-    restartItem.position = ccp(winSize.width * 0.33, winSize.height * 0.25f);
+    restartItem.position = ccp(winSize.width * 0.33, winSize.height * 0.24f);
     
     
     //Quit
@@ -131,7 +131,7 @@
                                                       target:self 
                                                     selector:@selector(quitGame)];
     quitItem.color = kColorButton;
-    quitItem.position = ccp(winSize.width * 0.66, winSize.height * 0.25f);
+    quitItem.position = ccp(winSize.width * 0.66, winSize.height * 0.24f);
     
     CCMenu *menu1 = [CCMenu menuWithItems:musicToggle, soundToggle, restartItem, quitItem, nil];
     menu1.position = ccp(0,0);

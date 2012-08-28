@@ -62,13 +62,28 @@
     
     CQLabelBMFont *optionLabel, *onLabel, *offLabel;
     CCMenuItemFont *onItem, *offItem;
+
+    CGFloat scoreAdjust = 0;
+#ifdef DEBUG
+    // Reset achievements!!!  Remove in release builds.
+    CQLabelBMFont *resetLabel = [CQLabelBMFont labelWithString:@"Reset Achievements"
+                                                       fntFile:@"score.fnt"];
+    CQMenuItemFont *resetAchievements = [CQMenuItemFont itemWithLabel:resetLabel
+                                                               target:[GCHelper sharedInstance]
+                                                             selector:@selector(resetAchievements)];
+    resetAchievements.color = ccRED;
+    resetAchievements.position = ccp(winSize.width / 2, winSize.height * 0.24);
+    [menu addChild:resetAchievements];
+    scoreAdjust = 0.06;
+#endif
     
     // Music
     optionLabel = [CQLabelBMFont labelWithString:@"Music:"
                                    fntFile:@"score.fnt"];
     optionLabel.anchorPoint = ccp(1.0, 0.5);
     optionLabel.color = kColorUI;
-    optionLabel.position = ccp(winSize.width * 0.45, winSize.height * 0.60);
+    optionLabel.position = ccp(winSize.width * 0.45, 
+                               winSize.height * (0.54 + scoreAdjust));
     [self addChild:optionLabel];
     
     onLabel = [CQLabelBMFont labelWithString:@"On"
@@ -83,7 +98,8 @@
                                           selector:@selector(toggleMusic)
                                              items:onItem, offItem, nil];
     musicToggle.anchorPoint = ccp(0.0, 0.5);
-    musicToggle.position = ccp(winSize.width * 0.55, winSize.height * 0.60);
+    musicToggle.position = ccp(winSize.width * 0.55, 
+                               winSize.height * (0.54 + scoreAdjust));
     musicToggle.selectedIndex = [[GameManager sharedGameManager] isMusicON] ? 0 : 1;
     [menu addChild:musicToggle];
   
@@ -92,7 +108,8 @@
                                          fntFile:@"score.fnt"];
     optionLabel.anchorPoint = ccp(1.0, 0.5);
     optionLabel.color = kColorUI;
-    optionLabel.position = ccp(winSize.width * 0.45, winSize.height * 0.45);
+    optionLabel.position = ccp(winSize.width * 0.45, 
+                               winSize.height * (0.42 + scoreAdjust));
     [self addChild:optionLabel];
     
     onLabel = [CQLabelBMFont labelWithString:@"On"
@@ -107,7 +124,8 @@
                                           selector:@selector(toggleSound)
                                              items:onItem, offItem, nil];
     soundToggle.anchorPoint = ccp(0.0, 0.5);
-    soundToggle.position = ccp(winSize.width * 0.55, winSize.height * 0.45);
+    soundToggle.position = ccp(winSize.width * 0.55, 
+                               winSize.height * (0.42 + scoreAdjust));
     soundToggle.selectedIndex = [[GameManager sharedGameManager] isSoundEffectsON] ? 0 : 1;
     [menu addChild:soundToggle];
     
@@ -116,7 +134,8 @@
                                          fntFile:@"score.fnt"];
     optionLabel.anchorPoint = ccp(1.0, 0.5);
     optionLabel.color = kColorUI;
-    optionLabel.position = ccp(winSize.width * 0.45, winSize.height * 0.30);
+    optionLabel.position = ccp(winSize.width * 0.45, 
+                               winSize.height * (0.30 + scoreAdjust));
     [self addChild:optionLabel];
     
     onLabel = [CQLabelBMFont labelWithString:@"On"
@@ -131,24 +150,10 @@
                                           selector:@selector(toggleTutorial)
                                              items:onItem, offItem, nil];
     tutorialToggle.anchorPoint = ccp(0.0, 0.5);
-    tutorialToggle.position = ccp(winSize.width * 0.55, winSize.height * 0.30);
+    tutorialToggle.position = ccp(winSize.width * 0.55, 
+                                  winSize.height * (0.30 + scoreAdjust));
     tutorialToggle.selectedIndex = [[GameManager sharedGameManager] shouldShowTutorial] ? 0 : 1;
     [menu addChild:tutorialToggle];
-
-    
-#ifdef DEBUG
-    // Reset achievements!!!  Remove in release builds.
-    CQLabelBMFont *resetLabel = [CQLabelBMFont labelWithString:@"Reset Achievements"
-                                                       fntFile:@"score.fnt"];
-    CQMenuItemFont *resetAchievements = [CQMenuItemFont itemWithLabel:resetLabel
-                                                               target:[GCHelper sharedInstance]
-                                                             selector:@selector(resetAchievements)];
-    resetAchievements.color = ccRED;
-    resetAchievements.position = ccp(winSize.width / 2, winSize.height * 0.15);
-    
-    [menu addChild:resetAchievements];
-#endif
-    
 }
 
 #pragma mark - CCTargetedTouchDelegate
