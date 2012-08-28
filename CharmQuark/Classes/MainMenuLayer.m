@@ -229,7 +229,7 @@ enum {
     CCLabelTTF *versionLabel = [CCLabelTTF labelWithString:versionString 
                                                   fontName:@"American Typewriter"
                                                   fontSize:12.0];
-//    versionLabel.opacity = 128;
+    versionLabel.opacity = 128;
     versionLabel.color = kColorUI;
     versionLabel.anchorPoint = ccp(0.0, 0.0);
     versionLabel.position = ccp(2, 2);
@@ -343,9 +343,6 @@ enum {
                                 selector:@selector(showLinks)];
     atItem.anchorPoint = ccp(1,0);
     atItem.position = ccp(winSize.width - 2, 2);
-//    atItem.anchorPoint = ccp(0.5,0);
-//    atItem.position = ccp(versionLabel.position.x - versionLabel.contentSize.width / 2,
-//                          versionLabel.position.y + versionLabel.contentSize.height + 2);
     atItem.opacity = 128;
     [menu addChild:atItem];
 }

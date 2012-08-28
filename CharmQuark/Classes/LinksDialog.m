@@ -63,12 +63,12 @@
     CCMenuItem *wwwItem = [CQMenuItemFont itemWithLabel:wwwLabel
                                                  target:self 
                                                selector:@selector(www)];
-    wwwItem.position = ccp(winSize.width * 0.5 + atSprite.contentSize.width * 0.5 + 4,
+    wwwItem.position = ccp(winSize.width * 0.5 + atSprite.contentSize.width,
                            winSize.height * 0.60);
     [menu addChild:wwwItem];
     
-    atSprite.anchorPoint = ccp(1.0, 0.5);
-    atSprite.position = ccp(wwwItem.position.x - wwwItem.contentSize.width * 0.5 - 4,
+    atSprite.anchorPoint = ccp(0, 0.5);
+    atSprite.position = ccp(winSize.width * 0.17,
                             wwwItem.position.y);
     [menu addChild:atSprite];
     
@@ -84,13 +84,12 @@
     CCMenuItem *fbItem = [CQMenuItemFont itemWithLabel:fbLabel
                                                 target:self 
                                               selector:@selector(facebook)];
-    fbItem.position = ccp(winSize.width * 0.5 + fbSprite.contentSize.width * 0.5 + 4,
+    fbItem.position = ccp(winSize.width * 0.5 + fbSprite.contentSize.width,
                           winSize.height * 0.45);
     [menu addChild:fbItem];
     
-    fbSprite.anchorPoint = ccp(1.0, 0.5);
-    fbSprite.position = ccp(fbItem.position.x - fbItem.contentSize.width * 0.5 - 4,
-                            fbItem.position.y);
+    fbSprite.anchorPoint = ccp(0, 0.5);
+    fbSprite.position = ccp(winSize.width * 0.17, fbItem.position.y);
     [menu addChild:fbSprite];
     
     // Twitter link.
@@ -105,13 +104,13 @@
     CCMenuItem *twitterItem = [CQMenuItemFont itemWithLabel:twitterLabel
                                                      target:self 
                                                    selector:@selector(twitter)];
-    twitterItem.position = ccp(winSize.width * 0.5 + twitterSprite.contentSize.width * 0.5 + 4,
+    twitterItem.position = ccp(winSize.width * 0.5 + twitterSprite.contentSize.width,
                                winSize.height * 0.30);
     [menu addChild:twitterItem];
     
-    twitterSprite.anchorPoint = ccp(1.0, 0.5);
-    twitterSprite.position = ccp(twitterItem.position.x - twitterItem.contentSize.width * 0.5 - 4,
-                                 twitterItem.position.y);
+    twitterSprite.anchorPoint = ccp(0, 0.5);
+    twitterSprite.position = ccp(winSize.width * 0.17, twitterItem.position.y);
+
     [menu addChild:twitterSprite];
     
 }
