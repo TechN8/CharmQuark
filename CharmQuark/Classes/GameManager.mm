@@ -15,7 +15,7 @@
 #import "Tutorial.h"
 #import "GCHelper.h"
 #import "CDXPropertyModifierAction.h"
-
+#import "TwitterHelper.h"
 
 static NSString *kSoundEffectsOnKey	= @"isSoundEffectsOn";
 static NSString *kMusicOnKey		= @"isMusicOn";
@@ -96,6 +96,7 @@ static GameManager* _sharedGameManager = nil;
 
 -(void)openSiteWithLinkType:(LinkTypes)linkTypeToOpen {
     NSURL *urlToOpen = nil;
+    UIApplication * theApp = [UIApplication sharedApplication];
     switch (linkTypeToOpen) {
         case kLinkTypeMainSite:
             CCLOG(@"Opening Web Site");
@@ -105,17 +106,21 @@ static GameManager* _sharedGameManager = nil;
             break;
         case kLinkTypeFacebook:
             CCLOG(@"Opening Facebook Page");
-            urlToOpen = 
-            [NSURL URLWithString:@"http://www.facebook.com/AetherTheoryLLC"];
+            urlToOpen = [NSURL URLWithString:@"fb://profile/128249673985256"];
+            if (![theApp canOpenURL:urlToOpen]) {
+                urlToOpen = [NSURL URLWithString:@"http://www.facebook.com/AetherTheoryLLC"];
+            }
             break;
         case kLinkTypeTwitter:
-            CCLOG(@"Opening Twitter Feed");
-            urlToOpen = 
-            [NSURL URLWithString:@"http://twitter.com/AetherTheory"];
+            urlToOpen = [NSURL URLWithString:@"twitter://AetherTheory"];
+            if (![theApp canOpenURL:urlToOpen]) {
+                // Fall back to safari.
+                urlToOpen = [NSURL URLWithString:@"http://twitter.com/AetherTheory"];
+            }
             break;
     }
     
-    if (![[UIApplication sharedApplication] openURL:urlToOpen]) {
+    if (![theApp openURL:urlToOpen]) {
         CCLOG(@"%@%@",@"Failed to open url:",[urlToOpen description]);
         [self runSceneWithID:kMainMenuScene];
     }    

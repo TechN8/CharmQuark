@@ -17,18 +17,44 @@
                 <key>sourceSize</key>
                 <string>{128,128}</string>
             </dict>
-            <key>at-logo.png</key>
+            <key>at-icon.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{132,76},{72,70}}</string>
+                <string>{{2,262},{75,75}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{72,70}}</string>
+                <string>{{0,0},{75,75}}</string>
                 <key>sourceSize</key>
-                <string>{72,70}</string>
+                <string>{75,75}</string>
+            </dict>
+            <key>at-logo.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{132,79},{78,75}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{78,75}}</string>
+                <key>sourceSize</key>
+                <string>{78,75}</string>
+            </dict>
+            <key>facebook-icon.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{132,233},{75,75}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{75,75}}</string>
+                <key>sourceSize</key>
+                <string>{75,75}</string>
             </dict>
             <key>leaderboard.png</key>
             <dict>
@@ -46,15 +72,28 @@
             <key>twitter-bird.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{132,2},{89,72}}</string>
+                <string>{{132,2},{92,75}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{89,72}}</string>
+                <string>{{0,0},{92,75}}</string>
                 <key>sourceSize</key>
-                <string>{89,72}</string>
+                <string>{92,75}</string>
+            </dict>
+            <key>twitter-icon.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{132,156},{75,75}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{75,75}}</string>
+                <key>sourceSize</key>
+                <string>{75,75}</string>
             </dict>
         </dict>
         <key>metadata</key>
@@ -66,7 +105,7 @@
             <key>size</key>
             <string>{256,512}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:b828e246c6980314dab21fe73ed7f1d8$</string>
+            <string>$TexturePacker:SmartUpdate:1c57b3c60c3853adffb60f8294e9320a$</string>
             <key>textureFileName</key>
             <string>iconAtlas-ipadhd.png</string>
         </dict>

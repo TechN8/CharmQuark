@@ -12,6 +12,7 @@
 #import "GameManager.h"
 #import "CQMenuItemFont.h"
 #import "CQLabelBMFont.h"
+#import "TwitterHelper.h"
 
 @implementation LinksDialog
 
@@ -41,44 +42,77 @@
     title.position = kDialogTitlePos;
     title.scale = kDialogTitleScale;
     [self addChild:title z:100];
-
-
+    
+    
     // Add menu
     CCMenu *menu = [CCMenu node];
     menu.anchorPoint = ccp(0,0);
     menu.position = ccp(0,0);
     [self addChild:menu z:100];
-
+    
     // Web site link.
+    CCSprite *atSpriteNormal = [CCSprite spriteWithSpriteFrameName:@"at-icon.png"];
+    CCMenuItemSprite *atSprite = [CCMenuItemSprite itemWithNormalSprite:atSpriteNormal
+                                                         selectedSprite:nil
+                                                                 target:self
+                                                               selector:@selector(www)];
+//    atSpriteNormal.color = ccc3(0x78, 0x2a, 0);
     CQLabelBMFont *wwwLabel = [CQLabelBMFont labelWithString:@"www.aethertheory.com"
                                                      fntFile:@"score.fnt"];
     wwwLabel.color = kColorButton;
     CCMenuItem *wwwItem = [CQMenuItemFont itemWithLabel:wwwLabel
-                                                target:self 
-                                              selector:@selector(www)];
-    wwwItem.position = ccp(winSize.width * 0.5, winSize.height * 0.60);
+                                                 target:self 
+                                               selector:@selector(www)];
+    wwwItem.position = ccp(winSize.width * 0.5 + atSprite.contentSize.width * 0.5 + 4,
+                           winSize.height * 0.60);
     [menu addChild:wwwItem];
     
+    atSprite.anchorPoint = ccp(1.0, 0.5);
+    atSprite.position = ccp(wwwItem.position.x - wwwItem.contentSize.width * 0.5 - 4,
+                            wwwItem.position.y);
+    [menu addChild:atSprite];
+    
     // Facebook link.
+    CCSprite *fbSpriteNormal = [CCSprite spriteWithSpriteFrameName:@"facebook-icon.png"];
+    CCMenuItemSprite *fbSprite = [CCMenuItemSprite itemWithNormalSprite:fbSpriteNormal
+                                                         selectedSprite:nil
+                                                                 target:self
+                                                               selector:@selector(facebook)];
     CQLabelBMFont *fbLabel = [CQLabelBMFont labelWithString:@"Like us on Facebook."
-                                                     fntFile:@"score.fnt"];
+                                                    fntFile:@"score.fnt"];
     fbLabel.color = kColorButton;
     CCMenuItem *fbItem = [CQMenuItemFont itemWithLabel:fbLabel
-                                                 target:self 
-                                               selector:@selector(facebook)];
-    fbItem.position = ccp(winSize.width * 0.5, winSize.height * 0.45);
+                                                target:self 
+                                              selector:@selector(facebook)];
+    fbItem.position = ccp(winSize.width * 0.5 + fbSprite.contentSize.width * 0.5 + 4,
+                          winSize.height * 0.45);
     [menu addChild:fbItem];
     
+    fbSprite.anchorPoint = ccp(1.0, 0.5);
+    fbSprite.position = ccp(fbItem.position.x - fbItem.contentSize.width * 0.5 - 4,
+                            fbItem.position.y);
+    [menu addChild:fbSprite];
+    
     // Twitter link.
+    CCSprite *twitterSpriteNormal = [CCSprite spriteWithSpriteFrameName:@"twitter-icon.png"];
+    CCMenuItemSprite *twitterSprite = [CCMenuItemSprite itemWithNormalSprite:twitterSpriteNormal
+                                                              selectedSprite:nil
+                                                                      target:self
+                                                                    selector:@selector(twitter)];
     CQLabelBMFont *twitterLabel = [CQLabelBMFont labelWithString:@"Follow us on Twitter."
-                                                     fntFile:@"score.fnt"];
+                                                         fntFile:@"score.fnt"];
     twitterLabel.color = kColorButton;
     CCMenuItem *twitterItem = [CQMenuItemFont itemWithLabel:twitterLabel
-                                                 target:self 
-                                               selector:@selector(twitter)];
-    twitterItem.position = ccp(winSize.width * 0.5, winSize.height * 0.30);
+                                                     target:self 
+                                                   selector:@selector(twitter)];
+    twitterItem.position = ccp(winSize.width * 0.5 + twitterSprite.contentSize.width * 0.5 + 4,
+                               winSize.height * 0.30);
     [menu addChild:twitterItem];
     
+    twitterSprite.anchorPoint = ccp(1.0, 0.5);
+    twitterSprite.position = ccp(twitterItem.position.x - twitterItem.contentSize.width * 0.5 - 4,
+                                 twitterItem.position.y);
+    [menu addChild:twitterSprite];
     
 }
 
