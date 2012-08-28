@@ -31,6 +31,9 @@
 -(void) tutorial {
     CGSize winSize = [[CCDirector sharedDirector] winSize];
     static CQLabelBMFont *instructions = nil;
+    static CQLabelBMFont *levelLabel = nil;
+    static CQLabelBMFont *timerLabel = nil;
+    
     switch (tutorialStep) {
         case 1:
             // Swipe here to rotate.
@@ -70,28 +73,52 @@
                                    kMinMatchSize];
             instructions.position = ccp(puzzleCenter.x, winSize.height * 0.75);
             for (Particle *particle in particles) {
-                fadeOut = [CCFadeTo actionWithDuration:0.5 opacity:128];
-                fadeIn = [CCFadeTo actionWithDuration:0.5 opacity:255];
+                fadeOut = [CCTintTo actionWithDuration:0.5
+                                                   red:particle.color.r / 2
+                                                 green:particle.color.g / 2 
+                                                  blue:particle.color.b / 2];
+                fadeIn = [CCTintTo actionWithDuration:0.5
+                                                  red:particle.color.r
+                                                green:particle.color.g
+                                                 blue:particle.color.b];
                 seq = [CCSequence actions:fadeOut, fadeIn, nil];
                 [particle runAction: [CCRepeatForever actionWithAction:seq]];
             }
             for (Particle *particle in inFlightParticles) {
-                fadeOut = [CCFadeTo actionWithDuration:0.5 opacity:128];
-                fadeIn = [CCFadeTo actionWithDuration:0.5 opacity:255];
+                fadeOut = [CCTintTo actionWithDuration:0.5
+                                                   red:particle.color.r / 2
+                                                 green:particle.color.g / 2 
+                                                  blue:particle.color.b / 2];
+                fadeIn = [CCTintTo actionWithDuration:0.5
+                                                  red:particle.color.r
+                                                green:particle.color.g
+                                                 blue:particle.color.b];
                 seq = [CCSequence actions:fadeOut, fadeIn, nil];
                 [particle runAction: [CCRepeatForever actionWithAction:seq]];
             }
             tutorialStep++;
             break;
         case 4:
+            // Bonus
+            instructions.string = @"Larger matches score\nbonus points.";
+            instructions.position = ccp(puzzleCenter.x, winSize.height * 0.75);
+            tutorialStep++;
+            break;
+        case 5:
+            // Combos.
+            instructions.string = @"Score extra points for\ncombos.";
+            instructions.position = ccp(puzzleCenter.x, winSize.height * 0.75);
+            tutorialStep++;
+            break;
+        case 6:
             // Stay inside the ring.
             for (Particle *particle in particles) {
                 [particle stopAllActions];
-                particle.opacity = 255;
+                particle.particleColor = particle.particleColor;
             }
             for (Particle *particle in inFlightParticles) {
                 [particle stopAllActions];
-                particle.opacity = 255;
+                particle.particleColor = particle.particleColor;
             }
             instructions.string = @"Keep particles\ninside the detector.";
             instructions.position = ccp(puzzleCenter.x, winSize.height * 0.75);
@@ -102,15 +129,50 @@
             [detector runAction: [CCRepeatForever actionWithAction:seq]];
             tutorialStep++;
             break;
-        case 5:
-            // Tap to play.
+        case 7:
             [detector stopAllActions];
             detector.visible = NO;
+
+            // Levels and time.
+            timerLabel= [CQLabelBMFont labelWithString:@"2:00.00" fntFile:@"score.fnt"];
+            timerLabel.position = ccp(winSize.width * 0.5f, winSize.height * 0.95f);
+            timerLabel.color = kColorUI;
+            fadeOut = [CCFadeTo actionWithDuration:0.5 opacity:0];
+            fadeIn = [CCFadeTo actionWithDuration:0.5 opacity:255];
+            id delay = [CCDelayTime actionWithDuration:1.0];
+            seq = [CCSequence actions:fadeIn, fadeOut, delay, nil];
+            id loop = [CCRepeatForever actionWithAction:seq];
+            [timerLabel runAction:loop];
+            [self addChild:timerLabel z:kZUIElements];
+            
+            levelLabel = [CQLabelBMFont labelWithString:@"Level 10"
+                                                               fntFile:@"score.fnt"];
+            levelLabel.position = ccp(winSize.width * 0.5f, winSize.height * 0.95f);
+            levelLabel.color = kColorUI;
+            levelLabel.opacity = 0;
+            fadeOut = [CCFadeTo actionWithDuration:0.5 opacity:0];
+            fadeIn = [CCFadeTo actionWithDuration:0.5 opacity:255];
+            delay = [CCDelayTime actionWithDuration:1.0];
+            seq = [CCSequence actions:delay, fadeIn, fadeOut, nil];
+            loop = [CCRepeatForever actionWithAction:seq];
+            [levelLabel runAction:loop];
+            [self addChild:levelLabel z:kZUIElements];
+            
+            instructions.string = [NSString stringWithFormat:@"Every %dth match\nincreases level or\nadds time.",
+                                   kMatchesPerLevel];
+            instructions.position = ccp(winSize.width * 0.5, winSize.height * 0.75);
+            tutorialStep++;
+            break;
+        case 8:
+            [timerLabel removeFromParentAndCleanup:YES];
+            [levelLabel removeFromParentAndCleanup:YES];
+            
+            // Tap to play.
             instructions.string = @"Tap to play.";
             instructions.position = ccp(winSize.width * 0.50, winSize.height * 0.25);
             tutorialStep++;
             break;
-        case 6:
+        case 9:
             // Reset game.
             [instructions removeFromParentAndCleanup:YES];
             GameManager *gm = [GameManager sharedGameManager];

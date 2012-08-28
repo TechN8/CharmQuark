@@ -389,9 +389,15 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
         angle += centerNode.rotation;
         [detector gameOverAtAngle:angle];
         
-        id fadeout = [CCFadeTo actionWithDuration:0.5 opacity:128];
-        id fadein = [CCFadeTo actionWithDuration:0.5 opacity:255];
-        id seq = [CCSequence actions:fadeout, fadein, nil];
+        id fadeOut = [CCTintTo actionWithDuration:0.5
+                                              red:particle.color.r / 2
+                                            green:particle.color.g / 2 
+                                             blue:particle.color.b / 2];
+        id fadeIn = [CCTintTo actionWithDuration:0.5
+                                             red:particle.color.r
+                                        green:particle.color.g
+                                         blue:particle.color.b];
+        id seq = [CCSequence actions:fadeOut, fadeIn, nil];
         id loop = [CCRepeatForever actionWithAction:seq];
 
         [particle runAction:loop];
