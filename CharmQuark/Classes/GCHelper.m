@@ -190,7 +190,7 @@ static GCHelper *sharedHelper = nil;
 completionHandler:(void (^)())completionHandler 
 {
     NSArray *ids = [NSArray arrayWithObject:[GKLocalPlayer localPlayer].playerID];
-    GKLeaderboard *leaderboardRequest = [[GKLeaderboard alloc] initWithPlayerIDs:ids];
+    GKLeaderboard *leaderboardRequest = [[[GKLeaderboard alloc] initWithPlayerIDs:ids] autorelease];
     leaderboardRequest.category = aCategory;
     if (leaderboardRequest != nil)
     {
