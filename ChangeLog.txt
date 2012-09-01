@@ -3,7 +3,7 @@
 Adjusted explosion particle count, duration, and angle.
 Added prompt for review after 14 games & 7 days.
 New Aether Theory logo on splash screen and credits to match website.
-
+Fixed some memory leaks.
 
 
 RC 3

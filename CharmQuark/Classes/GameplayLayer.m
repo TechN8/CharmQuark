@@ -518,6 +518,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 
     // Set up the next particle.
     if (nextParticle) {
+        cpBodyFree(nextParticle.body);
         [nextParticle removeFromParentAndCleanup:YES];
     }
     nextParticle = [self randomParticle];
@@ -966,6 +967,13 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     [super draw];
 }
 
+-(void)cleanup {
+    if (nil != nextParticle) {
+        cpBodyFree(nextParticle.body);
+    }
+    [super cleanup];
+}
+
 #pragma mark -
 #pragma mark NSObject
 
@@ -973,11 +981,11 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 {
     self = [super initWithColor:ccc4(0, 0, 0, 255)];
     if (self) {
-        particles = [[[NSMutableSet alloc] initWithCapacity:100] retain];
-        visitedParticles = [[[NSMutableSet alloc] initWithCapacity:100] retain];
-        scoredParticles = [[[NSMutableArray alloc] initWithCapacity:20] retain];
-        countedParticles = [[[NSMutableSet alloc] initWithCapacity:10] retain];
-        inFlightParticles = [[[NSMutableArray alloc] initWithCapacity:5] retain];
+        particles = [[NSMutableSet alloc] initWithCapacity:100];
+        visitedParticles = [[NSMutableSet alloc] initWithCapacity:100];
+        scoredParticles = [[NSMutableArray alloc] initWithCapacity:20];
+        countedParticles = [[NSMutableSet alloc] initWithCapacity:10];
+        inFlightParticles = [[NSMutableArray alloc] initWithCapacity:5];
         
         if( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone ) {
             scaleFactor = kiPhoneScale;

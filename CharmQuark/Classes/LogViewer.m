@@ -56,7 +56,7 @@
 -(id)init {
     self = [super init];
     if (self) {
-        messages = [[[NSMutableArray alloc] init] retain];
+        messages = [[NSMutableArray alloc] init];
         CCLabelBMFont *newMessage = [CCLabelBMFont labelWithString:@"> tail EventLog" fntFile:@"score.fnt"];
         lineHeight = newMessage.contentSize.height;
         [newMessage cleanup];
