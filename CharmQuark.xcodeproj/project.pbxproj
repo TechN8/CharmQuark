@@ -141,6 +141,8 @@
 		D848C47E15CC632B00B6088A /* aethertheory-logo-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = D848C47B15CC632600B6088A /* aethertheory-logo-ipad.png */; };
 		D848C47F15CC632B00B6088A /* aethertheory-logo-ipadhd.png in Resources */ = {isa = PBXBuildFile; fileRef = D848C47C15CC632800B6088A /* aethertheory-logo-ipadhd.png */; };
 		D848C48015CC632B00B6088A /* aethertheory-logo-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = D848C47D15CC632900B6088A /* aethertheory-logo-hd.png */; };
+		D860166315F256890076D934 /* iRate.m in Sources */ = {isa = PBXBuildFile; fileRef = D860166215F256890076D934 /* iRate.m */; };
+		D860166515F2569E0076D934 /* iRate.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D860166415F2569E0076D934 /* iRate.bundle */; };
 		D871773615B350230014E75E /* score.fnt in Resources */ = {isa = PBXBuildFile; fileRef = D871773215B350230014E75E /* score.fnt */; };
 		D871773715B350230014E75E /* score.png in Resources */ = {isa = PBXBuildFile; fileRef = D871773315B350230014E75E /* score.png */; };
 		D871773A15B350650014E75E /* score-hd.fnt in Resources */ = {isa = PBXBuildFile; fileRef = D871773815B350650014E75E /* score-hd.fnt */; };
@@ -482,6 +484,9 @@
 		D848C47B15CC632600B6088A /* aethertheory-logo-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "aethertheory-logo-ipad.png"; sourceTree = "<group>"; };
 		D848C47C15CC632800B6088A /* aethertheory-logo-ipadhd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "aethertheory-logo-ipadhd.png"; sourceTree = "<group>"; };
 		D848C47D15CC632900B6088A /* aethertheory-logo-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "aethertheory-logo-hd.png"; sourceTree = "<group>"; };
+		D860166115F256890076D934 /* iRate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iRate.h; sourceTree = "<group>"; };
+		D860166215F256890076D934 /* iRate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iRate.m; sourceTree = "<group>"; };
+		D860166415F2569E0076D934 /* iRate.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = iRate.bundle; sourceTree = "<group>"; };
 		D871773015B350230014E75E /* score.GlyphProject */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = score.GlyphProject; sourceTree = "<group>"; };
 		D871773115B350230014E75E /* score-hd.GlyphProject */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = "score-hd.GlyphProject"; sourceTree = "<group>"; };
 		D871773215B350230014E75E /* score.fnt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = score.fnt; sourceTree = "<group>"; };
@@ -859,6 +864,7 @@
 		D847E07815AC87FF0044FC48 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D860166415F2569E0076D934 /* iRate.bundle */,
 				D8A0683F15D02CD8002B63B4 /* credits.txt */,
 				D847E07915AC87FF0044FC48 /* Default.png */,
 				D848C37915C6EA9E00B6088A /* Default@2x.png */,
@@ -1181,6 +1187,8 @@
 				D8A0685015D2CBB7002B63B4 /* GCHelper.m */,
 				D8A0685315D2CC04002B63B4 /* GCDatabase.h */,
 				D8A0685415D2CC05002B63B4 /* GCDatabase.m */,
+				D860166115F256890076D934 /* iRate.h */,
+				D860166215F256890076D934 /* iRate.m */,
 				D8C34E6715E27B9F002AA2E6 /* TwitterHelper.h */,
 				D8C34E6815E27B9F002AA2E6 /* TwitterHelper.m */,
 			);
@@ -1595,6 +1603,20 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				da,
+				de,
+				es,
+				fr,
+				it,
+				ja,
+				ko,
+				nl,
+				pl,
+				pt,
+				ru,
+				sv,
+				"zh-Hans",
+				"zh-Hant",
 			);
 			mainGroup = D847E05615AC87FF0044FC48;
 			productRefGroup = D847E06215AC87FF0044FC48 /* Products */;
@@ -1696,6 +1718,7 @@
 				D815B03615E848030035E0EF /* Explode2.caf in Resources */,
 				D815B03715E848030035E0EF /* Explode3.caf in Resources */,
 				D815B04515E84CB40035E0EF /* Click.caf in Resources */,
+				D860166515F2569E0076D934 /* iRate.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1886,6 +1909,7 @@
 				D8C34E9E15E554F3002AA2E6 /* NotificationLayer.m in Sources */,
 				D815B04915EBCC0E0035E0EF /* LinksDialog.m in Sources */,
 				D815B04C15EBEF2E0035E0EF /* CQLabelBMFont.m in Sources */,
+				D860166315F256890076D934 /* iRate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1897,7 +1921,7 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 13;
+				CURRENT_PROJECT_VERSION = 14;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1920,7 +1944,7 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 13;
+				CURRENT_PROJECT_VERSION = 14;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					NDEBUG,

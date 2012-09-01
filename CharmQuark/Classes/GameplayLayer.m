@@ -13,6 +13,7 @@
 #import "GameManager.h"
 #import "GCHelper.h"
 #import "CQLabelBMFont.h"
+#import "iRate.h"
 
 static CGPoint nextParticlePos;
 static CGPoint launchPoint;
@@ -414,6 +415,8 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     id seq = [CCSequence actions:wait, move, nil];
     [gameOverLayer runAction:seq];
     
+    // Count games played for iRate.
+    [[iRate sharedInstance] logEvent:YES];
 }
 
 -(BOOL) launch {

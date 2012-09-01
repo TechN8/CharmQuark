@@ -13,10 +13,29 @@
 #import "GameManager.h"
 #import "GCHelper.h"
 #import "NotificationLayer.h"
+#import "iRate.h"
 
 @implementation AppController
 
 @synthesize window=window_, navController=navController_, director=director_;
+
++ (void)initialize
+{
+    [super initialize];
+    
+    // Configure iRate
+    iRate *ir = [iRate sharedInstance];
+    ir.daysUntilPrompt = 7;
+    ir.usesUntilPrompt = 21;
+    ir.eventsUntilPrompt = 14;
+    ir.promptAtLaunch = NO;
+#ifdef DEBUG
+    ir.appStoreID = 551441281;
+    ir.appStoreGenreID = iRateAppStoreGameGenreID;
+    ir.debug = YES;
+#endif
+    
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {

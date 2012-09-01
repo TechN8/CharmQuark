@@ -17,6 +17,7 @@
 #import "GCHelper.h"
 #import "CQMenuItemFont.h"
 #import "CQLabelBMFont.h"
+#import "iRate.h"
 
 // Z Values for UI Elements.
 enum {
@@ -357,6 +358,11 @@ enum {
     [super onEnter];
 
     [self displayMainMenu];
+    
+    iRate *ir = [iRate sharedInstance];
+    if ([ir shouldPromptForRating]) {
+        [ir promptIfNetworkAvailable];
+    }
 }
 
 -(id)init {
