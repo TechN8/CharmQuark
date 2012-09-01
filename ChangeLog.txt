@@ -1,3 +1,11 @@
+1.0 (14)
+
+Adjusted explosion particle count, duration, and angle.
+Added prompt for review after 14 games & 7 days.
+New Aether Theory logo on splash screen and credits to match website.
+
+
+
 RC 3
 
 Fixed blinking detector bug in tutorial.

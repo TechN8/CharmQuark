@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "-[GameplayLayer addParticle:atPosition:]:GameplayLayer.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[GameplayLayer moveInFlightBodies]:GameplayLayer.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "centerNode.rotation">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[GameplayLayer step:]:GameplayLayer.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "remainder">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[GameplayLayer readyNextParticle]:GameplayLayer.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[GameplayLayer resetGame]:GameplayLayer.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[GameplayLayer launch]:GameplayLayer.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[Particle separateFromParticle:]:Particle.m">
+      </ContextState>
+      <ContextState
+         contextName = "collisionSeparate:GameplayLayer.m">
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>
