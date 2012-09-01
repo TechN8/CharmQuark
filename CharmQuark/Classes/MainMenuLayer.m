@@ -140,6 +140,12 @@ enum {
     explosion.position = detector.position;
     [particleBatch addChild:explosion z:kZDetector];
     [detector animateAtAngle:-1 * explosion.angle graphColor:ccGREEN];
+
+    CCParticleSystemQuad *explosion2 = [Particle explosion];
+    //explosion2.angle = fmodf(explosion.angle + 180, 360);
+    explosion2.position = detector.position;
+    [particleBatch addChild:explosion2 z:kZDetector];
+    [detector animateAtAngle:-1 * explosion2.angle graphColor:ccGREEN];
 }
 
 -(void)animateBackground {

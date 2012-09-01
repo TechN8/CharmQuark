@@ -49,6 +49,8 @@ typedef enum {
 
 + (id) particleWithColor:(ParticleColors)color;
 
++(CCParticleSystemQuad *)explosion;
+
 - (id) initWithParticleColor:(ParticleColors)color;
 
 - (BOOL) isLive;

@@ -11,7 +11,6 @@
 #import "RemoveFromParentAction.h"
 
 @interface Particle() 
-+ (CCParticleSystemQuad *)newExplosion;
 - (void) addMatchingParticlesToSet:(NSMutableSet*)particleSet 
                        requireLive:(BOOL)requireLive;
 @end
@@ -30,9 +29,10 @@
     return [[[self alloc] initWithParticleColor:color] autorelease];
 }
 
-+(CCParticleSystemQuad *)newExplosion {
++(CCParticleSystemQuad *)explosion {
     CGSize s = [[CCDirector sharedDirector] winSize];
-    CGFloat speed = s.width * 2;
+    CGFloat speed = s.width * 1.2;
+    //speed = s.width;
 
     CCParticleSystemQuad *emitter = [CCParticleSystemQuad node];
     emitter.totalParticles = 10;
@@ -47,19 +47,19 @@
     // Gravity Mode: speed of particles
     
     emitter.speed = speed;
-    emitter.speedVar = speed / 4;
+    emitter.speedVar = speed / 2;
     // Gravity Mode: radial
     emitter.radialAccel = 0;
     emitter.radialAccelVar = 0;
     // Gravity Mode: tagential
     emitter.tangentialAccel = 0;
-    emitter.tangentialAccelVar = 1500;
+    emitter.tangentialAccelVar = speed * 4;
     //Angle is OpenGL like and goes CCW.
     emitter.angle = (float)rand()/((float)RAND_MAX/360);
     emitter.angleVar = 20;
     emitter.emissionRate = emitter.totalParticles / emitter.duration;
-    emitter.life = 0.4f;
-    emitter.lifeVar = .2f;
+    emitter.life = 0.6f;
+    emitter.lifeVar = .3f;
     emitter.positionType = kCCPositionTypeRelative;
     emitter.posVar = CGPointZero;
     // size, in pixels
@@ -182,7 +182,7 @@
     [self runAction:scale];
     [self runAction:seq];
     
-    CCParticleSystemQuad *emitter = [Particle newExplosion];
+    CCParticleSystemQuad *emitter = [Particle explosion];
     emitter.position = self.position;
     return emitter;
 }
