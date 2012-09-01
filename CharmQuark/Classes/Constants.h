@@ -88,3 +88,6 @@ typedef enum {
 } LinkTypes;
 
 #endif
+
+// Uncomment this for bigger explosions.
+//#define SCREENSHOTS 1

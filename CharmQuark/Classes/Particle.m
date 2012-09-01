@@ -9,6 +9,7 @@
 #import "Particle.h"
 #import "cocos2d.h"
 #import "RemoveFromParentAction.h"
+#import "Constants.h"
 
 @interface Particle() 
 - (void) addMatchingParticlesToSet:(NSMutableSet*)particleSet 
@@ -32,19 +33,23 @@
 +(CCParticleSystemQuad *)explosion {
     CGSize s = [[CCDirector sharedDirector] winSize];
     CGFloat speed = s.width * 1.2;
-    //speed = s.width;
 
     CCParticleSystemQuad *emitter = [CCParticleSystemQuad node];
-    emitter.totalParticles = 10;
-    //CCSprite *spr = [CCSprite spriteWithSpriteFrameName:@"track.png"];
     CCSpriteFrame *spf = [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:@"white-small.png"];
     [emitter setTexture:spf.texture withRect:spf.rect];
-    //[emitter setTexture:spr.texture withRect:spr.textureRect];
-    //[emitter setTexture:self.texture withRect:self.textureRect];
-    emitter.duration = 0.1f;
+
+#ifdef SCREENSHOTS
+    // For screenshots.
+    emitter.totalParticles = 40;
+    emitter.duration = 0.4;
+#else
+    emitter.totalParticles = 20;
+    emitter.duration = 0.2f;
+#endif
+    
     emitter.emitterMode = kCCParticleModeGravity;
     emitter.gravity = ccp(0,0);
-    // Gravity Mode: speed of particles
+
     
     emitter.speed = speed;
     emitter.speedVar = speed / 2;
@@ -172,18 +177,20 @@
 
 
 - (CCParticleSystemQuad *)explode {
-    
-    //id tint = [CCTintTo actionWithDuration:0.1 red:255 green:255 blue:255];
+    // Create particle system.
+    CCParticleSystemQuad *emitter = [Particle explosion];
+    emitter.position = self.position;
+
+    // Animate sprite explosion.
     self.color = ccWHITE;
     self.scale = 1.5;
-    id scale = [CCScaleTo actionWithDuration:0.1 scale:0.1];
+    id scale = [CCScaleTo actionWithDuration:emitter.duration
+                                       scale:0.1];
     id remove = [RemoveFromParentAction action];
     id seq = [CCSequence actions:scale, remove, nil];
     [self runAction:scale];
     [self runAction:seq];
     
-    CCParticleSystemQuad *emitter = [Particle explosion];
-    emitter.position = self.position;
     return emitter;
 }
 
