@@ -373,7 +373,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     // Don't pause on top of game over.
     paused = YES;
     
-    // Play the finale music.
+    // Change volume.
     GameManager *gm = [GameManager sharedGameManager];
     [gm setMusicVolume:kVolumeMenu];
     
@@ -465,6 +465,10 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 
         PLAYSOUNDEFFECT(CLICK, 1.0);
 
+        // Cancel touches.
+        rotationTouch = nil;
+        launchTouch = nil;
+        
         // Change volume
         [[GameManager sharedGameManager] setMusicVolume:kVolumeMenu];
         
