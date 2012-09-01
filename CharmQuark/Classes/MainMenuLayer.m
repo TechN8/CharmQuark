@@ -227,7 +227,7 @@ enum {
     [bg cleanup];
     
     [detector visit];
-    detector.visible = NO;
+    detector.visible = YES;
     [batchNode addChild:detector z:kZDetector];
     
     // Show version.
