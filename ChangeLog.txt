@@ -6,6 +6,7 @@ Added prompt for review after 14 games & 7 days.
 New Aether Theory logo on splash screen and credits to match website.
 Fixed some memory leaks.
 Correct mode now runs after tutorial.
+Fixed bug where pieces could be rotated while paused.
 
 
 RC 3
