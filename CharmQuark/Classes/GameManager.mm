@@ -207,14 +207,14 @@ static GameManager* _sharedGameManager = nil;
             break;
         case kGameSceneTimeAttack:
             if (shouldShowTutorial) {
-                sceneToRun = [Tutorial sceneWithNextSceneId:kGameSceneSurvival];
+                sceneToRun = [Tutorial sceneWithNextSceneId:kGameSceneTimeAttack];
             } else {
                 sceneToRun = [TimeAttack scene];
             }
             break;
         case kGameSceneMomMode:
             if (shouldShowTutorial) {
-                sceneToRun = [Tutorial sceneWithNextSceneId:kGameSceneSurvival];
+                sceneToRun = [Tutorial sceneWithNextSceneId:kGameSceneMomMode];
             } else {
                 sceneToRun = [Meditation scene];
             }
