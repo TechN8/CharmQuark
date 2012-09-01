@@ -282,12 +282,14 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     // Add the thumb guides.
     thumbGuide = [CCSprite spriteWithSpriteFrameName:@"thumbguide.png"];
     thumbGuide.color = kColorThumbGuide;
-    thumbGuide.opacity = 0;
+    thumbGuide.opacity = kOpacityThumbGuide;
+    thumbGuide.visible = NO;
     [uiBatchNode addChild:thumbGuide z:kZUIElements - 1];
     
     fireButton = [CCSprite spriteWithSpriteFrameName:@"firebutton.png"];
     fireButton.color = kColorThumbGuide;
-    fireButton.opacity = 0;
+    fireButton.opacity = kOpacityThumbGuide;
+    fireButton.visible = NO;
     [uiBatchNode addChild:fireButton z:kZUIElements];
     
     // Configure the node which controls rotation.
@@ -367,6 +369,14 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 
 #pragma mark - Game Control
 
+-(void)forgetTouches {
+    // Cancel touches.
+    rotationTouch = nil;
+    launchTouch = nil;
+    thumbGuide.visible = NO;
+    fireButton.visible = NO;
+}
+
 -(void)end:(Particle *)particle {
     CGSize winSize = [[CCDirector sharedDirector] winSize];
     
@@ -376,10 +386,8 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     // Change volume.
     GameManager *gm = [GameManager sharedGameManager];
     [gm setMusicVolume:kVolumeMenu];
-    
-    // Cancel touches.
-    rotationTouch = nil;
-    launchTouch = nil;
+
+    [self forgetTouches];
     
     [self unscheduleAllSelectors];
     
@@ -421,7 +429,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 
 -(BOOL) launch {
     launchTouch = nil; // Prevent double launch on touch end.
-    fireButton.opacity = 0;
+    fireButton.visible = NO;
 
     // Make sure it's legal.
     if (lastLaunch < kLaunchCoolDown) {
@@ -466,8 +474,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
         PLAYSOUNDEFFECT(CLICK, 1.0);
 
         // Cancel touches.
-        rotationTouch = nil;
-        launchTouch = nil;
+        [self forgetTouches];
         
         // Change volume
         [[GameManager sharedGameManager] setMusicVolume:kVolumeMenu];
@@ -838,7 +845,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
             if (nil == launchTouch) {
                 launchTouch = touch;
                 fireButton.position = location;
-                fireButton.opacity = kOpacityThumbGuide;
+                fireButton.visible = YES;
             }
         } else if (location.x >= winSize.width * 0.33) {
             if (nil == rotationTouch) {
@@ -857,7 +864,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
                 // Show thumb guide.
                 thumbGuide.position = location;
                 thumbGuide.rotation = CC_RADIANS_TO_DEGREES(atanf(ray.x / ray.y));
-                thumbGuide.opacity = kOpacityThumbGuide;
+                thumbGuide.visible = YES;;
             }        
         }
     }
@@ -905,14 +912,14 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
             
             // Forget this touch.
             rotationTouch = nil;
-            thumbGuide.opacity = 0;
+            thumbGuide.visible = NO;
         }
         if (touch == launchTouch) {
             [self launch];
             
             // Forget this touch.
             launchTouch = nil;
-            fireButton.opacity = 0;
+            fireButton.visible = NO;
         }
     }
 }
@@ -923,13 +930,13 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
         if (touch == launchTouch) {
             // Forget this touch.
             launchTouch = nil;
-            fireButton.opacity = 0;
+            fireButton.visible = NO;
         }
         if (touch == rotationTouch) {
             // Forget this touch.
             rotAngleV = 0.0;
             rotationTouch = nil;
-            thumbGuide.opacity = 0;
+            thumbGuide.visible = NO;
         }
     }
     
