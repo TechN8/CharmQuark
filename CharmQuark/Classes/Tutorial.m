@@ -48,17 +48,19 @@
             id fadeIn = [CCFadeTo actionWithDuration:0.5 opacity:128];
             id fadeOut = [CCFadeTo actionWithDuration:0.5 opacity:64];
             id seq = [CCSequence actions:fadeIn, fadeOut, nil];
+            thumbGuide.visible = YES;
             [thumbGuide runAction: [CCRepeatForever actionWithAction:seq]];
             tutorialStep++;
             break;
         case 2:
             // Tap here to fire.
             [thumbGuide stopAllActions];
-            thumbGuide.opacity = 0;
+            thumbGuide.opacity = kOpacityThumbGuide;
+            thumbGuide.visible = NO;
             instructions.string = @"Tap here\nto fire..";
             instructions.position = ccp(winSize.width * 0.20, winSize.height * 0.60);
             fireButton.position = ccp(winSize.width * 0.20, winSize.height * 0.25);
-            fireButton.opacity = kOpacityThumbGuide;
+            fireButton.visible = YES;
             fadeIn = [CCFadeTo actionWithDuration:0.5 opacity:128];
             fadeOut = [CCFadeTo actionWithDuration:0.5 opacity:64];
             seq = [CCSequence actions:fadeIn, fadeOut, nil];
@@ -68,7 +70,8 @@
         case 3:
             // Match N pieces to score.
             [fireButton stopAllActions];
-            fireButton.opacity = 0;
+            fireButton.opacity = kOpacityThumbGuide;
+            fireButton.visible = NO;
             instructions.string = [NSString stringWithFormat:@"Match %d particles\nto score.",
                                    kMinMatchSize];
             instructions.position = ccp(puzzleCenter.x, winSize.height * 0.75);
@@ -202,7 +205,7 @@
                 && (tutorialStep == 0 || tutorialStep == 3)) {
                 launchTouch = touch;
                 fireButton.position = location;
-                fireButton.opacity = kOpacityThumbGuide;
+                fireButton.visible = YES;
             }
         } else if (location.x >= winSize.width * 0.33) {
             if (nil == rotationTouch
@@ -222,7 +225,7 @@
                 // Show thumb guide.
                 thumbGuide.position = location;
                 thumbGuide.rotation = CC_RADIANS_TO_DEGREES(atanf(ray.x / ray.y));
-                thumbGuide.opacity = kOpacityThumbGuide;
+                thumbGuide.visible = YES;
             }        
         }
     }
@@ -242,7 +245,7 @@
             
             // Forget this touch.
             rotationTouch = nil;
-            thumbGuide.opacity = 0;
+            thumbGuide.visible = NO;
             
             if (tutorialStep == 2) {
                 [self scheduleOnce:@selector(tutorial)
@@ -254,7 +257,7 @@
             
             // Forget this touch.
             launchTouch = nil;
-            fireButton.opacity = 0;
+            fireButton.visible = NO;
             
             if (tutorialStep == 3) {
                 [self scheduleOnce:@selector(tutorial)
