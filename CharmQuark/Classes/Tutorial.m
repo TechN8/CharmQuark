@@ -57,7 +57,7 @@
             [thumbGuide stopAllActions];
             thumbGuide.opacity = kOpacityThumbGuide;
             thumbGuide.visible = NO;
-            instructions.string = @"Tap here\nto fire..";
+            instructions.string = @"Tap here\nto fire.";
             instructions.position = ccp(winSize.width * 0.20, winSize.height * 0.60);
             fireButton.position = ccp(winSize.width * 0.20, winSize.height * 0.25);
             fireButton.visible = YES;
