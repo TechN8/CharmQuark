@@ -90,4 +90,4 @@ typedef enum {
 #endif
 
 // Uncomment this for bigger explosions.
-//#define SCREENSHOTS 1
+#define SCREENSHOTS 1

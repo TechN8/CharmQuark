@@ -138,7 +138,6 @@
 		D8C54FF716134119002A6D7C /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = D8C54EDC16134119002A6D7C /* LICENSE.txt */; };
 		D8C54FF816134119002A6D7C /* README.textile in Resources */ = {isa = PBXBuildFile; fileRef = D8C54EDD16134119002A6D7C /* README.textile */; };
 		D8C54FF916134119002A6D7C /* chipmunk.c in Sources */ = {isa = PBXBuildFile; fileRef = D8C54EDF16134119002A6D7C /* chipmunk.c */; };
-		D8C54FFA16134119002A6D7C /* CMakeLists.txt in Resources */ = {isa = PBXBuildFile; fileRef = D8C54EE016134119002A6D7C /* CMakeLists.txt */; };
 		D8C54FFB16134119002A6D7C /* cpConstraint.c in Sources */ = {isa = PBXBuildFile; fileRef = D8C54EE216134119002A6D7C /* cpConstraint.c */; };
 		D8C54FFC16134119002A6D7C /* cpDampedRotarySpring.c in Sources */ = {isa = PBXBuildFile; fileRef = D8C54EE316134119002A6D7C /* cpDampedRotarySpring.c */; };
 		D8C54FFD16134119002A6D7C /* cpDampedSpring.c in Sources */ = {isa = PBXBuildFile; fileRef = D8C54EE416134119002A6D7C /* cpDampedSpring.c */; };
@@ -169,7 +168,6 @@
 		D8C5501616134119002A6D7C /* cpVect.c in Sources */ = {isa = PBXBuildFile; fileRef = D8C54EFD16134119002A6D7C /* cpVect.c */; };
 		D8C5501716134119002A6D7C /* aabb.c in Sources */ = {isa = PBXBuildFile; fileRef = D8C54F1216134119002A6D7C /* aabb.c */; };
 		D8C5501816134119002A6D7C /* ChangeLog in Resources */ = {isa = PBXBuildFile; fileRef = D8C54F1316134119002A6D7C /* ChangeLog */; };
-		D8C5501916134119002A6D7C /* CMakeLists.txt in Resources */ = {isa = PBXBuildFile; fileRef = D8C54F1416134119002A6D7C /* CMakeLists.txt */; };
 		D8C5501A16134119002A6D7C /* mat4stack.c in Sources */ = {isa = PBXBuildFile; fileRef = D8C54F1616134119002A6D7C /* mat4stack.c */; };
 		D8C5501B16134119002A6D7C /* matrix.c in Sources */ = {isa = PBXBuildFile; fileRef = D8C54F1716134119002A6D7C /* matrix.c */; };
 		D8C5501C16134119002A6D7C /* mat3.c in Sources */ = {isa = PBXBuildFile; fileRef = D8C54F1816134119002A6D7C /* mat3.c */; };
@@ -1763,9 +1761,7 @@
 				D8C54FF616134119002A6D7C /* LICENSE_CocosDenshion.txt in Resources */,
 				D8C54FF716134119002A6D7C /* LICENSE.txt in Resources */,
 				D8C54FF816134119002A6D7C /* README.textile in Resources */,
-				D8C54FFA16134119002A6D7C /* CMakeLists.txt in Resources */,
 				D8C5501816134119002A6D7C /* ChangeLog in Resources */,
-				D8C5501916134119002A6D7C /* CMakeLists.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

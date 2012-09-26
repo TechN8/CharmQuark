@@ -45,13 +45,16 @@
 	CCSprite *background;
 	
 	if( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone ) {
-        if (size.width < pizelSize.width) {
+        if (size.height == 568) {
+            // iPhone 5
+            background = [CCSprite spriteWithFile:@"Default-568h@2x.png"];
+        } else if (size.width < pizelSize.width) {
             background = [CCSprite spriteWithFile:@"Default@2x.png"];
         } else {
             background = [CCSprite spriteWithFile:@"Default.png"];
         }
         background.rotation = -90;
-	} else {
+    } else {
         if (size.width < pizelSize.width) {
             background = [CCSprite spriteWithFile:@"Default-Landscape@2x.png"];
         } else {
