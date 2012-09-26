@@ -652,7 +652,7 @@ static BOOL configured = FALSE;
 }
 
 - (void) applicationDidBecomeActive {
-    
+
 	if (self->_resigned) {
 		_resigned = NO;
 		//Reset the mode incase something changed with audio while we were inactive
