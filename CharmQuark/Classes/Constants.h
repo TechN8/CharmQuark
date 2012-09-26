@@ -19,6 +19,7 @@
 #define kColorLevelUp   ccc3(230, 200, 200)
 
 // UI Elements
+#define kColorBackground        ccc3(0, 40, 60)
 #define kColorUI                ccc3(90, 140, 150)
 #define kColorButton            ccc3(130, 180, 190)
 #define kColorButtonSelected    ccc3(160, 210, 220)
@@ -38,7 +39,8 @@
 #define kiPhoneScale    0.46875f
 #define kiPhoneSkew     ccp(0,-32);
 #define kiPadScale      0.875
-#define kiPadSkew       ccp(0, 48)
+#define kiPadSkew       ccp(88, 48)
+#define kiPhone568Skew  ccp(44,-32);
 
 // Volume
 #define kVolumeMenu     0.1

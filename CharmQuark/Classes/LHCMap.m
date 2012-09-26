@@ -63,19 +63,21 @@
 }
 
 -(void)onEnter {
+    [super onEnter];
+    [self.parent addChild:colorPacket z:10];
+    [self.parent addChild:whitePacket z:10];
+    
+    center = ccp(self.position.x + self.contentSize.width - self.contentSize.height / 2,
+                 self.position.y);
+
     CGPoint clockPos = ccp(center.x + radius * cosf(clockwise),
                            center.y + radius * sinf(clockwise));
     [colorPacket setPosition:clockPos];
-    [self.parent addChild:colorPacket z:10];
-    
     
     CGPoint antiClockPos = ccp(center.x + radius * cosf(antiClockwise),
                                center.y + radius * sinf(antiClockwise));
     [whitePacket setPosition:antiClockPos];
-    [self.parent addChild:whitePacket z:10];
 
-    center = ccp(self.position.x + self.contentSize.width - self.contentSize.height / 2,
-                 self.position.y);
 }
 
 #pragma mark - NSObject
@@ -84,8 +86,8 @@
     // Load background LHCMap.png
     self = [super initWithSpriteFrameName:@"lhcmap.png"];
     if (self) {
-        whitePacket = [CCSprite spriteWithSpriteFrameName:@"white-small.png"];
-        colorPacket = [CCSprite spriteWithSpriteFrameName:@"white-small.png"];
+        whitePacket = [[CCSprite spriteWithSpriteFrameName:@"white-small.png"] retain];
+        colorPacket = [[CCSprite spriteWithSpriteFrameName:@"white-small.png"] retain];
         
         radius = self.contentSize.height / 2.0 - whitePacket.contentSize.height * 0.4;
         
@@ -93,6 +95,13 @@
         antiClockwise = kacwStartAngle;
     }    
     return self;
+}
+
+-(void)dealloc {
+    [super dealloc];
+    
+    [whitePacket release];
+    [colorPacket release];
 }
 
 @end

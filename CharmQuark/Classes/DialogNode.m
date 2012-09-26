@@ -106,19 +106,6 @@
 -(void)onEnter {
     [super onEnter];
     
-    CGSize winSize = [[CCDirector sharedDirector] winSize];
-    self.contentSize = winSize;
-    
-    windowSprite = [[[Scale9Sprite alloc] initWithFile:@"window.png" 
-                                                ratioX:0.49 ratioY:0.49] autorelease];
-    windowSprite.color = kColorUI;
-    [windowSprite setContentSize:CGSizeMake(winSize.width * .75, winSize.height * .75)];
-    [windowSprite setPosition:ccp(winSize.width / 2, winSize.height / 2)];
-    [self addChild:windowSprite];
-    
-    [self registerWithTouchDispatcher];
-
-    [self initUI];
 }
 
 -(void)onExit {
@@ -127,6 +114,26 @@
 }
 
 #pragma mark - NSObject
+
+-(id)init {
+    self = [super init];
+    if (self) {
+        CGSize winSize = [[CCDirector sharedDirector] winSize];
+        self.contentSize = winSize;
+        
+        windowSprite = [[[Scale9Sprite alloc] initWithFile:@"window.png"
+                                                    ratioX:0.49 ratioY:0.49] autorelease];
+        windowSprite.color = kColorUI;
+        [windowSprite setContentSize:CGSizeMake(winSize.width * .75, winSize.height * .75)];
+        [windowSprite setPosition:ccp(winSize.width / 2, winSize.height / 2)];
+        [self addChild:windowSprite];
+        
+        [self registerWithTouchDispatcher];
+        
+        [self initUI];
+    }
+    return self;
+}
 
 -(void)dealloc {
     [super dealloc];

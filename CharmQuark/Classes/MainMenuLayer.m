@@ -215,7 +215,7 @@ enum {
     ccTexParams params = {GL_LINEAR,GL_NEAREST,GL_REPEAT,GL_REPEAT};
     [bg.texture setTexParameters:&params];
     bg.position = ccp(winSize.width / 2, winSize.height / 2);
-    bg.color = ccc3(0, 40, 60);
+    bg.color = kColorBackground;
     [bg visit];
     [bg cleanup];
 
@@ -358,8 +358,6 @@ enum {
 -(void)onEnter {
     [super onEnter];
 
-    [self displayMainMenu];
-    
     iRate *ir = [iRate sharedInstance];
     if ([ir shouldPromptForRating]) {
         [ir promptIfNetworkAvailable];
@@ -373,7 +371,7 @@ enum {
 -(id)init {
     self = [super init];
     if (self) {
-
+        [self displayMainMenu];
     }
     return self;
 }

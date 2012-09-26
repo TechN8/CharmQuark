@@ -250,16 +250,16 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     ccTexParams params = {GL_LINEAR,GL_NEAREST,GL_REPEAT,GL_REPEAT};
     [bg.texture setTexParameters:&params];
     bg.position = ccp(winSize.width / 2, winSize.height / 2);
-    bg.color = ccc3(0, 40, 60);
+    bg.color = kColorBackground;
     [bg visit];
     [bg cleanup];
     
-    bg = [CCSprite spriteWithFile:@"bg-gradient.png"];
-    bg.scaleX = winSize.width / bg.contentSize.width;
-    bg.scaleY = winSize.height / bg.contentSize.height;
-    bg.position = ccp(winSize.width / 2, winSize.height / 2);
-    [bg visit];
-    [bg cleanup];
+    CCSprite *gradient = [CCSprite spriteWithFile:@"bg-gradient.png"];
+    gradient.scaleX = winSize.width / gradient.contentSize.width;
+    gradient.scaleY = winSize.height / gradient.contentSize.height;
+    gradient.position = ccp(winSize.width / 2, winSize.height / 2);
+    [gradient visit];
+    [gradient cleanup];
     
     [map visit];
     map.visible = NO;
@@ -268,13 +268,13 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     [detector visit];
     detector.visible = NO;
     [uiBatchNode addChild:detector z:kZDetector];
-    
+
     [nextLabel visit];
     [nextLabel removeFromParentAndCleanup:YES];
     
     [pauseSprite visit];
     [pauseSprite cleanup];
-    
+
     [rt end];
     rt.position = ccp(winSize.width / 2, winSize.height / 2);
     [self addChild:rt z:kZBackground];    
@@ -313,6 +313,11 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     cpBodySetPos(body, pos);
     cpBodySetVel(body, vel);
     particle.position = cpvmult(pos, scaleFactor);
+
+    // Adjust sprite position for puzzle offset.
+    cpVect skew = ccp(-1 * skewVector.x * (distance + kFailRadius) / (kLaunchPoint.x + kFailRadius), 0);
+    skew = cpvrotate(skew, rot);
+    particle.position = cpvadd(particle.position, skew);
 }
 
 -(void) moveInFlightBodies {
@@ -320,7 +325,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
         Particle *particle = [inFlightParticles objectAtIndex:i];
         cpBody * body = particle.body;
         cpBodyUpdatePosition(body, kSimulationRate);
-        particle.position = cpvmult(body->p, scaleFactor);
+        //particle.position = cpvmult(body->p, scaleFactor);
         cpFloat d = cpvlength(cpBodyGetPos(body));
         if (d < 5) particle.isInFlight = NO;
         if (!particle.isInFlight) {
@@ -946,12 +951,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 
 -(void)onEnter {
     [super onEnter];
-//    mode = [GameManager sharedGameManager].curLevel;
-    [self initUI];
-    
-    // This will set up the initial particle system.
-    [self resetGame];
-    
+
     // Pause if we get backgrounded.
     [[NSNotificationCenter defaultCenter] 
      addObserver:self 
@@ -990,6 +990,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 
 - (id)init
 {
+    CGSize winSize = [CCDirector sharedDirector].winSize;
     self = [super initWithColor:ccc4(0, 0, 0, 255)];
     if (self) {
         particles = [[NSMutableSet alloc] initWithCapacity:100];
@@ -1000,11 +1001,20 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
         
         if( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone ) {
             scaleFactor = kiPhoneScale;
-            skewVector = kiPhoneSkew;
+            if (winSize.width == 568) {
+                skewVector = kiPhone568Skew;
+            } else {
+                skewVector = kiPhoneSkew;
+            }
         } else {
             scaleFactor = kiPadScale;
             skewVector = kiPadSkew;
         }
+        
+        [self initUI];
+        
+        // This will set up the initial particle system.
+        [self resetGame];
     }
     return self;
 }
