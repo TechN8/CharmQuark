@@ -306,18 +306,20 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     // Rotate particle position and velocity the other way.
     cpBody *body = particle.body;
     cpVect rot = cpvforangle(CC_DEGREES_TO_RADIANS(centerNode.rotation));
-    cpFloat distance = -1 * cpvlength(body->p);
+    cpFloat distance = cpvlength(body->p);
     cpFloat speed = cpvlength(body->v);
-    cpVect pos = cpvmult(rot, distance);
+    cpVect pos = cpvmult(rot, -1 * distance);
     cpVect vel = cpvmult(rot, speed);
     cpBodySetPos(body, pos);
     cpBodySetVel(body, vel);
     particle.position = cpvmult(pos, scaleFactor);
 
     // Adjust sprite position for puzzle offset.
-    cpVect skew = ccp(-1 * skewVector.x * (distance + kFailRadius) / (kLaunchPoint.x + kFailRadius), 0);
-    skew = cpvrotate(skew, rot);
-    particle.position = cpvadd(particle.position, skew);
+    if (distance > kFailRadius) {
+        cpVect skew = ccp(skewVector.x * (distance - kFailRadius) / (kLaunchPoint.x + kFailRadius), 0);
+        skew = cpvrotate(skew, rot);
+        particle.position = cpvadd(particle.position, skew);
+    }
 }
 
 -(void) moveInFlightBodies {

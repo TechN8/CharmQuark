@@ -93,3 +93,6 @@ typedef enum {
 
 // Uncomment this for bigger explosions.
 #define SCREENSHOTS 1
+
+// Uncomment this for constant rating reminders.
+//#define DEBUG_IRATE 1

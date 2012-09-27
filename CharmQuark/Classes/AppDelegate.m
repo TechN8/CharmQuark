@@ -29,7 +29,7 @@
     ir.usesUntilPrompt = 21;
     ir.eventsUntilPrompt = 14;
     ir.promptAtLaunch = NO;
-#ifdef DEBUG
+#ifdef DEBUG_IRATE
     ir.appStoreID = 551441281;
     ir.appStoreGenreID = iRateAppStoreGameGenreID;
     ir.debug = YES;
@@ -61,7 +61,9 @@
 	
 	// Display FSP and SPF
 #ifdef DEBUG
+#ifndef SCREENSHOTS
 	[director_ setDisplayStats:YES];
+#endif
 #endif
     
 	// set FPS at 60
