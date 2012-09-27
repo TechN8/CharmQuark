@@ -105,7 +105,8 @@
 
 -(void)onEnter {
     [super onEnter];
-    
+    [self registerWithTouchDispatcher];
+    [self initUI];
 }
 
 -(void)onExit {
@@ -127,10 +128,6 @@
         [windowSprite setContentSize:CGSizeMake(winSize.width * .75, winSize.height * .75)];
         [windowSprite setPosition:ccp(winSize.width / 2, winSize.height / 2)];
         [self addChild:windowSprite];
-        
-        [self registerWithTouchDispatcher];
-        
-        [self initUI];
     }
     return self;
 }
