@@ -34,7 +34,6 @@
 		D827483415E8019B009454B6 /* bg-gradient.png in Resources */ = {isa = PBXBuildFile; fileRef = D827483315E8019A009454B6 /* bg-gradient.png */; };
 		D8318D6415B4545E0032D92E /* LHCMap.m in Sources */ = {isa = PBXBuildFile; fileRef = D8318D6315B4545E0032D92E /* LHCMap.m */; };
 		D8318D7915B49DFB0032D92E /* SoundEffects.plist in Resources */ = {isa = PBXBuildFile; fileRef = D8318D7015B49DF90032D92E /* SoundEffects.plist */; };
-		D834ACEA15D9C21400987B68 /* SmoothGuitar.m4a in Resources */ = {isa = PBXBuildFile; fileRef = D834ACE915D9C21400987B68 /* SmoothGuitar.m4a */; };
 		D847E06615AC87FF0044FC48 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D847E06515AC87FF0044FC48 /* QuartzCore.framework */; };
 		D847E06815AC87FF0044FC48 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D847E06715AC87FF0044FC48 /* OpenGLES.framework */; };
 		D847E06A15AC87FF0044FC48 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D847E06915AC87FF0044FC48 /* OpenAL.framework */; };
@@ -316,7 +315,6 @@
 		D8318D6215B4545E0032D92E /* LHCMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHCMap.h; sourceTree = "<group>"; };
 		D8318D6315B4545E0032D92E /* LHCMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHCMap.m; sourceTree = "<group>"; };
 		D8318D7015B49DF90032D92E /* SoundEffects.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SoundEffects.plist; sourceTree = "<group>"; };
-		D834ACE915D9C21400987B68 /* SmoothGuitar.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = SmoothGuitar.m4a; sourceTree = "<group>"; };
 		D847E06115AC87FF0044FC48 /* CharmQuark.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CharmQuark.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D847E06515AC87FF0044FC48 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		D847E06715AC87FF0044FC48 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -816,7 +814,6 @@
 			isa = PBXGroup;
 			children = (
 				D827481D15E7C27B009454B6 /* CharmQuark.m4a */,
-				D834ACE915D9C21400987B68 /* SmoothGuitar.m4a */,
 			);
 			path = Music;
 			sourceTree = "<group>";
@@ -1726,7 +1723,6 @@
 				D848C48015CC632B00B6088A /* aethertheory-logo-hd.png in Resources */,
 				D8A0684015D02CD8002B63B4 /* credits.txt in Resources */,
 				D8A0684615D0877C002B63B4 /* ChangeLog.txt in Resources */,
-				D834ACEA15D9C21400987B68 /* SmoothGuitar.m4a in Resources */,
 				D8C34E7615E3FCF1002AA2E6 /* iconAtlas-hd.plist in Resources */,
 				D8C34E7715E3FCF1002AA2E6 /* iconAtlas-hd.png in Resources */,
 				D8C34E7815E3FCF1002AA2E6 /* iconAtlas-ipad.plist in Resources */,
