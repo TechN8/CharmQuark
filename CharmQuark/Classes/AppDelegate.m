@@ -113,6 +113,9 @@
 	
     // Start Audio
     [[GameManager sharedGameManager] setupAudioEngine];
+
+    // Log into gamecenter.
+    [[GCHelper sharedInstance] authenticateLocalUser];
     
 	return YES;
 }
