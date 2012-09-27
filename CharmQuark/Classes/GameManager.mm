@@ -112,7 +112,7 @@ static GameManager* _sharedGameManager = nil;
             }
             break;
         case kLinkTypeTwitter:
-            urlToOpen = [NSURL URLWithString:@"twitter://AetherTheory"];
+            urlToOpen = [NSURL URLWithString:@"twitter://user?screen_name=AetherTheory"];
             if (![theApp canOpenURL:urlToOpen]) {
                 // Fall back to safari.
                 urlToOpen = [NSURL URLWithString:@"http://twitter.com/AetherTheory"];
