@@ -146,6 +146,11 @@
 	return UIInterfaceOrientationIsLandscape(interfaceOrientation);
 }
 
+// Fix crash on GC login with IOS 6.0.
+- (NSUInteger)application:(UIApplication*)application supportedInterfaceOrientationsForWindow:(UIWindow*)window
+{
+    return UIInterfaceOrientationMaskAllButUpsideDown;
+}
 
 // getting a call, pause the game
 -(void) applicationWillResignActive:(UIApplication *)application
