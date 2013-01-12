@@ -15,6 +15,20 @@
 #import "NotificationLayer.h"
 #import "iRate.h"
 
+// Fix for OS 6.0 rotation and Game Center.
+@interface LandscapeNavigationController : UINavigationController
+
+@end
+
+@implementation LandscapeNavigationController
+
+-(NSUInteger)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskLandscape;
+}
+
+@end
+
 @implementation AppController
 
 @synthesize window=window_, navController=navController_, director=director_;
@@ -102,7 +116,7 @@
 	[CCTexture2D PVRImagesHavePremultipliedAlpha:YES];
 	
 	// Create a Navigation Controller with the Director
-	navController_ = [[UINavigationController alloc] initWithRootViewController:director_];
+	navController_ = [[LandscapeNavigationController alloc] initWithRootViewController:director_];
 	navController_.navigationBarHidden = YES;
 	
 	// set the Navigation Controller as the root view controller
