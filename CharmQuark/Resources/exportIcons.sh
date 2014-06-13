@@ -43,8 +43,8 @@ FILENAME=Icon-120.png
 SIZE=120
 $INKSCAPE --file=$INPUT --export-png=$FILENAME --export-width=$SIZE --export-height=$SIZE --export-id=icon-rect 
 
-#Icon_iPadHD.png:    PNG image data, 144 x 144, 8-bit/color RGB, non-interlaced
-FILENAME=Icon_iPadHD.png
+#Icon-72@2x.png:    PNG image data, 144 x 144, 8-bit/color RGB, non-interlaced
+FILENAME=Icon-72@2x.png
 SIZE=144
 $INKSCAPE --file=$INPUT --export-png=$FILENAME --export-width=$SIZE --export-height=$SIZE --export-id=icon-rect 
 
