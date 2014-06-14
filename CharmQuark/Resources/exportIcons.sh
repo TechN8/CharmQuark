@@ -2,59 +2,66 @@
 
 INKSCAPE=/Applications/Inkscape.app/Contents/Resources/bin/inkscape
 INPUT=../Artwork/AppIcon.svg
+OUTPUT=../Images.xcassets/AppIcon.appiconset
 
-#Icon-72.png:        PNG image data, 72 x 72, 8-bit/color RGBA, non-interlaced
+FILENAME=Icon-29.png
+SIZE=29
+$INKSCAPE --file=$INPUT --export-png=$OUTPUT/$FILENAME --export-width=$SIZE --export-height=$SIZE --export-id=icon-rect 
+
+FILENAME=Icon-29@2x.png
+SIZE=58
+$INKSCAPE --file=$INPUT --export-png=$OUTPUT/$FILENAME --export-width=$SIZE --export-height=$SIZE --export-id=icon-rect 
+
+FILENAME=Icon-40.png
+SIZE=40
+$INKSCAPE --file=$INPUT --export-png=$OUTPUT/$FILENAME --export-width=$SIZE --export-height=$SIZE --export-id=icon-rect 
+
+FILENAME=Icon-40@2x.png
+SIZE=80
+$INKSCAPE --file=$INPUT --export-png=$OUTPUT/$FILENAME --export-width=$SIZE --export-height=$SIZE --export-id=icon-rect 
+
+FILENAME=Icon-57.png
+SIZE=57
+$INKSCAPE --file=$INPUT --export-png=$OUTPUT/$FILENAME --export-width=$SIZE --export-height=$SIZE --export-id=icon-rect 
+
+FILENAME=Icon-57@2x.png
+SIZE=114
+$INKSCAPE --file=$INPUT --export-png=$OUTPUT/$FILENAME --export-width=$SIZE --export-height=$SIZE --export-id=icon-rect 
+
+FILENAME=Icon-60@2x.png
+SIZE=120
+$INKSCAPE --file=$INPUT --export-png=$OUTPUT/$FILENAME --export-width=$SIZE --export-height=$SIZE --export-id=icon-rect 
+
+FILENAME=Icon-50.png
+SIZE=50
+$INKSCAPE --file=$INPUT --export-png=$OUTPUT/$FILENAME --export-width=$SIZE --export-height=$SIZE --export-id=icon-rect 
+
+FILENAME=Icon-50@2x.png
+SIZE=100
+$INKSCAPE --file=$INPUT --export-png=$OUTPUT/$FILENAME --export-width=$SIZE --export-height=$SIZE --export-id=icon-rect 
+
 FILENAME=Icon-72.png
 SIZE=72
-$INKSCAPE --file=$INPUT --export-png=$FILENAME --export-width=$SIZE --export-height=$SIZE --export-id=icon-rect 
+$INKSCAPE --file=$INPUT --export-png=$OUTPUT/$FILENAME --export-width=$SIZE --export-height=$SIZE --export-id=icon-rect 
 
-#Icon-Small-100.png: PNG image data, 100 x 100, 8-bit/color RGB, non-interlaced
-FILENAME=Icon-Small-100.png
-SIZE=100
-$INKSCAPE --file=$INPUT --export-png=$FILENAME --export-width=$SIZE --export-height=$SIZE --export-id=icon-rect 
-
-#Icon-Small-50.png:  PNG image data, 50 x 50, 8-bit/color RGBA, non-interlaced
-FILENAME=Icon-Small-50.png
-SIZE=50
-$INKSCAPE --file=$INPUT --export-png=$FILENAME --export-width=$SIZE --export-height=$SIZE --export-id=icon-rect 
-
-#Icon-Small.png:     PNG image data, 29 x 29, 8-bit/color RGBA, non-interlaced
-FILENAME=Icon-Small.png
-SIZE=72
-$INKSCAPE --file=$INPUT --export-png=$FILENAME --export-width=$SIZE --export-height=$SIZE --export-id=icon-rect 
-
-#Icon-Small@2x.png:  PNG image data, 58 x 58, 8-bit/color RGBA, non-interlaced
-FILENAME=Icon-Small@2x.png
-SIZE=58
-$INKSCAPE --file=$INPUT --export-png=$FILENAME --export-width=$SIZE --export-height=$SIZE --export-id=icon-rect 
-
-#Icon.png:           PNG image data, 57 x 57, 8-bit/color RGBA, non-interlaced
-FILENAME=Icon.png
-SIZE=57
-$INKSCAPE --file=$INPUT --export-png=$FILENAME --export-width=$SIZE --export-height=$SIZE --export-id=icon-rect 
-
-#Icon@2x.png:        PNG image data, 114 x 114, 8-bit/color RGB, non-interlaced
-FILENAME=Icon@2x.png
-SIZE=114
-$INKSCAPE --file=$INPUT --export-png=$FILENAME --export-width=$SIZE --export-height=$SIZE --export-id=icon-rect 
-
-#Icon-120.png:       PNG image data, 120 x 120, 8-bit/color RGB, non-interlaced
-FILENAME=Icon-120.png
-SIZE=120
-$INKSCAPE --file=$INPUT --export-png=$FILENAME --export-width=$SIZE --export-height=$SIZE --export-id=icon-rect 
-
-#Icon-72@2x.png:    PNG image data, 144 x 144, 8-bit/color RGB, non-interlaced
 FILENAME=Icon-72@2x.png
 SIZE=144
-$INKSCAPE --file=$INPUT --export-png=$FILENAME --export-width=$SIZE --export-height=$SIZE --export-id=icon-rect 
+$INKSCAPE --file=$INPUT --export-png=$OUTPUT/$FILENAME --export-width=$SIZE --export-height=$SIZE --export-id=icon-rect 
 
-#Icon-1024
+FILENAME=Icon-76.png
+SIZE=76
+$INKSCAPE --file=$INPUT --export-png=$OUTPUT/$FILENAME --export-width=$SIZE --export-height=$SIZE --export-id=icon-rect 
+
+FILENAME=Icon-76@2x.png
+SIZE=152
+$INKSCAPE --file=$INPUT --export-png=$OUTPUT/$FILENAME --export-width=$SIZE --export-height=$SIZE --export-id=icon-rect 
+
 FILENAME=Icon-1024.png
 SIZE=1024
-$INKSCAPE --file=$INPUT --export-png=$FILENAME --export-width=$SIZE --export-height=$SIZE --export-id=icon-rect 
+$INKSCAPE --file=$INPUT --export-png=$FILENAME --export-width=$SIZE --export-height=$SIZE --export-id=icon-rect
 
 #iTunesArtwork
 FILENAME=iTunesArtwork
 SIZE=512
-$INKSCAPE --file=$INPUT --export-png=$FILENAME --export-width=$SIZE --export-height=$SIZE --export-id=icon-rect 
+$INKSCAPE --file=$INPUT --export-png=$FILENAME --export-width=$SIZE --export-height=$SIZE --export-id=icon-rect
 cp $FILENAME Icon-512.png

@@ -97,6 +97,7 @@
 		D871773A15B350650014E75E /* score-hd.fnt in Resources */ = {isa = PBXBuildFile; fileRef = D871773815B350650014E75E /* score-hd.fnt */; };
 		D871773B15B350650014E75E /* score-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = D871773915B350650014E75E /* score-hd.png */; };
 		D871773F15B3544F0014E75E /* RemoveFromParentAction.m in Sources */ = {isa = PBXBuildFile; fileRef = D871773E15B3544F0014E75E /* RemoveFromParentAction.m */; };
+		D885B5B5194B9D6F00D7DBBE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D885B5B4194B9D6F00D7DBBE /* Images.xcassets */; };
 		D8A0684015D02CD8002B63B4 /* credits.txt in Resources */ = {isa = PBXBuildFile; fileRef = D8A0683F15D02CD8002B63B4 /* credits.txt */; };
 		D8A0685115D2CBB7002B63B4 /* GCHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A0685015D2CBB7002B63B4 /* GCHelper.m */; };
 		D8A0685515D2CC06002B63B4 /* GCDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A0685415D2CC05002B63B4 /* GCDatabase.m */; };
@@ -293,7 +294,7 @@
 		D815B04815EBCC0E0035E0EF /* LinksDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LinksDialog.m; sourceTree = "<group>"; };
 		D815B04A15EBEF2E0035E0EF /* CQLabelBMFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CQLabelBMFont.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		D815B04B15EBEF2E0035E0EF /* CQLabelBMFont.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CQLabelBMFont.m; sourceTree = "<group>"; };
-		D825276D176D46F900841925 /* Icon-60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-60@2x.png"; path = "CharmQuark/Resources/Icon-60@2x.png"; sourceTree = "<group>"; };
+		D825276D176D46F900841925 /* Icon-60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-60@2x.png"; path = "Resources/Icon-60@2x.png"; sourceTree = "<group>"; };
 		D825276E176D48A800841925 /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72@2x.png"; path = "Resources/Icon-72@2x.png"; sourceTree = "<group>"; };
 		D827481D15E7C27B009454B6 /* CharmQuark.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = CharmQuark.m4a; sourceTree = "<group>"; };
 		D827481F15E7D4E6009454B6 /* Collide1-2.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Collide1-2.caf"; sourceTree = "<group>"; };
@@ -393,6 +394,7 @@
 		D871773915B350650014E75E /* score-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "score-hd.png"; sourceTree = "<group>"; };
 		D871773D15B3544F0014E75E /* RemoveFromParentAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemoveFromParentAction.h; sourceTree = "<group>"; };
 		D871773E15B3544F0014E75E /* RemoveFromParentAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemoveFromParentAction.m; sourceTree = "<group>"; };
+		D885B5B4194B9D6F00D7DBBE /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		D8A0683C15D02C8C002B63B4 /* AppDescription.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AppDescription.txt; sourceTree = "<group>"; };
 		D8A0683F15D02CD8002B63B4 /* credits.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = credits.txt; path = Resources/credits.txt; sourceTree = "<group>"; };
 		D8A0684515D0877B002B63B4 /* ChangeLog.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ChangeLog.txt; sourceTree = "<group>"; };
@@ -812,7 +814,6 @@
 		D847E05615AC87FF0044FC48 = {
 			isa = PBXGroup;
 			children = (
-				D825276D176D46F900841925 /* Icon-60@2x.png */,
 				D8A0684515D0877B002B63B4 /* ChangeLog.txt */,
 				D8A0683C15D02C8C002B63B4 /* AppDescription.txt */,
 				D847E54015ACEC750044FC48 /* NOTES */,
@@ -858,6 +859,7 @@
 				D847E07815AC87FF0044FC48 /* Resources */,
 				D847E24A15AC88020044FC48 /* Supporting Files */,
 				D8C54EAB161340F2002A6D7C /* libs */,
+				D885B5B4194B9D6F00D7DBBE /* Images.xcassets */,
 			);
 			path = CharmQuark;
 			sourceTree = "<group>";
@@ -876,6 +878,7 @@
 				D847E07F15AC87FF0044FC48 /* fps_images-hd.png */,
 				D847E08115AC87FF0044FC48 /* fps_images-ipadhd.png */,
 				D8F547FF15C2DB21007F1AE1 /* Icon-Small-100.png */,
+				D825276D176D46F900841925 /* Icon-60@2x.png */,
 				D847E08D15AC87FF0044FC48 /* Icon@2x.png */,
 				D847E08315AC87FF0044FC48 /* Icon-72.png */,
 				D825276E176D48A800841925 /* Icon-72@2x.png */,
@@ -1697,6 +1700,7 @@
 				D8F547F515C1E59B007F1AE1 /* score-ipadhd.fnt in Resources */,
 				D8F547F615C1E59B007F1AE1 /* score-ipadhd.png in Resources */,
 				D8F5480015C2DB21007F1AE1 /* Icon-Small-100.png in Resources */,
+				D885B5B5194B9D6F00D7DBBE /* Images.xcassets in Resources */,
 				D848C37A15C6EA9E00B6088A /* Default-Landscape.png in Resources */,
 				D848C37B15C6EA9E00B6088A /* Default-Landscape@2x.png in Resources */,
 				D848C37C15C6EA9E00B6088A /* Default@2x.png in Resources */,
@@ -1995,7 +1999,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -2007,6 +2014,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				USER_HEADER_SEARCH_PATHS = "\"CharmQuark/libs/Chipmunk/include/chipmunk\"";
 				WRAPPER_EXTENSION = app;
 			};
@@ -2016,7 +2024,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = CharmQuark/Prefix.pch;
@@ -2027,6 +2038,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				USER_HEADER_SEARCH_PATHS = "\"CharmQuark/libs/Chipmunk/include/chipmunk\"";
 				WRAPPER_EXTENSION = app;
 			};
@@ -2058,7 +2070,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = CharmQuark/Prefix.pch;
@@ -2069,6 +2084,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				USER_HEADER_SEARCH_PATHS = "\"CharmQuark/libs/Chipmunk/include/chipmunk\"";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
