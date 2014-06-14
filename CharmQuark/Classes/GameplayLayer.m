@@ -687,7 +687,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 -(void) addPoints:(NSInteger)points {
     if (points > 0) {
         score += points;
-        [scoreLabel setString:[[[NSString alloc] initWithFormat:@"%d", score] autorelease]];
+        [scoreLabel setString:[[[NSString alloc] initWithFormat:@"%ld", (long)score] autorelease]];
     }
 }
 
@@ -741,7 +741,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
                     if (multiplier > 1) {
                         points *= multiplier;
                         // Play multiplier animation.
-                        [logViewer addMessage:[NSString stringWithFormat:@"%dX Bonus!", multiplier]
+                        [logViewer addMessage:[NSString stringWithFormat:@"%ldX Bonus!", (long)multiplier]
                                         color:kColorBonus];
                         if (multiplier == 2) {
                             [gc reportAchievement:kAchievementBonus2X percentComplete:100.0];
@@ -759,7 +759,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
                     
                     if (comboLevel) {
                         points *= comboLevel + 1;
-                        [logViewer addMessage:[NSString stringWithFormat:@"%dX Combo!", comboLevel + 1]
+                        [logViewer addMessage:[NSString stringWithFormat:@"%ldX Combo!", comboLevel + 1]
                                         color:kColorCombo];
                         if (comboLevel == 1) {
                             [gc reportAchievement:kAchievementCombo2X percentComplete:100.0];
@@ -779,7 +779,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
                     comboLevel++;
                     
                     [self addPoints:points]; // Update score.
-                    [logViewer addMessage:[NSString stringWithFormat:@"%d", points]
+                    [logViewer addMessage:[NSString stringWithFormat:@"%ld", (long)points]
                                     color:kColorScore];
                     
                     // Send achievements

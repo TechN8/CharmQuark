@@ -43,7 +43,7 @@
 -(void) tweet {
     PLAYSOUNDEFFECT(CLICK, 1.0);
     NSString *tweet 
-    = [NSString stringWithFormat:@"I just scored %d points in #CharmQuark!", score];
+    = [NSString stringWithFormat:@"I just scored %ld points in #CharmQuark!", (long)score];
     [[TwitterHelper sharedInstance] composeTweet:tweet];
 }
 
@@ -94,7 +94,7 @@
     scoreLabel.position = ccp(winSize.width * 0.20, winSize.height * (0.54 + scoreAdjust));
     scoreLabel.color = kColorUI;
     [self addChild:scoreLabel z:100];
-    scoreLabel = [CQLabelBMFont labelWithString:[NSString stringWithFormat:@"%d", score]
+    scoreLabel = [CQLabelBMFont labelWithString:[NSString stringWithFormat:@"%ld", (long)score]
                                         fntFile:@"score.fnt"];
     scoreLabel.anchorPoint = ccp(1.0, 0.5);
     scoreLabel.position = ccp(winSize.width * 0.80, winSize.height * (0.54 + scoreAdjust));
@@ -114,7 +114,7 @@
         highScoreLabel.anchorPoint = ccp(0.0, 0.5);
         highScoreLabel.position = ccp(winSize.width * 0.20, winSize.height * (0.44 + scoreAdjust));
         [self addChild:highScoreLabel z:100];
-        highScoreLabel = [CQLabelBMFont labelWithString:[NSString stringWithFormat:@"%d", highScore]
+        highScoreLabel = [CQLabelBMFont labelWithString:[NSString stringWithFormat:@"%ld", (long)highScore]
                                             fntFile:@"score.fnt"];
         highScoreLabel.color = kColorUI;
         highScoreLabel.anchorPoint = ccp(1.0, 0.5);

@@ -59,8 +59,8 @@
     [self addChild:label];
     
     // Time Attack Score
-    scoreString = [NSString stringWithFormat:@"%d",
-                   [[GameManager sharedGameManager] getHighScoreForSceneWithID:kGameSceneTimeAttack]];
+    scoreString = [NSString stringWithFormat:@"%ld",
+                   (long)[[GameManager sharedGameManager] getHighScoreForSceneWithID:kGameSceneTimeAttack]];
     label = [CQLabelBMFont labelWithString:scoreString
                                    fntFile:@"score.fnt"];
     label.anchorPoint = ccp(1.0, 0.5);
@@ -78,8 +78,8 @@
     [self addChild:label];
     
     // Accelerator Score
-    scoreString = [NSString stringWithFormat:@"%d",
-                            [[GameManager sharedGameManager] getHighScoreForSceneWithID:kGameSceneSurvival]];
+    scoreString = [NSString stringWithFormat:@"%ld",
+                            (long)[[GameManager sharedGameManager] getHighScoreForSceneWithID:kGameSceneSurvival]];
     label = [CQLabelBMFont labelWithString:scoreString
                                    fntFile:@"score.fnt"];
     label.anchorPoint = ccp(1.0, 0.5);
@@ -97,8 +97,8 @@
     [self addChild:label];
     
     // Meditation Score
-    scoreString = [NSString stringWithFormat:@"%d",
-                   [[GameManager sharedGameManager] getHighScoreForSceneWithID:kGameSceneMomMode]];
+    scoreString = [NSString stringWithFormat:@"%ld",
+                   (long)[[GameManager sharedGameManager] getHighScoreForSceneWithID:kGameSceneMomMode]];
     label = [CQLabelBMFont labelWithString:scoreString
                                    fntFile:@"score.fnt"];
     label.anchorPoint = ccp(1.0, 0.5);

@@ -47,12 +47,6 @@
 		D847E07E15AC87FF0044FC48 /* fps_images.png in Resources */ = {isa = PBXBuildFile; fileRef = D847E07D15AC87FF0044FC48 /* fps_images.png */; };
 		D847E08015AC87FF0044FC48 /* fps_images-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = D847E07F15AC87FF0044FC48 /* fps_images-hd.png */; };
 		D847E08215AC87FF0044FC48 /* fps_images-ipadhd.png in Resources */ = {isa = PBXBuildFile; fileRef = D847E08115AC87FF0044FC48 /* fps_images-ipadhd.png */; };
-		D847E08415AC87FF0044FC48 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = D847E08315AC87FF0044FC48 /* Icon-72.png */; };
-		D847E08615AC87FF0044FC48 /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = D847E08515AC87FF0044FC48 /* Icon-Small-50.png */; };
-		D847E08815AC87FF0044FC48 /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = D847E08715AC87FF0044FC48 /* Icon-Small.png */; };
-		D847E08A15AC87FF0044FC48 /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D847E08915AC87FF0044FC48 /* Icon-Small@2x.png */; };
-		D847E08C15AC87FF0044FC48 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = D847E08B15AC87FF0044FC48 /* Icon.png */; };
-		D847E08E15AC87FF0044FC48 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D847E08D15AC87FF0044FC48 /* Icon@2x.png */; };
 		D847E09115AC87FF0044FC48 /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = D847E09015AC87FF0044FC48 /* iTunesArtwork */; };
 		D847E24D15AC88020044FC48 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D847E24C15AC88020044FC48 /* main.m */; };
 		D847E28415AC93610044FC48 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D847E26D15AC93610044FC48 /* AppDelegate.m */; };
@@ -266,7 +260,6 @@
 		D8F547F315C1E59B007F1AE1 /* score-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = D8F547ED15C1E59B007F1AE1 /* score-ipad.png */; };
 		D8F547F515C1E59B007F1AE1 /* score-ipadhd.fnt in Resources */ = {isa = PBXBuildFile; fileRef = D8F547EF15C1E59B007F1AE1 /* score-ipadhd.fnt */; };
 		D8F547F615C1E59B007F1AE1 /* score-ipadhd.png in Resources */ = {isa = PBXBuildFile; fileRef = D8F547F015C1E59B007F1AE1 /* score-ipadhd.png */; };
-		D8F5480015C2DB21007F1AE1 /* Icon-Small-100.png in Resources */ = {isa = PBXBuildFile; fileRef = D8F547FF15C2DB21007F1AE1 /* Icon-Small-100.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -294,8 +287,6 @@
 		D815B04815EBCC0E0035E0EF /* LinksDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LinksDialog.m; sourceTree = "<group>"; };
 		D815B04A15EBEF2E0035E0EF /* CQLabelBMFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CQLabelBMFont.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		D815B04B15EBEF2E0035E0EF /* CQLabelBMFont.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CQLabelBMFont.m; sourceTree = "<group>"; };
-		D825276D176D46F900841925 /* Icon-60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-60@2x.png"; path = "Resources/Icon-60@2x.png"; sourceTree = "<group>"; };
-		D825276E176D48A800841925 /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72@2x.png"; path = "Resources/Icon-72@2x.png"; sourceTree = "<group>"; };
 		D827481D15E7C27B009454B6 /* CharmQuark.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = CharmQuark.m4a; sourceTree = "<group>"; };
 		D827481F15E7D4E6009454B6 /* Collide1-2.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Collide1-2.caf"; sourceTree = "<group>"; };
 		D827482015E7D4E6009454B6 /* Collide4-2.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Collide4-2.caf"; sourceTree = "<group>"; };
@@ -322,12 +313,6 @@
 		D847E07D15AC87FF0044FC48 /* fps_images.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fps_images.png; path = Resources/fps_images.png; sourceTree = "<group>"; };
 		D847E07F15AC87FF0044FC48 /* fps_images-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "fps_images-hd.png"; path = "Resources/fps_images-hd.png"; sourceTree = "<group>"; };
 		D847E08115AC87FF0044FC48 /* fps_images-ipadhd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "fps_images-ipadhd.png"; path = "Resources/fps_images-ipadhd.png"; sourceTree = "<group>"; };
-		D847E08315AC87FF0044FC48 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72.png"; path = "Resources/Icon-72.png"; sourceTree = "<group>"; };
-		D847E08515AC87FF0044FC48 /* Icon-Small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small-50.png"; path = "Resources/Icon-Small-50.png"; sourceTree = "<group>"; };
-		D847E08715AC87FF0044FC48 /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small.png"; path = "Resources/Icon-Small.png"; sourceTree = "<group>"; };
-		D847E08915AC87FF0044FC48 /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small@2x.png"; path = "Resources/Icon-Small@2x.png"; sourceTree = "<group>"; };
-		D847E08B15AC87FF0044FC48 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = Resources/Icon.png; sourceTree = "<group>"; };
-		D847E08D15AC87FF0044FC48 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "Resources/Icon@2x.png"; sourceTree = "<group>"; };
 		D847E08F15AC87FF0044FC48 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = Resources/Info.plist; sourceTree = "<group>"; };
 		D847E09015AC87FF0044FC48 /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; name = iTunesArtwork; path = Resources/iTunesArtwork; sourceTree = "<group>"; };
 		D847E24B15AC88020044FC48 /* Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Prefix.pch; sourceTree = "<group>"; };
@@ -747,7 +732,6 @@
 		D8F547EE15C1E59B007F1AE1 /* score-ipadhd.GlyphProject */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = "score-ipadhd.GlyphProject"; sourceTree = "<group>"; };
 		D8F547EF15C1E59B007F1AE1 /* score-ipadhd.fnt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "score-ipadhd.fnt"; sourceTree = "<group>"; };
 		D8F547F015C1E59B007F1AE1 /* score-ipadhd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "score-ipadhd.png"; sourceTree = "<group>"; };
-		D8F547FF15C2DB21007F1AE1 /* Icon-Small-100.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small-100.png"; path = "Resources/Icon-Small-100.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -877,15 +861,6 @@
 				D847E07D15AC87FF0044FC48 /* fps_images.png */,
 				D847E07F15AC87FF0044FC48 /* fps_images-hd.png */,
 				D847E08115AC87FF0044FC48 /* fps_images-ipadhd.png */,
-				D8F547FF15C2DB21007F1AE1 /* Icon-Small-100.png */,
-				D825276D176D46F900841925 /* Icon-60@2x.png */,
-				D847E08D15AC87FF0044FC48 /* Icon@2x.png */,
-				D847E08315AC87FF0044FC48 /* Icon-72.png */,
-				D825276E176D48A800841925 /* Icon-72@2x.png */,
-				D847E08915AC87FF0044FC48 /* Icon-Small@2x.png */,
-				D847E08515AC87FF0044FC48 /* Icon-Small-50.png */,
-				D847E08715AC87FF0044FC48 /* Icon-Small.png */,
-				D847E08B15AC87FF0044FC48 /* Icon.png */,
 				D847E08F15AC87FF0044FC48 /* Info.plist */,
 				D847E09015AC87FF0044FC48 /* iTunesArtwork */,
 			);
@@ -1623,7 +1598,7 @@
 		D847E05815AC87FF0044FC48 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0430;
+				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Aether Theory, LLC";
 				TargetAttributes = {
 					D847E06015AC87FF0044FC48 = {
@@ -1671,12 +1646,6 @@
 				D847E07E15AC87FF0044FC48 /* fps_images.png in Resources */,
 				D847E08015AC87FF0044FC48 /* fps_images-hd.png in Resources */,
 				D847E08215AC87FF0044FC48 /* fps_images-ipadhd.png in Resources */,
-				D847E08415AC87FF0044FC48 /* Icon-72.png in Resources */,
-				D847E08615AC87FF0044FC48 /* Icon-Small-50.png in Resources */,
-				D847E08815AC87FF0044FC48 /* Icon-Small.png in Resources */,
-				D847E08A15AC87FF0044FC48 /* Icon-Small@2x.png in Resources */,
-				D847E08C15AC87FF0044FC48 /* Icon.png in Resources */,
-				D847E08E15AC87FF0044FC48 /* Icon@2x.png in Resources */,
 				D847E09115AC87FF0044FC48 /* iTunesArtwork in Resources */,
 				D847E2F715AC93770044FC48 /* scene1Atlas-hd.plist in Resources */,
 				D847E2F815AC93770044FC48 /* scene1Atlas-hd.png in Resources */,
@@ -1699,7 +1668,6 @@
 				D8F547F315C1E59B007F1AE1 /* score-ipad.png in Resources */,
 				D8F547F515C1E59B007F1AE1 /* score-ipadhd.fnt in Resources */,
 				D8F547F615C1E59B007F1AE1 /* score-ipadhd.png in Resources */,
-				D8F5480015C2DB21007F1AE1 /* Icon-Small-100.png in Resources */,
 				D885B5B5194B9D6F00D7DBBE /* Images.xcassets in Resources */,
 				D848C37A15C6EA9E00B6088A /* Default-Landscape.png in Resources */,
 				D848C37B15C6EA9E00B6088A /* Default-Landscape@2x.png in Resources */,
@@ -1953,7 +1921,12 @@
 		D847E25C15AC88020044FC48 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 18;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1964,9 +1937,14 @@
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1976,7 +1954,12 @@
 		D847E25D15AC88020044FC48 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CURRENT_PROJECT_VERSION = 18;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1985,9 +1968,13 @@
 					"NS_BLOCK_ASSERTIONS=1",
 				);
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2009,6 +1996,7 @@
 				GCC_PREFIX_HEADER = CharmQuark/Prefix.pch;
 				HEADER_SEARCH_PATHS = "\"CharmQuark/libs/kazmath/include\"";
 				INFOPLIST_FILE = CharmQuark/Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_LDFLAGS = (
 					"-lz",
 					"-ObjC",
@@ -2033,6 +2021,7 @@
 				GCC_PREFIX_HEADER = CharmQuark/Prefix.pch;
 				HEADER_SEARCH_PATHS = "\"CharmQuark/libs/kazmath/include\"";
 				INFOPLIST_FILE = CharmQuark/Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_LDFLAGS = (
 					"-lz",
 					"-ObjC",
@@ -2047,7 +2036,12 @@
 		D85AB70215F2A67000E9A1D1 /* AppStore */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CURRENT_PROJECT_VERSION = 18;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -2056,9 +2050,13 @@
 					"NS_BLOCK_ASSERTIONS=1",
 				);
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2079,6 +2077,7 @@
 				GCC_PREFIX_HEADER = CharmQuark/Prefix.pch;
 				HEADER_SEARCH_PATHS = "\"CharmQuark/libs/kazmath/include\"";
 				INFOPLIST_FILE = CharmQuark/Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_LDFLAGS = (
 					"-lz",
 					"-ObjC",

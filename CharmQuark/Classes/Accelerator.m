@@ -70,8 +70,8 @@
         if (dropFrequency <= kDropTimeMin) {
             dropFrequency = kDropTimeMin;
         }
-        [levelLabel setString:[NSString stringWithFormat:@"Level %d", level]];
-        [logViewer addMessage:[NSString stringWithFormat:@"Level %d!", level]
+        [levelLabel setString:[NSString stringWithFormat:@"Level %ld", (long)level]];
+        [logViewer addMessage:[NSString stringWithFormat:@"Level %ld!", (long)level]
                         color:kColorLevelUp];
         return YES;
     }

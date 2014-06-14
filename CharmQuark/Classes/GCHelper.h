@@ -59,7 +59,7 @@
                      category:(NSString*)category;
 - (void) reportAchievement:(NSString *)identifier 
            percentComplete:(double)percentComplete;
-- (void) reportScore:(NSString *)identifier score:(int)score;
+- (void) reportScore:(NSString *)identifier score:(long)score;
 - (void) resetAchievements;
 - (void) showAchievements;
 - (void) showLeaderboard;

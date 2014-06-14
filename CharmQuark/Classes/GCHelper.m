@@ -251,7 +251,7 @@ completionHandler:(void (^)())completionHandler
     }
 }
 
-- (void)reportScore:(NSString *)identifier score:(int)rawScore 
+- (void)reportScore:(NSString *)identifier score:(long)rawScore
 {
     GKScore *score = [[[GKScore alloc] 
                        initWithCategory:identifier] autorelease];
@@ -350,7 +350,7 @@ completionHandler:(void (^)())completionHandler
     [encoder encodeObject:scoresToReport forKey:@"ScoresToReport"];
     [encoder encodeObject:achievementsToReport 
                    forKey:@"AchievementsToReport"];
-    [encoder encodeObject:[NSNumber numberWithInt:timeScope]
+    [encoder encodeObject:[NSNumber numberWithLong:timeScope]
                    forKey:@"LastTimeScope"];
     [encoder encodeObject:category forKey:@"LastCategory"];
 }

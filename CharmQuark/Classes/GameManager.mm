@@ -283,7 +283,7 @@ static GameManager* _sharedGameManager = nil;
     if (nil != oldHighScoreDict) {
         [newHighScoreDict addEntriesFromDictionary:oldHighScoreDict];
     }
-    [newHighScoreDict setValue:[NSNumber numberWithInt:score] 
+    [newHighScoreDict setValue:[NSNumber numberWithLong:score]
                         forKey:[self formatSceneTypeToString:sceneID]];
     [ud setValue:newHighScoreDict forKey:kHighScoreKey];
     
@@ -363,7 +363,7 @@ static GameManager* _sharedGameManager = nil;
     if (bgmIntensity == bgmIntensityLast) {
         bgmIntensity = bgmIntensity % 2 ? bgmIntensity + 1 : bgmIntensity - 1;
     }
-    NSString *bgmId = [NSString stringWithFormat:@"BGM_%d", bgmIntensity];
+    NSString *bgmId = [NSString stringWithFormat:@"BGM_%ld", (long)bgmIntensity];
     [self playBGM:bgmId];
     bgmIntensityLast = bgmIntensity;
 }
@@ -507,7 +507,7 @@ static GameManager* _sharedGameManager = nil;
              addEntriesFromDictionary:
              [plistDictionary objectForKey:sceneSoundDictionary]];
         }
-        CCLOG(@"Number of SFX filenames:%d", 
+        CCLOG(@"Number of SFX filenames:%ld",
               [listOfSoundEffectFiles count]);
     }
     
