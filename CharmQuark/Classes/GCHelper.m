@@ -26,15 +26,15 @@
 #pragma mark - Loading/Saving
 
 static GCHelper *sharedHelper = nil;
-+ (GCHelper *) sharedInstance 
++ (GCHelper *) sharedInstance
 {
-    @synchronized([GCHelper class]) 
+    @synchronized([GCHelper class])
     {
         if (!sharedHelper) {
             sharedHelper = [loadData(@"GameCenterData") retain];
             if (!sharedHelper) {
-                [[self alloc] 
-                 initWithScoresToReport:[NSMutableArray array] 
+                [[self alloc]
+                 initWithScoresToReport:[NSMutableArray array]
                  achievementsToReport:[NSMutableArray array]
                  timeScope: GKLeaderboardTimeScopeToday
                  category: nil];
@@ -45,29 +45,29 @@ static GCHelper *sharedHelper = nil;
     return nil;
 }
 
-- (void)save 
+- (void)save
 {
     saveData(self, @"GameCenterData");
 }
 
-- (BOOL)isGameCenterAvailable 
+- (BOOL)isGameCenterAvailable
 {
-	// check for presence of GKLocalPlayer API
-	Class gcClass = (NSClassFromString(@"GKLocalPlayer"));
-	
-	// check if the device is running iOS 4.1 or later
-	NSString *reqSysVer = @"4.1";
-	NSString *currSysVer = [[UIDevice currentDevice] systemVersion];
-	BOOL osVersionSupported = ([currSysVer compare:reqSysVer 
+    // check for presence of GKLocalPlayer API
+    Class gcClass = (NSClassFromString(@"GKLocalPlayer"));
+    
+    // check if the device is running iOS 4.1 or later
+    NSString *reqSysVer = @"4.1";
+    NSString *currSysVer = [[UIDevice currentDevice] systemVersion];
+    BOOL osVersionSupported = ([currSysVer compare:reqSysVer
                                            options:NSNumericSearch] != NSOrderedAscending);
-	
-	return (gcClass && osVersionSupported);
+    
+    return (gcClass && osVersionSupported);
 }
 
-- (id)initWithScoresToReport:(NSMutableArray *)theScoresToReport 
+- (id)initWithScoresToReport:(NSMutableArray *)theScoresToReport
         achievementsToReport:(NSMutableArray *)theAchievementsToReport
-                   timeScope:(GKLeaderboardTimeScope)theTimeScope 
-                    category:(NSString *)theCategory 
+                   timeScope:(GKLeaderboardTimeScope)theTimeScope
+                    category:(NSString *)theCategory
 {
     if ((self = [super init])) {
         self.scoresToReport = theScoresToReport;
@@ -78,11 +78,11 @@ static GCHelper *sharedHelper = nil;
         achievementDescriptions = [[NSMutableDictionary alloc] init];
         gameCenterAvailable = [self isGameCenterAvailable];
         if (gameCenterAvailable) {
-            NSNotificationCenter *nc = 
+            NSNotificationCenter *nc =
             [NSNotificationCenter defaultCenter];
-            [nc addObserver:self 
-                   selector:@selector(authenticationChanged) 
-                       name:GKPlayerAuthenticationDidChangeNotificationName 
+            [nc addObserver:self
+                   selector:@selector(authenticationChanged)
+                       name:GKPlayerAuthenticationDidChangeNotificationName
                      object:nil];
         }
     }
@@ -91,17 +91,17 @@ static GCHelper *sharedHelper = nil;
 
 #pragma mark - Internal functions
 
-- (void)loadAchievementsWithCompletionHandler:(void (^)())completionHandler 
+- (void)loadAchievementsWithCompletionHandler:(void (^)())completionHandler
 {
-[GKAchievement loadAchievementsWithCompletionHandler:^(NSArray *achievements, NSError *error) {
-    if (error == nil)
-    {
-        for (GKAchievement* achievement in achievements) {
-            [achievementProgress setObject: achievement forKey: achievement.identifier];
+    [GKAchievement loadAchievementsWithCompletionHandler:^(NSArray *achievements, NSError *error) {
+        if (error == nil)
+        {
+            for (GKAchievement* achievement in achievements) {
+                [achievementProgress setObject: achievement forKey: achievement.identifier];
+            }
+            [self retrieveAchievmentMetadataWithCompletionHandler:completionHandler];
         }
-        [self retrieveAchievmentMetadataWithCompletionHandler:completionHandler];
-    }
-}];
+    }];
 }
 
 - (void) retrieveAchievmentMetadataWithCompletionHandler:(void (^)())completionHandler
@@ -119,64 +119,70 @@ static GCHelper *sharedHelper = nil;
      }];
 }
 
-- (void)sendScore:(GKScore *)score 
+- (void)sendScore:(GKScore *)score
 {
-    [score reportScoreWithCompletionHandler:^(NSError *error) {
+    [GKScore reportScores:@[score] withCompletionHandler:^(NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^{
             if (error == nil) {
                 NSLog(@"Successfully sent score!");
                 [scoresToReport removeObject:score];
                 [self save]; // Don't repeat.
             } else {
-                NSLog(@"Score failed to send... will try again later.  Reason: %@", error.localizedDescription);                
+                NSLog(@"Score failed to send... will try again later.  Reason: %@", error.localizedDescription);
             }
         });
     }];
 }
 
-- (void)showAchievementNotification:(GKAchievement *)achievement 
+- (void)showAchievementNotification:(GKAchievement *)achievement
 {
     CCNode *notificationNode = [[CCDirector sharedDirector] notificationNode];
     if (nil != notificationNode) {
-        GKAchievementDescription *description 
+        GKAchievementDescription *description
         = [achievementDescriptions objectForKey:achievement.identifier];
         
         if (nil != description) {
-            if (nil == description.image) {
-                [description loadImageWithCompletionHandler:^(UIImage *image, NSError *error) {
-                    if (nil == error) {
-                        [notificationNode addChild:
-                         [AchievementPopup popupWithDescription:description]];
-                    }
-                }];
-            } else {
-                [notificationNode addChild:
-                 [AchievementPopup popupWithDescription:description]];
-            }
+            [description loadImageWithCompletionHandler:^(UIImage * _Nullable image, NSError * _Nullable error) {
+                if (nil == error) {
+                    [notificationNode addChild:
+                     [AchievementPopup popupWithDescription:description image:image]];
+                }
+            }];
         }
     }
 }
 
-- (void)sendAchievement:(GKAchievement *)achievement 
+- (void)sendAchievement:(GKAchievement *)achievement
 {
-    [achievement reportAchievementWithCompletionHandler:
-     ^(NSError *error) {
-         dispatch_async(dispatch_get_main_queue(), ^{
-             if (error == NULL) {
-                 NSLog(@"Successfully sent archievement!");
-                 [achievementsToReport removeObject:achievement];
-                 [self save]; // Don't repeat.
-                 [self showAchievementNotification:achievement];
-             } else {
-                 NSLog(@"Achievement failed to send... will try again \
-                       later.  Reason: %@", error.localizedDescription);                
-             }
-         });
-     }];
+    [GKAchievement reportAchievements:@[achievement] withCompletionHandler:^(NSError * _Nullable error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (error == NULL) {
+                NSLog(@"Successfully sent archievement!");
+                [achievementsToReport removeObject:achievement];
+                [self save]; // Don't repeat.
+                [self showAchievementNotification:achievement];
+            } else {
+                NSLog(@"Achievement failed to send... will try again \
+                      later.  Reason: %@", error.localizedDescription);
+            }
+        });
+    }];
 }
 
-- (void)resendData 
+- (void)resendData
 {
+    [GKAchievement reportAchievements:achievementsToReport withCompletionHandler:^(NSError * _Nullable error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (error == NULL) {
+                NSLog(@"Successfully sent archievement!");
+                [achievementsToReport removeAllObjects];
+                [self save]; // Don't repeat.
+            } else {
+                NSLog(@"Achievement failed to send... will try again \
+                      later.  Reason: %@", error.localizedDescription);
+            }
+        });
+    }];
     for (GKAchievement *achievement in achievementsToReport) {
         [self sendAchievement:achievement];
     }
@@ -185,13 +191,13 @@ static GCHelper *sharedHelper = nil;
     }
 }
 
-- (void)loadScore:(NSString *)aCategory 
+- (void)loadScore:(NSString *)aCategory
         sceneType:(SceneTypes)sceneType
-completionHandler:(void (^)())completionHandler 
+completionHandler:(void (^)())completionHandler
 {
-    NSArray *ids = [NSArray arrayWithObject:[GKLocalPlayer localPlayer].playerID];
-    GKLeaderboard *leaderboardRequest = [[[GKLeaderboard alloc] initWithPlayerIDs:ids] autorelease];
-    leaderboardRequest.category = aCategory;
+    NSArray *players = [NSArray arrayWithObject:[GKLocalPlayer localPlayer]];
+    GKLeaderboard *leaderboardRequest = [[[GKLeaderboard alloc] initWithPlayers:players] autorelease];
+    leaderboardRequest.identifier = aCategory;
     if (leaderboardRequest != nil)
     {
         leaderboardRequest.timeScope = GKLeaderboardTimeScopeAllTime;
@@ -211,24 +217,24 @@ completionHandler:(void (^)())completionHandler
     }
 }
 
-- (void)authenticationChanged 
-{    
+- (void)authenticationChanged
+{
     dispatch_async(dispatch_get_main_queue(), ^{
         if ([GKLocalPlayer localPlayer].isAuthenticated) {
             NSLog(@"Authentication changed: player authenticated.");
             userAuthenticated = TRUE;
             // This runs a chain of items, one at a time.
-            [self loadScore:kLeaderboardAccelerator 
-                  sceneType:kGameSceneSurvival 
+            [self loadScore:kLeaderboardAccelerator
+                  sceneType:kGameSceneSurvival
           completionHandler:^{
-                [self loadScore:kLeaderboardTimeAttack
-                      sceneType:kGameSceneTimeAttack 
-              completionHandler:^{
-                    [self loadAchievementsWithCompletionHandler:^{
-                        [self resendData];
-                    }];
+              [self loadScore:kLeaderboardTimeAttack
+                    sceneType:kGameSceneTimeAttack
+            completionHandler:^{
+                [self loadAchievementsWithCompletionHandler:^{
+                    [self resendData];
                 }];
             }];
+          }];
         } else if (userAuthenticated) {
             NSLog(@"Authentication changed: player not authenticated");
             userAuthenticated = FALSE;
@@ -238,49 +244,60 @@ completionHandler:(void (^)())completionHandler
 
 #pragma mark - User functions
 
-- (void)authenticateLocalUser 
-{ 
+- (void)authenticateLocalUser
+{
     if (!gameCenterAvailable) return;
     
     NSLog(@"Authenticating local user...");
-    if ([GKLocalPlayer localPlayer].authenticated == NO) {     
-        [[GKLocalPlayer localPlayer] 
-         authenticateWithCompletionHandler:nil];        
-    } else {
-        NSLog(@"Already authenticated!");
-    }
+    GKLocalPlayer *localPlayer = [GKLocalPlayer localPlayer];
+    localPlayer.authenticateHandler = ^(UIViewController *viewController, NSError *error){
+        if (viewController != nil)
+        {
+            //showAuthenticationDialogWhenReasonable: is an example method name. Create your own method that displays an authentication view when appropriate for your app.
+            [[CCDirector sharedDirector] presentViewController: viewController animated:YES completion:nil];
+        }
+        else if (localPlayer.isAuthenticated)
+        {
+            //authenticatedPlayer: is an example method name. Create your own method that is called after the local player is authenticated.
+            NSLog(@"Already authenticated!");
+        }
+        else
+        {
+            // No GameCenter?
+        }
+    };
 }
 
 - (void)reportScore:(NSString *)identifier score:(long)rawScore
 {
-    GKScore *score = [[[GKScore alloc] 
-                       initWithCategory:identifier] autorelease];
+    GKScore *score = [[[GKScore alloc]
+                       initWithLeaderboardIdentifier:identifier] autorelease];
     score.value = rawScore;
     [scoresToReport addObject:score];
-    [self save]; 
+    [self save];
     
     if (!gameCenterAvailable || !userAuthenticated) return;
     [self sendScore:score];
 }
 
-- (void)reportAchievement:(NSString *)identifier 
-          percentComplete:(double)percentComplete 
-{    
+- (void)reportAchievement:(NSString *)identifier
+          percentComplete:(double)percentComplete
+{
     // Check for progress.
     GKAchievement* achievement = [achievementProgress objectForKey:identifier];
     if (nil == achievement) {
-        achievement = [[[GKAchievement alloc] 
+        achievement = [[[GKAchievement alloc]
                         initWithIdentifier:identifier] autorelease];
         [achievementProgress setObject:achievement forKey:identifier];
     }
     // If new report is greater, send to Game Center.
     if (percentComplete > achievement.percentComplete) {
         achievement.percentComplete = percentComplete;
-        [achievementsToReport addObject:achievement];    
-        [self save]; 
+        [achievementsToReport addObject:achievement];
+        [self save];
         
         if (!gameCenterAvailable || !userAuthenticated) return;
-        [self sendAchievement:achievement]; 
+        [self sendAchievement:achievement];
     }
 }
 
@@ -303,13 +320,14 @@ completionHandler:(void (^)())completionHandler
     if (!gameCenterAvailable || !userAuthenticated) return;
     
     // Show the leaderboard.
-    GKLeaderboardViewController *leaderboardController = [[GKLeaderboardViewController alloc] init];
+    GKGameCenterViewController *leaderboardController = [[GKGameCenterViewController alloc] init];
     if (leaderboardController != nil)
     {
-        leaderboardController.leaderboardDelegate = self;
-        leaderboardController.category = category;
-        leaderboardController.timeScope = timeScope;
-        [[CCDirector sharedDirector] presentModalViewController: leaderboardController animated: YES];
+        leaderboardController.gameCenterDelegate = self;
+        leaderboardController.viewState = GKGameCenterViewControllerStateLeaderboards;
+        leaderboardController.leaderboardIdentifier = category;
+        leaderboardController.leaderboardTimeScope = timeScope;
+        [[CCDirector sharedDirector] presentViewController: leaderboardController animated: YES completion: nil];
     }
 }
 
@@ -317,30 +335,31 @@ completionHandler:(void (^)())completionHandler
 {
     if (!gameCenterAvailable || !userAuthenticated) return;
     
-    GKAchievementViewController *achievements = [[GKAchievementViewController alloc] init];
+    GKGameCenterViewController *achievements = [[GKGameCenterViewController alloc] init];
     if (achievements != nil)
     {
-        achievements.achievementDelegate = self;
-        [[CCDirector sharedDirector] presentModalViewController: achievements animated: YES];
+        achievements.gameCenterDelegate = self;
+        achievements.viewState = GKGameCenterViewControllerStateAchievements;
+        [[CCDirector sharedDirector] presentViewController: achievements animated: YES completion:nil];
     }
     [achievements release];
 }
 
-#pragma mark - GKLeaderboardViewControllerDelegate
+#pragma mark - GKGameCenterViewControllerDelegate
 
-- (void)leaderboardViewControllerDidFinish:(GKLeaderboardViewController *)viewController 
+- (void)gameCenterViewControllerDidFinish:(GKGameCenterViewController *)viewController
 {
-    [[CCDirector sharedDirector] dismissModalViewControllerAnimated:YES];
-    self.timeScope = viewController.timeScope;
-    self.category = viewController.category;
+    [[CCDirector sharedDirector] dismissViewControllerAnimated:YES completion:nil];
+    self.timeScope = viewController.leaderboardTimeScope;
+    self.category = viewController.leaderboardIdentifier;
     [self save];
 }
 
-# pragma mark - GKAchievementViewControllerDelegate
+# pragma mark - GKGameCenterViewControllerDelegate
 
-- (void)achievementViewControllerDidFinish:(GKAchievementViewController *)viewController
+- (void)achievementViewControllerDidFinish:(GKGameCenterViewController *)viewController
 {
-    [[CCDirector sharedDirector] dismissModalViewControllerAnimated:YES];
+    [[CCDirector sharedDirector] dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - NSCoding
@@ -348,7 +367,7 @@ completionHandler:(void (^)())completionHandler
 - (void)encodeWithCoder:(NSCoder *)encoder
 {
     [encoder encodeObject:scoresToReport forKey:@"ScoresToReport"];
-    [encoder encodeObject:achievementsToReport 
+    [encoder encodeObject:achievementsToReport
                    forKey:@"AchievementsToReport"];
     [encoder encodeObject:[NSNumber numberWithLong:timeScope]
                    forKey:@"LastTimeScope"];
@@ -357,14 +376,14 @@ completionHandler:(void (^)())completionHandler
 
 - (id)initWithCoder:(NSCoder *)decoder
 {
-    NSMutableArray * theScoresToReport = 
+    NSMutableArray * theScoresToReport =
     [decoder decodeObjectForKey:@"ScoresToReport"];
-    NSMutableArray * theAchievementsToReport = 
+    NSMutableArray * theAchievementsToReport =
     [decoder decodeObjectForKey:@"AchievementsToReport"];
-    GKLeaderboardTimeScope theTimeScope 
+    GKLeaderboardTimeScope theTimeScope
     = [[decoder decodeObjectForKey:@"LastTimeScope"] intValue];
     NSString *theCategory = [decoder decodeObjectForKey:@"LastCategory"];
-    return [self initWithScoresToReport:theScoresToReport 
+    return [self initWithScoresToReport:theScoresToReport
                    achievementsToReport:theAchievementsToReport
                               timeScope:theTimeScope
                                category:theCategory];
@@ -372,16 +391,16 @@ completionHandler:(void (^)())completionHandler
 
 #pragma mark - NSObject
 
-+(id)alloc 
++(id)alloc
 {
-	@synchronized ([GCHelper class])
-	{
-		NSAssert(sharedHelper == nil, @"Attempted to allocated a \
+    @synchronized ([GCHelper class])
+    {
+        NSAssert(sharedHelper == nil, @"Attempted to allocated a \
                  second instance of the GCHelper singleton");
-		sharedHelper = [super alloc];
-		return sharedHelper;
-	}
-	return nil;  
+        sharedHelper = [super alloc];
+        return sharedHelper;
+    }
+    return nil;
 }
 
 -(void)dealloc

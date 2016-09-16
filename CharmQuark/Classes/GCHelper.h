@@ -30,7 +30,7 @@
 
 
 
-@interface GCHelper : NSObject <NSCoding, GKLeaderboardViewControllerDelegate, GKAchievementViewControllerDelegate> {
+@interface GCHelper : NSObject <NSCoding, GKGameCenterControllerDelegate> {
     BOOL gameCenterAvailable;
     BOOL userAuthenticated;
     NSMutableArray *scoresToReport;

@@ -157,8 +157,8 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
 }
 
 -(void)initUI {
-    self.isTouchEnabled = YES;
-    self.isAccelerometerEnabled = NO;
+    self.touchEnabled = YES;
+    self.accelerometerEnabled = NO;
     
     CGSize winSize = [[CCDirector sharedDirector] winSize];
     

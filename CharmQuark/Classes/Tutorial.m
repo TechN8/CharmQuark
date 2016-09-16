@@ -237,7 +237,7 @@
     for (UITouch *touch in touches) {
         if (touch == rotationTouch) {
             if (touch.timestamp - rotationTouchTime > 0.05 
-                || fabsf(rotAngleV) < kRotationMinAngleV) { 
+                || fabs(rotAngleV) < kRotationMinAngleV) { 
                 rotAngleV = 0.0;
             } else {
                 rotAngleV = clampf(rotAngleV, -1 * kRotationMaxAngleV, kRotationMaxAngleV);

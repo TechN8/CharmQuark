@@ -64,6 +64,7 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 
 #import "ccTypes.h"
 #import "ccMacros.h"
+#import "CCFontDefinition.h"
 
 #import "Platforms/CCGL.h" // OpenGL stuff
 #import "Platforms/CCNS.h" // Next-Step stuff
@@ -111,20 +112,20 @@ typedef enum {
  */
 @interface CCTexture2D : NSObject
 {
-	GLuint						name_;
-	CGSize						size_;
-	NSUInteger					width_,
-								height_;
-	CCTexture2DPixelFormat		format_;
-	GLfloat						maxS_,
-								maxT_;
-	BOOL						hasPremultipliedAlpha_;
-	BOOL						hasMipmaps_;
+	GLuint						_name;
+	CGSize						_size;
+	NSUInteger					_width,
+								_height;
+	CCTexture2DPixelFormat		_format;
+	GLfloat						_maxS,
+								_maxT;
+	BOOL						_hasPremultipliedAlpha;
+	BOOL						_hasMipmaps;
 
-	ccResolutionType			resolutionType_;
+	ccResolutionType			_resolutionType;
 
 	// needed for drawAtRect, drawInPoint
-	CCGLProgram					*shaderProgram_;
+	CCGLProgram					*_shaderProgram;
 
 }
 /** Initializes with a texture2d with data */
@@ -209,6 +210,9 @@ Note that the generated textures are of type A8 - use the blending mode (GL_SRC_
 - (id) initWithString:(NSString*)string fontName:(NSString*)name fontSize:(CGFloat)size dimensions:(CGSize)dimensions hAlignment:(CCTextAlignment)alignment vAlignment:(CCVerticalTextAlignment) vertAlignment;
 /** Initializes a texture from a string with font name and font size */
 - (id) initWithString:(NSString*)string fontName:(NSString*)name fontSize:(CGFloat)size;
+/** Initializes a texture from a string with font definition */
+- (id) initWithString:(NSString*)string fontDef:(CCFontDefinition *)definition;
+
 @end
 
 

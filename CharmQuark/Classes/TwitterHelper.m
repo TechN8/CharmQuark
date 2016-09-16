@@ -28,7 +28,7 @@ static TwitterHelper *sharedHelper = nil;
 -(BOOL) isTwitterAvailable {
     Class twClass = NSClassFromString(@"TWTweetComposeViewController");
     if (twClass) { // Framework not available, older iOS
-        if ([TWTweetComposeViewController canSendTweet]) {
+        if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter]) {
             return YES;
         }
     }
@@ -37,7 +37,7 @@ static TwitterHelper *sharedHelper = nil;
 
 -(void) composeTweet: (NSString *)textToShare {
     if ([self isTwitterAvailable]) {
-        TWTweetComposeViewController* twc = [[TWTweetComposeViewController alloc] init];
+        SLComposeViewController* twc = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
         [twc addURL:[NSURL URLWithString:@"http://itunes.apple.com/us/app/charm-quark/id551441281?ls=1&mt=8"]];
         //        [twc addImage:[UIImage imageNamed:@"Some image.png"]]
         [twc setInitialText:textToShare];

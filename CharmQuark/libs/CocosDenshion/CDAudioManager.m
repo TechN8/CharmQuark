@@ -86,7 +86,7 @@ NSString * const kCDN_AudioManagerInitialised = @"kCDN_AudioManagerInitialised";
 		[self pause];
 		[self rewind];
 	}
-	audioSourcePlayer.volume = volume;
+	audioSourcePlayer.volume = mute ? 0.0f : volume;
 	audioSourcePlayer.numberOfLoops = numberOfLoops;
 	state = kLAS_Loaded;
 }
@@ -396,10 +396,17 @@ static BOOL configured = FALSE;
 
 - (id) init: (tAudioManagerMode) mode {
 	if ((self = [super init])) {
-
-		//Initialise the audio session
-		AVAudioSession* session = [AVAudioSession sharedInstance];
-		session.delegate = self;
+        
+        //Initialise the audio session
+#if defined(__IPHONE_OS_VERSION_MIN_REQUIRED) && __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_6_0
+        // iOS >= 6.0
+        [AVAudioSession sharedInstance];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(interruption:) name:AVAudioSessionInterruptionNotification object:nil];
+#else
+        // iOS < 6.0
+        AVAudioSession* session = [AVAudioSession sharedInstance];
+        session.delegate = self;
+#endif
 
 		_mode = mode;
 		backgroundMusicCompletionSelector = nil;
@@ -714,13 +721,29 @@ static BOOL configured = FALSE;
 	[self audioSessionResumed];
 }
 
-#if __CC_PLATFORM_IOS >= 40000
+#if defined(__IPHONE_OS_VERSION_MAX_ALLOWED) && __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_4_0 && __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_6_0
+
 -(void) endInterruptionWithFlags:(NSUInteger)flags {
 	CDLOGINFO(@"Denshion::CDAudioManager - interruption ended with flags %i",flags);
 	if (flags == AVAudioSessionInterruptionFlags_ShouldResume) {
 		[self audioSessionResumed];
 	}
 }
+-(void) endInterruptionWithOptions:(AVAudioSessionInterruptionOptions)options {
+    NSAssert(NO, @"Versioning mismatch");
+}
+
+#elif defined(__IPHONE_OS_VERSION_MAX_ALLOWED) && __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_6_0
+-(void) endInterruptionWithFlags:(NSUInteger)flags {
+    NSAssert(NO, @"Versioning mismatch");
+}
+-(void) endInterruptionWithOptions:(AVAudioSessionInterruptionOptions)options {
+    CDLOGINFO(@"Denshion::CDAudioManager - interruption ended with options %i",options);
+    if (options == AVAudioSessionInterruptionOptionShouldResume) {
+        [self audioSessionResumed];
+    }
+}
+
 #endif
 
 -(void)audioSessionInterrupted
@@ -790,6 +813,18 @@ static BOOL configured = FALSE;
 +(void) end {
 	[sharedManager release];
 	sharedManager = nil;
+}
+
+// iOS >= 6.0 only
+- (void)interruption:(NSNotification*)notification
+{
+    NSDictionary *interuptionDict = notification.userInfo;
+    NSUInteger interuptionType = (NSUInteger)[interuptionDict valueForKey:AVAudioSessionInterruptionTypeKey];
+    
+    if (interuptionType == AVAudioSessionInterruptionTypeBegan)
+        [self beginInterruption];
+    else if (interuptionType == AVAudioSessionInterruptionTypeEnded)
+        [self endInterruptionWithOptions:(AVAudioSessionInterruptionOptions)[interuptionDict valueForKey:AVAudioSessionInterruptionOptionKey]];
 }
 
 @end

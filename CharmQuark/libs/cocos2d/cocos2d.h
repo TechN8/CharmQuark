@@ -39,8 +39,8 @@
  */
 
 // 0x00 HI ME LO
-// 00   02 01 00
-#define COCOS2D_VERSION 0x00020100
+// 00   02 02 00
+#define COCOS2D_VERSION 0x00020200
 
 
 //
@@ -113,6 +113,9 @@
 #import "CCMotionStreak.h"
 #import "CCConfiguration.h"
 #import "CCDrawNode.h"
+#import "CCClippingNode.h"
+
+#import "ccFPSImages.h"
 
 // Shaders
 #import "CCGLProgram.h"
@@ -123,6 +126,7 @@
 // Physics integration
 // Box2d integration should include these 2 files manually
 #if CC_ENABLE_CHIPMUNK_INTEGRATION
+#import CC_CHIPMUNK_IMPORT
 #import "CCPhysicsSprite.h"
 #import "CCPhysicsDebugNode.h"
 #endif
@@ -185,6 +189,7 @@ extern "C" {
 
 // free functions
 NSString * cocos2dVersion(void);
+extern const char * cocos2d_version;
 
 #ifdef __cplusplus
 }

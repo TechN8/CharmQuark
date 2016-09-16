@@ -18,7 +18,7 @@
     CGSize dim = self.texture.contentSize;    
     
     [super setPosition:intendedPosition_];
-    if (scaleX_ < 0.3 || scaleY_ < 0.3) return;
+    if (_scaleX < 0.3 || _scaleY < 0.3) return;
     
     // compute world (= screen) coordinate of top left position of label  
     CGPoint worldSpaceTopleft = [self convertToWorldSpace: ccp(0,dim.height)];
@@ -32,7 +32,7 @@
     
     // adjust position by the computed delta
     CGPoint delta = ccpSub(nodeSpaceTopleft, ccp(0,dim.height));
-    CGPoint newPos = ccpAdd(position_, delta);
+    CGPoint newPos = ccpAdd(_position, delta);
     
     // finally set the position data
     [super setPosition:newPos];      

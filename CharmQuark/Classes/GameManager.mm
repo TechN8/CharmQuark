@@ -404,12 +404,12 @@ static GameManager* _sharedGameManager = nil;
 
 -(void)scheduleBGM {
     CCScheduler *scheduler = [[CCDirector sharedDirector] scheduler];
-    [scheduler scheduleSelector:@selector(bgmManager) 
-                      forTarget:self 
+    [scheduler scheduleSelector:@selector(bgmManager)
+                      forTarget:self
                        interval:8.0
-                         paused:NO
                          repeat:kCCRepeatForever
-                          delay:8.0];
+                          delay:8.0
+                         paused:NO];
 }
 
 -(void)playBackgroundTrackForCurrentScene {

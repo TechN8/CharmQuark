@@ -13,8 +13,8 @@
 
 -(void) selected
 {
-	if(isEnabled_) {
-        isSelected_ = YES;
+	if(_isEnabled) {
+        _isSelected = YES;
         originalColor = self.color;
         self.color = kColorButtonSelected;
 	}
@@ -22,8 +22,8 @@
 
 -(void) unselected
 {
-	if(isEnabled_) {
-        isSelected_ = NO;
+	if(_isEnabled) {
+        _isSelected = NO;
         self.color = originalColor;
 	}
 }

@@ -13,7 +13,8 @@
 
 @implementation AchievementPopup
 
-+(AchievementPopup *)popupWithDescription:(GKAchievementDescription *)achievement {
++(AchievementPopup *)popupWithDescription:(GKAchievementDescription *)achievement
+                                    image:(UIImage *)image {
     CGSize winSize = [[CCDirector sharedDirector] winSize];
     AchievementPopup *popup = [self node];
 
@@ -21,7 +22,6 @@
     = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ? 13 : 7;
     
     // Image.
-    UIImage *image = achievement.image; 
     if (nil == image) {
         image = [GKAchievementDescription placeholderCompletedAchievementImage];
     }

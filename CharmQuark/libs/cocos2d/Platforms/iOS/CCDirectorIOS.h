@@ -76,9 +76,9 @@
 @interface CCDirectorIOS : CCDirector
 {
 	/* contentScaleFactor could be simulated */
-	BOOL	isContentScaleSupported_;
+	BOOL	_isContentScaleSupported;
 	
-	CCTouchDispatcher	*touchDispatcher_;
+	CCTouchDispatcher	*_touchDispatcher;
 }
 
 // XXX: At least one method is needed for BridgeSupport
@@ -99,13 +99,13 @@
  */
 @interface CCDirectorDisplayLink : CCDirectorIOS
 {
-	CADisplayLink	*displayLink_;
-	CFTimeInterval	lastDisplayTime_;
+	CADisplayLink	*_displayLink;
+	CFTimeInterval	_lastDisplayTime;
 }
 -(void) mainLoop:(id)sender;
 @end
 
 // optimization. Should only be used to read it. Never to write it.
-extern CGFloat	__ccContentScaleFactor;
+extern float	__ccContentScaleFactor;
 
 #endif // __CC_PLATFORM_IOS

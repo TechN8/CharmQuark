@@ -10,7 +10,7 @@
 #import "cocos2d.h"
 #import "Scale9Sprite.h"
 
-@interface DialogNode : CCNode<CCTargetedTouchDelegate> {
+@interface DialogNode : CCNode<CCTouchOneByOneDelegate> {
     Scale9Sprite *windowSprite;
     CCSprite *arrow;
 }

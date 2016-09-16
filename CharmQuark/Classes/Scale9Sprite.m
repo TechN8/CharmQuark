@@ -12,6 +12,8 @@
 
 @synthesize top, color, opacity;
 
+@synthesize displayedColor, displayedOpacity, cascadeColorEnabled, cascadeOpacityEnabled;
+
 enum positions {
 pCentre = 0,
 pTop,
@@ -148,7 +150,7 @@ CGRect resizableRegion;
     
 	if( (self=[super init]) ) {
         
-        anchorPoint_ = ccp(0.5f,0.5f);
+        _anchorPoint = ccp(0.5f,0.5f);
         
 		scale9Image = [[CCSpriteBatchNode alloc] initWithFile:file capacity:9];
         
@@ -172,7 +174,7 @@ CGRect resizableRegion;
     
 	if( (self=[super init]) ) {
         
-        anchorPoint_ = ccp(0.5f,0.5f);
+        _anchorPoint = ccp(0.5f,0.5f);
         
 		scale9Image = [[CCSpriteBatchNode alloc] initWithFile:file capacity:9];
         
@@ -278,6 +280,15 @@ CGRect resizableRegion;
 	bottom.opacity = opacity;
 	bottomRight.opacity = opacity;
 }
+
+- (void)updateDisplayedColor:(ccColor3B)aColor {
+    [self setColor: color];
+}
+
+- (void)updateDisplayedOpacity:(GLubyte)theOpacity {
+    [self setOpacity:theOpacity];
+}
+
 
 -(void) draw {
 	[scale9Image draw];

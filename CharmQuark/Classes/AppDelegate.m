@@ -22,7 +22,7 @@
 
 @implementation LandscapeNavigationController
 
--(NSUInteger)supportedInterfaceOrientations
+-(UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
     return UIInterfaceOrientationMaskLandscape;
 }
@@ -70,9 +70,7 @@
 	[glView setMultipleTouchEnabled:YES];
     
 	director_ = (CCDirectorIOS*) [CCDirector sharedDirector];
-	
-	director_.wantsFullScreenLayout = YES;
-	
+		
 	// Display FSP and SPF
 #ifdef DEBUG
 #ifndef SCREENSHOTS
@@ -161,7 +159,7 @@
 }
 
 // Fix crash on GC login with IOS 6.0.
-- (NSUInteger)application:(UIApplication*)application supportedInterfaceOrientationsForWindow:(UIWindow*)window
+- (UIInterfaceOrientationMask)application:(UIApplication*)application supportedInterfaceOrientationsForWindow:(UIWindow*)window
 {
     return UIInterfaceOrientationMaskAllButUpsideDown;
 }

@@ -14,6 +14,7 @@
     
 }
 
-+(AchievementPopup*)popupWithDescription: (GKAchievementDescription *)achievement;
++(AchievementPopup*)popupWithDescription: (GKAchievementDescription *)achievement
+                                   image: (UIImage *)image;
 
 @end

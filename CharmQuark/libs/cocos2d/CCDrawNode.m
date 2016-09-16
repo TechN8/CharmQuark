@@ -72,10 +72,12 @@ static inline float v2fdot(ccVertex2F p0, ccVertex2F p1)
 	return  p0.x * p1.x + p0.y * p1.y;
 }
 
+/*
 static inline ccVertex2F v2fforangle( float _a_)
 {
 	return v2f( cosf(_a_), sinf(_a_) );
 }
+*/
 
 static inline ccVertex2F v2fnormalize( ccVertex2F p )
 {
@@ -187,8 +189,8 @@ static inline ccTex2F __t(ccVertex2F v )
 {
 	ccGLBlendFunc(_blendFunc.src, _blendFunc.dst);
 	
-	[shaderProgram_ use];
-	[shaderProgram_ setUniformsForBuiltins];
+	[_shaderProgram use];
+	[_shaderProgram setUniformsForBuiltins];
 	
 	[self render];	
 }
