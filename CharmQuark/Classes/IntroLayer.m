@@ -71,7 +71,7 @@
         [self addChild: background];
         
         // show the copyright statement.
-        NSString *copyright = @"Game and Software © 2012 Aether Theory LLC";
+        NSString *copyright = @"Game and Software © 2016 Aether Theory LLC";
         //    CQLabelBMFont *label = [CQLabelBMFont labelWithString:copyright
         //                                                           fntFile:@"score.fnt"];
         CCLabelTTF *label = [CCLabelTTF labelWithString:copyright

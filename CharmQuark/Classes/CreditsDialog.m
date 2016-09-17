@@ -85,7 +85,7 @@
     scrollHeight += cocosLogo.contentSize.height;
     [scroller addChild:cocosLogo];
   
-    CQLabelBMFont *copyright = [CQLabelBMFont labelWithString:@" \nGame and Software\nCopyright © 2012"
+    CQLabelBMFont *copyright = [CQLabelBMFont labelWithString:@" \nGame and Software\nCopyright © 2016"
                                                       fntFile:@"score.fnt"];
     copyright.anchorPoint = ccp(0.5, 1.0);
     copyright.alignment = kCCTextAlignmentCenter;
