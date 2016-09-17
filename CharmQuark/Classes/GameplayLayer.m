@@ -759,7 +759,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
                     
                     if (comboLevel) {
                         points *= comboLevel + 1;
-                        [logViewer addMessage:[NSString stringWithFormat:@"%ldX Combo!", comboLevel + 1]
+                        [logViewer addMessage:[NSString stringWithFormat:@"%ldX Combo!", (unsigned long)comboLevel + 1]
                                         color:kColorCombo];
                         if (comboLevel == 1) {
                             [gc reportAchievement:kAchievementCombo2X percentComplete:100.0];
@@ -911,7 +911,7 @@ void collisionSeparate(cpArbiter *arb, cpSpace *space, GameplayLayer *self)
     for (UITouch *touch in touches) {
         if (touch == rotationTouch) {
             if (touch.timestamp - rotationTouchTime > 0.05 
-                || fabsf(rotAngleV) < kRotationMinAngleV) { 
+                || fabs(rotAngleV) < kRotationMinAngleV) {
                 rotAngleV = 0.0;
             } else {
                 rotAngleV = clampf(rotAngleV, -1 * kRotationMaxAngleV, kRotationMaxAngleV);

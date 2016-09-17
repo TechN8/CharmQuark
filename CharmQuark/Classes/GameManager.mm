@@ -508,7 +508,7 @@ static GameManager* _sharedGameManager = nil;
              [plistDictionary objectForKey:sceneSoundDictionary]];
         }
         CCLOG(@"Number of SFX filenames:%ld",
-              [listOfSoundEffectFiles count]);
+              (unsigned long)[listOfSoundEffectFiles count]);
     }
     
     // 5. Load the list of sound effects state, mark them as unloaded

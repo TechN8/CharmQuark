@@ -207,7 +207,7 @@ completionHandler:(void (^)())completionHandler
                 if (scores != nil) {
                     // process the score information.
                     for (GKScore *score in scores) {
-                        [[GameManager sharedGameManager] setHighScore:score.value
+                        [[GameManager sharedGameManager] setHighScore:(NSInteger)score.value
                                                        forSceneWithID:sceneType];
                     }
                 }
