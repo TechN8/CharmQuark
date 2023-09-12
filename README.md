@@ -1,3 +1,5 @@
+# App Description
+
 Charm Quark is a fast-paced, science inspired, arcade puzzle game with a unique rotating play field.
 
 GAME PLAY:
