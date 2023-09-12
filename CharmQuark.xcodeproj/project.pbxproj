@@ -1638,6 +1638,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				da,
 				de,
@@ -2042,7 +2043,7 @@
 				GCC_PREFIX_HEADER = CharmQuark/Prefix.pch;
 				HEADER_SEARCH_PATHS = "\"CharmQuark/libs/kazmath/include\"";
 				INFOPLIST_FILE = CharmQuark/Resources/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				OTHER_LDFLAGS = (
 					"-lz",
 					"-ObjC",
@@ -2071,7 +2072,7 @@
 				GCC_PREFIX_HEADER = CharmQuark/Prefix.pch;
 				HEADER_SEARCH_PATHS = "\"CharmQuark/libs/kazmath/include\"";
 				INFOPLIST_FILE = CharmQuark/Resources/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				OTHER_LDFLAGS = (
 					"-lz",
 					"-ObjC",
@@ -2137,7 +2138,7 @@
 				GCC_PREFIX_HEADER = CharmQuark/Prefix.pch;
 				HEADER_SEARCH_PATHS = "\"CharmQuark/libs/kazmath/include\"";
 				INFOPLIST_FILE = CharmQuark/Resources/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				OTHER_LDFLAGS = (
 					"-lz",
 					"-ObjC",

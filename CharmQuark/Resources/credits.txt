@@ -1,8 +1,10 @@
 DEVELOPER
+
 Nathan Babb
 
 
 TESTERS
+
 Brian Babb
 Ian Babb
 Karen Babb
@@ -16,4 +18,24 @@ Gerald Stralko
 
 
 POWERED BY
+
+Cocos2D iPhone
 www.cocos2d-iphone.org
+Copyright (c) 2011,
+Zynga Inc. and contributors
+
+CocosDenshion
+www.cocos2d-iphone.org
+Copyright (c) 2010,
+Steve Oldmeadow
+
+Kazmath
+github.com/Kazade/kazmath
+Copyright (c) 2008,
+Luke Benstead
+
+Chipmunk
+chipmunk-physics.net
+Copyright (c) 2007,
+Scott Lembcke and
+Howling Moon Software
