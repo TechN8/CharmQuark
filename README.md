@@ -1,5 +1,7 @@
 # App Description
 
+[![Demo Video](https://img.youtube.com/vi/jvOKCsPnlBA/0.jpg)](https://www.youtube.com/watch?v=jvOKCsPnlBA)
+
 Charm Quark is a fast-paced, science inspired, arcade puzzle game with a unique rotating play field.
 
 GAME PLAY:
